@@ -1,32 +1,183 @@
-# SGAR local research distribution
+# SGAR
 
-这是从当前 Windows 工作区逐字节筛选的普通内容目录，**尚未创建 Git 仓库，也未在 Linux 验证**。
+SGAR is a research framework for composing task-specific workflows from a shared pool of **Models, Agents, Tools, and Skills**. It turns a natural-language request and explicitly supplied inputs into a graph of subtasks, retrieves candidate resources, compiles executable plans, and evaluates the resulting artifacts before committing and delivering them.
 
-保留生产流程：Planner → Profiler/检索与冻结 → Compiler → 执行/恢复 → 评价 → 提交 → 正式交付，以及现有科研运行和结果检查入口。生产源码、提示、资源和索引没有改写。
+The framework separates **what a task requires** from **how resources carry it out**: the Planner defines subtask responsibilities and dependencies, while the Compiler chooses resource operations, binds inputs, and specifies concrete execution and output contracts.
 
-请先阅读 [Linux 迁移说明](docs/LINUX_MIGRATION.md)。其中列明必须的外置资产、环境版本差异、历史准入资料的适用边界和手动启动方法。当前不是无前置条件的一键运行包。
+## How it works
+
+```mermaid
+flowchart TD
+    A[Task and authorized inputs] --> B[Planner: subtask DAG]
+    B --> C[Profiler: capability requirements]
+    C --> D[Retrieval and candidate freezing]
+    D --> E[Compiler: executable resource plans]
+    E --> F[Validation and lowering]
+    F --> G[Resource execution]
+    G --> H[Staged artifacts and evaluation]
+    H --> I[Verification and commit]
+    I --> J[Downstream consumption and final delivery]
+    G -. Eligible execution failure .-> K[Bounded recovery with checkpoints]
+    K -. Adapt within the frozen scope .-> E
+```
+
+This diagram describes the logical pipeline. A subtask may use multiple resources and execution steps; it is not restricted to a single model or tool. Independent subtasks can execute when their declared dependencies are satisfied.
+
+| Stage | Responsibility |
+| --- | --- |
+| **Planner** | Decompose the public request into subtasks with responsibilities, input requirements, dependencies, expected outputs, and acceptance criteria. |
+| **Profiler** | Describe each subtask's capability requirements from its task and input contracts, without selecting resources from the pool. |
+| **Retrieval and Router** | Retrieve candidates, check applicable runtime conditions, and freeze a candidate pool for each subtask revision. Retrieval ranking is not the final execution plan. |
+| **Compiler** | Select resources and operations from the frozen pool; define arguments, input bindings, step dependencies, and concrete output contracts. |
+| **Validation and lowering** | Check the proposed plan against resource interfaces, input permissions, dependency rules, and supported output transformations; produce runtime instructions. |
+| **Runtime** | Execute the resource plan and collect its outputs. When enabled by policy, bounded recovery can adapt a plan while preserving completed checkpoints and side-effect restrictions. |
+| **Evaluator and artifact lifecycle** | Check actual outputs against structural contracts and scoped semantic requirements, then verify and commit accepted artifacts. |
+| **Delivery** | Make committed artifacts available to dependent subtasks and produce the requested final deliverables. |
+
+## Resource model
+
+Resources are described by manifests and exposed through declared capabilities and interfaces.
+
+| Resource | Role in a workflow |
+| --- | --- |
+| **Model** | Generate or transform content through a configured model endpoint. |
+| **Agent** | Execute a packaged agent configuration using its declared runtime, capabilities, and resource scope. |
+| **Tool** | Invoke a concrete operation with explicit arguments and a native output interface. |
+| **Skill** | Supply reusable instructions and declared supporting references to a compatible execution context. |
+
+The Compiler can combine these resource types within a subtask. Resource availability and the accepted plan determine which combinations are executable; the framework does not impose one fixed resource topology on every task.
+
+The catalog and execution packages live in [`Pool/resources/`](Pool/resources/). Retrieval indexes and resource mappings live in [`Pool/index_meta/`](Pool/index_meta/).
+
+## Contracts and execution boundaries
+
+- **Task requirements and implementation choices remain separate.** Planner-level requirements define the intended result. Compiler-level contracts specify how a selected plan will produce it; they do not replace the original requirements.
+- **Inputs are explicit and scoped.** Nodes consume declared public inputs or authorized upstream artifacts. A node does not automatically receive every file or every other node's output. Tasks supported by the task text alone can remain material-free.
+- **Output compatibility is checked before execution.** Native resource contracts and supported transformations inform whether an output is realizable. A textual capability description is not treated as a machine-readable Schema guarantee.
+- **Generated content is evaluated before handoff.** The lifecycle is staging, evaluation, verification and commit, then downstream consumption or final delivery. An intermediate step output is not automatically a committed node deliverable.
+- **Recovery is bounded.** Recovery follows configured budgets and checkpoint constraints. It does not grant new material permissions or silently reopen a frozen candidate pool. Policies may disable recovery entirely.
+- **Failure is a valid outcome.** Invalid plans, insufficient capabilities, runtime failures, and rejected artifacts are reported with their stage and diagnostic evidence rather than presented as successful delivery.
+
+Structural checks establish interface and contract consistency. Semantic evaluation additionally considers the public task, the current subtask's responsibilities, its actual inputs, and the produced content. Neither check establishes that every future model response will be correct.
+
+## Getting started
+
+### 1. Prepare the environment
+
+Use Python **3.11** and install the dependencies required by the runtime and retrieval components. The dependency declarations are in [`requirements-dev.txt`](requirements-dev.txt) and [`requirements-index.txt`](requirements-index.txt); they are not a platform-independent environment lock.
+
+A runnable setup also needs:
+
+- a configured provider and model registry compatible with the required response formats;
+- the embedding model expected by the retrieval indexes, available at a configured local path;
+- the runtime dependencies required by the resources you intend to execute, including Docker where applicable;
+- any readiness records and runtime assets required by the selected configuration.
+
+See the [environment and Linux setup guide](docs/LINUX_MIGRATION.md) for concrete setup steps and external asset requirements. Model weights, API credentials, and historical run directories are not bundled with the source.
+
+### 2. Configure the project
+
+Start from the example files and fill in the provider settings and paths for your environment:
+
+```bash
+cp .env.example .env
+cp sgar_mvp/config.example.json sgar_mvp/config.json
+```
+
+Keep credentials in the local environment or private configuration. Review the model, runtime, and recovery settings before running. A [Linux configuration example](sgar_mvp/config.linux.example.json) is also provided.
+
+### 3. Run a task
+
+From the repository root, inspect the supported arguments:
+
+```bash
+python -B sgar_mvp/main.py --help
+```
+
+Run a task with an explicitly authorized input:
+
+```bash
+python -B sgar_mvp/main.py \
+  --query "Summarize the supplied document and identify its main claims." \
+  --input document=/absolute/path/to/inputs/document.txt \
+  --public-input-root /absolute/path/to/inputs
+```
+
+Alternatively, use a request manifest to keep the task and its input declarations together:
+
+```bash
+python -B sgar_mvp/main.py \
+  --request-manifest /absolute/path/to/inputs/request.json \
+  --public-input-root /absolute/path/to/inputs
+```
+
+Request parsing and input declarations are defined in [`task_invocation.py`](sgar_mvp/src/task_invocation.py). Task execution can invoke paid model endpoints and the resources permitted by the configuration.
+
+## Inspecting a run
+
+The terminal presents stage progress, resource selections, execution outcomes, and the primary cause of a failed run. The run directory retains the detailed evidence needed to inspect how an outcome was produced:
+
+| Output | Contents |
+| --- | --- |
+| `pipeline.log` | Task and subtask details, profiler output, candidate information, Compiler proposals and accepted plans, execution output, and diagnostics. |
+| `experiment_report.md` | A readable report of the run and its recorded outcomes. |
+| `run_manifest.json` | Run identity, status, and references to recorded artifacts and delivery evidence. |
+| `evaluation/` | Evaluation evidence and decisions for produced artifacts. |
+
+Use the paths reported at the end of the run to locate its logs and deliverables. Recorded model-call accounting supports inspection of usage and cost alongside execution outcomes.
+
+The run validator checks recorded run consistency:
+
+```bash
+python -B -m sgar_mvp.src.run_validator /absolute/path/to/run
+```
+
+Run validation and internal evaluation are distinct from an independent benchmark's correctness checks.
+
+## Research workflows
+
+The single-task entry point is [`sgar_mvp/main.py`](sgar_mvp/main.py). For experiments described by a suite manifest, use the batch entry point:
+
+```bash
+python -B -m sgar_mvp.real_case_batch \
+  --suite /absolute/path/to/suite.json \
+  --output-root /absolute/path/to/experiment-runs
+```
+
+The batch implementation is in [`sgar_mvp/real_case_batch.py`](sgar_mvp/real_case_batch.py). It coordinates individual runs and records their outcomes. Public task fixtures and associated research scripts support targeted validation; this distribution does not contain the complete historical development test suite.
+
+SGAR is a research implementation. A completed run establishes that the configured pipeline accepted and delivered its output; it does not by itself establish independent task correctness. Experiments should retain their inputs, configuration, resource selections, outputs, and external evaluation results so that task quality can be assessed separately from framework execution success.
+
+## Repository layout
 
 ```text
 sgar_mvp/
-  main.py                    单任务正式入口
-  real_case_batch.py         科研批处理入口
-  src/                       完整生产实现（含协议、提示、评价和校验）
-  config/                    原有非敏感策略、注册和运行声明
-  config.example.json        原有模板（原字节）
-  config.linux.example.json  本轮路径模板，保留当前运行准备策略
-  docker/                    原有运行镜像构建定义
-  scripts/                   必要资源维护、准入与研究入口
+  main.py                    Single-task pipeline entry point
+  real_case_batch.py         Research batch runner
+  src/                       Planning, retrieval, compilation, execution,
+                             recovery, evaluation, and artifact lifecycle
+  config/                    Runtime policies and registries
+  config.example.json        Configuration template
+  config.linux.example.json  Linux configuration template
+  docker/                    Runtime image definitions
+  scripts/                   Resource preparation and research utilities
 Pool/
-  resources/                 完整当前资源定义和执行包
-  index_meta/                当前实际索引及映射
-requirements-*.txt           原项目依赖声明，非 Linux 已验证锁
-.env.example                凭据变量示例，无真实密钥
-tests/fixtures/              独立公开样例判分器所需的最小输入
-docs/                       迁移说明、观察环境、第三方来源说明
+  resources/                 Model, Agent, Tool, and Skill definitions/packages
+  index_meta/                Retrieval indexes and resource mappings
+retrieve.py                  Retrieval implementation
+retrieval_profiles.py        Retrieval profile definitions
+build_index.py               Index construction utility
+cost_calculator.py           Cost calculation utilities
+requirements-*.txt           Dependency declarations
+.env.example                 Environment variable template
+tests/fixtures/              Public task inputs used by retained utilities
+docs/                        Environment and resource documentation
 ```
 
-根工程回归测试、历史专项测试、旧运行和维护材料已实际排除。资源包自身的 test 文件、判分器和 Agent 准入脚本直接引用的少量公开 fixture 保留，不能将它们等同于历史测试垃圾。
+## Documentation and licensing
 
-最近任务曾完成执行与正式交付，但人工发现任务转换偏差和内部评价漏判。该事实保留；本次整理未修正语义，也不证明独立任务正确或所有未来运行稳定。外部 benchmark 仍须使用其自己的独立检测器。
+- [Environment and Linux setup](docs/LINUX_MIGRATION.md)
+- [Observed Windows environment](docs/WINDOWS_ENVIRONMENT_OBSERVED.json)
+- [Third-party resource provenance and licensing](docs/third-party-resources.md)
 
-第三方内容见 [来源说明](docs/third-party-resources.md) 和资源包原有 LICENSE/NOTICE。来源目录没有项目根 LICENSE，本轮没有代为授予新的许可证；公开上传前由项目所有者确认发布权限。
+Third-party resource licenses and model service terms apply independently. Consult the resource packages' license and notice files and the provenance document before redistribution. A repository-wide project license has not yet been specified.
