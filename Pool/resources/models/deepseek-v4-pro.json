@@ -1,0 +1,123 @@
+{
+    "resource_id": "deepseek-v4-pro",
+    "type": {
+        "resource_type": "Model",
+        "resource_tag": [
+            "1M Context",
+            "0.8440",
+            "2.5310",
+            "0.0280"
+        ]
+    },
+    "capability": {
+        "summary": "Text reasoning model from the larger sparse-expert architecture tier.",
+        "core_primitives": [
+            "mathematical reasoning",
+            "code generation",
+            "document analysis",
+            "tool-assisted problem solving"
+        ],
+        "problem_space": "Text model for analytical and programming tasks. Applicable tasks include mathematical reasoning, code generation, document analysis, tool-assisted problem solving. Accepts text input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions. Published distinction: The published family architecture has 1.6 trillion total and 49 billion active parameters. The configured dated supplier route corresponds by name to the August agent-focused update; greater model size is not a measured quality guarantee.",
+        "domain_tags": [
+            "Language",
+            "Software Engineering"
+        ]
+    },
+    "constraint": {
+        "env_requirements": [
+            "DeepSeek-Compatible API Endpoint",
+            "Valid API Key (Cloud)",
+            "Stable Network Connection"
+        ],
+        "io_signature": "Input modalities: text | Output modalities: text. Gateway transport support requires verification."
+    },
+    "utility": {
+        "latency_ms": 0,
+        "token_cost_factor": 0,
+        "expected_success_rate": 0
+    },
+    "execution": {
+        "uri": "${base_url}/v1/chat/completions",
+        "model_id": "deepseek-v4-pro-0813"
+    },
+    "memory": {
+        "success_trajectories": [],
+        "failure_reflections": []
+    },
+    "provenance": {
+        "pricing_status": "supplier_quote_recorded_unlisted_rates_unknown",
+        "pricing_note": "Supplier screenshot rates are USD per million tokens in the existing catalog convention. Unlisted rates are unknown, not zero. Cache creation and audio rates are separate from the three legacy text rates and require accounting support before use.",
+        "supplier_quote": {
+            "source": "user_supplied_supplier_screenshot",
+            "recorded_at": "2026-09-09",
+            "source_image_sha256": "9c5e83b424022d501ea3929bc272e1bf004c2f9e5b0cf59d8451e11209b70469",
+            "api_model_id": "deepseek-v4-pro-0813",
+            "pricing_unit": "USD_per_million_tokens",
+            "input_per_m": "0.8440",
+            "output_per_m": "2.5310",
+            "cache_read_per_m": "0.0280",
+            "cache_creation_per_m": null,
+            "audio_input_per_m": null,
+            "audio_output_per_m": null,
+            "unlisted_rates": "unknown_not_zero",
+            "accounting_scope": "Current runtime accounting supports only ordinary input, output, and cache-read tokens. Cache-creation and audio rates are recorded for later integration.",
+            "endpoint_verification": "not_run"
+        },
+        "supplier_model_mapping_status": "configured_from_user_screenshot_not_live_verified",
+        "semantic_review": {
+            "reviewed_at": "2026-09-09",
+            "policy": "model-capabilities-v1",
+            "source_urls": [
+                "https://api-docs.deepseek.com/quick_start/pricing/",
+                "https://api-docs.deepseek.com/guides/thinking_mode/"
+            ],
+            "evidence_status": "provider_documented_not_gateway_verified",
+            "source_document_sha256": {
+                "https://api-docs.deepseek.com/quick_start/pricing/": "cf2c6fb2dd8a32a538f12a8176175b8809a3516326a5cb30dfe52d63c490a968",
+                "https://api-docs.deepseek.com/guides/thinking_mode/": "f28c43248d26db1f27af0cb082abb00326c957d560d33a21839736edd1d10724"
+            },
+            "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
+            "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
+        },
+        "model_distinction_review": {
+            "evidence_kind": "provider_documented_design",
+            "source_urls": [
+                "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/raw/main/README.md",
+                "https://api-docs.deepseek.com/updates"
+            ],
+            "source_document_sha256": {
+                "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/raw/main/README.md": "c4d714818a4d3333542edc7d38ea065825a0cf7aa8fea3605bbd1d1c18e4a610",
+                "https://api-docs.deepseek.com/updates": "05b8f4da6a0b410ba575e543e5d0be9fbed07e9b5ea8d5555ece5455ec7627e9"
+            },
+            "interpretation_limit": "Published task emphasis is non-exclusive. Architecture and product positioning do not establish supplier latency, measured quality, or a fixed framework role.",
+            "policy": "model-distinctions-v1",
+            "reviewed_at": "2026-09-09",
+            "evidence_status": "provider_documented_not_gateway_verified",
+            "scope": "Non-exclusive published task emphasis and architecture; no empirical cross-model quality ordering."
+        }
+    },
+    "type_specific": {
+        "model": {
+            "profile_version": "model-capabilities-v1",
+            "input_modalities": [
+                "text"
+            ],
+            "output_modalities": [
+                "text"
+            ],
+            "supports": {
+                "tool_calling": true,
+                "json_mode": true,
+                "vision": false,
+                "reasoning": true,
+                "coding": true
+            },
+            "thinking_mode": "hybrid",
+            "native_protocol": "openai_compatible_chat",
+            "documented_context_tokens": 1048576,
+            "evidence_status": "provider_documented_not_gateway_verified",
+            "gateway_verification_status": "not_run",
+            "limitations": []
+        }
+    }
+}

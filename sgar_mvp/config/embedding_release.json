@@ -1,0 +1,29 @@
+{
+  "protocol": "sgar-embedding-release-config-v1",
+  "cache_root": "D:/hf_cache",
+  "offload_root": "D:/sgar_embedding_runtime",
+  "runtime": {
+    "protocol": "sgar-embedding-runtime-config-v1",
+    "candidate_id": "qwen3-embedding-0.6b-bf16-1024",
+    "model_id": "Qwen/Qwen3-Embedding-0.6B",
+    "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+    "family": "qwen3",
+    "release_eligibility": "eligible",
+    "official_source": true,
+    "output_dimension": 1024,
+    "capability_query_instruction": "Given an S-GAR subtask, retrieve resources whose declared capabilities and problem space can perform it.",
+    "constraint_query_instruction": "Given an S-GAR subtask contract, retrieve resources whose declared input, output, interaction, and runtime constraints are compatible.",
+    "raw_query_instruction": "Given an S-GAR subtask, retrieve resources that can perform it.",
+    "document_instruction": "",
+    "pooling": "last_token",
+    "normalize": true,
+    "max_tokens": 32768,
+    "dtype": "bfloat16",
+    "quantization": "none",
+    "int8_threshold": 6.0,
+    "int8_fp32_cpu_offload": false,
+    "device_map": "auto",
+    "attention_implementation": "sdpa",
+    "local_files_only": true
+  }
+}

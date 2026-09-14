@@ -1,0 +1,50 @@
+{
+  "protocol": "sgar-control-role-policy-v2",
+  "roles": [
+    {
+      "role": "profiler",
+      "resource_id": "model.gpt_5_6_sol.v1",
+      "api_model_id": "gpt-5.6-sol",
+      "reasoning_effort": "xhigh",
+      "temperature": null,
+      "allow_model_failover": false,
+      "response_mode": "native_strict_schema"
+    },
+    {
+      "role": "planner",
+      "resource_id": "model.gpt_5_6_sol.v1",
+      "api_model_id": "gpt-5.6-sol",
+      "reasoning_effort": "xhigh",
+      "temperature": null,
+      "allow_model_failover": false,
+      "response_mode": "native_strict_schema"
+    },
+    {
+      "role": "plan_compiler",
+      "resource_id": "model.gpt_5_6_sol.v1",
+      "api_model_id": "gpt-5.6-sol",
+      "reasoning_effort": "xhigh",
+      "temperature": null,
+      "allow_model_failover": false,
+      "response_mode": "native_strict_schema"
+    },
+    {
+      "role": "plan_adaptation",
+      "resource_id": "model.gpt_5_6_sol.v1",
+      "api_model_id": "gpt-5.6-sol",
+      "reasoning_effort": "xhigh",
+      "temperature": null,
+      "allow_model_failover": false,
+      "response_mode": "native_strict_schema"
+    },
+    {
+      "role": "evaluator",
+      "resource_id": "model.gpt_5_6_sol.v1",
+      "api_model_id": "gpt-5.6-sol",
+      "reasoning_effort": "high",
+      "temperature": null,
+      "allow_model_failover": false,
+      "response_mode": "native_strict_schema"
+    }
+  ]
+}

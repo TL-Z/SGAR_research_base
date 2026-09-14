@@ -1,0 +1,46 @@
+{
+  "request_id": "live-golden-g3",
+  "query": "Summarize the complete Markdown table from the public input named metrics and deliver UTF-8 JSON named metrics_summary.json. The authoritative final schema is supplied in public context. The result must contain row_count 2, total 5, and items in source order with alpha 2 and beta 3.",
+  "inputs": [
+    {
+      "name": "metrics",
+      "path": "./metrics.md"
+    }
+  ],
+  "final_deliverable_contract": {
+    "protocol": "sgar-final-deliverable-contract-v1",
+    "representation": "file",
+    "format_id": "json",
+    "media_type": "application/json",
+    "extension": ".json",
+    "logical_name": "metrics_summary.json",
+    "primary_member": null,
+    "required_members": []
+  },
+  "public_context_descriptors": [
+    {
+      "kind": "authoritative_json_schema",
+      "schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["row_count", "total", "items"],
+        "properties": {
+          "row_count": {"type": "integer"},
+          "total": {"type": "number"},
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["metric", "value"],
+              "properties": {
+                "metric": {"type": "string"},
+                "value": {"type": "number"}
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

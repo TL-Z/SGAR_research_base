@@ -1,0 +1,46 @@
+{
+  "request_id": "live-golden-g1",
+  "query": "Extract the complete Markdown table from the public input named inventory and deliver UTF-8 JSON named inventory_tables.json. The authoritative final JSON object must contain exactly status, table_count, and tables. status is a string, table_count is an integer, and tables is an array of objects containing exactly headers and rows, each an array of arrays of strings. All objects reject undeclared properties. The output must preserve every header and row in source order.",
+  "inputs": [
+    {
+      "name": "inventory",
+      "path": "./inventory.md"
+    }
+  ],
+  "final_deliverable_contract": {
+    "protocol": "sgar-final-deliverable-contract-v1",
+    "representation": "file",
+    "format_id": "json",
+    "media_type": "application/json",
+    "extension": ".json",
+    "logical_name": "inventory_tables.json",
+    "primary_member": null,
+    "required_members": []
+  },
+  "public_context_descriptors": [
+    {
+      "kind": "authoritative_json_schema",
+      "schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["status", "table_count", "tables"],
+        "properties": {
+          "status": {"type": "string"},
+          "table_count": {"type": "integer"},
+          "tables": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["headers", "rows"],
+              "properties": {
+                "headers": {"type": "array", "items": {"type": "array", "items": {"type": "string"}}},
+                "rows": {"type": "array", "items": {"type": "array", "items": {"type": "string"}}}
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

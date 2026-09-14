@@ -1,0 +1,2908 @@
+[
+  {
+    "manifest_version": "1.0",
+    "resource_id": "model.claude_fable_5_1.v1",
+    "resource_type": "Model",
+    "status": "active",
+    "capability": {
+      "summary": "Reasoning model for sustained coding, research, and document workflows.",
+      "core_primitives": [
+        "multi-file code revision",
+        "multi-step research synthesis",
+        "document drafting",
+        "visual evidence interpretation"
+      ],
+      "problem_space": "Reasoning model for sustained coding, research, and document workflows. Applicable tasks include multi-file code revision, multi-step research synthesis, document drafting, visual evidence interpretation. Accepts text, image input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions.",
+      "domain_tags": [
+        "Language",
+        "Software Engineering",
+        "Visual Understanding"
+      ]
+    },
+    "constraint": {
+      "env_requirements": [
+        "Endpoint exposing the documented model through Chat Completions; gateway mapping unverified",
+        "Valid API key for the selected service or an explicitly configured self-hosted endpoint",
+        "Endpoint and transport support for every requested input and output modality",
+        "The source URI is a proposed relay interface, not evidence of native OpenAI protocol support.",
+        "Forced tool use is rejected by the documented native model. Tool-choice probes must respect this restriction.",
+        "Thinking blocks cannot be freely replayed to earlier models; review cross-model continuation before activation."
+      ],
+      "io_signature": "Input modalities: text, image | Output modalities: text. Gateway transport support requires verification.",
+      "artifact_input": [
+        "text",
+        "image"
+      ],
+      "artifact_output": [
+        "text"
+      ]
+    },
+    "io": {
+      "input_contract": [
+        {
+          "name": "messages",
+          "kind": "chat_messages",
+          "required": true,
+          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
+        },
+        {
+          "name": "tools",
+          "kind": "tool_schema_array",
+          "required": false,
+          "description": "Function schemas; the gateway must support the documented tool-call protocol."
+        }
+      ],
+      "output_contract": {
+        "artifact_type": "plaintext",
+        "description": "Generated text returned through the configured gateway."
+      }
+    },
+    "routing": {
+      "family_id": "model.anthropic.claude",
+      "dependency_slots": []
+    },
+    "execution": {
+      "runtime": "llm_chat_completion",
+      "uri": "${base_url}/v1/chat/completions",
+      "model_id": "claude-fable-5-1",
+      "execution_status": "active"
+    },
+    "utility": {
+      "latency_ms": 0,
+      "token_cost_factor": 0,
+      "expected_success_rate": 0,
+      "successes": 0,
+      "attempts": 0
+    },
+    "provenance": {
+      "reviewed_at": "2026-09-09",
+      "evidence_status": "provider_documented_not_gateway_verified",
+      "integration_status": "canonical_registered_gateway_verification_pending",
+      "source_urls": [
+        "https://platform.claude.com/docs/en/models/fable-5-1/overview"
+      ],
+      "documented_input_modalities": [
+        "text",
+        "image"
+      ],
+      "documented_output_modalities": [
+        "text"
+      ],
+      "documented_interface_facts": {
+        "max_output_tokens": 128000,
+        "thinking_mode": "adaptive_always_on",
+        "function_calling": true,
+        "forced_tool_choice": false,
+        "native_protocol": "anthropic_messages"
+      },
+      "task_profile_basis": "Neutral candidate task categories based on documented operations; not an empirical model ranking or fixed role assignment.",
+      "pricing_status": "supplier_quote_recorded_unlisted_rates_unknown",
+      "resource_tag_layout": [
+        "context_window",
+        "input_per_million_tokens",
+        "output_per_million_tokens",
+        "cache_read_per_million_tokens"
+      ],
+      "pricing_note": "Supplier screenshot rates are USD per million tokens in the existing catalog convention. Unlisted rates are unknown, not zero. Cache creation and audio rates are separate from the three legacy text rates and require accounting support before use.",
+      "utility_status": "unmeasured_zero_placeholders",
+      "gateway_verification_status": "not_run",
+      "configuration_note": "Source capability facts are preserved by the deterministic converter. Runtime and gateway readiness still require independent validation before activation.",
+      "supplier_quote": {
+        "source": "user_supplied_supplier_screenshot",
+        "recorded_at": "2026-09-09",
+        "source_image_sha256": "2eda5891da27d9e63e9f1bae8bf4a35a6e20fb4cf282c30f9e7716f6e4e4aa76",
+        "api_model_id": "claude-fable-5-1",
+        "pricing_unit": "USD_per_million_tokens",
+        "input_per_m": "15.3900",
+        "output_per_m": "76.9500",
+        "cache_read_per_m": "1.5390",
+        "cache_creation_per_m": "19.2380",
+        "audio_input_per_m": null,
+        "audio_output_per_m": null,
+        "unlisted_rates": "unknown_not_zero",
+        "accounting_scope": "Current runtime accounting supports only ordinary input, output, and cache-read tokens. Cache-creation and audio rates are recorded for later integration.",
+        "endpoint_verification": "not_run"
+      },
+      "supplier_model_mapping_status": "configured_from_user_screenshot_not_live_verified",
+      "semantic_review": {
+        "reviewed_at": "2026-09-09",
+        "policy": "model-capabilities-v1",
+        "source_urls": [
+          "https://platform.claude.com/docs/en/models/fable-5-1/overview"
+        ],
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "source_document_sha256": {},
+        "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
+        "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
+      },
+      "source_dataset": "local_model_pool",
+      "source_item_id": "Pool/resources/models/claude-fable-5-1.json",
+      "source_uri": "file://Pool/resources/models/claude-fable-5-1.json",
+      "source_hash": "sha256:9b8f19123f2800c31d79fca79bb1eaacd7296b006f7cdcae86f3f9df4dfeb5a9",
+      "conversion_method": "declared_model_capabilities_v2",
+      "license": "provider-service-terms"
+    },
+    "type_specific": {
+      "model": {
+        "profile_version": "model-capabilities-v1",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "supports": {
+          "tool_calling": true,
+          "json_mode": null,
+          "vision": true,
+          "reasoning": true,
+          "coding": true
+        },
+        "thinking_mode": "adaptive_always_on",
+        "native_protocol": "anthropic_messages",
+        "documented_context_tokens": 1000000,
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "gateway_verification_status": "not_run",
+        "limitations": [
+          "Forced tool selection is not supported by the native Fable 5.1 interface."
+        ],
+        "documented_interface_facts": {
+          "max_output_tokens": 128000,
+          "thinking_mode": "adaptive_always_on",
+          "function_calling": true,
+          "forced_tool_choice": false,
+          "native_protocol": "anthropic_messages"
+        },
+        "max_output_tokens": 128000,
+        "model_id": "claude-fable-5-1",
+        "provider": "anthropic",
+        "family": "claude",
+        "context_window": "1M Context",
+        "pricing": {
+          "input_per_m": 15.39,
+          "cache_per_m": 1.539,
+          "output_per_m": 76.95
+        },
+        "pricing_unit": "USD_per_million_tokens",
+        "supports_source": "provider_documented_not_gateway_verified"
+      }
+    },
+    "memory": {
+      "success_trajectories": [],
+      "failure_reflections": []
+    },
+    "selection_scope": "candidate"
+  },
+  {
+    "manifest_version": "1.0",
+    "resource_id": "model.claude_sonnet_5.v1",
+    "resource_type": "Model",
+    "status": "active",
+    "capability": {
+      "summary": "Text and image model for coding and document analysis.",
+      "core_primitives": [
+        "code editing",
+        "document analysis",
+        "visual document interpretation",
+        "tool-assisted problem solving"
+      ],
+      "problem_space": "Text and image model for coding and document analysis. Applicable tasks include code editing, document analysis, visual document interpretation, tool-assisted problem solving. Accepts text, image input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions.",
+      "domain_tags": [
+        "Language",
+        "Software Engineering",
+        "Visual Understanding"
+      ]
+    },
+    "constraint": {
+      "env_requirements": [
+        "Anthropic-Compatible API Endpoint",
+        "Valid API Key (Cloud)",
+        "Stable Network Connection"
+      ],
+      "io_signature": "Input modalities: text, image | Output modalities: text. Gateway transport support requires verification.",
+      "artifact_input": [
+        "text",
+        "image"
+      ],
+      "artifact_output": [
+        "text"
+      ]
+    },
+    "io": {
+      "input_contract": [
+        {
+          "name": "messages",
+          "kind": "chat_messages",
+          "required": true,
+          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
+        },
+        {
+          "name": "tools",
+          "kind": "tool_schema_array",
+          "required": false,
+          "description": "Function schemas; the gateway must support the documented tool-call protocol."
+        }
+      ],
+      "output_contract": {
+        "artifact_type": "plaintext",
+        "description": "Generated text returned through the configured gateway."
+      }
+    },
+    "routing": {
+      "family_id": "model.anthropic.claude",
+      "dependency_slots": []
+    },
+    "execution": {
+      "runtime": "llm_chat_completion",
+      "uri": "${base_url}/v1/chat/completions",
+      "model_id": "claude-sonnet-5",
+      "execution_status": "active"
+    },
+    "utility": {
+      "latency_ms": 0,
+      "token_cost_factor": 0,
+      "expected_success_rate": 0,
+      "successes": 0,
+      "attempts": 0
+    },
+    "provenance": {
+      "semantic_review": {
+        "reviewed_at": "2026-09-09",
+        "policy": "model-capabilities-v1",
+        "source_urls": [
+          "https://platform.claude.com/docs/en/models/sonnet-5/overview"
+        ],
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "source_document_sha256": {},
+        "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
+        "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
+      },
+      "source_dataset": "local_model_pool",
+      "source_item_id": "Pool/resources/models/claude-sonnet-5.json",
+      "source_uri": "file://Pool/resources/models/claude-sonnet-5.json",
+      "source_hash": "sha256:d9bf32a3d080eb66414f8b4afc31d155756f42226aca8f4ef0d685d41c4c33a5",
+      "conversion_method": "declared_model_capabilities_v2",
+      "license": "provider-service-terms",
+      "utility_status": "unmeasured_zero_placeholders"
+    },
+    "type_specific": {
+      "model": {
+        "profile_version": "model-capabilities-v1",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "supports": {
+          "tool_calling": true,
+          "json_mode": null,
+          "vision": true,
+          "reasoning": true,
+          "coding": true
+        },
+        "thinking_mode": "adaptive_default_on",
+        "native_protocol": "anthropic_messages",
+        "documented_context_tokens": 1000000,
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "gateway_verification_status": "not_run",
+        "limitations": [],
+        "model_id": "claude-sonnet-5",
+        "provider": "anthropic",
+        "family": "claude",
+        "context_window": "200K Context",
+        "pricing": {
+          "input_per_m": 3.078,
+          "cache_per_m": 0.308,
+          "output_per_m": 15.39
+        },
+        "pricing_unit": "USD_per_million_tokens",
+        "supports_source": "provider_documented_not_gateway_verified"
+      }
+    },
+    "memory": {
+      "success_trajectories": [],
+      "failure_reflections": []
+    },
+    "selection_scope": "candidate"
+  },
+  {
+    "manifest_version": "1.0",
+    "resource_id": "model.deepseek_v4_pro.v1",
+    "resource_type": "Model",
+    "status": "active",
+    "capability": {
+      "summary": "Text reasoning model from the larger sparse-expert architecture tier.",
+      "core_primitives": [
+        "mathematical reasoning",
+        "code generation",
+        "document analysis",
+        "tool-assisted problem solving"
+      ],
+      "problem_space": "Text model for analytical and programming tasks. Applicable tasks include mathematical reasoning, code generation, document analysis, tool-assisted problem solving. Accepts text input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions. Published distinction: The published family architecture has 1.6 trillion total and 49 billion active parameters. The configured dated supplier route corresponds by name to the August agent-focused update; greater model size is not a measured quality guarantee.",
+      "domain_tags": [
+        "Language",
+        "Software Engineering"
+      ]
+    },
+    "constraint": {
+      "env_requirements": [
+        "DeepSeek-Compatible API Endpoint",
+        "Valid API Key (Cloud)",
+        "Stable Network Connection"
+      ],
+      "io_signature": "Input modalities: text | Output modalities: text. Gateway transport support requires verification.",
+      "artifact_input": [
+        "text"
+      ],
+      "artifact_output": [
+        "text"
+      ]
+    },
+    "io": {
+      "input_contract": [
+        {
+          "name": "messages",
+          "kind": "chat_messages",
+          "required": true,
+          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
+        },
+        {
+          "name": "tools",
+          "kind": "tool_schema_array",
+          "required": false,
+          "description": "Function schemas; the gateway must support the documented tool-call protocol."
+        },
+        {
+          "name": "response_format",
+          "kind": "object",
+          "required": false,
+          "description": "JSON output request; schema enforcement is a separate declared capability and requires gateway verification."
+        }
+      ],
+      "output_contract": {
+        "artifact_type": "plaintext",
+        "description": "Generated text returned through the configured gateway."
+      }
+    },
+    "routing": {
+      "family_id": "model.deepseek.deepseek",
+      "dependency_slots": []
+    },
+    "execution": {
+      "runtime": "llm_chat_completion",
+      "uri": "${base_url}/v1/chat/completions",
+      "model_id": "deepseek-v4-pro-0813",
+      "execution_status": "active"
+    },
+    "utility": {
+      "latency_ms": 0,
+      "token_cost_factor": 0,
+      "expected_success_rate": 0,
+      "successes": 0,
+      "attempts": 0
+    },
+    "provenance": {
+      "pricing_status": "supplier_quote_recorded_unlisted_rates_unknown",
+      "pricing_note": "Supplier screenshot rates are USD per million tokens in the existing catalog convention. Unlisted rates are unknown, not zero. Cache creation and audio rates are separate from the three legacy text rates and require accounting support before use.",
+      "supplier_quote": {
+        "source": "user_supplied_supplier_screenshot",
+        "recorded_at": "2026-09-09",
+        "source_image_sha256": "9c5e83b424022d501ea3929bc272e1bf004c2f9e5b0cf59d8451e11209b70469",
+        "api_model_id": "deepseek-v4-pro-0813",
+        "pricing_unit": "USD_per_million_tokens",
+        "input_per_m": "0.8440",
+        "output_per_m": "2.5310",
+        "cache_read_per_m": "0.0280",
+        "cache_creation_per_m": null,
+        "audio_input_per_m": null,
+        "audio_output_per_m": null,
+        "unlisted_rates": "unknown_not_zero",
+        "accounting_scope": "Current runtime accounting supports only ordinary input, output, and cache-read tokens. Cache-creation and audio rates are recorded for later integration.",
+        "endpoint_verification": "not_run"
+      },
+      "supplier_model_mapping_status": "configured_from_user_screenshot_not_live_verified",
+      "semantic_review": {
+        "reviewed_at": "2026-09-09",
+        "policy": "model-capabilities-v1",
+        "source_urls": [
+          "https://api-docs.deepseek.com/quick_start/pricing/",
+          "https://api-docs.deepseek.com/guides/thinking_mode/"
+        ],
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "source_document_sha256": {
+          "https://api-docs.deepseek.com/quick_start/pricing/": "cf2c6fb2dd8a32a538f12a8176175b8809a3516326a5cb30dfe52d63c490a968",
+          "https://api-docs.deepseek.com/guides/thinking_mode/": "f28c43248d26db1f27af0cb082abb00326c957d560d33a21839736edd1d10724"
+        },
+        "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
+        "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
+      },
+      "model_distinction_review": {
+        "evidence_kind": "provider_documented_design",
+        "source_urls": [
+          "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/raw/main/README.md",
+          "https://api-docs.deepseek.com/updates"
+        ],
+        "source_document_sha256": {
+          "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/raw/main/README.md": "c4d714818a4d3333542edc7d38ea065825a0cf7aa8fea3605bbd1d1c18e4a610",
+          "https://api-docs.deepseek.com/updates": "05b8f4da6a0b410ba575e543e5d0be9fbed07e9b5ea8d5555ece5455ec7627e9"
+        },
+        "interpretation_limit": "Published task emphasis is non-exclusive. Architecture and product positioning do not establish supplier latency, measured quality, or a fixed framework role.",
+        "policy": "model-distinctions-v1",
+        "reviewed_at": "2026-09-09",
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "scope": "Non-exclusive published task emphasis and architecture; no empirical cross-model quality ordering."
+      },
+      "source_dataset": "local_model_pool",
+      "source_item_id": "Pool/resources/models/deepseek-v4-pro.json",
+      "source_uri": "file://Pool/resources/models/deepseek-v4-pro.json",
+      "source_hash": "sha256:c40bae332e4b03bad370be1349a767d49c8550dcbfa249438ad76513cae196ed",
+      "conversion_method": "declared_model_capabilities_v2",
+      "license": "provider-service-terms",
+      "utility_status": "unmeasured_zero_placeholders"
+    },
+    "type_specific": {
+      "model": {
+        "profile_version": "model-capabilities-v1",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "supports": {
+          "tool_calling": true,
+          "json_mode": true,
+          "vision": false,
+          "reasoning": true,
+          "coding": true
+        },
+        "thinking_mode": "hybrid",
+        "native_protocol": "openai_compatible_chat",
+        "documented_context_tokens": 1048576,
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "gateway_verification_status": "not_run",
+        "limitations": [],
+        "model_id": "deepseek-v4-pro-0813",
+        "provider": "deepseek",
+        "family": "deepseek",
+        "context_window": "1M Context",
+        "pricing": {
+          "input_per_m": 0.844,
+          "cache_per_m": 0.028,
+          "output_per_m": 2.531
+        },
+        "pricing_unit": "USD_per_million_tokens",
+        "supports_source": "provider_documented_not_gateway_verified"
+      }
+    },
+    "memory": {
+      "success_trajectories": [],
+      "failure_reflections": []
+    },
+    "selection_scope": "candidate"
+  },
+  {
+    "manifest_version": "1.0",
+    "resource_id": "model.deepseek_v4_1_flash.v1",
+    "resource_type": "Model",
+    "status": "active",
+    "capability": {
+      "summary": "DeepSeek V4.1 Flash model for text reasoning, programming and document analysis.",
+      "core_primitives": [
+        "mathematical reasoning",
+        "code generation",
+        "document analysis",
+        "tool-assisted problem solving"
+      ],
+      "problem_space": "Text reasoning model for analytical and programming tasks, including mathematical reasoning, code generation, document analysis and tool-assisted problem solving. This SGAR entry retains text input and text output. External tools are required to execute programs, browse sources or modify files. The published V4.1 Flash family uses an asymmetric MoE architecture with 552 billion base parameters and 8 billion input / 16 billion output active parameters. Published benchmark improvements do not establish measured quality or latency on the configured supplier route.",
+      "domain_tags": [
+        "Language",
+        "Software Engineering"
+      ]
+    },
+    "constraint": {
+      "env_requirements": [
+        "DeepSeek-Compatible API Endpoint",
+        "Valid API Key (Cloud)",
+        "Stable Network Connection"
+      ],
+      "io_signature": "Input modalities: text | Output modalities: text. Gateway transport support requires verification.",
+      "artifact_input": [
+        "text"
+      ],
+      "artifact_output": [
+        "text"
+      ]
+    },
+    "io": {
+      "input_contract": [
+        {
+          "name": "messages",
+          "kind": "chat_messages",
+          "required": true,
+          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
+        },
+        {
+          "name": "tools",
+          "kind": "tool_schema_array",
+          "required": false,
+          "description": "Function schemas; the gateway must support the documented tool-call protocol."
+        },
+        {
+          "name": "response_format",
+          "kind": "object",
+          "required": false,
+          "description": "JSON output request; schema enforcement is a separate declared capability and requires gateway verification."
+        }
+      ],
+      "output_contract": {
+        "artifact_type": "plaintext",
+        "description": "Generated text returned through the configured gateway."
+      }
+    },
+    "routing": {
+      "family_id": "model.deepseek.deepseek",
+      "dependency_slots": []
+    },
+    "execution": {
+      "runtime": "llm_chat_completion",
+      "uri": "${base_url}/v1/chat/completions",
+      "model_id": "deepseek-v4.1-flash",
+      "execution_status": "active"
+    },
+    "utility": {
+      "latency_ms": 0,
+      "token_cost_factor": 0,
+      "expected_success_rate": 0,
+      "successes": 0,
+      "attempts": 0
+    },
+    "provenance": {
+      "pricing_status": "supplier_quote_recorded_unlisted_rates_unknown",
+      "pricing_note": "Supplier screenshot USD per million tokens, consistent with the existing catalog convention; account/group adjustments are not verified. Unlisted rates are unknown, not zero.",
+      "supplier_quote": {
+        "source": "user_supplied_supplier_screenshot",
+        "recorded_at": "2026-09-14",
+        "source_image_sha256": "21962dcfc94439b7e74fd21b2f9ec735b25b17df10ea593f61d39298d58c280a",
+        "api_model_id": "deepseek-v4.1-flash",
+        "pricing_unit": "USD_per_million_tokens",
+        "input_per_m": "0.1880",
+        "output_per_m": "0.7500",
+        "cache_read_per_m": "0.0040",
+        "cache_creation_per_m": null,
+        "audio_input_per_m": null,
+        "audio_output_per_m": null,
+        "endpoint_verification": "synthetic_compatibility_verified_2026-09-14"
+      },
+      "supplier_model_mapping_status": "synthetic_gateway_compatibility_verified_quality_unmeasured",
+      "semantic_review": {
+        "reviewed_at": "2026-09-14",
+        "policy": "model-capabilities-v1",
+        "source_urls": [
+          "https://deepseek.com/news/deepseek-v4-1-flash/",
+          "https://api-docs.deepseek.com/quick_start/pricing/"
+        ],
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "task_profile_basis": "Documented task categories; no measured SGAR quality ranking or fixed framework role."
+      },
+      "gateway_verification": {
+        "checked_at": "2026-09-14",
+        "endpoint_identity_sha256": "5a78a163678f3d030f6a9078ccc1a11f81d2946aa21e500af1f6a266b0ed24ff",
+        "evidence_status": "synthetic_compatibility_only",
+        "capabilities": [
+          "text",
+          "generic_strict_schema",
+          "json_mode",
+          "tool_calling",
+          "tool_result_continuation"
+        ],
+        "evidence_report_sha256": "455c1c5a6477b1d56673a6d653556e046919bc5b43079f475604042f7f95486e",
+        "quality_status": "not_measured"
+      },
+      "source_dataset": "local_model_pool",
+      "source_item_id": "Pool/resources/models/deepseek-v4.1-flash.json",
+      "source_uri": "file://Pool/resources/models/deepseek-v4.1-flash.json",
+      "source_hash": "sha256:2b27873edd95a741805c1938fc0642a40ac75939e18396c770fbee5e0b3aeb80",
+      "conversion_method": "declared_model_capabilities_v2",
+      "license": "provider-service-terms",
+      "utility_status": "unmeasured_zero_placeholders"
+    },
+    "type_specific": {
+      "model": {
+        "profile_version": "model-capabilities-v1",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "supports": {
+          "tool_calling": true,
+          "json_mode": true,
+          "vision": false,
+          "reasoning": true,
+          "coding": true
+        },
+        "thinking_mode": "hybrid",
+        "native_protocol": "openai_compatible_chat",
+        "documented_context_tokens": 1048576,
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "gateway_verification_status": "text_strict_json_json_mode_tool_calling_and_continuation_live_verified",
+        "limitations": [
+          "This replacement keeps the existing text-only SGAR usage. Native vision is documented separately and is not enabled or gateway-verified by this change."
+        ],
+        "documented_native_input_modalities": [
+          "text",
+          "image"
+        ],
+        "model_id": "deepseek-v4.1-flash",
+        "provider": "deepseek",
+        "family": "deepseek",
+        "context_window": "1M Context",
+        "pricing": {
+          "input_per_m": 0.188,
+          "cache_per_m": 0.004,
+          "output_per_m": 0.75
+        },
+        "pricing_unit": "USD_per_million_tokens",
+        "supports_source": "provider_documented_not_gateway_verified"
+      }
+    },
+    "memory": {
+      "success_trajectories": [],
+      "failure_reflections": []
+    },
+    "selection_scope": "candidate"
+  },
+  {
+    "manifest_version": "1.0",
+    "resource_id": "model.gemini_3_8_flash.v1",
+    "resource_type": "Model",
+    "status": "active",
+    "capability": {
+      "summary": "Multimodal model for reasoning over supplied documents and media.",
+      "core_primitives": [
+        "document question answering",
+        "audio understanding",
+        "video understanding",
+        "visual reasoning",
+        "code generation"
+      ],
+      "problem_space": "Multimodal model for reasoning over supplied documents and media. Applicable tasks include document question answering, audio understanding, video understanding, visual reasoning, code generation. Accepts text, image, audio, video, pdf input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions.",
+      "domain_tags": [
+        "Language",
+        "Software Engineering",
+        "Visual Understanding",
+        "Audio Understanding"
+      ]
+    },
+    "constraint": {
+      "env_requirements": [
+        "Endpoint exposing the documented model through Chat Completions; gateway mapping unverified",
+        "Valid API key for the selected service or an explicitly configured self-hosted endpoint",
+        "Endpoint and transport support for every requested input and output modality",
+        "Native media types and provider-hosted tools require corresponding gateway and framework adapters.",
+        "The minimal thinking level is not supported."
+      ],
+      "io_signature": "Input modalities: text, image, audio, video, pdf | Output modalities: text. Gateway transport support requires verification.",
+      "artifact_input": [
+        "text",
+        "image",
+        "audio",
+        "video",
+        "pdf"
+      ],
+      "artifact_output": [
+        "text"
+      ]
+    },
+    "io": {
+      "input_contract": [
+        {
+          "name": "messages",
+          "kind": "chat_messages",
+          "required": true,
+          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
+        },
+        {
+          "name": "tools",
+          "kind": "tool_schema_array",
+          "required": false,
+          "description": "Function schemas; the gateway must support the documented tool-call protocol."
+        },
+        {
+          "name": "response_format",
+          "kind": "object",
+          "required": false,
+          "description": "JSON output request; schema enforcement is a separate declared capability and requires gateway verification."
+        }
+      ],
+      "output_contract": {
+        "artifact_type": "plaintext",
+        "description": "Generated text returned through the configured gateway."
+      }
+    },
+    "routing": {
+      "family_id": "model.google.gemini",
+      "dependency_slots": []
+    },
+    "execution": {
+      "runtime": "llm_chat_completion",
+      "uri": "${base_url}/v1/chat/completions",
+      "model_id": "gemini-3.8-flash",
+      "execution_status": "active"
+    },
+    "utility": {
+      "latency_ms": 0,
+      "token_cost_factor": 0,
+      "expected_success_rate": 0,
+      "successes": 0,
+      "attempts": 0
+    },
+    "provenance": {
+      "reviewed_at": "2026-09-09",
+      "evidence_status": "provider_documented_not_gateway_verified",
+      "integration_status": "canonical_registered_gateway_verification_pending",
+      "source_urls": [
+        "https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash"
+      ],
+      "documented_input_modalities": [
+        "text",
+        "image",
+        "audio",
+        "video",
+        "pdf"
+      ],
+      "documented_output_modalities": [
+        "text"
+      ],
+      "documented_interface_facts": {
+        "context_limit_kind": "input_tokens",
+        "max_output_tokens": 65536,
+        "function_calling": true,
+        "structured_outputs": true,
+        "reasoning_effort_values": [
+          "low",
+          "medium",
+          "high"
+        ],
+        "audio_generation": false,
+        "image_generation": false
+      },
+      "task_profile_basis": "Neutral candidate task categories based on documented operations; not an empirical model ranking or fixed role assignment.",
+      "pricing_status": "supplier_quote_recorded_unlisted_rates_unknown",
+      "resource_tag_layout": [
+        "context_window",
+        "input_per_million_tokens",
+        "output_per_million_tokens",
+        "cache_read_per_million_tokens"
+      ],
+      "pricing_note": "Supplier screenshot rates are USD per million tokens in the existing catalog convention. Unlisted rates are unknown, not zero. Cache creation and audio rates are separate from the three legacy text rates and require accounting support before use.",
+      "utility_status": "unmeasured_zero_placeholders",
+      "gateway_verification_status": "not_run",
+      "configuration_note": "Source capability facts are preserved by the deterministic converter. Runtime and gateway readiness still require independent validation before activation.",
+      "supplier_quote": {
+        "source": "user_supplied_supplier_screenshot",
+        "recorded_at": "2026-09-09",
+        "source_image_sha256": "1202594df978a590a700cd72206aaaeffe6a7bc90c8eecfe140c4bf4c878e439",
+        "api_model_id": "gemini-3.8-flash",
+        "pricing_unit": "USD_per_million_tokens",
+        "input_per_m": "0.3370",
+        "output_per_m": "1.6830",
+        "cache_read_per_m": "0.0340",
+        "cache_creation_per_m": null,
+        "audio_input_per_m": null,
+        "audio_output_per_m": null,
+        "unlisted_rates": "unknown_not_zero",
+        "accounting_scope": "Current runtime accounting supports only ordinary input, output, and cache-read tokens. Cache-creation and audio rates are recorded for later integration.",
+        "endpoint_verification": "not_run"
+      },
+      "supplier_model_mapping_status": "configured_from_user_screenshot_not_live_verified",
+      "semantic_review": {
+        "reviewed_at": "2026-09-09",
+        "policy": "model-capabilities-v1",
+        "source_urls": [
+          "https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash"
+        ],
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "source_document_sha256": {
+          "https://ai.google.dev/gemini-api/docs/models/gemini-3.8-flash": "c5c0f6cd71cd2aee838518f11da2922ca770f539217837cb9c70e227d4d7b503"
+        },
+        "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
+        "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
+      },
+      "source_dataset": "local_model_pool",
+      "source_item_id": "Pool/resources/models/gemini-3.8-flash.json",
+      "source_uri": "file://Pool/resources/models/gemini-3.8-flash.json",
+      "source_hash": "sha256:1f980d3f7f6f97a2f239a80048cadb6e908dfc584a6e5290395549abafc83062",
+      "conversion_method": "declared_model_capabilities_v2",
+      "license": "provider-service-terms"
+    },
+    "type_specific": {
+      "model": {
+        "profile_version": "model-capabilities-v1",
+        "input_modalities": [
+          "text",
+          "image",
+          "audio",
+          "video",
+          "pdf"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "supports": {
+          "tool_calling": true,
+          "json_mode": true,
+          "vision": true,
+          "reasoning": true,
+          "coding": true
+        },
+        "thinking_mode": "configurable",
+        "native_protocol": "google_generate_content",
+        "documented_context_tokens": 1048576,
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "gateway_verification_status": "not_run",
+        "limitations": [],
+        "documented_interface_facts": {
+          "context_limit_kind": "input_tokens",
+          "max_output_tokens": 65536,
+          "function_calling": true,
+          "structured_outputs": true,
+          "reasoning_effort_values": [
+            "low",
+            "medium",
+            "high"
+          ],
+          "audio_generation": false,
+          "image_generation": false
+        },
+        "max_output_tokens": 65536,
+        "model_id": "gemini-3.8-flash",
+        "provider": "google",
+        "family": "gemini",
+        "context_window": "1048576 Context",
+        "pricing": {
+          "input_per_m": 0.337,
+          "cache_per_m": 0.034,
+          "output_per_m": 1.683
+        },
+        "pricing_unit": "USD_per_million_tokens",
+        "supports_source": "provider_documented_not_gateway_verified"
+      }
+    },
+    "memory": {
+      "success_trajectories": [],
+      "failure_reflections": []
+    },
+    "selection_scope": "candidate"
+  },
+  {
+    "manifest_version": "1.0",
+    "resource_id": "model.glm_5_3.v1",
+    "resource_type": "Model",
+    "status": "active",
+    "capability": {
+      "summary": "Text model for software engineering and analysis.",
+      "core_primitives": [
+        "code generation",
+        "debugging",
+        "multi-step analysis",
+        "tool-assisted problem solving"
+      ],
+      "problem_space": "Text model for software engineering and analysis. Applicable tasks include code generation, debugging, multi-step analysis, tool-assisted problem solving. Accepts text input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions.",
+      "domain_tags": [
+        "Language",
+        "Software Engineering"
+      ]
+    },
+    "constraint": {
+      "env_requirements": [
+        "Endpoint exposing the documented model through Chat Completions; gateway mapping unverified",
+        "Valid API key for the selected service or an explicitly configured self-hosted endpoint",
+        "Endpoint and transport support for every requested input and output modality",
+        "thinking.type must be enabled. Disabling thinking is rejected.",
+        "Provider documentation supports multiple protocols; the actual gateway mapping remains unverified."
+      ],
+      "io_signature": "Input modalities: text | Output modalities: text. Gateway transport support requires verification.",
+      "artifact_input": [
+        "text"
+      ],
+      "artifact_output": [
+        "text"
+      ]
+    },
+    "io": {
+      "input_contract": [
+        {
+          "name": "messages",
+          "kind": "chat_messages",
+          "required": true,
+          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
+        },
+        {
+          "name": "tools",
+          "kind": "tool_schema_array",
+          "required": false,
+          "description": "Function schemas; the gateway must support the documented tool-call protocol."
+        },
+        {
+          "name": "response_format",
+          "kind": "object",
+          "required": false,
+          "description": "JSON output request; schema enforcement is a separate declared capability and requires gateway verification."
+        }
+      ],
+      "output_contract": {
+        "artifact_type": "plaintext",
+        "description": "Generated text returned through the configured gateway."
+      }
+    },
+    "routing": {
+      "family_id": "model.zhipu.glm",
+      "dependency_slots": []
+    },
+    "execution": {
+      "runtime": "llm_chat_completion",
+      "uri": "${base_url}/v1/chat/completions",
+      "model_id": "glm-5.3",
+      "execution_status": "active"
+    },
+    "utility": {
+      "latency_ms": 0,
+      "token_cost_factor": 0,
+      "expected_success_rate": 0,
+      "successes": 0,
+      "attempts": 0
+    },
+    "provenance": {
+      "reviewed_at": "2026-09-09",
+      "evidence_status": "provider_documented_not_gateway_verified",
+      "integration_status": "canonical_registered_gateway_verification_pending",
+      "source_urls": [
+        "https://docs.z.ai/guides/llm/glm-5.3"
+      ],
+      "documented_input_modalities": [
+        "text"
+      ],
+      "documented_output_modalities": [
+        "text"
+      ],
+      "documented_interface_facts": {
+        "max_output_tokens": 128000,
+        "function_calling": true,
+        "thinking_mode": "enabled_only",
+        "reasoning_effort_values": [
+          "low",
+          "high",
+          "max"
+        ],
+        "vision_input": false
+      },
+      "task_profile_basis": "Neutral candidate task categories based on documented operations; not an empirical model ranking or fixed role assignment.",
+      "pricing_status": "supplier_quote_recorded_unlisted_rates_unknown",
+      "resource_tag_layout": [
+        "context_window",
+        "input_per_million_tokens",
+        "output_per_million_tokens",
+        "cache_read_per_million_tokens"
+      ],
+      "pricing_note": "Supplier screenshot rates are USD per million tokens in the existing catalog convention. Unlisted rates are unknown, not zero. Cache creation and audio rates are separate from the three legacy text rates and require accounting support before use.",
+      "utility_status": "unmeasured_zero_placeholders",
+      "gateway_verification_status": "not_run",
+      "configuration_note": "Source capability facts are preserved by the deterministic converter. Runtime and gateway readiness still require independent validation before activation.",
+      "supplier_quote": {
+        "source": "user_supplied_supplier_screenshot",
+        "recorded_at": "2026-09-09",
+        "source_image_sha256": "02c5469a38bd606affc1ec306dfbe695e15ea99b9b18ff078a2936ff939b1a92",
+        "api_model_id": "glm-5.3",
+        "pricing_unit": "USD_per_million_tokens",
+        "input_per_m": "1.5000",
+        "output_per_m": "5.2500",
+        "cache_read_per_m": "0.3750",
+        "cache_creation_per_m": null,
+        "audio_input_per_m": null,
+        "audio_output_per_m": null,
+        "unlisted_rates": "unknown_not_zero",
+        "accounting_scope": "Current runtime accounting supports only ordinary input, output, and cache-read tokens. Cache-creation and audio rates are recorded for later integration.",
+        "endpoint_verification": "not_run"
+      },
+      "supplier_model_mapping_status": "configured_from_user_screenshot_not_live_verified",
+      "semantic_review": {
+        "reviewed_at": "2026-09-09",
+        "policy": "model-capabilities-v1",
+        "source_urls": [
+          "https://huggingface.co/zai-org/GLM-5.3/raw/main/README.md",
+          "https://docs.z.ai/guides/llm/glm-5.3"
+        ],
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "source_document_sha256": {
+          "https://huggingface.co/zai-org/GLM-5.3/raw/main/README.md": "ed1c0a4563c437a32f8953d637a1db9bd831de1b24bd3062a5ace9e04340b1cf"
+        },
+        "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
+        "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
+      },
+      "source_dataset": "local_model_pool",
+      "source_item_id": "Pool/resources/models/glm-5.3.json",
+      "source_uri": "file://Pool/resources/models/glm-5.3.json",
+      "source_hash": "sha256:5d51476c3bd388f6548cc4e242b95501e0b9188b8e5b9d2f7667699ae568dc8a",
+      "conversion_method": "declared_model_capabilities_v2",
+      "license": "provider-service-terms"
+    },
+    "type_specific": {
+      "model": {
+        "profile_version": "model-capabilities-v1",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "supports": {
+          "tool_calling": true,
+          "json_mode": true,
+          "vision": false,
+          "reasoning": true,
+          "coding": true
+        },
+        "thinking_mode": "thinking_always_on",
+        "native_protocol": "openai_compatible_chat",
+        "documented_context_tokens": 1000000,
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "gateway_verification_status": "not_run",
+        "limitations": [],
+        "documented_interface_facts": {
+          "max_output_tokens": 128000,
+          "function_calling": true,
+          "thinking_mode": "enabled_only",
+          "reasoning_effort_values": [
+            "low",
+            "high",
+            "max"
+          ],
+          "vision_input": false
+        },
+        "max_output_tokens": 128000,
+        "model_id": "glm-5.3",
+        "provider": "zhipu",
+        "family": "glm",
+        "context_window": "1M Context",
+        "pricing": {
+          "input_per_m": 1.5,
+          "cache_per_m": 0.375,
+          "output_per_m": 5.25
+        },
+        "pricing_unit": "USD_per_million_tokens",
+        "supports_source": "provider_documented_not_gateway_verified"
+      }
+    },
+    "memory": {
+      "success_trajectories": [],
+      "failure_reflections": []
+    },
+    "selection_scope": "candidate"
+  },
+  {
+    "manifest_version": "1.0",
+    "resource_id": "model.gpt_5_nano.v1",
+    "resource_type": "Model",
+    "status": "active",
+    "capability": {
+      "summary": "Language model for bounded, high-volume text and visual tasks.",
+      "core_primitives": [
+        "classification",
+        "information extraction",
+        "summarization",
+        "instruction following"
+      ],
+      "problem_space": "Language model for bounded, high-volume text and visual tasks. Applicable tasks include classification, information extraction, summarization, instruction following. Accepts text, image input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions.",
+      "domain_tags": [
+        "Language",
+        "Software Engineering",
+        "Visual Understanding"
+      ]
+    },
+    "constraint": {
+      "env_requirements": [
+        "OpenAI-Compatible API Endpoint",
+        "Valid API Key",
+        "Stable Network Connection"
+      ],
+      "io_signature": "Input modalities: text, image | Output modalities: text. Gateway transport support requires verification.",
+      "artifact_input": [
+        "text",
+        "image"
+      ],
+      "artifact_output": [
+        "text"
+      ]
+    },
+    "io": {
+      "input_contract": [
+        {
+          "name": "messages",
+          "kind": "chat_messages",
+          "required": true,
+          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
+        },
+        {
+          "name": "tools",
+          "kind": "tool_schema_array",
+          "required": false,
+          "description": "Function schemas; the gateway must support the documented tool-call protocol."
+        },
+        {
+          "name": "response_format",
+          "kind": "json_schema",
+          "required": false,
+          "description": "JSON output request; schema enforcement is a separate declared capability and requires gateway verification."
+        }
+      ],
+      "output_contract": {
+        "artifact_type": "plaintext",
+        "description": "Generated text returned through the configured gateway."
+      }
+    },
+    "routing": {
+      "family_id": "model.openai.gpt",
+      "dependency_slots": []
+    },
+    "execution": {
+      "runtime": "llm_chat_completion",
+      "uri": "${base_url}/v1/chat/completions",
+      "model_id": "gpt-5-nano",
+      "execution_status": "active"
+    },
+    "utility": {
+      "latency_ms": 0,
+      "token_cost_factor": 0,
+      "expected_success_rate": 0,
+      "successes": 0,
+      "attempts": 0
+    },
+    "provenance": {
+      "semantic_review": {
+        "reviewed_at": "2026-09-09",
+        "policy": "model-capabilities-v1",
+        "source_urls": [
+          "https://developers.openai.com/api/docs/models/gpt-5-nano.md"
+        ],
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "source_document_sha256": {
+          "https://developers.openai.com/api/docs/models/gpt-5-nano.md": "301799754c7b0a9583d7faa412dadd61a7136a30e5c7f6ab05c01f89005b8483"
+        },
+        "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
+        "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
+      },
+      "source_dataset": "local_model_pool",
+      "source_item_id": "Pool/resources/models/gpt-5-nano.json",
+      "source_uri": "file://Pool/resources/models/gpt-5-nano.json",
+      "source_hash": "sha256:81e092e7aafae9c15f56796d04e2da65d25c17bc4fdf28bc4553fb35643cd161",
+      "conversion_method": "declared_model_capabilities_v2",
+      "license": "provider-service-terms",
+      "utility_status": "unmeasured_zero_placeholders"
+    },
+    "type_specific": {
+      "model": {
+        "profile_version": "model-capabilities-v1",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "supports": {
+          "tool_calling": true,
+          "json_mode": true,
+          "vision": true,
+          "reasoning": true,
+          "coding": true,
+          "structured_outputs": true
+        },
+        "thinking_mode": "reasoning",
+        "native_protocol": "chat_completions_and_responses",
+        "documented_context_tokens": 400000,
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "gateway_verification_status": "not_run",
+        "limitations": [],
+        "max_output_tokens": 128000,
+        "model_id": "gpt-5-nano",
+        "provider": "openai",
+        "family": "gpt",
+        "context_window": "400K Context",
+        "pricing": {
+          "input_per_m": 0.034,
+          "cache_per_m": 0.003,
+          "output_per_m": 0.27
+        },
+        "pricing_unit": "USD_per_million_tokens",
+        "supports_source": "provider_documented_not_gateway_verified"
+      }
+    },
+    "memory": {
+      "success_trajectories": [],
+      "failure_reflections": []
+    },
+    "selection_scope": "candidate"
+  },
+  {
+    "manifest_version": "1.0",
+    "resource_id": "model.gpt_5_3_codex.v1",
+    "resource_type": "Model",
+    "status": "active",
+    "capability": {
+      "summary": "Coding-oriented reasoning model with a later documented knowledge cutoff.",
+      "core_primitives": [
+        "repository navigation",
+        "multi-file code changes",
+        "debugging",
+        "test implementation",
+        "code review"
+      ],
+      "problem_space": "Coding model for repository changes and tool-assisted software development. Applicable tasks include repository navigation, multi-file code changes, debugging, test implementation, code review. Accepts text, image input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions. Published distinction: The native product is optimized for tool-assisted coding with a 400,000-token context and an August 2025 knowledge cutoff. This identifies documented coverage, not a guaranteed improvement on a particular repository.",
+      "domain_tags": [
+        "Language",
+        "Software Engineering",
+        "Visual Understanding"
+      ]
+    },
+    "constraint": {
+      "env_requirements": [
+        "OpenAI-Compatible API Endpoint",
+        "Valid API Key",
+        "Stable Network Connection"
+      ],
+      "io_signature": "Input modalities: text, image | Output modalities: text. Gateway transport support requires verification.",
+      "artifact_input": [
+        "text",
+        "image"
+      ],
+      "artifact_output": [
+        "text"
+      ]
+    },
+    "io": {
+      "input_contract": [
+        {
+          "name": "messages",
+          "kind": "chat_messages",
+          "required": true,
+          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
+        },
+        {
+          "name": "tools",
+          "kind": "tool_schema_array",
+          "required": false,
+          "description": "Function schemas; the gateway must support the documented tool-call protocol."
+        },
+        {
+          "name": "response_format",
+          "kind": "json_schema",
+          "required": false,
+          "description": "JSON output request; schema enforcement is a separate declared capability and requires gateway verification."
+        }
+      ],
+      "output_contract": {
+        "artifact_type": "plaintext",
+        "description": "Generated text returned through the configured gateway."
+      }
+    },
+    "routing": {
+      "family_id": "model.openai.codex",
+      "dependency_slots": []
+    },
+    "execution": {
+      "runtime": "llm_chat_completion",
+      "uri": "${base_url}/v1/chat/completions",
+      "model_id": "gpt-5.3-codex",
+      "execution_status": "active"
+    },
+    "utility": {
+      "latency_ms": 0,
+      "token_cost_factor": 0,
+      "expected_success_rate": 0,
+      "successes": 0,
+      "attempts": 0
+    },
+    "provenance": {
+      "semantic_review": {
+        "reviewed_at": "2026-09-09",
+        "policy": "model-capabilities-v1",
+        "source_urls": [
+          "https://developers.openai.com/api/docs/models/gpt-5.3-codex.md"
+        ],
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "source_document_sha256": {
+          "https://developers.openai.com/api/docs/models/gpt-5.3-codex.md": "535f5edd3b7073dcf8efce1f1359d9ff6a79636c4ec61361fc9f962a150c0bbf"
+        },
+        "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
+        "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
+      },
+      "model_distinction_review": {
+        "evidence_kind": "provider_documented_design",
+        "source_urls": [
+          "https://developers.openai.com/api/docs/models/gpt-5.3-codex.md"
+        ],
+        "source_document_sha256": {
+          "https://developers.openai.com/api/docs/models/gpt-5.3-codex.md": "3b779189c2a193fbe665b1dfa9ac362dd6d07ab0f680af38976297f42785a325"
+        },
+        "interpretation_limit": "Published task emphasis is non-exclusive. Architecture and product positioning do not establish supplier latency, measured quality, or a fixed framework role.",
+        "policy": "model-distinctions-v1",
+        "reviewed_at": "2026-09-09",
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "scope": "Non-exclusive published task emphasis and architecture; no empirical cross-model quality ordering."
+      },
+      "source_dataset": "local_model_pool",
+      "source_item_id": "Pool/resources/models/gpt-5.3-codex.json",
+      "source_uri": "file://Pool/resources/models/gpt-5.3-codex.json",
+      "source_hash": "sha256:12c3ee38ab2688b1aa0fe3aaf527f4a620e6c8c1e47c24e2f147d2bd2bc8cd30",
+      "conversion_method": "declared_model_capabilities_v2",
+      "license": "provider-service-terms",
+      "utility_status": "unmeasured_zero_placeholders"
+    },
+    "type_specific": {
+      "model": {
+        "profile_version": "model-capabilities-v1",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "supports": {
+          "tool_calling": true,
+          "json_mode": true,
+          "vision": true,
+          "reasoning": true,
+          "coding": true,
+          "structured_outputs": true
+        },
+        "thinking_mode": "reasoning",
+        "native_protocol": "responses_only",
+        "documented_context_tokens": 400000,
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "gateway_verification_status": "not_run",
+        "limitations": [],
+        "max_output_tokens": 128000,
+        "model_id": "gpt-5.3-codex",
+        "provider": "openai",
+        "family": "codex",
+        "context_window": "400K Context",
+        "pricing": {
+          "input_per_m": 1.181,
+          "cache_per_m": 0.0,
+          "output_per_m": 9.45
+        },
+        "pricing_unit": "USD_per_million_tokens",
+        "supports_source": "provider_documented_not_gateway_verified"
+      }
+    },
+    "memory": {
+      "success_trajectories": [],
+      "failure_reflections": []
+    },
+    "selection_scope": "candidate"
+  },
+  {
+    "manifest_version": "1.0",
+    "resource_id": "model.gpt_5_6_luna.v1",
+    "resource_type": "Model",
+    "status": "active",
+    "capability": {
+      "summary": "Cost-oriented reasoning tier for high-volume workloads.",
+      "core_primitives": [
+        "classification",
+        "information extraction",
+        "summarization",
+        "instruction following"
+      ],
+      "problem_space": "Language model for bounded, high-volume text and visual tasks. Applicable tasks include classification, information extraction, summarization, instruction following. Accepts text, image input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions. Published distinction: The provider positions this in the tier corresponding to earlier nano variants. Native reasoning extends through max with a 1,050,000-token context; neither model age nor tier establishes a supplier performance ranking.",
+      "domain_tags": [
+        "Language",
+        "Software Engineering",
+        "Visual Understanding"
+      ]
+    },
+    "constraint": {
+      "env_requirements": [
+        "OpenAI-Compatible API Endpoint",
+        "Valid API Key (Cloud)",
+        "Stable Network Connection"
+      ],
+      "io_signature": "Input modalities: text, image | Output modalities: text. Gateway transport support requires verification.",
+      "artifact_input": [
+        "text",
+        "image"
+      ],
+      "artifact_output": [
+        "text"
+      ]
+    },
+    "io": {
+      "input_contract": [
+        {
+          "name": "messages",
+          "kind": "chat_messages",
+          "required": true,
+          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
+        },
+        {
+          "name": "tools",
+          "kind": "tool_schema_array",
+          "required": false,
+          "description": "Function schemas; the gateway must support the documented tool-call protocol."
+        },
+        {
+          "name": "response_format",
+          "kind": "json_schema",
+          "required": false,
+          "description": "JSON output request; schema enforcement is a separate declared capability and requires gateway verification."
+        }
+      ],
+      "output_contract": {
+        "artifact_type": "plaintext",
+        "description": "Generated text returned through the configured gateway."
+      }
+    },
+    "routing": {
+      "family_id": "model.openai.gpt",
+      "dependency_slots": []
+    },
+    "execution": {
+      "runtime": "llm_chat_completion",
+      "uri": "${base_url}/v1/chat/completions",
+      "model_id": "gpt-5.6-luna",
+      "execution_status": "active"
+    },
+    "utility": {
+      "latency_ms": 0,
+      "token_cost_factor": 0,
+      "expected_success_rate": 0,
+      "successes": 0,
+      "attempts": 0
+    },
+    "provenance": {
+      "semantic_review": {
+        "reviewed_at": "2026-09-09",
+        "policy": "model-capabilities-v1",
+        "source_urls": [
+          "https://developers.openai.com/api/docs/models/gpt-5.6-luna.md"
+        ],
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "source_document_sha256": {
+          "https://developers.openai.com/api/docs/models/gpt-5.6-luna.md": "d71a4bb908d62590c6546f3dc39201ed39f1bb96b175b3578cb873abaa7c4d2e"
+        },
+        "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
+        "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
+      },
+      "model_distinction_review": {
+        "evidence_kind": "provider_documented_design",
+        "source_urls": [
+          "https://developers.openai.com/api/docs/models/gpt-5.6-luna.md"
+        ],
+        "source_document_sha256": {
+          "https://developers.openai.com/api/docs/models/gpt-5.6-luna.md": "38dc4b34889304d87ee975b58e156f5f57305e8d1d343e7be9d01c676c7fcc2f"
+        },
+        "interpretation_limit": "Published task emphasis is non-exclusive. Architecture and product positioning do not establish supplier latency, measured quality, or a fixed framework role.",
+        "policy": "model-distinctions-v1",
+        "reviewed_at": "2026-09-09",
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "scope": "Non-exclusive published task emphasis and architecture; no empirical cross-model quality ordering."
+      },
+      "source_dataset": "local_model_pool",
+      "source_item_id": "Pool/resources/models/gpt-5.6-luna.json",
+      "source_uri": "file://Pool/resources/models/gpt-5.6-luna.json",
+      "source_hash": "sha256:8873bab1b9a8cd5a590a96516dfa93f6473a156ccdd7da715de6da841d39b192",
+      "conversion_method": "declared_model_capabilities_v2",
+      "license": "provider-service-terms",
+      "utility_status": "unmeasured_zero_placeholders"
+    },
+    "type_specific": {
+      "model": {
+        "profile_version": "model-capabilities-v1",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "supports": {
+          "tool_calling": true,
+          "json_mode": true,
+          "vision": true,
+          "reasoning": true,
+          "coding": true,
+          "structured_outputs": true
+        },
+        "thinking_mode": "configurable",
+        "native_protocol": "chat_completions_and_responses",
+        "documented_context_tokens": 1050000,
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "gateway_verification_status": "not_run",
+        "limitations": [],
+        "max_output_tokens": 128000,
+        "model_id": "gpt-5.6-luna",
+        "provider": "openai",
+        "family": "gpt",
+        "context_window": "1M Context",
+        "pricing": {
+          "input_per_m": 0.27,
+          "cache_per_m": 0.027,
+          "output_per_m": 2.16
+        },
+        "pricing_unit": "USD_per_million_tokens",
+        "supports_source": "provider_documented_not_gateway_verified"
+      }
+    },
+    "memory": {
+      "success_trajectories": [],
+      "failure_reflections": []
+    },
+    "selection_scope": "candidate"
+  },
+  {
+    "manifest_version": "1.0",
+    "resource_id": "model.gpt_5_6_sol.v1",
+    "resource_type": "Model",
+    "status": "active",
+    "capability": {
+      "summary": "General professional-work tier with an extended native reasoning range.",
+      "core_primitives": [
+        "document synthesis",
+        "code generation",
+        "reasoning over supplied evidence",
+        "visual document interpretation"
+      ],
+      "problem_space": "Language model for multi-step analysis, coding, and document work. Applicable tasks include document synthesis, code generation, reasoning over supplied evidence, visual document interpretation. Accepts text, image input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions. Published distinction: The provider positions this as the full-size professional-work tier. Native reasoning extends through max, with medium as default, and the documented knowledge cutoff is February 2026; supplier settings and task quality are unmeasured.",
+      "domain_tags": [
+        "Language",
+        "Software Engineering",
+        "Visual Understanding"
+      ]
+    },
+    "constraint": {
+      "env_requirements": [
+        "OpenAI-Compatible API Endpoint",
+        "Valid API Key (Cloud)",
+        "Stable Network Connection"
+      ],
+      "io_signature": "Input modalities: text, image | Output modalities: text. Gateway transport support requires verification.",
+      "artifact_input": [
+        "text",
+        "image"
+      ],
+      "artifact_output": [
+        "text"
+      ]
+    },
+    "io": {
+      "input_contract": [
+        {
+          "name": "messages",
+          "kind": "chat_messages",
+          "required": true,
+          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
+        },
+        {
+          "name": "tools",
+          "kind": "tool_schema_array",
+          "required": false,
+          "description": "Function schemas; the gateway must support the documented tool-call protocol."
+        },
+        {
+          "name": "response_format",
+          "kind": "json_schema",
+          "required": false,
+          "description": "JSON output request; schema enforcement is a separate declared capability and requires gateway verification."
+        }
+      ],
+      "output_contract": {
+        "artifact_type": "plaintext",
+        "description": "Generated text returned through the configured gateway."
+      }
+    },
+    "routing": {
+      "family_id": "model.openai.gpt",
+      "dependency_slots": []
+    },
+    "execution": {
+      "runtime": "llm_chat_completion",
+      "uri": "${base_url}/v1/chat/completions",
+      "model_id": "gpt-5.6-sol",
+      "execution_status": "active"
+    },
+    "utility": {
+      "latency_ms": 0,
+      "token_cost_factor": 0,
+      "expected_success_rate": 0,
+      "successes": 0,
+      "attempts": 0
+    },
+    "provenance": {
+      "semantic_review": {
+        "reviewed_at": "2026-09-09",
+        "policy": "model-capabilities-v1",
+        "source_urls": [
+          "https://developers.openai.com/api/docs/models/gpt-5.6-sol.md"
+        ],
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "source_document_sha256": {
+          "https://developers.openai.com/api/docs/models/gpt-5.6-sol.md": "6aaf0b7116c48f427f3bbcd1d3f908d140ae3bfa44ea060bec3d007678b9c5df"
+        },
+        "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
+        "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
+      },
+      "model_distinction_review": {
+        "evidence_kind": "provider_documented_design",
+        "source_urls": [
+          "https://developers.openai.com/api/docs/models/gpt-5.6-sol.md"
+        ],
+        "source_document_sha256": {
+          "https://developers.openai.com/api/docs/models/gpt-5.6-sol.md": "727fe1b997df14e53af72f070db0fb99614c5e40f4c81ece05e6df4835bfa786"
+        },
+        "interpretation_limit": "Published task emphasis is non-exclusive. Architecture and product positioning do not establish supplier latency, measured quality, or a fixed framework role.",
+        "policy": "model-distinctions-v1",
+        "reviewed_at": "2026-09-09",
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "scope": "Non-exclusive published task emphasis and architecture; no empirical cross-model quality ordering."
+      },
+      "source_dataset": "local_model_pool",
+      "source_item_id": "Pool/resources/models/gpt-5.6-sol.json",
+      "source_uri": "file://Pool/resources/models/gpt-5.6-sol.json",
+      "source_hash": "sha256:5131eafe9243a4e07dec3352a38f9b26854d30f964f7b29ff1d2e2f50be4821c",
+      "conversion_method": "declared_model_capabilities_v2",
+      "license": "provider-service-terms",
+      "utility_status": "unmeasured_zero_placeholders"
+    },
+    "type_specific": {
+      "model": {
+        "profile_version": "model-capabilities-v1",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "supports": {
+          "tool_calling": true,
+          "json_mode": true,
+          "vision": true,
+          "reasoning": true,
+          "coding": true,
+          "structured_outputs": true
+        },
+        "thinking_mode": "configurable",
+        "native_protocol": "chat_completions_and_responses",
+        "documented_context_tokens": 1050000,
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "gateway_verification_status": "not_run",
+        "limitations": [],
+        "max_output_tokens": 128000,
+        "model_id": "gpt-5.6-sol",
+        "provider": "openai",
+        "family": "gpt",
+        "context_window": "1M Context",
+        "pricing": {
+          "input_per_m": 1.35,
+          "cache_per_m": 0.135,
+          "output_per_m": 10.8
+        },
+        "pricing_unit": "USD_per_million_tokens",
+        "supports_source": "provider_documented_not_gateway_verified"
+      }
+    },
+    "memory": {
+      "success_trajectories": [],
+      "failure_reflections": []
+    },
+    "selection_scope": "control_only"
+  },
+  {
+    "manifest_version": "1.0",
+    "resource_id": "model.gpt_6_astra.v1",
+    "resource_type": "Model",
+    "status": "active",
+    "capability": {
+      "summary": "Language model for multi-step analysis, coding, and document work.",
+      "core_primitives": [
+        "document synthesis",
+        "code generation",
+        "reasoning over supplied evidence",
+        "visual document interpretation"
+      ],
+      "problem_space": "Language model for multi-step analysis, coding, and document work. Applicable tasks include document synthesis, code generation, reasoning over supplied evidence, visual document interpretation. Accepts text, image input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions.",
+      "domain_tags": [
+        "Language",
+        "Software Engineering",
+        "Visual Understanding"
+      ]
+    },
+    "constraint": {
+      "env_requirements": [
+        "Endpoint exposing the documented model through Chat Completions; gateway mapping unverified",
+        "Valid API key for the selected service or an explicitly configured self-hosted endpoint",
+        "Endpoint and transport support for every requested input and output modality",
+        "The documented context limit is not yet verified on the configured gateway.",
+        "Reasoning effort none is not supported. Do not copy old non-reasoning defaults."
+      ],
+      "io_signature": "Input modalities: text, image | Output modalities: text. Gateway transport support requires verification.",
+      "artifact_input": [
+        "text",
+        "image"
+      ],
+      "artifact_output": [
+        "text"
+      ]
+    },
+    "io": {
+      "input_contract": [
+        {
+          "name": "messages",
+          "kind": "chat_messages",
+          "required": true,
+          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
+        },
+        {
+          "name": "tools",
+          "kind": "tool_schema_array",
+          "required": false,
+          "description": "Function schemas; the gateway must support the documented tool-call protocol."
+        },
+        {
+          "name": "response_format",
+          "kind": "json_schema",
+          "required": false,
+          "description": "JSON output request; schema enforcement is a separate declared capability and requires gateway verification."
+        }
+      ],
+      "output_contract": {
+        "artifact_type": "plaintext",
+        "description": "Generated text returned through the configured gateway."
+      }
+    },
+    "routing": {
+      "family_id": "model.openai.gpt",
+      "dependency_slots": []
+    },
+    "execution": {
+      "runtime": "llm_chat_completion",
+      "uri": "${base_url}/v1/chat/completions",
+      "model_id": "gpt-6-astra",
+      "execution_status": "active"
+    },
+    "utility": {
+      "latency_ms": 0,
+      "token_cost_factor": 0,
+      "expected_success_rate": 0,
+      "successes": 0,
+      "attempts": 0
+    },
+    "provenance": {
+      "reviewed_at": "2026-09-09",
+      "evidence_status": "provider_documented_not_gateway_verified",
+      "integration_status": "canonical_registered_gateway_verification_pending",
+      "source_urls": [
+        "https://developers.openai.com/api/docs/models/gpt-6-astra"
+      ],
+      "documented_input_modalities": [
+        "text",
+        "image"
+      ],
+      "documented_output_modalities": [
+        "text"
+      ],
+      "documented_interface_facts": {
+        "max_output_tokens": 128000,
+        "reasoning_effort_values": [
+          "low",
+          "medium",
+          "high",
+          "xhigh",
+          "max"
+        ],
+        "function_calling": true,
+        "structured_outputs": true,
+        "streaming": true
+      },
+      "task_profile_basis": "Neutral candidate task categories based on documented operations; not an empirical model ranking or fixed role assignment.",
+      "pricing_status": "supplier_quote_recorded_unlisted_rates_unknown",
+      "resource_tag_layout": [
+        "context_window",
+        "input_per_million_tokens",
+        "output_per_million_tokens",
+        "cache_read_per_million_tokens"
+      ],
+      "pricing_note": "Supplier screenshot rates are USD per million tokens in the existing catalog convention. Unlisted rates are unknown, not zero. Cache creation and audio rates are separate from the three legacy text rates and require accounting support before use.",
+      "utility_status": "unmeasured_zero_placeholders",
+      "gateway_verification_status": "not_run",
+      "configuration_note": "Source capability facts are preserved by the deterministic converter. Runtime and gateway readiness still require independent validation before activation.",
+      "supplier_quote": {
+        "source": "user_supplied_supplier_screenshot",
+        "recorded_at": "2026-09-09",
+        "source_image_sha256": "ce45d8cebdd26a973b6851317e97bc0777080e754c14ffa5396540d2e4406f83",
+        "api_model_id": "gpt-6-astra",
+        "pricing_unit": "USD_per_million_tokens",
+        "input_per_m": "2.7000",
+        "output_per_m": "13.5000",
+        "cache_read_per_m": "0.2700",
+        "cache_creation_per_m": "3.3750",
+        "audio_input_per_m": null,
+        "audio_output_per_m": null,
+        "unlisted_rates": "unknown_not_zero",
+        "accounting_scope": "Current runtime accounting supports only ordinary input, output, and cache-read tokens. Cache-creation and audio rates are recorded for later integration.",
+        "endpoint_verification": "not_run"
+      },
+      "supplier_model_mapping_status": "configured_from_user_screenshot_not_live_verified",
+      "semantic_review": {
+        "reviewed_at": "2026-09-09",
+        "policy": "model-capabilities-v1",
+        "source_urls": [
+          "https://developers.openai.com/api/docs/models/gpt-6-astra.md"
+        ],
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "source_document_sha256": {
+          "https://developers.openai.com/api/docs/models/gpt-6-astra.md": "593f63fcc87cced8695f56b828fcb5fe5a77adb59ab51ac57a5639cd9abd826f"
+        },
+        "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
+        "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
+      },
+      "source_dataset": "local_model_pool",
+      "source_item_id": "Pool/resources/models/gpt-6-astra.json",
+      "source_uri": "file://Pool/resources/models/gpt-6-astra.json",
+      "source_hash": "sha256:4fc194d5981b8918e2521ffe973b3db2b52031820fb5b94ffa0cf4e2af85ba0e",
+      "conversion_method": "declared_model_capabilities_v2",
+      "license": "provider-service-terms"
+    },
+    "type_specific": {
+      "model": {
+        "profile_version": "model-capabilities-v1",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "supports": {
+          "tool_calling": true,
+          "json_mode": true,
+          "vision": true,
+          "reasoning": true,
+          "coding": true,
+          "structured_outputs": true
+        },
+        "thinking_mode": "reasoning",
+        "native_protocol": "chat_completions_and_responses",
+        "documented_context_tokens": 1050000,
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "gateway_verification_status": "not_run",
+        "limitations": [],
+        "max_output_tokens": 128000,
+        "documented_interface_facts": {
+          "max_output_tokens": 128000,
+          "reasoning_effort_values": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max"
+          ],
+          "function_calling": true,
+          "structured_outputs": true,
+          "streaming": true
+        },
+        "model_id": "gpt-6-astra",
+        "provider": "openai",
+        "family": "gpt",
+        "context_window": "1050000 Context",
+        "pricing": {
+          "input_per_m": 2.7,
+          "cache_per_m": 0.27,
+          "output_per_m": 13.5
+        },
+        "pricing_unit": "USD_per_million_tokens",
+        "supports_source": "provider_documented_not_gateway_verified"
+      }
+    },
+    "memory": {
+      "success_trajectories": [],
+      "failure_reflections": []
+    },
+    "selection_scope": "candidate"
+  },
+  {
+    "manifest_version": "1.0",
+    "resource_id": "model.kimi_k2_7_code.v1",
+    "resource_type": "Model",
+    "status": "active",
+    "capability": {
+      "summary": "Coding model for repository work using textual and visual context.",
+      "core_primitives": [
+        "repository changes",
+        "code debugging",
+        "visual specification implementation",
+        "test-driven code revision"
+      ],
+      "problem_space": "Coding model for repository work using textual and visual context. Applicable tasks include repository changes, code debugging, visual specification implementation, test-driven code revision. Accepts text, image, video input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions.",
+      "domain_tags": [
+        "Language",
+        "Software Engineering",
+        "Visual Understanding"
+      ]
+    },
+    "constraint": {
+      "env_requirements": [
+        "Moonshot-Compatible API Endpoint",
+        "Valid API Key (Cloud)",
+        "Stable Network Connection"
+      ],
+      "io_signature": "Input modalities: text, image, video | Output modalities: text. Gateway transport support requires verification.",
+      "artifact_input": [
+        "text",
+        "image",
+        "video"
+      ],
+      "artifact_output": [
+        "text"
+      ]
+    },
+    "io": {
+      "input_contract": [
+        {
+          "name": "messages",
+          "kind": "chat_messages",
+          "required": true,
+          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
+        },
+        {
+          "name": "tools",
+          "kind": "tool_schema_array",
+          "required": false,
+          "description": "Function schemas; the gateway must support the documented tool-call protocol."
+        }
+      ],
+      "output_contract": {
+        "artifact_type": "plaintext",
+        "description": "Generated text returned through the configured gateway."
+      }
+    },
+    "routing": {
+      "family_id": "model.moonshot.kimi",
+      "dependency_slots": []
+    },
+    "execution": {
+      "runtime": "llm_chat_completion",
+      "uri": "${base_url}/v1/chat/completions",
+      "model_id": "kimi-k2.7-code",
+      "execution_status": "active"
+    },
+    "utility": {
+      "latency_ms": 0,
+      "token_cost_factor": 0,
+      "expected_success_rate": 0,
+      "successes": 0,
+      "attempts": 0
+    },
+    "provenance": {
+      "semantic_review": {
+        "reviewed_at": "2026-09-09",
+        "policy": "model-capabilities-v1",
+        "source_urls": [
+          "https://huggingface.co/moonshotai/Kimi-K2.7-Code/raw/main/README.md"
+        ],
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "source_document_sha256": {
+          "https://huggingface.co/moonshotai/Kimi-K2.7-Code/raw/main/README.md": "c78bbe5af19636b180eda956abf1f30a79027ec04d6642ebddc44edbc4470879"
+        },
+        "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
+        "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
+      },
+      "source_dataset": "local_model_pool",
+      "source_item_id": "Pool/resources/models/kimi-k2.7-code.json",
+      "source_uri": "file://Pool/resources/models/kimi-k2.7-code.json",
+      "source_hash": "sha256:0852892e78210fe7a9294e2e3d4d8441dc4ebc06807a37e3b7e61a2000a7cfb0",
+      "conversion_method": "declared_model_capabilities_v2",
+      "license": "provider-service-terms",
+      "utility_status": "unmeasured_zero_placeholders"
+    },
+    "type_specific": {
+      "model": {
+        "profile_version": "model-capabilities-v1",
+        "input_modalities": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "supports": {
+          "tool_calling": true,
+          "json_mode": null,
+          "vision": true,
+          "reasoning": true,
+          "coding": true
+        },
+        "thinking_mode": "configurable",
+        "native_protocol": "openai_compatible_chat",
+        "documented_context_tokens": 262144,
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "gateway_verification_status": "not_run",
+        "limitations": [
+          "The model card describes video chat as an experimental feature of the official API; gateway support must be verified separately."
+        ],
+        "model_id": "kimi-k2.7-code",
+        "provider": "moonshot",
+        "family": "kimi",
+        "context_window": "256K Context",
+        "pricing": {
+          "input_per_m": 1.219,
+          "cache_per_m": 0.244,
+          "output_per_m": 5.062
+        },
+        "pricing_unit": "USD_per_million_tokens",
+        "supports_source": "provider_documented_not_gateway_verified"
+      }
+    },
+    "memory": {
+      "success_trajectories": [],
+      "failure_reflections": []
+    },
+    "selection_scope": "candidate"
+  },
+  {
+    "manifest_version": "1.0",
+    "resource_id": "model.kimi_k3.v1",
+    "resource_type": "Model",
+    "status": "active",
+    "capability": {
+      "summary": "Multimodal model for long-context coding and knowledge work.",
+      "core_primitives": [
+        "code generation",
+        "document synthesis",
+        "tool-assisted analysis",
+        "instruction following",
+        "visual specification interpretation"
+      ],
+      "problem_space": "Multimodal model for long-context coding and knowledge work. Applicable tasks include code generation, document synthesis, tool-assisted analysis, instruction following, visual specification interpretation. Accepts text, image, video input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions.",
+      "domain_tags": [
+        "Language",
+        "Software Engineering",
+        "Visual Understanding"
+      ]
+    },
+    "constraint": {
+      "env_requirements": [
+        "Moonshot-Compatible API Endpoint",
+        "Valid API Key (Cloud)",
+        "Stable Network Connection"
+      ],
+      "io_signature": "Input modalities: text, image, video | Output modalities: text. Gateway transport support requires verification.",
+      "artifact_input": [
+        "text",
+        "image",
+        "video"
+      ],
+      "artifact_output": [
+        "text"
+      ]
+    },
+    "io": {
+      "input_contract": [
+        {
+          "name": "messages",
+          "kind": "chat_messages",
+          "required": true,
+          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
+        },
+        {
+          "name": "tools",
+          "kind": "tool_schema_array",
+          "required": false,
+          "description": "Function schemas; the gateway must support the documented tool-call protocol."
+        }
+      ],
+      "output_contract": {
+        "artifact_type": "plaintext",
+        "description": "Generated text returned through the configured gateway."
+      }
+    },
+    "routing": {
+      "family_id": "model.moonshot.kimi",
+      "dependency_slots": []
+    },
+    "execution": {
+      "runtime": "llm_chat_completion",
+      "uri": "${base_url}/v1/chat/completions",
+      "model_id": "kimi-k3",
+      "execution_status": "active"
+    },
+    "utility": {
+      "latency_ms": 0,
+      "token_cost_factor": 0,
+      "expected_success_rate": 0,
+      "successes": 0,
+      "attempts": 0
+    },
+    "provenance": {
+      "semantic_review": {
+        "reviewed_at": "2026-09-09",
+        "policy": "model-capabilities-v1",
+        "source_urls": [
+          "https://huggingface.co/moonshotai/Kimi-K3/raw/main/README.md"
+        ],
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "source_document_sha256": {
+          "https://huggingface.co/moonshotai/Kimi-K3/raw/main/README.md": "57de265b5842dfa465c6e73b368b0e15a89b8793b5450528dad577da202cc6fe"
+        },
+        "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
+        "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
+      },
+      "source_dataset": "local_model_pool",
+      "source_item_id": "Pool/resources/models/kimi-k3.json",
+      "source_uri": "file://Pool/resources/models/kimi-k3.json",
+      "source_hash": "sha256:2d0b28c3f72601d3dc85e1c9c03d83f04b9e6535d316241f36a56ce637fbb564",
+      "conversion_method": "declared_model_capabilities_v2",
+      "license": "provider-service-terms",
+      "utility_status": "unmeasured_zero_placeholders"
+    },
+    "type_specific": {
+      "model": {
+        "profile_version": "model-capabilities-v1",
+        "input_modalities": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "supports": {
+          "tool_calling": true,
+          "json_mode": null,
+          "vision": true,
+          "reasoning": true,
+          "coding": true
+        },
+        "thinking_mode": "configurable",
+        "native_protocol": "openai_compatible_chat",
+        "documented_context_tokens": 1000000,
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "gateway_verification_status": "not_run",
+        "limitations": [],
+        "model_id": "kimi-k3",
+        "provider": "moonshot",
+        "family": "kimi",
+        "context_window": "1M Context",
+        "pricing": {
+          "input_per_m": 3.75,
+          "cache_per_m": 0.375,
+          "output_per_m": 18.75
+        },
+        "pricing_unit": "USD_per_million_tokens",
+        "supports_source": "provider_documented_not_gateway_verified"
+      }
+    },
+    "memory": {
+      "success_trajectories": [],
+      "failure_reflections": []
+    },
+    "selection_scope": "candidate"
+  },
+  {
+    "manifest_version": "1.0",
+    "resource_id": "model.qwen3_coder_30b_a3b_instruct.v1",
+    "resource_type": "Model",
+    "status": "active",
+    "capability": {
+      "summary": "Non-thinking coding model with a smaller sparse-expert design.",
+      "core_primitives": [
+        "repository code editing",
+        "debugging",
+        "refactoring",
+        "test implementation",
+        "tool-assisted programming"
+      ],
+      "problem_space": "Coding model for repository editing and development tools. Applicable tasks include repository code editing, debugging, refactoring, test implementation, tool-assisted programming. Accepts text input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions. Published distinction: The documented architecture has 30.5 billion total and 3.3 billion active parameters. It uses a coding-oriented function-call format; parser and gateway compatibility must be verified independently.",
+      "domain_tags": [
+        "Language",
+        "Software Engineering"
+      ]
+    },
+    "constraint": {
+      "env_requirements": [
+        "OpenAI-Compatible API Endpoint",
+        "GPU >= 24GB VRAM (Local Deployment) or API Key (Cloud)"
+      ],
+      "io_signature": "Input modalities: text | Output modalities: text. Gateway transport support requires verification.",
+      "artifact_input": [
+        "text"
+      ],
+      "artifact_output": [
+        "text"
+      ]
+    },
+    "io": {
+      "input_contract": [
+        {
+          "name": "messages",
+          "kind": "chat_messages",
+          "required": true,
+          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
+        },
+        {
+          "name": "tools",
+          "kind": "tool_schema_array",
+          "required": false,
+          "description": "Function schemas; the gateway must support the documented tool-call protocol."
+        }
+      ],
+      "output_contract": {
+        "artifact_type": "plaintext",
+        "description": "Generated text returned through the configured gateway."
+      }
+    },
+    "routing": {
+      "family_id": "model.qwen.qwen3",
+      "dependency_slots": []
+    },
+    "execution": {
+      "runtime": "llm_chat_completion",
+      "uri": "${base_url}/v1/chat/completions",
+      "model_id": "qwen3-coder-30b-a3b-instruct",
+      "execution_status": "active"
+    },
+    "utility": {
+      "latency_ms": 0,
+      "token_cost_factor": 0,
+      "expected_success_rate": 0,
+      "successes": 0,
+      "attempts": 0
+    },
+    "provenance": {
+      "semantic_review": {
+        "reviewed_at": "2026-09-09",
+        "policy": "model-capabilities-v1",
+        "source_urls": [
+          "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/raw/main/README.md"
+        ],
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "source_document_sha256": {
+          "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/raw/main/README.md": "98e8f0e00f2d6c7f1743fc4ef2b6297dcc57bec73d71f36588aed984370ac3f3"
+        },
+        "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
+        "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
+      },
+      "model_distinction_review": {
+        "evidence_kind": "documented_architecture",
+        "source_urls": [
+          "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/raw/main/README.md"
+        ],
+        "source_document_sha256": {
+          "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/raw/main/README.md": "8b1aa7e67131e92e91d2b617fbc4214bfe6389fa6d0d08f6b1a5868212be9fcc"
+        },
+        "interpretation_limit": "Published task emphasis is non-exclusive. Architecture and product positioning do not establish supplier latency, measured quality, or a fixed framework role.",
+        "policy": "model-distinctions-v1",
+        "reviewed_at": "2026-09-09",
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "scope": "Non-exclusive published task emphasis and architecture; no empirical cross-model quality ordering."
+      },
+      "source_dataset": "local_model_pool",
+      "source_item_id": "Pool/resources/models/qwen3-coder-30b-a3b-instruct.json",
+      "source_uri": "file://Pool/resources/models/qwen3-coder-30b-a3b-instruct.json",
+      "source_hash": "sha256:c8870b6ea4cb58d50439a9cc5566c5632bbac8c57c05dfedee2353dc24d24666",
+      "conversion_method": "declared_model_capabilities_v2",
+      "license": "provider-service-terms",
+      "utility_status": "unmeasured_zero_placeholders"
+    },
+    "type_specific": {
+      "model": {
+        "profile_version": "model-capabilities-v1",
+        "input_modalities": [
+          "text"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "supports": {
+          "tool_calling": true,
+          "json_mode": null,
+          "vision": false,
+          "reasoning": true,
+          "coding": true
+        },
+        "thinking_mode": "non_thinking",
+        "native_protocol": "openai_compatible_chat",
+        "documented_context_tokens": 262144,
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "gateway_verification_status": "not_run",
+        "limitations": [],
+        "model_id": "qwen3-coder-30b-a3b-instruct",
+        "provider": "qwen",
+        "family": "qwen3",
+        "context_window": "131K Context",
+        "pricing": {
+          "input_per_m": 0.131,
+          "cache_per_m": 0.0,
+          "output_per_m": 0.525
+        },
+        "pricing_unit": "USD_per_million_tokens",
+        "supports_source": "provider_documented_not_gateway_verified"
+      }
+    },
+    "memory": {
+      "success_trajectories": [],
+      "failure_reflections": []
+    },
+    "selection_scope": "candidate"
+  },
+  {
+    "manifest_version": "1.0",
+    "resource_id": "model.qwen3_vl_30b_a3b_instruct.v1",
+    "resource_type": "Model",
+    "status": "active",
+    "capability": {
+      "summary": "Vision-language direct-response instruction model with a sparse-expert architecture.",
+      "core_primitives": [
+        "document OCR",
+        "chart interpretation",
+        "visual grounding",
+        "video question answering",
+        "visual reasoning"
+      ],
+      "problem_space": "Vision-language model for visual grounding and document understanding. Applicable tasks include document OCR, chart interpretation, visual grounding, video question answering, visual reasoning. Accepts text, image, video input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions. Published distinction: The published architecture is sparse-expert, with 30 billion total and 3 billion active parameters. This is the direct-response instruction edition for text and visual tasks; model size and edition do not establish actual supplier latency or accuracy.",
+      "domain_tags": [
+        "Language",
+        "Software Engineering",
+        "Visual Understanding"
+      ]
+    },
+    "constraint": {
+      "env_requirements": [
+        "OpenAI-Compatible API Endpoint",
+        "Valid API Key (Cloud) or GPU with Multimodal Support"
+      ],
+      "io_signature": "Input modalities: text, image, video | Output modalities: text. Gateway transport support requires verification.",
+      "artifact_input": [
+        "text",
+        "image",
+        "video"
+      ],
+      "artifact_output": [
+        "text"
+      ]
+    },
+    "io": {
+      "input_contract": [
+        {
+          "name": "messages",
+          "kind": "chat_messages",
+          "required": true,
+          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
+        }
+      ],
+      "output_contract": {
+        "artifact_type": "plaintext",
+        "description": "Generated text returned through the configured gateway."
+      }
+    },
+    "routing": {
+      "family_id": "model.qwen.qwen3",
+      "dependency_slots": []
+    },
+    "execution": {
+      "runtime": "llm_chat_completion",
+      "uri": "${base_url}/v1/chat/completions",
+      "model_id": "qwen3-vl-30b-a3b-instruct",
+      "execution_status": "active"
+    },
+    "utility": {
+      "latency_ms": 0,
+      "token_cost_factor": 0,
+      "expected_success_rate": 0,
+      "successes": 0,
+      "attempts": 0
+    },
+    "provenance": {
+      "semantic_review": {
+        "reviewed_at": "2026-09-09",
+        "policy": "model-capabilities-v1",
+        "source_urls": [
+          "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/README.md"
+        ],
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "source_document_sha256": {
+          "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/README.md": "37d278ac62511b5267c1a65d83d5c93a1234c7c3aafc68fb5be48a385269aef5"
+        },
+        "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
+        "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
+      },
+      "model_distinction_review": {
+        "evidence_kind": "documented_architecture_and_mode",
+        "source_urls": [
+          "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/README.md",
+          "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/config.json"
+        ],
+        "source_document_sha256": {
+          "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/README.md": "e4f6a2dbf91f79745f328e1da89e6a9a458b6e311dfd4cb1dd7888e0cda3c787",
+          "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/config.json": "6129b3f54d517a18553cf7525ff4886be6831c5806fc094d632b8ef38d859912"
+        },
+        "interpretation_limit": "Published task emphasis is non-exclusive. Architecture and product positioning do not establish supplier latency, measured quality, or a fixed framework role.",
+        "policy": "model-distinctions-v1",
+        "reviewed_at": "2026-09-09",
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "scope": "Non-exclusive published task emphasis and architecture; no empirical cross-model quality ordering."
+      },
+      "source_dataset": "local_model_pool",
+      "source_item_id": "Pool/resources/models/qwen3-vl-30b-a3b-instruct.json",
+      "source_uri": "file://Pool/resources/models/qwen3-vl-30b-a3b-instruct.json",
+      "source_hash": "sha256:0b23d3e93695e1f4be790d05269c000874b2f0ad2d8a6e6ea211e6690761e30a",
+      "conversion_method": "declared_model_capabilities_v2",
+      "license": "provider-service-terms",
+      "utility_status": "unmeasured_zero_placeholders"
+    },
+    "type_specific": {
+      "model": {
+        "profile_version": "model-capabilities-v1",
+        "input_modalities": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "supports": {
+          "tool_calling": null,
+          "json_mode": null,
+          "vision": true,
+          "reasoning": true,
+          "coding": true
+        },
+        "thinking_mode": "non_thinking",
+        "native_protocol": "openai_compatible_chat",
+        "documented_context_tokens": 262144,
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "gateway_verification_status": "not_run",
+        "limitations": [],
+        "model_id": "qwen3-vl-30b-a3b-instruct",
+        "provider": "qwen",
+        "family": "qwen3",
+        "context_window": "131K Context",
+        "pricing": {
+          "input_per_m": 0.131,
+          "cache_per_m": 0.0,
+          "output_per_m": 0.525
+        },
+        "pricing_unit": "USD_per_million_tokens",
+        "supports_source": "provider_documented_not_gateway_verified"
+      }
+    },
+    "memory": {
+      "success_trajectories": [],
+      "failure_reflections": []
+    },
+    "selection_scope": "candidate"
+  },
+  {
+    "manifest_version": "1.0",
+    "resource_id": "model.qwen3_8_flash.v1",
+    "resource_type": "Model",
+    "status": "active",
+    "capability": {
+      "summary": "Hosted vision-language model for coding and document analysis.",
+      "core_primitives": [
+        "code revision",
+        "document interpretation",
+        "visual reasoning",
+        "tool-assisted analysis"
+      ],
+      "problem_space": "Hosted vision-language model for coding and document analysis. Applicable tasks include code revision, document interpretation, visual reasoning, tool-assisted analysis. Accepts text, image input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions.",
+      "domain_tags": [
+        "Language",
+        "Software Engineering",
+        "Visual Understanding"
+      ]
+    },
+    "constraint": {
+      "env_requirements": [
+        "Endpoint exposing the documented model through Chat Completions; gateway mapping unverified",
+        "Valid API key for the selected service or an explicitly configured self-hosted endpoint",
+        "Endpoint and transport support for every requested input and output modality",
+        "Provider-hosted integrations are not automatically available through the configured gateway."
+      ],
+      "io_signature": "Input modalities: text, image | Output modalities: text. Gateway transport support requires verification.",
+      "artifact_input": [
+        "text",
+        "image"
+      ],
+      "artifact_output": [
+        "text"
+      ]
+    },
+    "io": {
+      "input_contract": [
+        {
+          "name": "messages",
+          "kind": "chat_messages",
+          "required": true,
+          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
+        },
+        {
+          "name": "tools",
+          "kind": "tool_schema_array",
+          "required": false,
+          "description": "Function schemas; the gateway must support the documented tool-call protocol."
+        }
+      ],
+      "output_contract": {
+        "artifact_type": "plaintext",
+        "description": "Generated text returned through the configured gateway."
+      }
+    },
+    "routing": {
+      "family_id": "model.qwen.qwen3",
+      "dependency_slots": []
+    },
+    "execution": {
+      "runtime": "llm_chat_completion",
+      "uri": "${base_url}/v1/chat/completions",
+      "model_id": "qwen3.8-flash",
+      "execution_status": "active"
+    },
+    "utility": {
+      "latency_ms": 0,
+      "token_cost_factor": 0,
+      "expected_success_rate": 0,
+      "successes": 0,
+      "attempts": 0
+    },
+    "provenance": {
+      "reviewed_at": "2026-09-09",
+      "evidence_status": "provider_documented_not_gateway_verified",
+      "integration_status": "canonical_registered_gateway_verification_pending",
+      "source_urls": [
+        "https://help.aliyun.com/en/model-studio/newly-released-models",
+        "https://qwen.ai/blog?id=qwen3.8-flash-next"
+      ],
+      "documented_input_modalities": [
+        "text",
+        "image"
+      ],
+      "documented_output_modalities": [
+        "text"
+      ],
+      "documented_interface_facts": {
+        "version_kind": "service_alias",
+        "thinking_mode": "hybrid",
+        "related_weight_release": "Qwen/Qwen3.8-Flash-Next"
+      },
+      "task_profile_basis": "Neutral candidate task categories based on documented operations; not an empirical model ranking or fixed role assignment.",
+      "pricing_status": "supplier_quote_recorded_unlisted_rates_unknown",
+      "resource_tag_layout": [
+        "context_window",
+        "input_per_million_tokens",
+        "output_per_million_tokens",
+        "cache_read_per_million_tokens"
+      ],
+      "pricing_note": "Supplier screenshot rates are USD per million tokens in the existing catalog convention. Unlisted rates are unknown, not zero. Cache creation and audio rates are separate from the three legacy text rates and require accounting support before use.",
+      "utility_status": "unmeasured_zero_placeholders",
+      "gateway_verification_status": "not_run",
+      "configuration_note": "Source capability facts are preserved by the deterministic converter. Runtime and gateway readiness still require independent validation before activation.",
+      "supplier_quote": {
+        "source": "user_supplied_supplier_screenshot",
+        "recorded_at": "2026-09-09",
+        "source_image_sha256": "ff3dfaedf34080b67f9a9f4ab618495e5de53c51c238326bd212974e107c8942",
+        "api_model_id": "qwen3.8-flash",
+        "pricing_unit": "USD_per_million_tokens",
+        "input_per_m": "0.1500",
+        "output_per_m": "0.5060",
+        "cache_read_per_m": "0.0190",
+        "cache_creation_per_m": "0.2340",
+        "audio_input_per_m": null,
+        "audio_output_per_m": null,
+        "unlisted_rates": "unknown_not_zero",
+        "accounting_scope": "Current runtime accounting supports only ordinary input, output, and cache-read tokens. Cache-creation and audio rates are recorded for later integration.",
+        "endpoint_verification": "not_run"
+      },
+      "supplier_model_mapping_status": "configured_from_user_screenshot_not_live_verified",
+      "semantic_review": {
+        "reviewed_at": "2026-09-09",
+        "policy": "model-capabilities-v1",
+        "source_urls": [
+          "https://help.aliyun.com/en/model-studio/newly-released-models",
+          "https://qwen.ai/blog?id=qwen3.8-flash-next"
+        ],
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "source_document_sha256": {
+          "https://help.aliyun.com/en/model-studio/newly-released-models": "54b167876961c267e8f9c250e82db663feede5a7479322c8adeda7783aaf6481"
+        },
+        "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
+        "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
+      },
+      "source_dataset": "local_model_pool",
+      "source_item_id": "Pool/resources/models/qwen3.8-flash.json",
+      "source_uri": "file://Pool/resources/models/qwen3.8-flash.json",
+      "source_hash": "sha256:21dbebab39d496eac0def629f73bb7104a2009b10cbe6dbd744e83abfb94f9ae",
+      "conversion_method": "declared_model_capabilities_v2",
+      "license": "provider-service-terms"
+    },
+    "type_specific": {
+      "model": {
+        "profile_version": "model-capabilities-v1",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "supports": {
+          "tool_calling": true,
+          "json_mode": null,
+          "vision": true,
+          "reasoning": true,
+          "coding": true
+        },
+        "thinking_mode": "hybrid",
+        "native_protocol": "openai_compatible_chat",
+        "documented_context_tokens": null,
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "gateway_verification_status": "not_run",
+        "limitations": [],
+        "documented_interface_facts": {
+          "version_kind": "service_alias",
+          "thinking_mode": "hybrid",
+          "related_weight_release": "Qwen/Qwen3.8-Flash-Next"
+        },
+        "max_output_tokens": null,
+        "model_id": "qwen3.8-flash",
+        "provider": "qwen",
+        "family": "qwen3",
+        "context_window": "1M Context",
+        "pricing": {
+          "input_per_m": 0.15,
+          "cache_per_m": 0.019,
+          "output_per_m": 0.506
+        },
+        "pricing_unit": "USD_per_million_tokens",
+        "supports_source": "provider_documented_not_gateway_verified"
+      }
+    },
+    "memory": {
+      "success_trajectories": [],
+      "failure_reflections": []
+    },
+    "selection_scope": "candidate"
+  },
+  {
+    "manifest_version": "1.0",
+    "resource_id": "model.qwen3_8_max_0902.v1",
+    "resource_type": "Model",
+    "status": "active",
+    "capability": {
+      "summary": "Hosted vision-language model for coding and document analysis.",
+      "core_primitives": [
+        "code revision",
+        "document interpretation",
+        "visual reasoning",
+        "tool-assisted analysis"
+      ],
+      "problem_space": "Hosted vision-language model for coding and document analysis. Applicable tasks include code revision, document interpretation, visual reasoning, tool-assisted analysis. Accepts text, image input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions.",
+      "domain_tags": [
+        "Language",
+        "Software Engineering",
+        "Visual Understanding"
+      ]
+    },
+    "constraint": {
+      "env_requirements": [
+        "Endpoint exposing the documented model through Chat Completions; gateway mapping unverified",
+        "Valid API key for the selected service or an explicitly configured self-hosted endpoint",
+        "Endpoint and transport support for every requested input and output modality",
+        "Use the supplier model ID qwen3.8-max exactly; the retained pool ID is not a guarantee of the supplier backend version.",
+        "Verify the served snapshot before treating results as a dated-model comparison."
+      ],
+      "io_signature": "Input modalities: text, image | Output modalities: text. Gateway transport support requires verification.",
+      "artifact_input": [
+        "text",
+        "image"
+      ],
+      "artifact_output": [
+        "text"
+      ]
+    },
+    "io": {
+      "input_contract": [
+        {
+          "name": "messages",
+          "kind": "chat_messages",
+          "required": true,
+          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
+        },
+        {
+          "name": "tools",
+          "kind": "tool_schema_array",
+          "required": false,
+          "description": "Function schemas; the gateway must support the documented tool-call protocol."
+        }
+      ],
+      "output_contract": {
+        "artifact_type": "plaintext",
+        "description": "Generated text returned through the configured gateway."
+      }
+    },
+    "routing": {
+      "family_id": "model.qwen.qwen3",
+      "dependency_slots": []
+    },
+    "execution": {
+      "runtime": "llm_chat_completion",
+      "uri": "${base_url}/v1/chat/completions",
+      "model_id": "qwen3.8-max",
+      "execution_status": "active"
+    },
+    "utility": {
+      "latency_ms": 0,
+      "token_cost_factor": 0,
+      "expected_success_rate": 0,
+      "successes": 0,
+      "attempts": 0
+    },
+    "provenance": {
+      "reviewed_at": "2026-09-09",
+      "evidence_status": "provider_documented_not_gateway_verified",
+      "integration_status": "canonical_registered_gateway_verification_pending",
+      "source_urls": [
+        "https://help.aliyun.com/en/model-studio/newly-released-models",
+        "https://help.aliyun.com/en/model-studio/visual-reasoning",
+        "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B"
+      ],
+      "documented_input_modalities": [
+        "text",
+        "image"
+      ],
+      "documented_output_modalities": [
+        "text"
+      ],
+      "documented_interface_facts": {
+        "version_kind": "service_alias",
+        "alternate_provider_id": "qwen3.8-max-2026-09-02",
+        "family_service_alias": "qwen3.8-max",
+        "thinking_mode": "hybrid",
+        "snapshot_selection_status": "supplier_alias_backend_snapshot_unverified"
+      },
+      "task_profile_basis": "Neutral candidate task categories based on documented operations; not an empirical model ranking or fixed role assignment.",
+      "pricing_status": "supplier_quote_recorded_unlisted_rates_unknown",
+      "resource_tag_layout": [
+        "context_window",
+        "input_per_million_tokens",
+        "output_per_million_tokens",
+        "cache_read_per_million_tokens"
+      ],
+      "pricing_note": "Supplier screenshot rates are USD per million tokens in the existing catalog convention. Unlisted rates are unknown, not zero. Cache creation and audio rates are separate from the three legacy text rates and require accounting support before use.",
+      "utility_status": "unmeasured_zero_placeholders",
+      "gateway_verification_status": "not_run",
+      "configuration_note": "Source capability facts are preserved by the deterministic converter. Runtime and gateway readiness still require independent validation before activation.",
+      "supplier_quote": {
+        "source": "user_supplied_supplier_screenshot",
+        "recorded_at": "2026-09-09",
+        "source_image_sha256": "d1b5404062bf932c3bf5f730803726a4ec028ed9e5f857036169067f0086029d",
+        "api_model_id": "qwen3.8-max",
+        "pricing_unit": "USD_per_million_tokens",
+        "input_per_m": "2.2500",
+        "output_per_m": "6.7500",
+        "cache_read_per_m": "0.2810",
+        "cache_creation_per_m": "2.8130",
+        "audio_input_per_m": null,
+        "audio_output_per_m": null,
+        "unlisted_rates": "unknown_not_zero",
+        "accounting_scope": "Current runtime accounting supports only ordinary input, output, and cache-read tokens. Cache-creation and audio rates are recorded for later integration.",
+        "endpoint_verification": "not_run"
+      },
+      "supplier_model_mapping_status": "configured_from_user_screenshot_not_live_verified",
+      "supplier_snapshot_status": "alias_only_backend_snapshot_unverified",
+      "semantic_review": {
+        "reviewed_at": "2026-09-09",
+        "policy": "model-capabilities-v1",
+        "source_urls": [
+          "https://help.aliyun.com/en/model-studio/newly-released-models",
+          "https://help.aliyun.com/en/model-studio/visual-reasoning",
+          "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B"
+        ],
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "source_document_sha256": {
+          "https://help.aliyun.com/en/model-studio/newly-released-models": "54b167876961c267e8f9c250e82db663feede5a7479322c8adeda7783aaf6481",
+          "https://help.aliyun.com/en/model-studio/visual-reasoning": "943410ca5edf380dd520d68a51dc954e1c1538145108b413c3e708b9affef512",
+          "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B": "f2ed3e6d91820da0e42c5fd200e58102268b520471a63e0312611ae13fb84fb4"
+        },
+        "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
+        "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
+      },
+      "source_dataset": "local_model_pool",
+      "source_item_id": "Pool/resources/models/qwen3.8-max-0902.json",
+      "source_uri": "file://Pool/resources/models/qwen3.8-max-0902.json",
+      "source_hash": "sha256:fcc6f035c83607bc6235488c5a99e3770ac5bb8428c0873b02e564dba7ee93c4",
+      "conversion_method": "declared_model_capabilities_v2",
+      "license": "provider-service-terms"
+    },
+    "type_specific": {
+      "model": {
+        "profile_version": "model-capabilities-v1",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "supports": {
+          "tool_calling": true,
+          "json_mode": null,
+          "vision": true,
+          "reasoning": true,
+          "coding": true
+        },
+        "thinking_mode": "hybrid",
+        "native_protocol": "openai_compatible_chat",
+        "documented_context_tokens": null,
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "gateway_verification_status": "not_run",
+        "limitations": [
+          "The configured supplier alias does not establish a pinned September 2 snapshot."
+        ],
+        "documented_interface_facts": {
+          "version_kind": "service_alias",
+          "alternate_provider_id": "qwen3.8-max-2026-09-02",
+          "family_service_alias": "qwen3.8-max",
+          "thinking_mode": "hybrid",
+          "snapshot_selection_status": "supplier_alias_backend_snapshot_unverified"
+        },
+        "max_output_tokens": null,
+        "model_id": "qwen3.8-max",
+        "provider": "qwen",
+        "family": "qwen3",
+        "context_window": "1M Context",
+        "pricing": {
+          "input_per_m": 2.25,
+          "cache_per_m": 0.281,
+          "output_per_m": 6.75
+        },
+        "pricing_unit": "USD_per_million_tokens",
+        "supports_source": "provider_documented_not_gateway_verified"
+      }
+    },
+    "memory": {
+      "success_trajectories": [],
+      "failure_reflections": []
+    },
+    "selection_scope": "candidate"
+  }
+]

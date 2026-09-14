@@ -1,0 +1,2 @@
+# Preserve copied authoritative bytes; do not normalize resource or prompt files.
+* -text

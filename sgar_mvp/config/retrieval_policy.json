@@ -1,0 +1,94 @@
+{
+  "active_strategy": "capability_only",
+  "bge_prefix": "Given an S-GAR subtask, retrieve resources whose declared capabilities and problem space can perform it.",
+  "candidate_strategy": "capability_only",
+  "compact_total_max": 16,
+  "control_provider_probe_receipt_sha256": "7a0227592b3514005f9ea3e7aaec90505282acb83c1e61ef86daf181cff30655",
+  "control_role_policy_sha256": "759c38b86fde0f17279a430744057a2773a2b57d5ccf4f8c4e501a238bf6a178",
+  "effective_pool_sha256": "f4b6189f6674b286acfbe6ee2eefd09ed06b46427c50520c94dd6513ab7fd5ae",
+  "embedding_candidate_id": "qwen3-embedding-0.6b-bf16-1024",
+  "embedding_model": "Qwen/Qwen3-Embedding-0.6B",
+  "embedding_runtime_identity_sha256": "54619ebee7d4481c6b1b77af03e82b85166accda77bc08b09440989fcfcb3bd8",
+  "hyde": {
+    "allow_direct_fallback": false,
+    "allow_model_failover": false,
+    "api_model_id": "gpt-5.6-sol",
+    "formal_stability_runs": 3,
+    "generation_protocol": "sgar-profiler-generation-policy-v2",
+    "max_model_attempts": 2,
+    "max_tokens": 8192,
+    "max_transport_attempts_per_model_attempt": 3,
+    "output_cap_probe_order": [
+      8192,
+      16384
+    ],
+    "output_format": "json",
+    "prompt_version": "ideal-resource-profiler-en-v3",
+    "provider_capability_sha256": "3bae2d4893a92856e044722df9eb7e8922c20220acceabf3354c0aa465b55e4f",
+    "reasoning_effort": "xhigh",
+    "requested_max_output_tokens": 8192,
+    "resource_id": "model.gpt_5_6_sol.v1",
+    "response_mode": "native_strict_schema",
+    "temperature": null,
+    "truncation_retry_max_output_tokens": 16384
+  },
+  "index_build_manifest_sha256": "a0c612e32fa0af6d87734c7f6baa862eb0e752d8a9036ababbb2263c9c84cbd4",
+  "index_meta_sha256": "53f11e2ebeacf6aacdd0abfe5f5a24eaf8fd9d7ff841da0bdd1bc139a76f827f",
+  "index_sha256": {
+    "capability": "27d29d2b895719f723a63cfc251b76f210a25c3a773172e4f6fb8e8b7c904df3",
+    "constraint": "0202adf8033f1200fdb02344bb6acd692a3169c4906a55bf61ccd7505ac7b66c",
+    "metadata": "95b4df385f3855a5e558d66b5fc0e57c939ef3169546c92ce56691bef3e8af76"
+  },
+  "policy_version": "retrieval-policy-v7-local-8d9da7fe342ca9e262234aca8af45e1a",
+  "profile_version": "typed-constraint-v8",
+  "profiler_prompt_sha256": "1cc62d801ba97b3c47f15516845be0f7d83027038e7dc0dc625c6eea3350ed99",
+  "profiler_schema_sha256": "c8992868e4bc64d33e6dd8d75258f1734ff5b2c27d14d5764f0e2ffeda776d99",
+  "promotion_thresholds": {
+    "compact_bundle_coverage": 0.9,
+    "invalid_candidate_occupancy": 0.0,
+    "runtime_bundle_coverage": 0.95,
+    "semantic_bundle_coverage": 0.95,
+    "stability_jaccard": 0.9,
+    "top1_accuracy": 0.8
+  },
+  "prompt_registry_sha256": "0a05cd5c5eaf28a23f3a49c52b1ae127d52c6e865f791d095c4ebd0582aea7d4",
+  "release_source_seal_sha256": null,
+  "resource_pool_commit": "514a39024fc31ee2fff2be5deadb19ad642f341c",
+  "type_policies": {
+    "Agent": {
+      "capability_weight": 0.75,
+      "compact_quota": 2,
+      "constraint_weight": 0.25,
+      "initial_quota": 3,
+      "recall_threshold": 0.95
+    },
+    "Model": {
+      "capability_weight": 0.65,
+      "compact_quota": 3,
+      "constraint_weight": 0.35,
+      "initial_quota": 5,
+      "recall_threshold": 0.95
+    },
+    "Resource": {
+      "capability_weight": 0.7,
+      "compact_quota": 0,
+      "constraint_weight": 0.3,
+      "initial_quota": 0,
+      "recall_threshold": 0.95
+    },
+    "Skill": {
+      "capability_weight": 0.85,
+      "compact_quota": 4,
+      "constraint_weight": 0.15,
+      "initial_quota": 8,
+      "recall_threshold": 0.95
+    },
+    "Tool": {
+      "capability_weight": 0.6,
+      "compact_quota": 6,
+      "constraint_weight": 0.4,
+      "initial_quota": 10,
+      "recall_threshold": 0.95
+    }
+  }
+}

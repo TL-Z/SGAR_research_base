@@ -1,0 +1,26 @@
+{
+  "protocol": "sgar-real-case-suite-v1",
+  "suite_id": "sgar-real-acceptance-20-v1",
+  "cases": [
+    {"case_id": "acceptance_01", "category": "Chinese and English plain text", "request_manifest": "real_case_requests/01_plaintext.json", "network_policy": "disabled", "enabled": false},
+    {"case_id": "acceptance_02", "category": "Large UTF-8 text", "request_manifest": "real_case_requests/02_large_utf8.json", "network_policy": "disabled", "enabled": false},
+    {"case_id": "acceptance_03", "category": "JSON input and output", "request_manifest": "real_case_requests/03_json.json", "network_policy": "disabled", "enabled": false},
+    {"case_id": "acceptance_04", "category": "CSV input and output", "request_manifest": "real_case_requests/04_csv.json", "network_policy": "disabled", "enabled": false},
+    {"case_id": "acceptance_05", "category": "HTML artifact", "request_manifest": "real_case_requests/05_html.json", "network_policy": "disabled", "enabled": false},
+    {"case_id": "acceptance_06", "category": "Python source artifact", "request_manifest": "real_case_requests/06_python.json", "network_policy": "disabled", "enabled": false},
+    {"case_id": "acceptance_07", "category": "Non-Python source artifact", "request_manifest": "real_case_requests/07_non_python.json", "network_policy": "disabled", "enabled": false},
+    {"case_id": "acceptance_08", "category": "Office input", "request_manifest": "real_case_requests/08_office.json", "network_policy": "disabled", "enabled": false},
+    {"case_id": "acceptance_09", "category": "PDF or arbitrary binary input", "request_manifest": "real_case_requests/09_pdf_binary.json", "network_policy": "disabled", "enabled": false},
+    {"case_id": "acceptance_10", "category": "Empty and nested directories", "request_manifest": "real_case_requests/10_directories.json", "network_policy": "disabled", "enabled": false},
+    {"case_id": "acceptance_11", "category": "Multiple similarly named inputs", "request_manifest": "real_case_requests/11_multi_input.json", "network_policy": "disabled", "enabled": false},
+    {"case_id": "acceptance_12", "category": "Unicode and space-containing paths", "request_manifest": "real_case_requests/12_unicode_paths.json", "network_policy": "disabled", "enabled": false},
+    {"case_id": "acceptance_13", "category": "Python script Tool", "request_manifest": "real_case_requests/13_python_script.json", "network_policy": "disabled", "enabled": false},
+    {"case_id": "acceptance_14", "category": "Python library Tool", "request_manifest": "real_case_requests/14_python_library.json", "network_policy": "disabled", "enabled": false},
+    {"case_id": "acceptance_15", "category": "Local MCP server Tool", "request_manifest": "real_case_requests/15_local_mcp.json", "network_policy": "disabled", "enabled": false},
+    {"case_id": "acceptance_16", "category": "Declared REST Tool", "request_manifest": "real_case_requests/16_declared_rest.json", "network_policy": "declared", "enabled": false},
+    {"case_id": "acceptance_17", "category": "Tool to Model", "request_manifest": "real_case_requests/17_tool_model.json", "network_policy": "disabled", "enabled": false},
+    {"case_id": "acceptance_18", "category": "Skill or Agent to base Model", "request_manifest": "real_case_requests/18_skill_agent.json", "network_policy": "disabled", "enabled": false},
+    {"case_id": "acceptance_19", "category": "Execution adaptation and checkpoint reuse", "request_manifest": "real_case_requests/19_recovery.json", "network_policy": "disabled", "enabled": false},
+    {"case_id": "acceptance_20", "category": "Directory or bundle commit and delivery", "request_manifest": "real_case_requests/20_bundle_delivery.json", "network_policy": "disabled", "enabled": false}
+  ]
+}

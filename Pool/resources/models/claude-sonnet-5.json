@@ -1,0 +1,85 @@
+{
+    "resource_id": "claude-sonnet-5",
+    "type": {
+        "resource_type": "Model",
+        "resource_tag": [
+            "200K Context",
+            "3.0780",
+            "15.3900",
+            "0.3080"
+        ]
+    },
+    "capability": {
+        "summary": "Text and image model for coding and document analysis.",
+        "core_primitives": [
+            "code editing",
+            "document analysis",
+            "visual document interpretation",
+            "tool-assisted problem solving"
+        ],
+        "problem_space": "Text and image model for coding and document analysis. Applicable tasks include code editing, document analysis, visual document interpretation, tool-assisted problem solving. Accepts text, image input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions.",
+        "domain_tags": [
+            "Language",
+            "Software Engineering",
+            "Visual Understanding"
+        ]
+    },
+    "constraint": {
+        "env_requirements": [
+            "Anthropic-Compatible API Endpoint",
+            "Valid API Key (Cloud)",
+            "Stable Network Connection"
+        ],
+        "io_signature": "Input modalities: text, image | Output modalities: text. Gateway transport support requires verification."
+    },
+    "utility": {
+        "latency_ms": 0,
+        "token_cost_factor": 0,
+        "expected_success_rate": 0
+    },
+    "execution": {
+        "uri": "${base_url}/v1/chat/completions"
+    },
+    "memory": {
+        "success_trajectories": [],
+        "failure_reflections": []
+    },
+    "type_specific": {
+        "model": {
+            "profile_version": "model-capabilities-v1",
+            "input_modalities": [
+                "text",
+                "image"
+            ],
+            "output_modalities": [
+                "text"
+            ],
+            "supports": {
+                "tool_calling": true,
+                "json_mode": null,
+                "vision": true,
+                "reasoning": true,
+                "coding": true
+            },
+            "thinking_mode": "adaptive_default_on",
+            "native_protocol": "anthropic_messages",
+            "documented_context_tokens": 1000000,
+            "evidence_status": "provider_documented_not_gateway_verified",
+            "gateway_verification_status": "not_run",
+            "limitations": []
+        }
+    },
+    "provenance": {
+        "semantic_review": {
+            "reviewed_at": "2026-09-09",
+            "policy": "model-capabilities-v1",
+            "source_urls": [
+                "https://platform.claude.com/docs/en/models/sonnet-5/overview"
+            ],
+            "evidence_status": "provider_documented_not_gateway_verified",
+            "source_document_sha256": {},
+            "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
+            "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
+        }
+    }
+}

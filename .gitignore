@@ -1,0 +1,26 @@
+# Local credentials and machine configuration
+/.env
+/.env.*
+!/.env.example
+/sgar_mvp/config.json
+# Applied machine evidence is restored separately and is not source code.
+/sgar_mvp/runtime_state/
+/.codex-provider-health/
+# Runs, caches, environments, editor and build outputs
+/runs/
+/tmp/
+/.sgar_cache/
+/.venv/
+/venv/
+/.idea/
+/.vscode/
+/.pytest_cache/
+/.mypy_cache/
+/.ruff_cache/
+/.coverage
+/htmlcov/
+/dist/
+/build/
+**/__pycache__/
+*.pyc
+# Do not globally ignore test-, data-, or resource-named files.

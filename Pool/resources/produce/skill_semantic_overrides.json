@@ -1,0 +1,2767 @@
+{
+  "skill.anthropic.algorithmic-art.v1": {
+    "source_hash": "sha256:6688fc81bb2051d3f234385b50ce160834eb0b0510ed8a5816cc412c1d28c352",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for creating original algorithmic art using p5.js, seeded randomness, and interactive parameter exploration, including flow fields and particle systems. The described workflow requires original artwork rather than copying existing artists.",
+      "core_primitives": [
+        "Create seeded algorithmic artwork"
+      ],
+      "domain_tags": [
+        "Generative Art",
+        "Creative Coding"
+      ]
+    },
+    "workflow_hint": [
+      "Create seeded algorithmic artwork"
+    ],
+    "recommended_roles": []
+  },
+  "skill.anthropic.brand-guidelines.v1": {
+    "source_hash": "sha256:a0aa0a21ebf9e8511a045cc234bc839adc2b6706db727add14e9855f242e11a7",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for applying Anthropic's official brand colors and typography to artifacts, including visual formatting and company design standards. The described identity is Anthropic-specific.",
+      "core_primitives": [
+        "Apply Anthropic brand colors and typography"
+      ],
+      "domain_tags": [
+        "Brand Design",
+        "Typography"
+      ]
+    },
+    "workflow_hint": [
+      "Apply Anthropic brand colors and typography"
+    ],
+    "recommended_roles": []
+  },
+  "skill.anthropic.canvas-design.v1": {
+    "source_hash": "sha256:7bebc4a2cf108c55c1e52bb96b1050dc1ab2f9492e9c2d43f1fe57f826728f4d",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for creating original static visual designs in PNG and PDF using design philosophy, including posters and artwork. The described workflow excludes copying existing artists.",
+      "core_primitives": [
+        "Create original static visual artwork"
+      ],
+      "domain_tags": [
+        "Visual Design",
+        "Static Graphics"
+      ]
+    },
+    "workflow_hint": [
+      "Create original static visual artwork"
+    ],
+    "recommended_roles": []
+  },
+  "skill.anthropic.frontend-design.v1": {
+    "source_hash": "sha256:35c43b9d10c2388dbb228047ad028c989a14033750812125f351c85aa42c7a4a",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for distinctive, intentional visual design when building new UI or reshaping an existing one. Helps with aesthetic direction, typography, and making choices that don't read as templated defaults.",
+      "core_primitives": [
+        "Design interface aesthetics and typography"
+      ],
+      "domain_tags": [
+        "Frontend",
+        "Visual Design"
+      ]
+    },
+    "workflow_hint": [
+      "Design interface aesthetics and typography"
+    ],
+    "recommended_roles": [
+      "frontend_developer"
+    ]
+  },
+  "skill.anthropic.internal-comms.v1": {
+    "source_hash": "sha256:c5c061ab25b33fab2358a9be53a5cc0d528ec7c3e8a29285a041ffc95d0d8947",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Resources for writing internal communications in company-preferred formats, including status reports, leadership updates, 3P updates, newsletters, FAQs, incident reports, and project updates.",
+      "core_primitives": [
+        "Write internal company communications"
+      ],
+      "domain_tags": [
+        "Business Communication"
+      ]
+    },
+    "workflow_hint": [
+      "Write internal company communications"
+    ],
+    "recommended_roles": []
+  },
+  "skill.anthropic.mcp-builder.v1": {
+    "source_hash": "sha256:57231330040e18e033dad8b2fdc0340a6185034c32b42b7d3448f444a6af6cf2",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for creating MCP servers that expose external services to language models through tools, including Python with FastMCP and Node/TypeScript with the MCP SDK.",
+      "core_primitives": [
+        "Develop MCP service integrations"
+      ],
+      "domain_tags": [
+        "MCP",
+        "API"
+      ]
+    },
+    "workflow_hint": [
+      "Develop MCP service integrations"
+    ],
+    "recommended_roles": []
+  },
+  "skill.anthropic.skill-creator.v1": {
+    "source_hash": "sha256:e030e7685e26283b4a76f5202aa3ae8516fb41dde799be5ae8ea6393ec009fe9",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.",
+      "core_primitives": [
+        "Author and evaluate reusable skills"
+      ],
+      "domain_tags": [
+        "Instruction Design",
+        "Evaluation"
+      ]
+    },
+    "workflow_hint": [
+      "Author and evaluate reusable skills"
+    ],
+    "recommended_roles": []
+  },
+  "skill.anthropic.slack-gif-creator.v1": {
+    "source_hash": "sha256:561c85ffeab639a1e84bb51cfc49f66e868a2a4c4b8945bf77b7bdaeca145a7d",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Knowledge and utilities for creating animated GIFs for Slack, including format constraints, validation tools, and animation concepts.",
+      "core_primitives": [
+        "Create animated GIFs for Slack"
+      ],
+      "domain_tags": [
+        "Animation"
+      ]
+    },
+    "workflow_hint": [
+      "Create animated GIFs for Slack"
+    ],
+    "recommended_roles": []
+  },
+  "skill.anthropic.theme-factory.v1": {
+    "source_hash": "sha256:7c765e6626bf61eca30224ceeb0da51ac003c7c2f1c1743ace9b3baa305ea632",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for styling artifacts such as slides, documents, reports, and HTML landing pages with colors and fonts. Offers ten preset themes and generation of new themes.",
+      "core_primitives": [
+        "Apply or create artifact themes"
+      ],
+      "domain_tags": [
+        "Visual Design",
+        "Typography"
+      ]
+    },
+    "workflow_hint": [
+      "Apply or create artifact themes"
+    ],
+    "recommended_roles": []
+  },
+  "skill.anthropic.webapp-testing.v1": {
+    "source_hash": "sha256:8bc27790f6e6dfc2bfa6692326d4518baacf6a31dcc646d963c729adad2f7e34",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Toolkit for interacting with and testing local web applications using Playwright. Supports verifying frontend functionality, debugging UI behavior, capturing browser screenshots, and viewing browser logs.",
+      "core_primitives": [
+        "Test local web interfaces with Playwright"
+      ],
+      "domain_tags": [
+        "Web Testing",
+        "Browser Automation"
+      ]
+    },
+    "workflow_hint": [
+      "Test local web interfaces with Playwright"
+    ],
+    "recommended_roles": [
+      "test_driven_qa"
+    ]
+  },
+  "skill.claudekit.mcp-builder.v1": {
+    "source_hash": "sha256:37ae35d7bb94bafd7bda0044968c48206cfd2624e0ff41eb815e6a32591b2092",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for creating MCP servers that expose external services to language models through tools, including Python with FastMCP and Node/TypeScript with the MCP SDK.",
+      "core_primitives": [
+        "Develop MCP service integrations"
+      ],
+      "domain_tags": [
+        "MCP",
+        "API"
+      ]
+    },
+    "workflow_hint": [
+      "Develop MCP service integrations"
+    ],
+    "recommended_roles": []
+  },
+  "skill.claudekit.ui-styling.v1": {
+    "source_hash": "sha256:d802a4bbd6309b1da13de55a57dda5bd815e79e8752a92a7235f74ee82e3b6be",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for accessible interfaces using shadcn/ui, Radix UI, and Tailwind, and for canvas-based visual designs. Covers design systems, responsive layouts, accessible components, themes, dark mode, visual designs and posters, and consistent styling across applications.",
+      "core_primitives": [
+        "Style accessible interfaces and static visual designs"
+      ],
+      "domain_tags": [
+        "Frontend",
+        "Visual Design"
+      ]
+    },
+    "workflow_hint": [
+      "Style accessible interfaces and static visual designs"
+    ],
+    "recommended_roles": [
+      "frontend_developer"
+    ]
+  },
+  "skill.neolabhq.actualize.v1": {
+    "source_hash": "sha256:9af33797b8d82b96abbb995ac94cfd0c28e6510680c52626cc0dc06c2adc17c7",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Reconcile the project's FPF state with recent repository changes",
+      "core_primitives": [
+        "Reconcile FPF state with repository changes"
+      ],
+      "domain_tags": [
+        "Knowledge Management"
+      ]
+    },
+    "workflow_hint": [
+      "Reconcile FPF state with repository changes"
+    ],
+    "recommended_roles": []
+  },
+  "skill.neolabhq.analyse-problem.v1": {
+    "source_hash": "sha256:a5845a1afb5dfae543f163c850cd252ac79dbc06a57c9ba740c1022a024e4893",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Comprehensive A3 one-page problem analysis with root cause and action plan",
+      "core_primitives": [
+        "Produce A3 root-cause and action analysis"
+      ],
+      "domain_tags": [
+        "Problem Analysis"
+      ]
+    },
+    "workflow_hint": [
+      "Produce A3 root-cause and action analysis"
+    ],
+    "recommended_roles": []
+  },
+  "skill.neolabhq.brainstorm.v1": {
+    "source_hash": "sha256:cfe03d9b1351658b667fb1d2b57da8e3faeecae8927fd332ec7ee1bf80a9ddc1",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when creating or developing, before writing code or implementation plans - refines rough ideas into fully-formed designs through collaborative questioning, alternative exploration, and incremental validation. Don't use during clear 'mechanical' processes",
+      "core_primitives": [
+        "Explore alternatives and validate ideas collaboratively"
+      ],
+      "domain_tags": [
+        "Requirements",
+        "Design"
+      ]
+    },
+    "workflow_hint": [
+      "Explore alternatives and validate ideas collaboratively"
+    ],
+    "recommended_roles": []
+  },
+  "skill.neolabhq.cause-and-effect.v1": {
+    "source_hash": "sha256:8933ecbfda4cdd6b61674891ea180d147cc1b3b1d459d242f56ad660a8a77de9",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Systematic Fishbone analysis exploring problem causes across six categories",
+      "core_primitives": [
+        "Analyze causes with six-category Fishbone diagrams"
+      ],
+      "domain_tags": [
+        "Problem Analysis"
+      ]
+    },
+    "workflow_hint": [
+      "Analyze causes with six-category Fishbone diagrams"
+    ],
+    "recommended_roles": []
+  },
+  "skill.neolabhq.commit.v1": {
+    "source_hash": "sha256:728c0f6cc7b389569e38f177a42694baf9047e326b94682c838443fa1929cf26",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Create well-formatted commits with conventional commit messages and emoji",
+      "core_primitives": [
+        "Create conventional commit messages with emoji"
+      ],
+      "domain_tags": [
+        "Version Control"
+      ]
+    },
+    "workflow_hint": [
+      "Create conventional commit messages with emoji"
+    ],
+    "recommended_roles": []
+  },
+  "skill.neolabhq.create-ideas.v1": {
+    "source_hash": "sha256:3c06f89c20c73bd2a4ca4607a87fc2b23d8f78eae9eba562d0107d68026f6af6",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Generate ideas in one shot using creative sampling",
+      "core_primitives": [
+        "Generate ideas through creative sampling"
+      ],
+      "domain_tags": [
+        "Ideation"
+      ]
+    },
+    "workflow_hint": [
+      "Generate ideas through creative sampling"
+    ],
+    "recommended_roles": []
+  },
+  "skill.neolabhq.create-workflow-command.v1": {
+    "source_hash": "sha256:a0c909e9c7b270ad6e9102578d0ba7363026181dbb0216eda390b11eb346c57b",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Create a workflow command that orchestrates multi-step execution through sub-agents with file-based task prompts",
+      "core_primitives": [
+        "Create multi-step subagent workflow commands"
+      ],
+      "domain_tags": [
+        "Task Coordination"
+      ]
+    },
+    "workflow_hint": [
+      "Create multi-step subagent workflow commands"
+    ],
+    "recommended_roles": []
+  },
+  "skill.neolabhq.decay.v1": {
+    "source_hash": "sha256:4689a59d405f156e537ae708e914696c2e38b839f97648a08a208fc0be91c548",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Manage evidence freshness by identifying stale decisions and providing governance actions",
+      "core_primitives": [
+        "Assess evidence freshness and governance actions"
+      ],
+      "domain_tags": [
+        "Evidence Management"
+      ]
+    },
+    "workflow_hint": [
+      "Assess evidence freshness and governance actions"
+    ],
+    "recommended_roles": []
+  },
+  "skill.neolabhq.design-testing-strategy.v1": {
+    "source_hash": "sha256:64e06c2e3cbc7b4c2aa4d03352056855b18fad54f138c8b94533260203a29fd0",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Use before writing any type of tests. Distills 14 industry sources into deterministic decision gates, schemas, and worked test examples.",
+      "core_primitives": [
+        "Select a testing strategy before writing tests"
+      ],
+      "domain_tags": [
+        "Testing"
+      ]
+    },
+    "workflow_hint": [
+      "Select a testing strategy before writing tests"
+    ],
+    "recommended_roles": [
+      "test_driven_qa"
+    ]
+  },
+  "skill.neolabhq.fix-tests.v1": {
+    "source_hash": "sha256:4fe9b16d513e2bb87d473c73b439de13176ff4d7760eebe0072a2071704221a9",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Systematically fix all failing tests after business logic changes or refactoring",
+      "core_primitives": [
+        "Repair failing tests after behavior changes"
+      ],
+      "domain_tags": [
+        "Testing"
+      ]
+    },
+    "workflow_hint": [
+      "Repair failing tests after behavior changes"
+    ],
+    "recommended_roles": [
+      "test_driven_qa"
+    ]
+  },
+  "skill.neolabhq.git-notes.v1": {
+    "source_hash": "sha256:af1881c8a3d6a9f0e8704c4609abf31f088e0d9489d13d50eb51286546d43331",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when adding metadata to commits without changing history, tracking review status, test results, code quality annotations, or supplementing commit messages post-hoc - provides git notes commands and patterns for attaching non-invasive metadata to Git objects.",
+      "core_primitives": [
+        "Annotate Git objects without rewriting history"
+      ],
+      "domain_tags": [
+        "Version Control"
+      ]
+    },
+    "workflow_hint": [
+      "Annotate Git objects without rewriting history"
+    ],
+    "recommended_roles": []
+  },
+  "skill.neolabhq.load-issues.v1": {
+    "source_hash": "sha256:f75224e8d6efa28eda29f9cf447de99230389b9e737fd2c12d52abc3ad2ab163",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Load all open issues from GitHub and save them as markdown files",
+      "core_primitives": [
+        "Save open GitHub issues as Markdown"
+      ],
+      "domain_tags": [
+        "Issue Management"
+      ]
+    },
+    "workflow_hint": [
+      "Save open GitHub issues as Markdown"
+    ],
+    "recommended_roles": []
+  },
+  "skill.neolabhq.memorize.v1": {
+    "source_hash": "sha256:3c0ace52d606a32e973ae2fe83c91c66b4dfcb0ece174e0a7d615cd4fc83a497",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Curates insights from reflections and critiques into CLAUDE.md using Agentic Context Engineering",
+      "core_primitives": [
+        "Curate reflections into CLAUDE.md"
+      ],
+      "domain_tags": [
+        "Context Management"
+      ]
+    },
+    "workflow_hint": [
+      "Curate reflections into CLAUDE.md"
+    ],
+    "recommended_roles": []
+  },
+  "skill.neolabhq.plan-do-check-act.v1": {
+    "source_hash": "sha256:5caffccd78bfba8d34395115901c228432d8b64f7a6af34fc38beacd922e4cec",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Iterative PDCA cycle for systematic experimentation and continuous improvement",
+      "core_primitives": [
+        "Apply iterative PDCA experimentation"
+      ],
+      "domain_tags": [
+        "Process Improvement"
+      ]
+    },
+    "workflow_hint": [
+      "Apply iterative PDCA experimentation"
+    ],
+    "recommended_roles": []
+  },
+  "skill.neolabhq.propose-hypotheses.v1": {
+    "source_hash": "sha256:079c7a0061b4bb30323550db2dc7c78d01f6f5d90a87f7c46db025bb64c852ef",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Execute complete FPF cycle from hypothesis generation to decision",
+      "core_primitives": [
+        "Run the FPF hypothesis-to-decision cycle"
+      ],
+      "domain_tags": [
+        "Reasoning Methods"
+      ]
+    },
+    "workflow_hint": [
+      "Run the FPF hypothesis-to-decision cycle"
+    ],
+    "recommended_roles": []
+  },
+  "skill.neolabhq.query.v1": {
+    "source_hash": "sha256:6faf02f40e0649557d6ba98057218c79bb86f7efc99d5cb700373e05152f7930",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Search the FPF knowledge base and display hypothesis details with assurance information",
+      "core_primitives": [
+        "Search FPF hypotheses and assurance information"
+      ],
+      "domain_tags": [
+        "Knowledge Management"
+      ]
+    },
+    "workflow_hint": [
+      "Search FPF hypotheses and assurance information"
+    ],
+    "recommended_roles": []
+  },
+  "skill.neolabhq.reflect.v1": {
+    "source_hash": "sha256:c05e19c217a5ff67d12fa69d6e4e91f1e3a7b132e9280fb93e0950ae91438dd0",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for reflecting on prior responses and outputs through iterative self-refinement, with complexity triage and verification.",
+      "core_primitives": [
+        "Refine prior output with triage and verification"
+      ],
+      "domain_tags": [
+        "Output Review"
+      ]
+    },
+    "workflow_hint": [
+      "Refine prior output with triage and verification"
+    ],
+    "recommended_roles": []
+  },
+  "skill.neolabhq.reset.v1": {
+    "source_hash": "sha256:552006559d10ef3c2de49d2fa560736adec0a6838fb6a457771bd43737bad8f4",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Reset the FPF reasoning cycle to start fresh",
+      "core_primitives": [
+        "Reset an FPF reasoning cycle"
+      ],
+      "domain_tags": [
+        "Knowledge Management"
+      ]
+    },
+    "workflow_hint": [
+      "Reset an FPF reasoning cycle"
+    ],
+    "recommended_roles": []
+  },
+  "skill.neolabhq.review-local-changes.v1": {
+    "source_hash": "sha256:3ef3c4e845d1c534b6bd0904f31f01f58b5ee6a5cdcf1ad345f1133e4a1f92a8",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Review your local uncommitted working-tree changes (git diff plus untracked files) and return actionable improvement suggestions. Use before committing, when nothing has been pushed yet.",
+      "core_primitives": [
+        "Review uncommitted changes and untracked files"
+      ],
+      "domain_tags": [
+        "Code Review",
+        "Version Control"
+      ]
+    },
+    "workflow_hint": [
+      "Review uncommitted changes and untracked files"
+    ],
+    "recommended_roles": []
+  },
+  "skill.neolabhq.status.v1": {
+    "source_hash": "sha256:a4d22882be14e9b426e5be7ce5b16cb2e982be9cf63279aac3e97ea086fa1ed2",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Display the current state of the FPF knowledge base",
+      "core_primitives": [
+        "Inspect FPF knowledge-base state"
+      ],
+      "domain_tags": [
+        "Knowledge Management"
+      ]
+    },
+    "workflow_hint": [
+      "Inspect FPF knowledge-base state"
+    ],
+    "recommended_roles": []
+  },
+  "skill.neolabhq.test-coverage.v1": {
+    "source_hash": "sha256:1720e2493ee76119b066bdd4786302a32679e1d46aab91e5c78f08ee88d64a92",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Use after writing tests to assess coverage quality across structural, mutation, requirements, and API/integration dimensions; organized knowledge for choosing and interpreting coverage analyses.",
+      "core_primitives": [
+        "Assess structural and behavioral test coverage"
+      ],
+      "domain_tags": [
+        "Testing"
+      ]
+    },
+    "workflow_hint": [
+      "Assess structural and behavioral test coverage"
+    ],
+    "recommended_roles": [
+      "test_driven_qa"
+    ]
+  },
+  "skill.neolabhq.test-driven-development.v1": {
+    "source_hash": "sha256:4139223ae241fcc41dec5dc796170dbc6c3213cb523e1f94c6587ec47aad8bbc",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when implementing any feature or bugfix, before writing implementation code - write the test first, watch it fail, write minimal code to pass; ensures tests actually verify behavior by requiring failure first",
+      "core_primitives": [
+        "Apply test-first development to features and fixes"
+      ],
+      "domain_tags": [
+        "Testing"
+      ]
+    },
+    "workflow_hint": [
+      "Apply test-first development to features and fixes"
+    ],
+    "recommended_roles": [
+      "test_driven_qa"
+    ]
+  },
+  "skill.neolabhq.test-skill.v1": {
+    "source_hash": "sha256:e8510b43505e426b053c17da6c0299761bbd1f7f0ec654cfea85f46afb0f66cb",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when creating or editing skills, before deployment, to verify they work under pressure and resist rationalization - applies RED-GREEN-REFACTOR cycle to process documentation by running baseline without skill, writing to address failures, iterating to close loopholes",
+      "core_primitives": [
+        "Evaluate skill adherence under pressure"
+      ],
+      "domain_tags": [
+        "Instruction Design",
+        "Evaluation"
+      ]
+    },
+    "workflow_hint": [
+      "Evaluate skill adherence under pressure"
+    ],
+    "recommended_roles": []
+  },
+  "skill.neolabhq.thought-based-reasoning.v1": {
+    "source_hash": "sha256:b9a884ae774dce13eef41d3d039d709629984ff68093f1c88b3e11d4a642ec72",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when tackling complex reasoning tasks requiring step-by-step logic, multi-step arithmetic, commonsense reasoning, symbolic manipulation, or problems where simple prompting fails - provides comprehensive guide to Chain-of-Thought and related prompting techniques (Zero-shot CoT, Self-Consistency, Tree of Thoughts, Least-to-Most, ReAct, PAL, Reflexion) with templates, decision matrices, and research-backed patterns",
+      "core_primitives": [
+        "Apply structured reasoning techniques"
+      ],
+      "domain_tags": [
+        "Reasoning Methods"
+      ]
+    },
+    "workflow_hint": [
+      "Apply structured reasoning techniques"
+    ],
+    "recommended_roles": []
+  },
+  "skill.neolabhq.traiage-review.v1": {
+    "source_hash": "sha256:cf6247951e1b0c23f5b94883e03fcdc379a6fd8b9462306abc71f667dcd17491",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for prioritizing changed repository code for human review.",
+      "core_primitives": [
+        "Prioritize changed code for human review"
+      ],
+      "domain_tags": [
+        "Code Review"
+      ]
+    },
+    "workflow_hint": [
+      "Prioritize changed code for human review"
+    ],
+    "recommended_roles": [
+      "code_reviewer"
+    ]
+  },
+  "skill.neolabhq.why.v1": {
+    "source_hash": "sha256:c454c40cdb789c23a72b86ae0c692ae20a2552be2abc63994099ba348a3ff6d4",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Iterative Five Whys root cause analysis drilling from symptoms to fundamentals",
+      "core_primitives": [
+        "Analyze root causes with Five Whys"
+      ],
+      "domain_tags": [
+        "Problem Analysis"
+      ]
+    },
+    "workflow_hint": [
+      "Analyze root causes with Five Whys"
+    ],
+    "recommended_roles": []
+  },
+  "skill.neolabhq.write-concisely.v1": {
+    "source_hash": "sha256:a91fbc317719fbcb4cddad91215164fa497fe7cd350920c2ec63cf1c33dd9414",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Writing rules for revising human-facing documentation for clarity and concision.",
+      "core_primitives": [
+        "Revise human-facing documentation for clarity"
+      ],
+      "domain_tags": [
+        "Documentation"
+      ]
+    },
+    "workflow_hint": [
+      "Revise human-facing documentation for clarity"
+    ],
+    "recommended_roles": [
+      "documentation_engineer"
+    ]
+  },
+  "skill.openai_plugins.agents-sdk.v1": {
+    "source_hash": "sha256:d377772ee7d8a7261a1636634e876a496f885b16b5edcb95d13c2f13320a0192",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Build AI agents on Cloudflare Workers using the Agents SDK. Load when creating stateful agents, durable workflows, real-time WebSocket apps, scheduled tasks, MCP servers, or chat applications. Covers Agent class, state management, callable RPC, Workflows integration, and React hooks. Biases towards retrieval from Cloudflare docs over pre-trained knowledge.",
+      "core_primitives": [
+        "Build stateful agents on Cloudflare Workers"
+      ],
+      "domain_tags": [
+        "Cloudflare",
+        "Agent Development"
+      ]
+    },
+    "workflow_hint": [
+      "Build stateful agents on Cloudflare Workers"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.android-emulator-qa.v1": {
+    "source_hash": "sha256:df71c109a221524cdf0e9d703f38afa24cf914b7e488dee2dd3a817719c7466d",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when validating Android feature flows in an emulator with adb-driven launch, input, UI-tree inspection, screenshots, and logcat capture.",
+      "core_primitives": [
+        "Validate Android flows in an emulator"
+      ],
+      "domain_tags": [
+        "Mobile Testing"
+      ]
+    },
+    "workflow_hint": [
+      "Validate Android flows in an emulator"
+    ],
+    "recommended_roles": [
+      "test_driven_qa"
+    ]
+  },
+  "skill.openai_plugins.batch-draft-writer.v1": {
+    "source_hash": "sha256:72499e3a7063925422b289a100957ae3790d773023976fedf4bea297cc391e0b",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for drafting multiple email replies or follow-ups using the Superhuman Mail MCP server. Covers batch inbox processing, threads awaiting replies, meeting follow-ups, and multiple personalized drafts from one request.",
+      "core_primitives": [
+        "Draft email replies and follow-ups in batches"
+      ],
+      "domain_tags": [
+        "Email"
+      ]
+    },
+    "workflow_hint": [
+      "Draft email replies and follow-ups in batches"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.brainstorming.v1": {
+    "source_hash": "sha256:4625fbfaafb229d41364b77a3591f9559e0d9d73ab0ed3589bb8e3c63f0cb734",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for exploring user intent, requirements, and design before creative implementation work such as features, components, functionality, or behavior changes.",
+      "core_primitives": [
+        "Clarify intent and explore designs before implementation"
+      ],
+      "domain_tags": [
+        "Requirements",
+        "Design"
+      ]
+    },
+    "workflow_hint": [
+      "Clarify intent and explore designs before implementation"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.building-native-ui.v1": {
+    "source_hash": "sha256:d7c3bd3f5709e3c5ee7cc9cda3889f069132469aa0a91d61d3bc5881c5827907",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for building apps with Expo Router, covering styling, components, navigation, animations, interface patterns, and native tabs.",
+      "core_primitives": [
+        "Build Expo Router interfaces and navigation"
+      ],
+      "domain_tags": [
+        "Mobile Development"
+      ]
+    },
+    "workflow_hint": [
+      "Build Expo Router interfaces and navigation"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.chatgpt-app-submission.v1": {
+    "source_hash": "sha256:5cc43b91564198dbfb3341bd5a96503a04f4691045b8d61db786e6a557828b65",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Inspect a ChatGPT Apps MCP server codebase and generate chatgpt-app-submission.json with app info suggestions, tool hint justifications, test cases, and negative test cases, then report review-check findings and outputSchema warnings for submission review.",
+      "core_primitives": [
+        "Prepare an MCP app for submission review"
+      ],
+      "domain_tags": [
+        "App Submission",
+        "MCP"
+      ]
+    },
+    "workflow_hint": [
+      "Prepare an MCP app for submission review"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.cloudflare.v1": {
+    "source_hash": "sha256:016391794a80d83788053b0aae03fad653d93ae04a4a9a24c6ab346148a245d3",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Comprehensive Cloudflare platform skill covering Workers, Pages, storage (KV, D1, R2), AI (Workers AI, Vectorize, Agents SDK), networking (Tunnel, Spectrum), security (WAF, DDoS), and infrastructure-as-code (Terraform, Pulumi). Use for any Cloudflare development task. Biases towards retrieval from Cloudflare docs over pre-trained knowledge.",
+      "core_primitives": [
+        "Develop and configure Cloudflare services"
+      ],
+      "domain_tags": [
+        "Cloudflare"
+      ]
+    },
+    "workflow_hint": [
+      "Develop and configure Cloudflare services"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.dashboard-expert.v1": {
+    "source_hash": "sha256:14fd87eebbbc01e6b1a280e9934fa9ae285b1e1a077987c06122e089977de9cf",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Full CRUD and analysis for Mixpanel dashboards. Use when the user asks to build, create, analyze, read, understand, explain, modify, update, enhance, or manage dashboards, or asks about dashboard layout, text cards, or report arrangement. Covers dashboard analysis (read + understand existing), creation (new builds), modification (update existing), and explanation (data-driven annotation).",
+      "core_primitives": [
+        "Create and analyze Mixpanel dashboards"
+      ],
+      "domain_tags": [
+        "Dashboard Management"
+      ]
+    },
+    "workflow_hint": [
+      "Create and analyze Mixpanel dashboards"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.deal-tracker.v1": {
+    "source_hash": "sha256:59348b4af37198a1f25f74bb640d6225b148e75ce128a433411f09534419c6c2",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for summarizing a relationship or deal using the Superhuman Mail MCP server. Combines email history, read receipts, and calendar interactions for a person or company, including engagement and follow-up information.",
+      "core_primitives": [
+        "Summarize relationship and deal correspondence"
+      ],
+      "domain_tags": [
+        "Relationship Management"
+      ]
+    },
+    "workflow_hint": [
+      "Summarize relationship and deal correspondence"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.eod-wrapup.v1": {
+    "source_hash": "sha256:1bfbbab8ed74a751cbe60bc2818f7d0b48a8c8d7465621e0c33be689269fbd20",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for an end-of-day review using the Superhuman Mail MCP server. Identifies open loops, unanswered emails, action items, and unfinished work from the day.",
+      "core_primitives": [
+        "Review unfinished email work at day end"
+      ],
+      "domain_tags": [
+        "Email",
+        "Work Planning"
+      ]
+    },
+    "workflow_hint": [
+      "Review unfinished email work at day end"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.executing-plans.v1": {
+    "source_hash": "sha256:f24e0fdbcdb973b34f81ab481d10be0e494b5809d9e11f00fcf646a3e268c7a2",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when you have a written implementation plan to execute in a separate session with review checkpoints",
+      "core_primitives": [
+        "Execute a written plan with review checkpoints"
+      ],
+      "domain_tags": [
+        "Implementation Planning"
+      ]
+    },
+    "workflow_hint": [
+      "Execute a written plan with review checkpoints"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.expo-deployment.v1": {
+    "source_hash": "sha256:5da4127bd229d1742d498e22a3532a0003f306deca0005e77cb1d58e85a73853",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Deploying Expo apps to iOS App Store, Android Play Store, web hosting, and API routes",
+      "core_primitives": [
+        "Deploy Expo applications and API routes"
+      ],
+      "domain_tags": [
+        "Mobile Deployment"
+      ]
+    },
+    "workflow_hint": [
+      "Deploy Expo applications and API routes"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.expo-dev-client.v1": {
+    "source_hash": "sha256:92d37fc4a16f29d9dab38cb58bab0d344d7c288f589aec61f8e4860e30ad7ab2",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Build and distribute Expo development clients locally or via TestFlight",
+      "core_primitives": [
+        "Build and distribute Expo development clients"
+      ],
+      "domain_tags": [
+        "Mobile Development"
+      ]
+    },
+    "workflow_hint": [
+      "Build and distribute Expo development clients"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.expo-module.v1": {
+    "source_hash": "sha256:33d604ed32599117b906753c6a85014600bd15e6c11a0906eba9121bff967014",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guide for writing Expo native modules and views using the Expo Modules API (Swift, Kotlin, TypeScript). Covers module definition DSL, native views, shared objects, config plugins, lifecycle hooks, autolinking, and type system. Use when building or modifying native modules for Expo.",
+      "core_primitives": [
+        "Develop Expo native modules and views"
+      ],
+      "domain_tags": [
+        "Mobile Development"
+      ]
+    },
+    "workflow_hint": [
+      "Develop Expo native modules and views"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.expo-tailwind-setup.v1": {
+    "source_hash": "sha256:d8a29999edc9cf9f61c337d2c532807a75b3961b5cdf5bd38ddfb136c87842ce",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Set up Tailwind CSS v4 in Expo with react-native-css and NativeWind v5 for universal styling",
+      "core_primitives": [
+        "Configure Tailwind and NativeWind styling in Expo"
+      ],
+      "domain_tags": [
+        "Mobile Styling"
+      ]
+    },
+    "workflow_hint": [
+      "Configure Tailwind and NativeWind styling in Expo"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.expo-ui-jetpack-compose.v1": {
+    "source_hash": "sha256:f42be3925715a265deb1fe4c3b7cbe0c155e4f9b23ea3b218f69c6f4850c7387",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "`@expo/ui/jetpack-compose` package lets you use Jetpack Compose Views and modifiers in your app.",
+      "core_primitives": [
+        "Use Jetpack Compose views in Expo interfaces"
+      ],
+      "domain_tags": [
+        "Mobile Development"
+      ]
+    },
+    "workflow_hint": [
+      "Use Jetpack Compose views in Expo interfaces"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.expo-ui-swift-ui.v1": {
+    "source_hash": "sha256:b228280b7b201bee5a7a15167b28902f5171eb7ccc06ee85d6b6a7d4375c14e0",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "`@expo/ui/swift-ui` package lets you use SwiftUI Views and modifiers in your app.",
+      "core_primitives": [
+        "Use SwiftUI views in Expo interfaces"
+      ],
+      "domain_tags": [
+        "Mobile Development"
+      ]
+    },
+    "workflow_hint": [
+      "Use SwiftUI views in Expo interfaces"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.finishing-a-development-branch.v1": {
+    "source_hash": "sha256:604aedd210874565f91207829226305819f3b6cadc323e3de813a2d9d20aeafe",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when implementation is complete, all tests pass, and you need to decide how to integrate the work - guides completion of development work by presenting structured options for merge, PR, or cleanup",
+      "core_primitives": [
+        "Decide how to integrate completed development work"
+      ],
+      "domain_tags": [
+        "Version Control"
+      ]
+    },
+    "workflow_hint": [
+      "Decide how to integrate completed development work"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.morning-briefing.v1": {
+    "source_hash": "sha256:0d6b0c09b369ea79cdfee17247a6d222afc506395000672d439e449a935d0b83",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for an inbox and calendar briefing using the Superhuman Mail MCP server. Triages unread and important mail and prioritizes information relevant to the upcoming day.",
+      "core_primitives": [
+        "Prioritize inbox and calendar information for the day"
+      ],
+      "domain_tags": [
+        "Email",
+        "Work Planning"
+      ]
+    },
+    "workflow_hint": [
+      "Prioritize inbox and calendar information for the day"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.netlify-blobs.v1": {
+    "source_hash": "sha256:039e666e20f14ebdda27851b4062f816c24128c95162d2c4c401e870d605a5f9",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guide for using Netlify Blobs object storage. Use when storing files, images, documents, or simple key-value data without a full database. Covers getStore(), CRUD operations, metadata, listing, deploy-scoped vs site-scoped stores, and local development.",
+      "core_primitives": [
+        "Use Netlify object storage"
+      ],
+      "domain_tags": [
+        "Object Storage"
+      ]
+    },
+    "workflow_hint": [
+      "Use Netlify object storage"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.netlify-caching.v1": {
+    "source_hash": "sha256:4b85039f7ebc122155f872e085c170ed6b8f62dc8503d8af1ae69dcc936a67a3",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guide for controlling caching on Netlify's CDN. Use when configuring cache headers, setting up stale-while-revalidate, implementing on-demand cache purge, or understanding Netlify's CDN caching behavior. Covers Cache-Control, Netlify-CDN-Cache-Control, cache tags, durable cache, and framework-specific caching patterns.",
+      "core_primitives": [
+        "Configure Netlify CDN cache behavior"
+      ],
+      "domain_tags": [
+        "CDN",
+        "Caching"
+      ]
+    },
+    "workflow_hint": [
+      "Configure Netlify CDN cache behavior"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.netlify-config.v1": {
+    "source_hash": "sha256:8bc8fd1cb5b52a5ee8f0d03166184a797e3135a0ba83b18040b04a25883e605b",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Reference for netlify.toml configuration. Use when configuring build settings, redirects, rewrites, headers, deploy contexts, environment variables, or any site-level configuration. Covers the complete netlify.toml syntax including redirects with splats/conditions, headers, deploy contexts, functions config, and edge functions config.",
+      "core_primitives": [
+        "Configure Netlify site and build settings"
+      ],
+      "domain_tags": [
+        "Deployment Configuration"
+      ]
+    },
+    "workflow_hint": [
+      "Configure Netlify site and build settings"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.netlify-edge-functions.v1": {
+    "source_hash": "sha256:dabe192ce075bcf87b9b2a298a0acaeac2c4d7e8d65a465438cc0e8e1aad169c",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guide for writing Netlify Edge Functions. Use when building middleware, geolocation-based logic, request/response manipulation, authentication checks, A/B testing, or any low-latency edge compute. Covers Deno runtime, context.next() middleware pattern, geolocation, and when to choose edge vs serverless.",
+      "core_primitives": [
+        "Implement Netlify edge middleware"
+      ],
+      "domain_tags": [
+        "Edge Computing"
+      ]
+    },
+    "workflow_hint": [
+      "Implement Netlify edge middleware"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.netlify-frameworks.v1": {
+    "source_hash": "sha256:814633d67e4628c9a8e68954502dc809bf8be101860db1e4d9c0d0cd7bc10fc5",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guide for deploying web frameworks on Netlify. Use when setting up a framework project (Vite/React, Astro, TanStack Start, Next.js, Nuxt, SvelteKit, Remix) for Netlify deployment, configuring adapters or plugins, or troubleshooting framework-specific Netlify integration. Covers what Netlify needs from each framework and how adapters handle server-side rendering.",
+      "core_primitives": [
+        "Integrate web frameworks with Netlify deployment"
+      ],
+      "domain_tags": [
+        "Web Deployment"
+      ]
+    },
+    "workflow_hint": [
+      "Integrate web frameworks with Netlify deployment"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.netlify-image-cdn.v1": {
+    "source_hash": "sha256:e361434c6f7ede68d08ef1b06030a1ac7a4ddddfde89a6ae19dd25eeaa1107c5",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guide for using Netlify Image CDN for image optimization and transformation. Use when serving optimized images, creating responsive image markup, setting up user-uploaded image pipelines, or configuring image transformations. Covers the /.netlify/images endpoint, query parameters, remote image allowlisting, clean URL rewrites, and composing uploads with Functions + Blobs.",
+      "core_primitives": [
+        "Optimize and transform images through Netlify CDN"
+      ],
+      "domain_tags": [
+        "Image Delivery"
+      ]
+    },
+    "workflow_hint": [
+      "Optimize and transform images through Netlify CDN"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.receiving-code-review.v1": {
+    "source_hash": "sha256:bda6f19ebd6d4ec043e448c8d233de8308f76b72230de2297b306bc49b8a6e93",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation",
+      "core_primitives": [
+        "Verify and respond to code review feedback"
+      ],
+      "domain_tags": [
+        "Code Review"
+      ]
+    },
+    "workflow_hint": [
+      "Verify and respond to code review feedback"
+    ],
+    "recommended_roles": [
+      "code_reviewer"
+    ]
+  },
+  "skill.openai_plugins.render-background-workers.v1": {
+    "source_hash": "sha256:1d40fdf942ca83f0a648f20ababf140002cb9456229d0fbd84ce75291966d60c",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Sets up and configures background workers on Render for queue-based job processing. Use when the user needs to process async jobs, consume from a queue, run Celery/Sidekiq/BullMQ/Asynq/Oban workers, handle graceful shutdown with SIGTERM, wire a worker to Key Value (Redis), or choose between workers and cron jobs for background work.",
+      "core_primitives": [
+        "Configure queue-processing workers on Render"
+      ],
+      "domain_tags": [
+        "Background Processing"
+      ]
+    },
+    "workflow_hint": [
+      "Configure queue-processing workers on Render"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.render-cron-jobs.v1": {
+    "source_hash": "sha256:2d2f47347a2674b3aabf26d0de8194dbf663e0f50623e15ad0ace96f8c02d152",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Configures and troubleshoots scheduled tasks on Render using cron job services. Use when the user needs to run something on a schedule, write a cron expression, set up a periodic job, migrate from Heroku Scheduler, choose between cron jobs and background workers, or fix a cron that isn't firing.",
+      "core_primitives": [
+        "Configure scheduled Render jobs"
+      ],
+      "domain_tags": [
+        "Job Scheduling"
+      ]
+    },
+    "workflow_hint": [
+      "Configure scheduled Render jobs"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.render-docker.v1": {
+    "source_hash": "sha256:e43f62930797810a20b7a086f2505a45f5983132b0a23a066ad7fae5309abbc9",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Builds and deploys Docker containers on Render\u2014Dockerfiles, multi-stage builds, Blueprint Docker fields, private registries, layer caching, and platform constraints. Use when the user mentions Docker, Dockerfile, container images, multi-stage builds, container registry, GHCR, ECR, BuildKit, dockerContext, runtime docker or image, or optimizing Docker builds on Render.",
+      "core_primitives": [
+        "Build and deploy containers on Render"
+      ],
+      "domain_tags": [
+        "Container Deployment"
+      ]
+    },
+    "workflow_hint": [
+      "Build and deploy containers on Render"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.render-domains.v1": {
+    "source_hash": "sha256:4d506c74c97f50c81bbd6134ee74230e5c137f77bc9a96d6347e512125f635ed",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Configures custom domains and TLS certificates on Render\u2014DNS setup, CNAME records, apex domains, wildcard domains, and certificate troubleshooting. Use when the user needs to add a custom domain, configure DNS, set up HTTPS/TLS, troubleshoot certificate issuance, disable the onrender.com subdomain, or add a wildcard domain.",
+      "core_primitives": [
+        "Configure domains and TLS on Render"
+      ],
+      "domain_tags": [
+        "DNS",
+        "TLS"
+      ]
+    },
+    "workflow_hint": [
+      "Configure domains and TLS on Render"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.render-env-vars.v1": {
+    "source_hash": "sha256:48ccac1b1f4ca36ae51f7695e84489b6ca0a4bfd70ab8944dc152609aeef7eb1",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Configures environment variables, secrets, and env groups on Render. Use when the user needs to set env vars, wire secrets between services, create env groups, use generateValue, set sync: false, or troubleshoot missing or incorrect environment variable values in Blueprints or the Dashboard.",
+      "core_primitives": [
+        "Configure Render environment variables and secrets"
+      ],
+      "domain_tags": [
+        "Deployment Configuration"
+      ]
+    },
+    "workflow_hint": [
+      "Configure Render environment variables and secrets"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.render-keyvalue.v1": {
+    "source_hash": "sha256:29b04af561be209ce356de9858ac169b81cabad502ae5b51b1caae87056028c2",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Provisions and configures Render Key Value (Redis-compatible Valkey 8) instances for caching, session storage, and job queues. Use when the user needs Redis, Key Value, Valkey, a cache, session store, job queue backend, or needs to configure maxmemory policy, ipAllowList, connection strings, or internal vs external access.",
+      "core_primitives": [
+        "Configure Render Key Value storage"
+      ],
+      "domain_tags": [
+        "Caching",
+        "Data Storage"
+      ]
+    },
+    "workflow_hint": [
+      "Configure Render Key Value storage"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.render-networking.v1": {
+    "source_hash": "sha256:11e7b2a46a0943a6cef63ebd3111028868f33bcf10f54f6d4e6412d7fcaa156c",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Connects Render services over the private network\u2014internal DNS, service discovery, and cross-service communication. Use when the user needs to wire services together, resolve internal hostnames, troubleshoot connectivity between services, configure environment isolation, or understand which services can reach each other.",
+      "core_primitives": [
+        "Connect services through Render private networking"
+      ],
+      "domain_tags": [
+        "Networking"
+      ]
+    },
+    "workflow_hint": [
+      "Connect services through Render private networking"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.render-postgres.v1": {
+    "source_hash": "sha256:9dc9b1d1872354a5fef95a2f1b6a9fa6be09297a62d83ab06d6693e5d0f7ca7f",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Sets up and optimizes Managed PostgreSQL on Render\u2014connection strings (internal vs external), creation constraints, storage autoscaling, connection limits, high availability, read replicas, backups, and MCP inspection. Use when the user mentions Postgres, PostgreSQL, Render database, connection string, DATABASE_URL, backups, snapshots, replicas, HA, disk storage, connection pooling, or troubleshooting DB connectivity.",
+      "core_primitives": [
+        "Configure managed PostgreSQL on Render"
+      ],
+      "domain_tags": [
+        "Database Operations"
+      ]
+    },
+    "workflow_hint": [
+      "Configure managed PostgreSQL on Render"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.render-private-services.v1": {
+    "source_hash": "sha256:1a21680d8feee8d7c4a7dab3bf627669986c073fd12fb478c4c76e92e39712a8",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Configures Render private services\u2014internal-only apps that accept traffic exclusively from other Render services over the private network. Use when the user needs an internal API, microservice, gRPC server, sidecar, or any service that should not be publicly accessible. Also use when choosing between a private service and a background worker.",
+      "core_primitives": [
+        "Configure internal-only Render services"
+      ],
+      "domain_tags": [
+        "Private Networking"
+      ]
+    },
+    "workflow_hint": [
+      "Configure internal-only Render services"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.render-scaling.v1": {
+    "source_hash": "sha256:6794913fc284a06f001e6e4f5b128863f915553b1204473eb1e09125f03bffbe",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Scales Render services\u2014configures autoscaling targets, chooses instance types, sets manual instance counts, and optimizes cost. Use when the user needs to handle more traffic, set up autoscaling, pick the right instance type, reduce costs, or troubleshoot scaling behavior like slow scale-down or stuck instances.",
+      "core_primitives": [
+        "Configure Render service capacity and scaling"
+      ],
+      "domain_tags": [
+        "Capacity Management"
+      ]
+    },
+    "workflow_hint": [
+      "Configure Render service capacity and scaling"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.render-static-sites.v1": {
+    "source_hash": "sha256:83da90a209d5de69cc54b67ce629d1a13974a2af26d6410028eeccde510c0f36",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Deploys and configures static sites on Render's global CDN\u2014build commands, publish paths, SPA routing, redirects, custom headers, and PR previews. Use when the user needs to deploy a static site, set up a React/Vue/Hugo/Gatsby frontend, configure SPA fallback routing, add redirect rules, customize response headers, or choose between a static site and a web service for their frontend.",
+      "core_primitives": [
+        "Deploy static sites through Render CDN"
+      ],
+      "domain_tags": [
+        "Web Deployment"
+      ]
+    },
+    "workflow_hint": [
+      "Deploy static sites through Render CDN"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.render-web-services.v1": {
+    "source_hash": "sha256:973ee31bc842c328ccfdb8b10ae05ee8cf3feaacf09c045c82717d687e237a70",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Configures Render web services\u2014port binding, TLS, health checks, custom domains, auto-deploy, PR previews, persistent disks, and deploy lifecycle. Use when the user needs to set up a web service, fix health check failures, add a custom domain, configure zero-downtime deploys, or troubleshoot port binding issues.",
+      "core_primitives": [
+        "Configure Render web service deployment"
+      ],
+      "domain_tags": [
+        "Web Deployment"
+      ]
+    },
+    "workflow_hint": [
+      "Configure Render web service deployment"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.requesting-code-review.v1": {
+    "source_hash": "sha256:59f0c7d3180a47946734c03afa975b417428c49edaf7526d8e589ef40bb3aa7e",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when completing tasks, implementing major features, or before merging to verify work meets requirements",
+      "core_primitives": [
+        "Request review against implementation requirements"
+      ],
+      "domain_tags": [
+        "Code Review"
+      ]
+    },
+    "workflow_hint": [
+      "Request review against implementation requirements"
+    ],
+    "recommended_roles": [
+      "code_reviewer"
+    ]
+  },
+  "skill.openai_plugins.setup-zoom-webhooks.v1": {
+    "source_hash": "sha256:7420747e913675495ed2f8ee0a2d0ec5ba8b687370aa6e05b5c11cc1593f030d",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when building Zoom webhooks.",
+      "core_primitives": [
+        "Configure Zoom webhooks"
+      ],
+      "domain_tags": [
+        "Webhook Integration"
+      ]
+    },
+    "workflow_hint": [
+      "Configure Zoom webhooks"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.setup-zoom-websockets.v1": {
+    "source_hash": "sha256:c623321a5395e128b8cea1ee7b31a7acc57d0e31384ebab92d5a06c8b195dd15",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when building Zoom WebSockets.",
+      "core_primitives": [
+        "Configure Zoom WebSockets"
+      ],
+      "domain_tags": [
+        "WebSocket Integration"
+      ]
+    },
+    "workflow_hint": [
+      "Configure Zoom WebSockets"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.shopify-app-store-review.v1": {
+    "source_hash": "sha256:6337479a7fc108fa7be57ec0314b8d8724f5333cb8cc4fca73aa3a3cfed430f8",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Run a pre-submission compliance check against your Shopify app's codebase. Reviews App Store requirements and surfaces likely issues before you submit for official review.",
+      "core_primitives": [
+        "Review Shopify application submission requirements"
+      ],
+      "domain_tags": [
+        "App Submission"
+      ]
+    },
+    "workflow_hint": [
+      "Review Shopify application submission requirements"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.shopify-custom-data.v1": {
+    "source_hash": "sha256:12d6c7cb2e1324a18d5d674e4b53d780363def46c05a18a4bd1496838aece35e",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for modeling and storing Shopify custom data using Metafields and Metaobjects. Metafields extend built-in data types such as products and customers; Metaobjects represent custom structures. Definitions provide schemas and configuration for values.",
+      "core_primitives": [
+        "Model Shopify custom data with definitions and values"
+      ],
+      "domain_tags": [
+        "Data Modeling"
+      ]
+    },
+    "workflow_hint": [
+      "Model Shopify custom data with definitions and values"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.shopify-onboarding-dev.v1": {
+    "source_hash": "sha256:3f18b00d47314f52cb6107e7fc30c650446bca4ba11f4d1e8157ca13d919dc2e",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Get started building on Shopify. Use when a developer asks to build an app, build a theme, create a dev store, set up a partner account, scaffold a project, or get started developing for Shopify. NOT for merchants managing stores.",
+      "core_primitives": [
+        "Set up Shopify application and theme development"
+      ],
+      "domain_tags": [
+        "Developer Onboarding"
+      ]
+    },
+    "workflow_hint": [
+      "Set up Shopify application and theme development"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.supabase-postgres-best-practices-be9a8dce.v1": {
+    "source_hash": "sha256:be9a8dcecb83376f38ef92aad6ae78f28a23865501aba941fdce213b58f00996",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Postgres performance optimization and best practices from Supabase. Use this skill when writing, reviewing, or optimizing Postgres queries, schema designs, or database configurations.",
+      "core_primitives": [
+        "Review PostgreSQL performance and configuration"
+      ],
+      "domain_tags": [
+        "Database Performance"
+      ]
+    },
+    "workflow_hint": [
+      "Review PostgreSQL performance and configuration"
+    ],
+    "recommended_roles": [
+      "database_optimizer"
+    ]
+  },
+  "skill.openai_plugins.superhuman-mail.v1": {
+    "source_hash": "sha256:7c7dfd67fb276383875a42530fdd3ed277a33c9e03eb5bfcb629dd46df3d353c",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Use Superhuman Mail MCP for email and calendar workflows such as searching inboxes, reading threads, drafting or sending mail, managing labels, checking read statuses, finding availability, and creating or updating events.",
+      "core_primitives": [
+        "Manage email and calendar workflows"
+      ],
+      "domain_tags": [
+        "Email",
+        "Calendar"
+      ]
+    },
+    "workflow_hint": [
+      "Manage email and calendar workflows"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.systematic-debugging.v1": {
+    "source_hash": "sha256:530855dfa2b10d5b9f92ac170fe41c5f8fbc4918957a564855b50a896ca625a2",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+      "core_primitives": [
+        "Investigate bugs and unexpected behavior before fixes"
+      ],
+      "domain_tags": [
+        "Debugging"
+      ]
+    },
+    "workflow_hint": [
+      "Investigate bugs and unexpected behavior before fixes"
+    ],
+    "recommended_roles": [
+      "root_cause_debugger"
+    ]
+  },
+  "skill.openai_plugins.temporal-developer.v1": {
+    "source_hash": "sha256:0b27682dfcabdce57c866a6f35cf056020bd756b68d2b52866bbeb865dbc9861",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Develop, debug, and manage Temporal applications across Python, TypeScript, Go, and Java. Use when the user is building workflows, activities, or workers with a Temporal SDK, debugging issues like non-determinism errors, stuck workflows, or activity retries, using Temporal CLI, Temporal Server, or Temporal Cloud, or working with durable execution concepts like signals, queries, heartbeats, versioning, continue-as-new, child workflows, or saga patterns.",
+      "core_primitives": [
+        "Develop and manage durable Temporal applications"
+      ],
+      "domain_tags": [
+        "Durable Execution"
+      ]
+    },
+    "workflow_hint": [
+      "Develop and manage durable Temporal applications"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.test-driven-development.v1": {
+    "source_hash": "sha256:4f090e919b7310192864f1d046910c53fa7ca353f5cc2b8d07717c7a897f0183",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when implementing any feature or bugfix, before writing implementation code",
+      "core_primitives": [
+        "Apply test-first development to features and fixes"
+      ],
+      "domain_tags": [
+        "Testing"
+      ]
+    },
+    "workflow_hint": [
+      "Apply test-first development to features and fixes"
+    ],
+    "recommended_roles": [
+      "test_driven_qa"
+    ]
+  },
+  "skill.openai_plugins.ucp.v1": {
+    "source_hash": "sha256:823698c95d40b53f2fce4bade4b79bbaa7070495eb0c4b9d67ea38507cd50743",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when the user wants to use the UCP CLI to find, compare, buy, or track products from online merchants, or to set up and troubleshoot the local UCP profile required for merchant-scoped operations. Covers global catalog search (\"find me X under $Y\"), named-merchant transactions (\"buy this from Z.com\"), order tracking, `ucp profile init`, `ucp doctor`, carts, checkout, orders, and UCP setup/help. Falls back to merchant-hosted handoff when direct in-protocol checkout isn't available.",
+      "core_primitives": [
+        "Use UCP shopping and merchant-scoped workflows"
+      ],
+      "domain_tags": [
+        "Commerce"
+      ]
+    },
+    "workflow_hint": [
+      "Use UCP shopping and merchant-scoped workflows"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.upgrading-expo.v1": {
+    "source_hash": "sha256:d895f12af18c73e0757923154b05d50d471bd6ee23f874ccf3a3d112a4063b93",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidelines for upgrading Expo SDK versions and fixing dependency issues",
+      "core_primitives": [
+        "Upgrade Expo SDK versions and resolve dependencies"
+      ],
+      "domain_tags": [
+        "Mobile Development"
+      ]
+    },
+    "workflow_hint": [
+      "Upgrade Expo SDK versions and resolve dependencies"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.use-dom.v1": {
+    "source_hash": "sha256:97d80e3ed323c837dfbbff07c4a15def65f0ad07e4700bebe603d6735924b148",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Use Expo DOM components to run web code in a webview on native and as-is on web. Migrate web code to native incrementally.",
+      "core_primitives": [
+        "Reuse web code in Expo native and web applications"
+      ],
+      "domain_tags": [
+        "Mobile Development",
+        "Web Development"
+      ]
+    },
+    "workflow_hint": [
+      "Reuse web code in Expo native and web applications"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.using-git-worktrees.v1": {
+    "source_hash": "sha256:498ba68274da48e3b96473be8cbddcdc35399e0969d6933d6e7b8fe2d8e89c07",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git worktree fallback",
+      "core_primitives": [
+        "Isolate development workspaces"
+      ],
+      "domain_tags": [
+        "Version Control"
+      ]
+    },
+    "workflow_hint": [
+      "Isolate development workspaces"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.using-superpowers.v1": {
+    "source_hash": "sha256:8052a1248970aee7ddd272bf27e9873aec08177d5065b75ba8c53d9b68d89d5f",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for finding and invoking skills at the start of a conversation. Its described workflow requires skill invocation before responses, including clarifying questions.",
+      "core_primitives": [
+        "Find and invoke skills at conversation start"
+      ],
+      "domain_tags": [
+        "Instruction Discovery"
+      ]
+    },
+    "workflow_hint": [
+      "Find and invoke skills at conversation start"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.verification-before-completion.v1": {
+    "source_hash": "sha256:c35ac975d145f74d9f3668c1b035a3754d3c0f4edb491cc80a6a0265cfdf7749",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always",
+      "core_primitives": [
+        "Verify output before claiming completion"
+      ],
+      "domain_tags": [
+        "Verification"
+      ]
+    },
+    "workflow_hint": [
+      "Verify output before claiming completion"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.writing-plans.v1": {
+    "source_hash": "sha256:cd8550405fc7fd224489f0b993fce822f69626fc0c612b3c9829d991cb4314c6",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when you have a spec or requirements for a multi-step task, before touching code",
+      "core_primitives": [
+        "Plan multi-step implementation from requirements"
+      ],
+      "domain_tags": [
+        "Implementation Planning"
+      ]
+    },
+    "workflow_hint": [
+      "Plan multi-step implementation from requirements"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.writing-skills.v1": {
+    "source_hash": "sha256:4d99cd4e235947d27d58241335dfd5ca89b4e873af5051b19ae32a3ac92851ea",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when creating new skills, editing existing skills, or verifying skills work before deployment",
+      "core_primitives": [
+        "Create and verify reusable skills"
+      ],
+      "domain_tags": [
+        "Instruction Design"
+      ]
+    },
+    "workflow_hint": [
+      "Create and verify reusable skills"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.zoom-video-sdk-linux.v1": {
+    "source_hash": "sha256:a087e762849e0350116d9e50d73ae93fe345d382977ddb13f3b36ab2461fb255",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Zoom Video SDK for Linux - C++ headless bots, raw audio/video capture/injection, Qt/GTK integration, Docker support",
+      "core_primitives": [
+        "Integrate Zoom video on Linux"
+      ],
+      "domain_tags": [
+        "Video Integration"
+      ]
+    },
+    "workflow_hint": [
+      "Integrate Zoom video on Linux"
+    ],
+    "recommended_roles": []
+  },
+  "skill.openai_plugins.zoom-video-sdk-windows.v1": {
+    "source_hash": "sha256:deaeb17918ccf5534d56bacf379aeae2ae8c7f5645570c3924f41c633725766d",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Zoom Video SDK for Windows - C++ integration for video sessions, raw audio/video capture, screen sharing, recording, and real-time communication",
+      "core_primitives": [
+        "Integrate Zoom video on Windows"
+      ],
+      "domain_tags": [
+        "Video Integration"
+      ]
+    },
+    "workflow_hint": [
+      "Integrate Zoom video on Windows"
+    ],
+    "recommended_roles": []
+  },
+  "skill.superpowers.brainstorming.v1": {
+    "source_hash": "sha256:4a54a4858b99807f3155ed1614b2f116e35ea5c1b788e793f565dd837fd3891f",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for exploring user intent, requirements, and design before creative implementation work such as features, components, functionality, or behavior changes.",
+      "core_primitives": [
+        "Clarify intent and explore designs before implementation"
+      ],
+      "domain_tags": [
+        "Requirements",
+        "Design"
+      ]
+    },
+    "workflow_hint": [
+      "Clarify intent and explore designs before implementation"
+    ],
+    "recommended_roles": []
+  },
+  "skill.superpowers.dispatching-parallel-agents.v1": {
+    "source_hash": "sha256:1968923066f3b707eb01d1992cdf4c42284c3855f70253b9cd5000ff45fca13c",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when facing 2+ independent tasks that can be worked on without shared state or sequential dependencies",
+      "core_primitives": [
+        "Coordinate independent tasks without shared state"
+      ],
+      "domain_tags": [
+        "Task Coordination"
+      ]
+    },
+    "workflow_hint": [
+      "Coordinate independent tasks without shared state"
+    ],
+    "recommended_roles": []
+  },
+  "skill.superpowers.executing-plans.v1": {
+    "source_hash": "sha256:c4c3d8b628c51114cd165fb8246fe02744cd8be180032328391252e653028d9b",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when you have a written implementation plan to execute in a separate session with review checkpoints",
+      "core_primitives": [
+        "Execute a written plan with review checkpoints"
+      ],
+      "domain_tags": [
+        "Implementation Planning"
+      ]
+    },
+    "workflow_hint": [
+      "Execute a written plan with review checkpoints"
+    ],
+    "recommended_roles": []
+  },
+  "skill.superpowers.finishing-a-development-branch.v1": {
+    "source_hash": "sha256:d0ac8360ed9d59121776ef95c84bcb38e9747de0d7ae7e227dca81e437593b9b",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when implementation is complete, all tests pass, and you need to decide how to integrate the work",
+      "core_primitives": [
+        "Decide how to integrate completed development work"
+      ],
+      "domain_tags": [
+        "Version Control"
+      ]
+    },
+    "workflow_hint": [
+      "Decide how to integrate completed development work"
+    ],
+    "recommended_roles": []
+  },
+  "skill.superpowers.receiving-code-review.v1": {
+    "source_hash": "sha256:091df1629510af1b92fc4abd6f96732ebedb4cb2c0f3457e8f2740b0504a2438",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when receiving code review feedback, before implementing suggestions, especially if feedback seems unclear or technically questionable - requires technical rigor and verification, not performative agreement or blind implementation",
+      "core_primitives": [
+        "Verify and respond to code review feedback"
+      ],
+      "domain_tags": [
+        "Code Review"
+      ]
+    },
+    "workflow_hint": [
+      "Verify and respond to code review feedback"
+    ],
+    "recommended_roles": [
+      "code_reviewer"
+    ]
+  },
+  "skill.superpowers.requesting-code-review.v1": {
+    "source_hash": "sha256:d71cc01ba56d2325cf8af5f7c11837819b63ecd57de0bfdb812f7f3ff7751df8",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when completing tasks, implementing major features, or before merging to verify work meets requirements",
+      "core_primitives": [
+        "Request review against implementation requirements"
+      ],
+      "domain_tags": [
+        "Code Review"
+      ]
+    },
+    "workflow_hint": [
+      "Request review against implementation requirements"
+    ],
+    "recommended_roles": [
+      "code_reviewer"
+    ]
+  },
+  "skill.superpowers.systematic-debugging.v1": {
+    "source_hash": "sha256:808fc5717aa88ad65efff312b11c186294d3e6ee301afb584e2f86599b137787",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when encountering any bug, test failure, or unexpected behavior, before proposing fixes",
+      "core_primitives": [
+        "Investigate bugs and unexpected behavior before fixes"
+      ],
+      "domain_tags": [
+        "Debugging"
+      ]
+    },
+    "workflow_hint": [
+      "Investigate bugs and unexpected behavior before fixes"
+    ],
+    "recommended_roles": [
+      "root_cause_debugger"
+    ]
+  },
+  "skill.superpowers.test-driven-development.v1": {
+    "source_hash": "sha256:bf1b8216e523851a411e91d429a7c1c2a173e79d88957bc78e348218d50edd54",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when implementing any feature or bugfix, before writing implementation code",
+      "core_primitives": [
+        "Apply test-first development to features and fixes"
+      ],
+      "domain_tags": [
+        "Testing"
+      ]
+    },
+    "workflow_hint": [
+      "Apply test-first development to features and fixes"
+    ],
+    "recommended_roles": [
+      "test_driven_qa"
+    ]
+  },
+  "skill.superpowers.using-git-worktrees.v1": {
+    "source_hash": "sha256:8cfb86f121269e8f7f12361e6795c4f6738828340e28964c9229d365666c9edd",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git worktree fallback",
+      "core_primitives": [
+        "Isolate development workspaces"
+      ],
+      "domain_tags": [
+        "Version Control"
+      ]
+    },
+    "workflow_hint": [
+      "Isolate development workspaces"
+    ],
+    "recommended_roles": []
+  },
+  "skill.superpowers.using-superpowers.v1": {
+    "source_hash": "sha256:55379fe7c1c473a02c61961c822996bff30e1320d6921d9062509bc508482c05",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for finding and invoking skills at the start of a conversation. Its described workflow requires skill invocation before responses, including clarifying questions.",
+      "core_primitives": [
+        "Find and invoke skills at conversation start"
+      ],
+      "domain_tags": [
+        "Instruction Discovery"
+      ]
+    },
+    "workflow_hint": [
+      "Find and invoke skills at conversation start"
+    ],
+    "recommended_roles": []
+  },
+  "skill.superpowers.verification-before-completion.v1": {
+    "source_hash": "sha256:2befe7fc55bcadaa3d97dd9e8efeb633d2561c0ebe74c5a8b17c4d9e7e4520b3",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always",
+      "core_primitives": [
+        "Verify output before claiming completion"
+      ],
+      "domain_tags": [
+        "Verification"
+      ]
+    },
+    "workflow_hint": [
+      "Verify output before claiming completion"
+    ],
+    "recommended_roles": []
+  },
+  "skill.superpowers.writing-plans.v1": {
+    "source_hash": "sha256:72190c88b2b5a67a96b91d66aa72b9161913e10e8769da3f28a226f4cc7b99d0",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for situations when you have a spec or requirements for a multi-step task, before touching code",
+      "core_primitives": [
+        "Plan multi-step implementation from requirements"
+      ],
+      "domain_tags": [
+        "Implementation Planning"
+      ]
+    },
+    "workflow_hint": [
+      "Plan multi-step implementation from requirements"
+    ],
+    "recommended_roles": []
+  },
+  "skill.trailofbits.algorand-vulnerability-scanner.v1": {
+    "source_hash": "sha256:9fee2d2138d260a780c9bc47731d8bc4376dba86676a14f8fa6f2fa006933600",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Scans Algorand smart contracts for 11 common vulnerabilities including rekeying attacks, unchecked transaction fees, missing field validations, and access control issues. Use when auditing Algorand projects (TEAL/PyTeal).",
+      "core_primitives": [
+        "Audit Algorand contracts for documented vulnerability patterns"
+      ],
+      "domain_tags": [
+        "Smart Contract Security"
+      ]
+    },
+    "workflow_hint": [
+      "Audit Algorand contracts for documented vulnerability patterns"
+    ],
+    "recommended_roles": [
+      "security_auditor"
+    ]
+  },
+  "skill.trailofbits.ask-questions-if-underspecified.v1": {
+    "source_hash": "sha256:55480342a3a15c8ff477bad4953658237f704991bca55b7b4e9d39fdcbaff7bc",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Clarify requirements before implementing. Use when serious doubts arise.",
+      "core_primitives": [
+        "Clarify materially uncertain requirements"
+      ],
+      "domain_tags": [
+        "Requirements"
+      ]
+    },
+    "workflow_hint": [
+      "Clarify materially uncertain requirements"
+    ],
+    "recommended_roles": []
+  },
+  "skill.trailofbits.audit-augmentation.v1": {
+    "source_hash": "sha256:32ad6194f4786ea3ac94f6ac48b0bff03ed9409c0b536e32caa31da4f630d468",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Augments Trailmark code graphs with external audit findings from SARIF static analysis results, weAudit annotation files, and version-gated Trailmark 0.4.x binary-analysis graph exports. Maps findings to graph nodes by file and line overlap, creates severity-based subgraphs, and enables cross-referencing findings with pre-analysis data (blast radius, taint, etc.). Use when projecting SARIF results onto a code graph, overlaying weAudit annotations, importing binary graph findings, cross-referencing Semgrep, CodeQL, or binary-analysis findings with call graph data, or visualizing audit findings in the context of code structure.",
+      "core_primitives": [
+        "Map audit findings onto Trailmark code graphs"
+      ],
+      "domain_tags": [
+        "Security",
+        "Code Analysis"
+      ]
+    },
+    "workflow_hint": [
+      "Map audit findings onto Trailmark code graphs"
+    ],
+    "recommended_roles": [
+      "security_auditor"
+    ]
+  },
+  "skill.trailofbits.audit-context-building.v1": {
+    "source_hash": "sha256:7a020c97e04dbacb435b2aeebc181e62c988b3abe3b5159606d67ab128010a64",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Enables ultra-granular, line-by-line code analysis to build deep architectural context before vulnerability or bug finding.",
+      "core_primitives": [
+        "Build architectural context through detailed code analysis"
+      ],
+      "domain_tags": [
+        "Code Analysis",
+        "Security"
+      ]
+    },
+    "workflow_hint": [
+      "Build architectural context through detailed code analysis"
+    ],
+    "recommended_roles": [
+      "security_auditor"
+    ]
+  },
+  "skill.trailofbits.audit-prep-assistant.v1": {
+    "source_hash": "sha256:301a5dcf3f709699834d99a8b3deb206883f07a8c8e5891e687e00d902ccdd37",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Prepares codebases for security review using Trail of Bits' checklist. Helps set review goals, runs static analysis tools, increases test coverage, removes dead code, ensures accessibility, and generates documentation (flowcharts, user stories, inline comments).",
+      "core_primitives": [
+        "Prepare repositories for security review"
+      ],
+      "domain_tags": [
+        "Security",
+        "Code Review"
+      ]
+    },
+    "workflow_hint": [
+      "Prepare repositories for security review"
+    ],
+    "recommended_roles": [
+      "security_auditor"
+    ]
+  },
+  "skill.trailofbits.cairo-vulnerability-scanner.v1": {
+    "source_hash": "sha256:5d23cda47a7558a61bdf331ac13ee5ddcc416229714d04c700c9a7c5fc82e0c2",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Scans Cairo/StarkNet smart contracts for 6 critical vulnerabilities including felt252 arithmetic overflow, L1-L2 messaging issues, address conversion problems, and signature replay. Use when auditing StarkNet projects.",
+      "core_primitives": [
+        "Audit Cairo and StarkNet contracts for vulnerability patterns"
+      ],
+      "domain_tags": [
+        "Smart Contract Security"
+      ]
+    },
+    "workflow_hint": [
+      "Audit Cairo and StarkNet contracts for vulnerability patterns"
+    ],
+    "recommended_roles": [
+      "security_auditor"
+    ]
+  },
+  "skill.trailofbits.code-maturity-assessor.v1": {
+    "source_hash": "sha256:61ae9e2f3328240c53bbb1a1cc85f4409a54c403ac7a5d392fe6f38c19ef6c4a",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Systematic code maturity assessment using Trail of Bits' 9-category framework. Analyzes codebase for arithmetic safety, auditing practices, access controls, complexity, decentralization, documentation, MEV risks, low-level code, and testing. Produces scorecard with evidence-based ratings and actionable recommendations.",
+      "core_primitives": [
+        "Assess code maturity using an evidence-based framework"
+      ],
+      "domain_tags": [
+        "Code Quality"
+      ]
+    },
+    "workflow_hint": [
+      "Assess code maturity using an evidence-based framework"
+    ],
+    "recommended_roles": []
+  },
+  "skill.trailofbits.constant-time-analysis.v1": {
+    "source_hash": "sha256:9229dbfea28b7a0a836ab652fba6824862892e2a05acec7669c95e8b47b28b75",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Detects timing side-channel vulnerabilities in cryptographic code. Use when implementing or reviewing crypto code, encountering division on secrets, secret-dependent branches, or constant-time programming questions in C, C++, Go, Rust, Swift, Java, Kotlin, C#, PHP, JavaScript, TypeScript, Python, or Ruby.",
+      "core_primitives": [
+        "Analyze cryptographic timing side channels"
+      ],
+      "domain_tags": [
+        "Cryptographic Security"
+      ]
+    },
+    "workflow_hint": [
+      "Analyze cryptographic timing side channels"
+    ],
+    "recommended_roles": [
+      "security_auditor"
+    ]
+  },
+  "skill.trailofbits.cosmos-vulnerability-scanner.v1": {
+    "source_hash": "sha256:2b8d2a5ae7e074568f9257521932fad7ae3a90e5be0b5d886c93b911ebf4ec93",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Scans Cosmos SDK blockchain modules and CosmWasm contracts for consensus-critical vulnerabilities \u2014 chain halts, fund loss, state divergence. 25 core + 16 IBC + 10 EVM + 3 CosmWasm patterns. Use when auditing custom x/ modules, reviewing IBC integrations, or assessing pre-launch chain security. Updated for SDK v0.53.x.",
+      "core_primitives": [
+        "Audit Cosmos modules and CosmWasm contracts"
+      ],
+      "domain_tags": [
+        "Smart Contract Security"
+      ]
+    },
+    "workflow_hint": [
+      "Audit Cosmos modules and CosmWasm contracts"
+    ],
+    "recommended_roles": [
+      "security_auditor"
+    ]
+  },
+  "skill.trailofbits.crypto-protocol-diagram.v1": {
+    "source_hash": "sha256:30c22b527b70a1adb9f732e4eee557332aa18b7faabbdd7c985973d51327285f",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Extracts protocol message flow from source code, RFCs, academic papers, pseudocode, informal prose, ProVerif (.pv), or Tamarin (.spthy) models and generates Mermaid sequenceDiagrams with cryptographic annotations. Use when diagramming a crypto protocol, visualizing a handshake or key exchange flow, extracting message flow from a spec or RFC, diagramming a ProVerif or Tamarin model, or drawing sequence diagrams for TLS, Noise, Signal, X3DH, Double Ratchet, FROST, DH, or ECDH protocols.",
+      "core_primitives": [
+        "Diagram cryptographic protocol message flows"
+      ],
+      "domain_tags": [
+        "Cryptography",
+        "Diagramming"
+      ]
+    },
+    "workflow_hint": [
+      "Diagram cryptographic protocol message flows"
+    ],
+    "recommended_roles": []
+  },
+  "skill.trailofbits.diagramming-code.v1": {
+    "source_hash": "sha256:e8cf4bd2a114d2aabc3274df73e0edff911076c6916da747499792fea66fabc3",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Generates Mermaid diagrams from Trailmark code graphs. Produces call graphs, class hierarchies, module dependency maps, containment diagrams, complexity heatmaps, and attack surface data flow visualizations. Use when visualizing code architecture, drawing call graphs, generating class diagrams, creating dependency maps, producing complexity heatmaps, or visualizing data flow and attack surface paths as Mermaid diagrams.",
+      "core_primitives": [
+        "Generate Mermaid visualizations from code graphs"
+      ],
+      "domain_tags": [
+        "Code Analysis",
+        "Diagramming"
+      ]
+    },
+    "workflow_hint": [
+      "Generate Mermaid visualizations from code graphs"
+    ],
+    "recommended_roles": []
+  },
+  "skill.trailofbits.differential-review.v1": {
+    "source_hash": "sha256:b1a8413c1501dbdbe719ced903fe8a341e6629223749b9ccbe1535e0ab9d268f",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for security-focused review of pull requests, commits, and diffs. Adjusts analysis depth to codebase size, uses history for context, evaluates blast radius and test coverage, and produces Markdown reports to identify security regressions.",
+      "core_primitives": [
+        "Review security impact of code changes"
+      ],
+      "domain_tags": [
+        "Security",
+        "Code Review"
+      ]
+    },
+    "workflow_hint": [
+      "Review security impact of code changes"
+    ],
+    "recommended_roles": [
+      "security_auditor"
+    ]
+  },
+  "skill.trailofbits.dimensional-analysis.v1": {
+    "source_hash": "sha256:620506e512d32311c14ffaef1a102ed23aa7ff97773cb8ef2bfe09ffcb47114f",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for annotating code with units, dimensions, and decimal scaling to examine arithmetic and formula consistency, including DeFi, offchain, and other blockchain-related codebases.",
+      "core_primitives": [
+        "Annotate units and scaling in code arithmetic"
+      ],
+      "domain_tags": [
+        "Dimensional Analysis",
+        "Code Analysis"
+      ]
+    },
+    "workflow_hint": [
+      "Annotate units and scaling in code arithmetic"
+    ],
+    "recommended_roles": []
+  },
+  "skill.trailofbits.entry-point-analyzer.v1": {
+    "source_hash": "sha256:d89ed169fd552a4e626b7e4fd8d42aec715f7d499e5844eaa938fe5936023b76",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Analyzes smart contract codebases to identify state-changing entry points for security auditing. Detects externally callable functions that modify state, categorizes them by access level (public, admin, role-restricted, contract-only), and generates structured audit reports. Excludes view/pure/read-only functions. Use when auditing smart contracts (Solidity, Vyper, Solana/Rust, Move, TON, CosmWasm) or when asked to find entry points, audit flows, external functions, access control patterns, or privileged operations.",
+      "core_primitives": [
+        "Identify state-changing contract entry points and access levels"
+      ],
+      "domain_tags": [
+        "Smart Contract Security"
+      ]
+    },
+    "workflow_hint": [
+      "Identify state-changing contract entry points and access levels"
+    ],
+    "recommended_roles": [
+      "security_auditor"
+    ]
+  },
+  "skill.trailofbits.fuzzing-dictionary.v1": {
+    "source_hash": "sha256:c3c1e302aebe608314aa900a456c732b48ca2138b66030f99b9da0dc42468492",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Fuzzing dictionaries guide fuzzers with domain-specific tokens. Use when fuzzing parsers, protocols, or format-specific code.",
+      "core_primitives": [
+        "Prepare domain tokens for fuzzing"
+      ],
+      "domain_tags": [
+        "Fuzzing"
+      ]
+    },
+    "workflow_hint": [
+      "Prepare domain tokens for fuzzing"
+    ],
+    "recommended_roles": []
+  },
+  "skill.trailofbits.fuzzing-obstacles.v1": {
+    "source_hash": "sha256:c0ac146ca2bc7705071661df901bbd797abe59e88c7da98c907e90e2843d1ade",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Techniques for patching code to overcome fuzzing obstacles. Use when checksums, global state, or other barriers block fuzzer progress.",
+      "core_primitives": [
+        "Remove code barriers to fuzzing progress"
+      ],
+      "domain_tags": [
+        "Fuzzing"
+      ]
+    },
+    "workflow_hint": [
+      "Remove code barriers to fuzzing progress"
+    ],
+    "recommended_roles": []
+  },
+  "skill.trailofbits.git-cleanup.v1": {
+    "source_hash": "sha256:8261352ff3dc6b9e911a7ed508506a6e5ed5e3e39d7636a9fa4ca3a9f88e5051",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Safely analyzes and cleans up local git branches and worktrees by categorizing them as merged, squash-merged, superseded, or active work.",
+      "core_primitives": [
+        "Classify and clean up local branches and worktrees"
+      ],
+      "domain_tags": [
+        "Version Control"
+      ]
+    },
+    "workflow_hint": [
+      "Classify and clean up local branches and worktrees"
+    ],
+    "recommended_roles": []
+  },
+  "skill.trailofbits.graph-evolution.v1": {
+    "source_hash": "sha256:e53d7b1a1f25add78d4fabe2816aaf9bfd840cbdcb5cf15e48f77c16d9be7f20",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Compares Trailmark code graphs at two source code snapshots (git commits, tags, or directories) to surface security-relevant structural changes. Detects new attack paths, complexity shifts, blast radius growth, taint propagation changes, and privilege boundary modifications that text diffs miss. Use when comparing code between commits or tags, analyzing structural evolution, detecting attack surface growth, reviewing what changed between audit snapshots, or finding security-relevant changes that text diffs miss.",
+      "core_primitives": [
+        "Compare security-relevant changes between code graphs"
+      ],
+      "domain_tags": [
+        "Security",
+        "Code Analysis"
+      ]
+    },
+    "workflow_hint": [
+      "Compare security-relevant changes between code graphs"
+    ],
+    "recommended_roles": [
+      "security_auditor"
+    ]
+  },
+  "skill.trailofbits.guidelines-advisor.v1": {
+    "source_hash": "sha256:354aa4b2cb2f311a2659ba281c9cc2c33d3107a346062ee245f7f36e5554274b",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Smart contract development advisor based on Trail of Bits' best practices. Analyzes codebase to generate documentation/specifications, review architecture, check upgradeability patterns, assess implementation quality, identify pitfalls, review dependencies, and evaluate testing. Provides actionable recommendations.",
+      "core_primitives": [
+        "Assess smart contract development practices"
+      ],
+      "domain_tags": [
+        "Smart Contract Development"
+      ]
+    },
+    "workflow_hint": [
+      "Assess smart contract development practices"
+    ],
+    "recommended_roles": []
+  },
+  "skill.trailofbits.harness-writing.v1": {
+    "source_hash": "sha256:386669945e35946db50978ecc548e5398a2031248fd4d7d2bfba78f7e9c4029c",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Techniques for writing effective fuzzing harnesses across languages. Use when creating new fuzz targets or improving existing harness code.",
+      "core_primitives": [
+        "Create and improve fuzzing harnesses"
+      ],
+      "domain_tags": [
+        "Fuzzing"
+      ]
+    },
+    "workflow_hint": [
+      "Create and improve fuzzing harnesses"
+    ],
+    "recommended_roles": []
+  },
+  "skill.trailofbits.insecure-defaults.v1": {
+    "source_hash": "sha256:4686f26c7ee6e9e7f1edf619a496e5e8c669b879147b51e313b378700e7674e0",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Detects fail-open insecure defaults (hardcoded secrets, weak auth, permissive security) that allow apps to run insecurely in production. Use when auditing security, reviewing config management, or analyzing environment variable handling.",
+      "core_primitives": [
+        "Identify fail-open security defaults"
+      ],
+      "domain_tags": [
+        "Security"
+      ]
+    },
+    "workflow_hint": [
+      "Identify fail-open security defaults"
+    ],
+    "recommended_roles": [
+      "security_auditor"
+    ]
+  },
+  "skill.trailofbits.interpreting-culture-index.v1": {
+    "source_hash": "sha256:aeaab499c213e0930cc0b4728ad117fc561d98a261a2d0ba2bb9677570a1e7e5",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Interprets Culture Index (CI) surveys, behavioral profiles, and personality assessment data. Supports individual profile interpretation, team composition analysis (gas/brake/glue), burnout detection, profile comparison, hiring profiles, manager coaching, interview transcript analysis for trait prediction, candidate debrief, onboarding planning, and conflict mediation. Accepts extracted JSON or PDF input via OpenCV extraction script.",
+      "core_primitives": [
+        "Interpret Culture Index profiles and team data"
+      ],
+      "domain_tags": [
+        "Behavioral Assessment"
+      ]
+    },
+    "workflow_hint": [
+      "Interpret Culture Index profiles and team data"
+    ],
+    "recommended_roles": []
+  },
+  "skill.trailofbits.let-fate-decide.v1": {
+    "source_hash": "sha256:7031f7258abfba06ba52ae4bf2984224aa3be2d8491a8e9ccc38da1f57b6c94e",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Draws the 12 Houses of the Zodiac Tarot spread to inject entropy into planning when prompts are vague, ambiguous, or casually delegated. Interprets the spread to guide next steps. Use when the user says 'let fate decide', 'YOLO', 'whatever', 'idk', or other nonchalant phrases, makes Yu-Gi-Oh references, or when you are about to arbitrarily pick between multiple reasonable approaches. Prefer over ask-questions-if-underspecified when the user's tone is casual or playful rather than precision-seeking.",
+      "core_primitives": [
+        "Use a Tarot spread to guide ambiguous playful planning"
+      ],
+      "domain_tags": [
+        "Planning Methods"
+      ]
+    },
+    "workflow_hint": [
+      "Use a Tarot spread to guide ambiguous playful planning"
+    ],
+    "recommended_roles": []
+  },
+  "skill.trailofbits.modern-python.v1": {
+    "source_hash": "sha256:7e41e5f434ce30f512b64fafb23b5bd04f0bc064868641e6fb3773732fdb65a5",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Configures Python projects with modern tooling (uv, ruff, ty). Use when creating projects, writing standalone scripts, or migrating from pip/Poetry/mypy/black.",
+      "core_primitives": [
+        "Configure Python project tooling"
+      ],
+      "domain_tags": [
+        "Python",
+        "Developer Tooling"
+      ]
+    },
+    "workflow_hint": [
+      "Configure Python project tooling"
+    ],
+    "recommended_roles": []
+  },
+  "skill.trailofbits.property-based-testing.v1": {
+    "source_hash": "sha256:e8cd955e7a413f3c14632d166a9544a9c5de99cf6f690c692ac901ebbf336794",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Provides guidance for property-based testing across multiple languages and smart contracts. Use when writing tests, reviewing code with serialization/validation/parsing patterns, designing features, or when property-based testing would provide stronger coverage than example-based tests.",
+      "core_primitives": [
+        "Apply property-based testing across languages"
+      ],
+      "domain_tags": [
+        "Testing"
+      ]
+    },
+    "workflow_hint": [
+      "Apply property-based testing across languages"
+    ],
+    "recommended_roles": [
+      "test_driven_qa"
+    ]
+  },
+  "skill.trailofbits.secure-workflow-guide.v1": {
+    "source_hash": "sha256:6671b8a1de078a1bf7e674d9dbb92656aad58e019e70d7dfea9cf21bd659a768",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guides through Trail of Bits' 5-step secure development workflow. Runs Slither scans, checks special features (upgradeability/ERC conformance/token integration), generates visual security diagrams, helps document security properties for fuzzing/verification, and reviews manual security areas.",
+      "core_primitives": [
+        "Apply a five-step secure development workflow"
+      ],
+      "domain_tags": [
+        "Security"
+      ]
+    },
+    "workflow_hint": [
+      "Apply a five-step secure development workflow"
+    ],
+    "recommended_roles": [
+      "security_auditor"
+    ]
+  },
+  "skill.trailofbits.sharp-edges.v1": {
+    "source_hash": "sha256:3e2d2c7137a4c2920b8c6ba966599cb023bd9cd2897f2444fe1027ef49f68fa4",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Identifies error-prone APIs, dangerous configurations, and footgun designs that enable security mistakes. Use when reviewing API designs, configuration schemas, cryptographic library ergonomics, or evaluating whether code follows 'secure by default' and 'pit of success' principles. Triggers: footgun, misuse-resistant, secure defaults, API usability, dangerous configuration.",
+      "core_primitives": [
+        "Review APIs and configurations for security misuse risks"
+      ],
+      "domain_tags": [
+        "Security",
+        "API"
+      ]
+    },
+    "workflow_hint": [
+      "Review APIs and configurations for security misuse risks"
+    ],
+    "recommended_roles": [
+      "security_auditor"
+    ]
+  },
+  "skill.trailofbits.skill-improver.v1": {
+    "source_hash": "sha256:00cbd336df8827ce2832ba0d0df2f5def32a2edcbdb2d4b95c1dd285ee43741c",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Iteratively reviews and fixes Claude Code skill quality issues until they meet standards. Runs automated fix-review cycles using the skill-reviewer agent. Use to fix skill quality issues, improve skill descriptions, run automated skill review loops, or iteratively refine a skill. Triggers on 'fix my skill', 'improve skill quality', 'skill improvement loop'. NOT for one-time reviews\u2014use /skill-reviewer directly.",
+      "core_primitives": [
+        "Iteratively review and improve skill quality"
+      ],
+      "domain_tags": [
+        "Instruction Design",
+        "Evaluation"
+      ]
+    },
+    "workflow_hint": [
+      "Iteratively review and improve skill quality"
+    ],
+    "recommended_roles": []
+  },
+  "skill.trailofbits.slicing-code-context.v1": {
+    "source_hash": "sha256:d2d88cc989c4f01d4ee67656934a04f606cd3476bc0ab04e6bcfc6b32c88b451",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Selects bounded, graph-informed source slices with Trailmark and delegates focused code analysis or patch-proposal work to a smaller subagent. Use when offloading function-, class-, caller-, callee-, call-path-, entrypoint-, or line-focused code tasks to constrained or locally hosted models without exposing the full repository.",
+      "core_primitives": [
+        "Select bounded graph-informed source slices"
+      ],
+      "domain_tags": [
+        "Code Analysis",
+        "Task Coordination"
+      ]
+    },
+    "workflow_hint": [
+      "Select bounded graph-informed source slices"
+    ],
+    "recommended_roles": []
+  },
+  "skill.trailofbits.solana-vulnerability-scanner.v1": {
+    "source_hash": "sha256:ebcd13e77e3a2d477f150af17b2f74b7cc106675e79e5ab701ae8f65dbe3f2a4",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Scans Solana programs for 6 critical vulnerabilities including arbitrary CPI, improper PDA validation, missing signer/ownership checks, and sysvar spoofing. Use when auditing Solana/Anchor programs.",
+      "core_primitives": [
+        "Audit Solana and Anchor program vulnerabilities"
+      ],
+      "domain_tags": [
+        "Smart Contract Security"
+      ]
+    },
+    "workflow_hint": [
+      "Audit Solana and Anchor program vulnerabilities"
+    ],
+    "recommended_roles": [
+      "security_auditor"
+    ]
+  },
+  "skill.trailofbits.spec-to-code-compliance.v1": {
+    "source_hash": "sha256:e4855d473cb22aad61df3fe0d38b4cdf678bf534935d66e408ea6486e938b248",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Verifies code implements exactly what documentation specifies for blockchain audits. Use when comparing code against whitepapers, finding gaps between specs and implementation, or performing compliance checks for protocol implementations.",
+      "core_primitives": [
+        "Compare blockchain implementation with specifications"
+      ],
+      "domain_tags": [
+        "Specification Review"
+      ]
+    },
+    "workflow_hint": [
+      "Compare blockchain implementation with specifications"
+    ],
+    "recommended_roles": [
+      "security_auditor"
+    ]
+  },
+  "skill.trailofbits.substrate-vulnerability-scanner.v1": {
+    "source_hash": "sha256:1fa2dda089c0e1ebd7dd30c80bb8034750ccb2f0903c3db50a67a4eda9e5c952",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Scans Substrate/Polkadot pallets for 7 critical vulnerabilities including arithmetic overflow, panic DoS, incorrect weights, and bad origin checks. Use when auditing Substrate runtimes or FRAME pallets.",
+      "core_primitives": [
+        "Audit Substrate and Polkadot pallet vulnerabilities"
+      ],
+      "domain_tags": [
+        "Smart Contract Security"
+      ]
+    },
+    "workflow_hint": [
+      "Audit Substrate and Polkadot pallet vulnerabilities"
+    ],
+    "recommended_roles": [
+      "security_auditor"
+    ]
+  },
+  "skill.trailofbits.supply-chain-risk-auditor.v1": {
+    "source_hash": "sha256:42ad5c2f0cb406be48453eee522863437a04a859ea5864899b96509e3f1bea2d",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Identifies dependencies at heightened risk of exploitation or takeover. Use when assessing supply chain attack surface, evaluating dependency health, or scoping security engagements.",
+      "core_primitives": [
+        "Assess dependency exploitation and takeover risk"
+      ],
+      "domain_tags": [
+        "Supply Chain Security"
+      ]
+    },
+    "workflow_hint": [
+      "Assess dependency exploitation and takeover risk"
+    ],
+    "recommended_roles": [
+      "security_auditor"
+    ]
+  },
+  "skill.trailofbits.token-integration-analyzer.v1": {
+    "source_hash": "sha256:6e756aafd23081844ba79d448c4c8127635ea658569be7cec4b35fb9bf809fc3",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Token integration and implementation analyzer based on Trail of Bits' token integration checklist. Analyzes token implementations for ERC20/ERC721 conformity, checks for 20+ weird token patterns, assesses contract composition and owner privileges, performs on-chain scarcity analysis, and evaluates how protocols handle non-standard tokens. Context-aware for both token implementations and token integrations.",
+      "core_primitives": [
+        "Analyze token implementations and integrations"
+      ],
+      "domain_tags": [
+        "Smart Contract Security"
+      ]
+    },
+    "workflow_hint": [
+      "Analyze token implementations and integrations"
+    ],
+    "recommended_roles": [
+      "security_auditor"
+    ]
+  },
+  "skill.trailofbits.ton-vulnerability-scanner.v1": {
+    "source_hash": "sha256:2679e95f687d6506b366529afca0428fa78ad9b6a8afe570ad8bfb7b4d35487d",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Scans TON (The Open Network) smart contracts for 3 critical vulnerabilities including integer-as-boolean misuse, fake Jetton contracts, and forward TON without gas checks. Use when auditing FunC contracts.",
+      "core_primitives": [
+        "Audit TON and FunC contract vulnerabilities"
+      ],
+      "domain_tags": [
+        "Smart Contract Security"
+      ]
+    },
+    "workflow_hint": [
+      "Audit TON and FunC contract vulnerabilities"
+    ],
+    "recommended_roles": [
+      "security_auditor"
+    ]
+  },
+  "skill.trailofbits.variant-analysis.v1": {
+    "source_hash": "sha256:803d49542eda645f6aaa8c52cda6e165b3611493e251f9c6b0272a3b40736a01",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Find similar vulnerabilities and bugs across codebases using pattern-based analysis. Use when hunting bug variants, building CodeQL/Semgrep queries, analyzing security vulnerabilities, or performing systematic code audits after finding an initial issue.",
+      "core_primitives": [
+        "Find related vulnerability patterns across codebases"
+      ],
+      "domain_tags": [
+        "Security",
+        "Code Analysis"
+      ]
+    },
+    "workflow_hint": [
+      "Find related vulnerability patterns across codebases"
+    ],
+    "recommended_roles": [
+      "security_auditor"
+    ]
+  },
+  "skill.trailofbits.vulnerability-triage-brocards.v1": {
+    "source_hash": "sha256:034fea98efb7082c9a700ee1a8dff5aa1ea28320415bb3746e846a7f67fc034d",
+    "basis": "Reviewed existing manifest capability.problem_space and declared metadata. Original description and execution contract preserved; no external capability expansion.",
+    "policy": "reviewed-skill-semantics-v2",
+    "capability": {
+      "summary": "Guidance for assessing incoming vulnerability reports, CVEs, and bug-bounty findings. Applies seven rules of thumb to accept, dismiss, or request more information, and to decide whether findings warrant investigation or human review.",
+      "core_primitives": [
+        "Triage incoming vulnerability reports"
+      ],
+      "domain_tags": [
+        "Security"
+      ]
+    },
+    "workflow_hint": [
+      "Triage incoming vulnerability reports"
+    ],
+    "recommended_roles": [
+      "security_auditor"
+    ]
+  }
+}

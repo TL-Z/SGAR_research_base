@@ -1,0 +1,32 @@
+{
+  "exa_api_key": null,
+  "llm_key": "${LLM_API_KEY}",
+  "llm_settings": {
+    "model": "gpt-5.6-sol",
+    "base_url": "",
+    "max_tokens": 8192,
+    "planner_max_output_tokens": 32768,
+    "max_retries": 0,
+    "timeout": 1200,
+    "system_model_chain": [
+      "gpt-5.6-sol"
+    ],
+    "control_model_health_gate": "require_ok",
+    "enable_control_model_failover": false,
+    "enable_intelligent_resource_completion": false,
+    "plan_compiler_response_mode": "native_strict_schema",
+    "evaluator_response_mode": "native_strict_schema",
+    "supplemental_model_ids": [],
+    "max_supplemental_models": 0,
+    "max_same_bundle_repair_attempts": 0,
+    "allow_plan_recovery": false,
+    "max_eval_retries": 0,
+    "runtime_preparation_enabled": true
+  },
+  "runtime_settings": {
+    "runtime_authority": "git",
+    "output_root": "runs",
+    "temporary_directory": "tmp",
+    "pip_cache_directory": ".sgar_cache/pip"
+  }
+}

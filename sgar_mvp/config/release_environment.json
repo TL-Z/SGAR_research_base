@@ -1,0 +1,7 @@
+{
+  "protocol": "sgar-release-environment-v1",
+  "allowed_branches": [
+    "codex/sgar-production-planner-v6",
+    "master"
+  ]
+}

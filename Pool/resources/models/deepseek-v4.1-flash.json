@@ -1,0 +1,120 @@
+{
+    "resource_id": "deepseek-v4.1-flash",
+    "type": {
+        "resource_type": "Model",
+        "resource_tag": [
+            "1M Context",
+            "0.1880",
+            "0.7500",
+            "0.0040"
+        ]
+    },
+    "capability": {
+        "summary": "DeepSeek V4.1 Flash model for text reasoning, programming and document analysis.",
+        "core_primitives": [
+            "mathematical reasoning",
+            "code generation",
+            "document analysis",
+            "tool-assisted problem solving"
+        ],
+        "problem_space": "Text reasoning model for analytical and programming tasks, including mathematical reasoning, code generation, document analysis and tool-assisted problem solving. This SGAR entry retains text input and text output. External tools are required to execute programs, browse sources or modify files. The published V4.1 Flash family uses an asymmetric MoE architecture with 552 billion base parameters and 8 billion input / 16 billion output active parameters. Published benchmark improvements do not establish measured quality or latency on the configured supplier route.",
+        "domain_tags": [
+            "Language",
+            "Software Engineering"
+        ]
+    },
+    "constraint": {
+        "env_requirements": [
+            "DeepSeek-Compatible API Endpoint",
+            "Valid API Key (Cloud)",
+            "Stable Network Connection"
+        ],
+        "io_signature": "Input modalities: text | Output modalities: text. Gateway transport support requires verification."
+    },
+    "utility": {
+        "latency_ms": 0,
+        "token_cost_factor": 0,
+        "expected_success_rate": 0
+    },
+    "execution": {
+        "uri": "${base_url}/v1/chat/completions",
+        "model_id": "deepseek-v4.1-flash"
+    },
+    "memory": {
+        "success_trajectories": [],
+        "failure_reflections": []
+    },
+    "provenance": {
+        "pricing_status": "supplier_quote_recorded_unlisted_rates_unknown",
+        "pricing_note": "Supplier screenshot USD per million tokens, consistent with the existing catalog convention; account/group adjustments are not verified. Unlisted rates are unknown, not zero.",
+        "supplier_quote": {
+            "source": "user_supplied_supplier_screenshot",
+            "recorded_at": "2026-09-14",
+            "source_image_sha256": "21962dcfc94439b7e74fd21b2f9ec735b25b17df10ea593f61d39298d58c280a",
+            "api_model_id": "deepseek-v4.1-flash",
+            "pricing_unit": "USD_per_million_tokens",
+            "input_per_m": "0.1880",
+            "output_per_m": "0.7500",
+            "cache_read_per_m": "0.0040",
+            "cache_creation_per_m": null,
+            "audio_input_per_m": null,
+            "audio_output_per_m": null,
+            "endpoint_verification": "synthetic_compatibility_verified_2026-09-14"
+        },
+        "supplier_model_mapping_status": "synthetic_gateway_compatibility_verified_quality_unmeasured",
+        "semantic_review": {
+            "reviewed_at": "2026-09-14",
+            "policy": "model-capabilities-v1",
+            "source_urls": [
+                "https://deepseek.com/news/deepseek-v4-1-flash/",
+                "https://api-docs.deepseek.com/quick_start/pricing/"
+            ],
+            "evidence_status": "provider_documented_not_gateway_verified",
+            "task_profile_basis": "Documented task categories; no measured SGAR quality ranking or fixed framework role."
+        },
+        "gateway_verification": {
+            "checked_at": "2026-09-14",
+            "endpoint_identity_sha256": "5a78a163678f3d030f6a9078ccc1a11f81d2946aa21e500af1f6a266b0ed24ff",
+            "evidence_status": "synthetic_compatibility_only",
+            "capabilities": [
+                "text",
+                "generic_strict_schema",
+                "json_mode",
+                "tool_calling",
+                "tool_result_continuation"
+            ],
+            "evidence_report_sha256": "455c1c5a6477b1d56673a6d653556e046919bc5b43079f475604042f7f95486e",
+            "quality_status": "not_measured"
+        }
+    },
+    "type_specific": {
+        "model": {
+            "profile_version": "model-capabilities-v1",
+            "input_modalities": [
+                "text"
+            ],
+            "output_modalities": [
+                "text"
+            ],
+            "supports": {
+                "tool_calling": true,
+                "json_mode": true,
+                "vision": false,
+                "reasoning": true,
+                "coding": true
+            },
+            "thinking_mode": "hybrid",
+            "native_protocol": "openai_compatible_chat",
+            "documented_context_tokens": 1048576,
+            "evidence_status": "provider_documented_not_gateway_verified",
+            "gateway_verification_status": "text_strict_json_json_mode_tool_calling_and_continuation_live_verified",
+            "limitations": [
+                "This replacement keeps the existing text-only SGAR usage. Native vision is documented separately and is not enabled or gateway-verified by this change."
+            ],
+            "documented_native_input_modalities": [
+                "text",
+                "image"
+            ]
+        }
+    }
+}

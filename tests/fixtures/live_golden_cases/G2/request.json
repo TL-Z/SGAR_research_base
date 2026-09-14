@@ -1,0 +1,20 @@
+{
+  "request_id": "live-golden-g2",
+  "query": "From the public CSV input named records, retain the name and score columns and deliver UTF-8 JSON named selected_records.json. The final object must contain exactly status, kept_columns, row_count, and csv, with no undeclared properties. kept_columns must equal [name, score], row_count must equal 2, and csv must preserve the header and both input rows in source order. Generate the strict final JSON Schema from these requirements; no authoritative schema is supplied.",
+  "inputs": [
+    {
+      "name": "records",
+      "path": "./records.csv"
+    }
+  ],
+  "final_deliverable_contract": {
+    "protocol": "sgar-final-deliverable-contract-v1",
+    "representation": "file",
+    "format_id": "json",
+    "media_type": "application/json",
+    "extension": ".json",
+    "logical_name": "selected_records.json",
+    "primary_member": null,
+    "required_members": []
+  }
+}
