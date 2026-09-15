@@ -836,7 +836,7 @@ def build_retrieval_runtime_identity(
         )
         if policy.local_pool_update:
             if (
-                manifest.get("generation_kind") != "local_model_pool_update"
+                manifest.get("generation_kind") not in {"local_model_pool_update", "local_model_pool_full_rebuild"}
                 or manifest.get("release_source_seal") is not None
                 or manifest.get("catalog_sha256") != _sha256_file(catalog_path)
                 or manifest.get("effective_pool_sha256") != _sha256_file(effective_path)

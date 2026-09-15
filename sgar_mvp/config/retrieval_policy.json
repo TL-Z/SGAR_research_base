@@ -6,9 +6,9 @@
   "control_provider_probe_receipt_sha256": "7a0227592b3514005f9ea3e7aaec90505282acb83c1e61ef86daf181cff30655",
   "control_role_policy_sha256": "759c38b86fde0f17279a430744057a2773a2b57d5ccf4f8c4e501a238bf6a178",
   "effective_pool_sha256": "f4b6189f6674b286acfbe6ee2eefd09ed06b46427c50520c94dd6513ab7fd5ae",
-  "embedding_candidate_id": "qwen3-embedding-0.6b-bf16-1024",
-  "embedding_model": "Qwen/Qwen3-Embedding-0.6B",
-  "embedding_runtime_identity_sha256": "54619ebee7d4481c6b1b77af03e82b85166accda77bc08b09440989fcfcb3bd8",
+  "embedding_candidate_id": "qwen3-embedding-4b-api-2560",
+  "embedding_model": "Qwen/Qwen3-Embedding-4B",
+  "embedding_runtime_identity_sha256": "ebc78eccbfeb170885a5f575878d0eaa5cfeaa2aaa9f721288feaff662c3c4dd",
   "hyde": {
     "allow_direct_fallback": false,
     "allow_model_failover": false,
@@ -32,14 +32,14 @@
     "temperature": null,
     "truncation_retry_max_output_tokens": 16384
   },
-  "index_build_manifest_sha256": "a0c612e32fa0af6d87734c7f6baa862eb0e752d8a9036ababbb2263c9c84cbd4",
-  "index_meta_sha256": "53f11e2ebeacf6aacdd0abfe5f5a24eaf8fd9d7ff841da0bdd1bc139a76f827f",
+  "index_build_manifest_sha256": "279eb4d18c4d3b3fcb1cf3bc4ebbf8947cb03c08b75e9e2f6932cf9db715e17a",
+  "index_meta_sha256": "9419829500b1a3338d7ef1d4994e6c113de2e5ca51aea38783bedaf0ddb11ca2",
   "index_sha256": {
-    "capability": "27d29d2b895719f723a63cfc251b76f210a25c3a773172e4f6fb8e8b7c904df3",
-    "constraint": "0202adf8033f1200fdb02344bb6acd692a3169c4906a55bf61ccd7505ac7b66c",
-    "metadata": "95b4df385f3855a5e558d66b5fc0e57c939ef3169546c92ce56691bef3e8af76"
+    "capability": "16712039f3b73a20f56af66e3e84459cd315a3936fd0ef60e5af525fcffa6ba7",
+    "constraint": "671434db50a351304414c34ecf94782478975a76e56ab41d990ce778e471274d",
+    "metadata": "9272a770f596334b84927d64da84792cfa5e1fa0fb0bd446b1a8de9dfb5c4022"
   },
-  "policy_version": "retrieval-policy-v7-local-8d9da7fe342ca9e262234aca8af45e1a",
+  "policy_version": "retrieval-policy-v7-local-57f0c5c642269bc541932f74814ea3dc",
   "profile_version": "typed-constraint-v8",
   "profiler_prompt_sha256": "1cc62d801ba97b3c47f15516845be0f7d83027038e7dc0dc625c6eea3350ed99",
   "profiler_schema_sha256": "c8992868e4bc64d33e6dd8d75258f1734ff5b2c27d14d5764f0e2ffeda776d99",

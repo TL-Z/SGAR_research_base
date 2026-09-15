@@ -1,23 +1,22 @@
 {
-  "protocol": "sgar-retrieval-index-build-v1",
-  "generation_kind": "local_model_pool_update",
-  "generation_id": "8d9da7fe342ca9e262234aca8af45e1a",
-  "release_source_seal": null,
+  "build_code_sha256": "a13006cc69db5c805075af4d13604429e1f349f5033071c563c4be3dbba7bb09",
   "catalog_sha256": "eb84c3aa33ac46af8c949bcd7a6e3e0a8b2c836a53569b5b73a244ef02668baf",
+  "dimension": 2560,
   "effective_pool_sha256": "f4b6189f6674b286acfbe6ee2eefd09ed06b46427c50520c94dd6513ab7fd5ae",
-  "embedding_configuration_sha256": "3809b26433aa431f1396d46e67d760d6055d08b22323b7f5e5f037ddb91ef24f",
-  "embedding_identity_sha256": "f16553a2b47b1361fdfea694f52e0fe5638b1d8efc06a9ccba0d0668ee33c7e9",
-  "embedding_runtime_identity_v2_sha256": "54619ebee7d4481c6b1b77af03e82b85166accda77bc08b09440989fcfcb3bd8",
-  "index_meta_v2_sha256": "53f11e2ebeacf6aacdd0abfe5f5a24eaf8fd9d7ff841da0bdd1bc139a76f827f",
-  "resource_count": 331,
-  "resource_order_sha256": "c31a7e21e45b13a51322ba0fb4897a6ad303fde2efd46d5b3db6b4db18fe872f",
-  "dimension": 1024,
+  "embedding_configuration_sha256": "7dff4a75340f09df459c8938222ad35b5f24379ca95e4ab1e0c034e54974ad41",
+  "embedding_identity_sha256": "2d1f9d75cbe76e0646c8f27f22b925238d448c2e8cbdf1ad8fdc9e95961b1063",
+  "embedding_runtime_identity_v2_sha256": "ebc78eccbfeb170885a5f575878d0eaa5cfeaa2aaa9f721288feaff662c3c4dd",
   "files_sha256": {
-    "faiss_cap.index": "27d29d2b895719f723a63cfc251b76f210a25c3a773172e4f6fb8e8b7c904df3",
-    "faiss_con.index": "0202adf8033f1200fdb02344bb6acd692a3169c4906a55bf61ccd7505ac7b66c",
-    "resource_meta.pkl": "95b4df385f3855a5e558d66b5fc0e57c939ef3169546c92ce56691bef3e8af76",
-    "retrieval_profile_audit.json": "d4eafdb49afa14429ec24c257d1f240ba38e2937d68f4387cd84471c115a9371"
+    "faiss_cap.index": "16712039f3b73a20f56af66e3e84459cd315a3936fd0ef60e5af525fcffa6ba7",
+    "faiss_con.index": "671434db50a351304414c34ecf94782478975a76e56ab41d990ce778e471274d",
+    "resource_meta.pkl": "9272a770f596334b84927d64da84792cfa5e1fa0fb0bd446b1a8de9dfb5c4022"
   },
-  "build_code_sha256": "22274a230d9fab427807d23a836a6198ef88eefc9eb40dc11baaac92fcb01290",
-  "manifest_sha256": "a0c612e32fa0af6d87734c7f6baa862eb0e752d8a9036ababbb2263c9c84cbd4"
+  "generation_id": "57f0c5c642269bc541932f74814ea3dc",
+  "generation_kind": "local_model_pool_full_rebuild",
+  "index_meta_v2_sha256": "9419829500b1a3338d7ef1d4994e6c113de2e5ca51aea38783bedaf0ddb11ca2",
+  "manifest_sha256": "279eb4d18c4d3b3fcb1cf3bc4ebbf8947cb03c08b75e9e2f6932cf9db715e17a",
+  "protocol": "sgar-retrieval-index-build-v1",
+  "release_source_seal": null,
+  "resource_count": 331,
+  "resource_order_sha256": "2ed2035ebd34fc73dea775fd062488cdd4fffcc60e33755a81ee7f571123af23"
 }

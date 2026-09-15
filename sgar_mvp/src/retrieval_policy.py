@@ -163,7 +163,7 @@ class RetrievalPolicy(BaseModel):
                 raise ValueError("released retrieval policy identity is incomplete")
             if released_v6 and self.control_provider_probe_receipt_sha256 is not None:
                 raise ValueError("V6 retrieval policy cannot bind the V7 control probe receipt")
-            if (
+            if not self.local_pool_update and (
                 self.embedding_model != "Qwen/Qwen3-Embedding-0.6B"
                 or self.embedding_candidate_id != "qwen3-embedding-0.6b-bf16-1024"
             ):

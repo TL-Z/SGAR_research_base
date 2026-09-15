@@ -6,6 +6,8 @@ import json
 import hashlib
 import os
 import threading
+import urllib.error
+import urllib.request
 from importlib import metadata as importlib_metadata
 from pathlib import Path
 from typing import Any, Literal, Mapping, Sequence
@@ -62,6 +64,11 @@ class EmbeddingRuntimeConfigV1(FrozenContract):
     device_map: str | dict[str, Any] | None = None
     attention_implementation: Literal["sdpa", "eager"] = "sdpa"
     local_files_only: Literal[True] = True
+    backend: Literal["local", "openai_compatible"] = "local"
+    api_endpoint_url: str = ""
+    api_model_id: str = ""
+    api_key_environment_variable: str = "SGAR_EMBEDDING_API_KEY"
+    tokenizer_path: str = ""
     configuration_sha256: str = ""
 
     @field_validator("revision")
@@ -76,6 +83,11 @@ class EmbeddingRuntimeConfigV1(FrozenContract):
 
     @model_validator(mode="after")
     def _seal(self) -> "EmbeddingRuntimeConfigV1":
+        if self.backend == "openai_compatible":
+            if not self.api_endpoint_url or not self.api_model_id or not self.tokenizer_path:
+                raise ValueError("embedding_api_configuration_incomplete")
+            if not self.api_key_environment_variable:
+                raise ValueError("embedding_api_key_environment_variable_missing")
         if self.quantization == "none" and self.int8_fp32_cpu_offload:
             raise ValueError("int8_offload_requires_int8_quantization")
         if self.quantization == "int8" and self.family != "qwen3":
@@ -261,20 +273,29 @@ def embedding_runtime_identity_v2(
 
 
 def load_embedding_release_config(path: Path) -> EmbeddingRuntimeConfigV1:
-    """Load the one fixed embedding identity allowed on the production branch."""
+    """Load a pinned embedding configuration with explicit identity checks."""
 
     payload = json.loads(path.read_text(encoding="utf-8-sig"))
     if payload.get("protocol") != "sgar-embedding-release-config-v1":
         raise ValueError("embedding_release_config_protocol_invalid")
     config = EmbeddingRuntimeConfigV1.model_validate(payload.get("runtime"))
-    if (
-        config.candidate_id != "qwen3-embedding-0.6b-bf16-1024"
-        or config.model_id != "Qwen/Qwen3-Embedding-0.6B"
-        or config.family != "qwen3"
-        or config.dtype != "bfloat16"
-        or config.quantization != "none"
-        or config.output_dimension != 1024
-    ):
+    valid_legacy = (
+        config.candidate_id == "qwen3-embedding-0.6b-bf16-1024"
+        and config.model_id == "Qwen/Qwen3-Embedding-0.6B"
+        and config.family == "qwen3"
+        and config.dtype == "bfloat16"
+        and config.quantization == "none"
+        and config.output_dimension == 1024
+        and config.backend == "local"
+    )
+    valid_api = (
+        config.candidate_id == "qwen3-embedding-4b-api-2560"
+        and config.model_id == "Qwen/Qwen3-Embedding-4B"
+        and config.api_model_id == "sgar-embedding-4b"
+        and config.output_dimension == 2560
+        and config.backend == "openai_compatible"
+    )
+    if not (valid_legacy or valid_api):
         raise ValueError("embedding_release_config_identity_invalid")
     return config
 
@@ -457,12 +478,34 @@ class LocalEmbeddingEncoder:
     def identity(self) -> LocalEmbeddingIdentity:
         with self._lock:
             if self._identity is None:
-                identity, snapshot = build_local_embedding_identity(
-                    model_id=self.config.model_id,
-                    revision=self.config.revision,
-                    index_dimension=self.config.output_dimension,
-                    encoding_configuration=self.config.model_dump(mode="json"),
-                )
+                if self.config.backend == "openai_compatible":
+                    snapshot = Path(self.config.tokenizer_path).expanduser().resolve()
+                    if not snapshot.is_dir():
+                        raise RetrievalLifecycleError("embedding_tokenizer_path_missing")
+                    digest = hashlib.sha256()
+                    files = sorted(path for path in snapshot.rglob("*") if path.is_file())
+                    for path in files:
+                        digest.update(path.relative_to(snapshot).as_posix().encode("utf-8"))
+                        digest.update(path.read_bytes())
+                    snapshot_hash = digest.hexdigest()
+                    revision = self.config.revision or snapshot_hash[:40]
+                    identity = LocalEmbeddingIdentity(
+                        embedding_model_id=self.config.api_model_id,
+                        embedding_model_revision=revision,
+                        local_snapshot_locator=str(snapshot),
+                        snapshot_content_sha256=snapshot_hash,
+                        native_embedding_dimension=self.config.output_dimension,
+                        embedding_dimension=self.config.output_dimension,
+                        index_dimension=self.config.output_dimension,
+                        encoding_configuration_sha256=self.config.configuration_sha256,
+                    )
+                else:
+                    identity, snapshot = build_local_embedding_identity(
+                        model_id=self.config.model_id,
+                        revision=self.config.revision,
+                        index_dimension=self.config.output_dimension,
+                        encoding_configuration=self.config.model_dump(mode="json"),
+                    )
                 self._identity = identity
                 self._snapshot = snapshot
             return self._identity
@@ -515,6 +558,13 @@ class LocalEmbeddingEncoder:
                 return self._encoder
             self.identity()
             assert self._snapshot is not None
+            if self.config.backend == "openai_compatible":
+                encoder = _OpenAICompatibleEmbeddingEncoder(
+                    self.config,
+                    tokenizer_path=Path(self.config.tokenizer_path).expanduser().resolve(),
+                )
+                self._encoder = encoder
+                return encoder
             factory = self._encoder_factory
             if factory is None and self.config.family in {"qwen3", "bge_icl"}:
                 encoder = _Qwen3NativeEncoder(
@@ -617,6 +667,68 @@ class LocalEmbeddingEncoder:
             self._encoder = None
             self._identity = None
             self._snapshot = None
+
+
+class _OpenAICompatibleEmbeddingEncoder:
+    def __init__(self, config: EmbeddingRuntimeConfigV1, *, tokenizer_path: Path) -> None:
+        from transformers import AutoTokenizer
+
+        self.config = config
+        self.tokenizer = AutoTokenizer.from_pretrained(str(tokenizer_path), local_files_only=True)
+        self.max_seq_length = config.max_tokens
+
+    def encode(self, values: Sequence[str], *, batch_size: int, show_progress_bar: bool, normalize_embeddings: bool) -> np.ndarray:
+        del show_progress_bar, normalize_embeddings
+        key = os.environ.get(self.config.api_key_environment_variable, "").strip()
+        if not key:
+            dotenv_path = Path(__file__).resolve().parents[2] / ".env"
+            if dotenv_path.is_file():
+                for line in dotenv_path.read_text(encoding="utf-8").splitlines():
+                    line = line.strip()
+                    if not line or line.startswith("#") or "=" not in line:
+                        continue
+                    name, value = line.split("=", 1)
+                    if name.strip() == self.config.api_key_environment_variable:
+                        key = value.strip().strip("\"'")
+                        break
+        if not key:
+            raise RetrievalLifecycleError("embedding_api_key_missing")
+        outputs: list[np.ndarray] = []
+        for offset in range(0, len(values), batch_size):
+            batch = list(values[offset : offset + batch_size])
+            payload = json.dumps({"model": self.config.api_model_id, "input": batch}).encode("utf-8")
+            request = urllib.request.Request(
+                self.config.api_endpoint_url,
+                data=payload,
+                headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+                method="POST",
+            )
+            try:
+                with urllib.request.urlopen(request, timeout=120) as response:
+                    status = int(response.status)
+                    body = json.loads(response.read().decode("utf-8"))
+            except (urllib.error.URLError, TimeoutError, OSError, ValueError) as exc:
+                raise RetrievalLifecycleError("embedding_api_request_failed") from exc
+            if status < 200 or status >= 300 or not isinstance(body, Mapping):
+                raise RetrievalLifecycleError("embedding_api_response_invalid")
+            data = body.get("data")
+            if not isinstance(data, list) or len(data) != len(batch):
+                raise RetrievalLifecycleError("embedding_api_response_count_mismatch")
+            ordered: list[Any] = [None] * len(batch)
+            for item in data:
+                if not isinstance(item, Mapping) or not isinstance(item.get("index"), int):
+                    raise RetrievalLifecycleError("embedding_api_response_index_invalid")
+                index = int(item["index"])
+                if index < 0 or index >= len(batch) or ordered[index] is not None:
+                    raise RetrievalLifecycleError("embedding_api_response_order_invalid")
+                ordered[index] = item.get("embedding")
+            if any(item is None for item in ordered):
+                raise RetrievalLifecycleError("embedding_api_response_order_invalid")
+            matrix = np.asarray(ordered, dtype="float32")
+            if matrix.ndim != 2 or matrix.shape != (len(batch), self.config.output_dimension):
+                raise RetrievalLifecycleError("embedding_api_output_dimension_mismatch")
+            outputs.append(matrix)
+        return np.concatenate(outputs, axis=0) if outputs else np.empty((0, self.config.output_dimension), dtype="float32")
 
 
 __all__ = [
