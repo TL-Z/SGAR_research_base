@@ -91,7 +91,7 @@
     "source": "https://www.coingecko.com/en/api",
     "license": "CC-BY-4.0",
     "recognized_public_tool": true,
-    "source_hash": "sha256:a79dc6870f29d7381b963a1b6d6d8a0e1d37bef51166492adb4eb830ea0100d0",
+    "source_hash": "sha256:08eca0014ce0b7dd0af2acc57779dffa3db0e8739fa26045c15a76e73dec8a63",
     "local_implementation_uri": "file://Pool/resources/tools/api/api.coingecko.price.py",
     "auth_required": false,
     "auth_evidence": "wrapper_and_shared_adapter_read_no_credentials",

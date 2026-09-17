@@ -34,13 +34,16 @@ class TypeRetrievalPolicy(BaseModel):
 
 
 class HyDEPolicy(BaseModel):
-    generation_protocol: Literal["sgar-profiler-generation-policy-v2"] = (
+    generation_protocol: Literal[
+        "sgar-profiler-generation-policy-v2",
+        "sgar-profiler-generation-policy-v3",
+    ] = (
         "sgar-profiler-generation-policy-v2"
     )
-    resource_id: Literal["model.gpt_5_6_sol.v1"]
-    api_model_id: Literal["gpt-5.6-sol"]
+    resource_id: str = Field(pattern=r"^model\.[A-Za-z0-9][A-Za-z0-9_.:-]*$")
+    api_model_id: str = Field(min_length=1)
     prompt_version: Literal["ideal-resource-profiler-en-v3"]
-    reasoning_effort: Literal["xhigh"]
+    reasoning_effort: Literal["low", "medium", "high", "xhigh", "max"]
     temperature: float | None = None
     requested_max_output_tokens: Literal[8192] = 8192
     truncation_retry_max_output_tokens: Literal[16384] = 16384
@@ -57,6 +60,12 @@ class HyDEPolicy(BaseModel):
 
     @model_validator(mode="after")
     def validate_profiler_policy(self) -> "HyDEPolicy":
+        if self.generation_protocol == "sgar-profiler-generation-policy-v2" and (
+            self.resource_id != "model.gpt_5_6_sol.v1"
+            or self.api_model_id != "gpt-5.6-sol"
+            or self.reasoning_effort != "xhigh"
+        ):
+            raise ValueError("profiler generation v2 identity is not authoritative")
         if self.output_cap_probe_order != (8192, 16384):
             raise ValueError("profiler output-cap probe order is not authoritative")
         if self.max_tokens != self.requested_max_output_tokens:
@@ -170,7 +179,7 @@ class RetrievalPolicy(BaseModel):
                 raise ValueError("released retrieval embedding identity is not fixed Qwen")
             if self.active_strategy != "capability_only" or self.candidate_strategy != "capability_only":
                 raise ValueError("released retrieval strategy is not capability_only")
-            if self.hyde.reasoning_effort != "xhigh":
+            if not self.local_pool_update and self.hyde.reasoning_effort != "xhigh":
                 raise ValueError("released profiler reasoning effort is not xhigh")
             for value in (
                 self.embedding_runtime_identity_sha256,

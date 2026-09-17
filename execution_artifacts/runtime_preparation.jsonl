@@ -1,0 +1,1 @@
+{"event_type": "runtime_preparation_policy", "run_id": "execution_artifacts", "enabled": false, "mode": "explicit_pre_execution", "inline_install": false, "post_failure_auto_heal": false, "execution_metrics": {"attempt_count": 0, "cost_usd": 0.0}}

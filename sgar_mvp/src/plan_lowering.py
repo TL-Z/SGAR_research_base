@@ -876,6 +876,7 @@ class PlanStructuralValidator:
             known_profiles = {item.profile_id for item in definition.application_profiles}
             if any(
                 profile_id not in known_profiles
+                and candidate_types.get(profile_id) != "Skill"
                 for profile_id in draft_step.advisory_profile_refs
             ):
                 raise PlanValidationError(

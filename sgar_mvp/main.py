@@ -45,6 +45,7 @@ if PROJECT_ROOT not in sys.path:
 
 from sgar_mvp.src import terminal_progress
 from sgar_mvp.src.runtime_bootstrap import configure_runtime
+from sgar_mvp.src.runtime_abstraction import bound_pipeline
 from sgar_mvp.src.schema import (
     Manifest, Vector, Utility, ManifestType,
     ExecutionMode, PlannerOutput, RoutingDecision, RoutingMetrics,
@@ -83,6 +84,7 @@ from sgar_mvp.src.plan_compiler import (
     PlanCompilationStore,
 )
 from sgar_mvp.src.control_role_policy import (
+    CONTROL_ROLE_POLICY_PROTOCOL,
     ControlRoleInvocationPolicyV1,
     load_control_role_policy,
 )
@@ -186,6 +188,8 @@ from sgar_mvp.src.retrieval_runtime import (
     project_retrieval_contract,
     validate_loaded_retrieval_backend,
 )
+from sgar_mvp.src.runtime_policy_context import bind_retrieval_policy_path
+from sgar_mvp.src.embedding_runtime import embedding_request_budget
 from sgar_mvp.src.frozen_candidate_publication import (
     persist_frozen_candidate_pool,
 )
@@ -580,6 +584,26 @@ def load_config(path: str = "config.json", *, resolve_secrets: bool = True) -> d
             config.setdefault("llm_settings", {})["base_url"] = base_url.rstrip("/")
 
     return config
+
+
+def _runtime_policy_path(
+    config: Mapping[str, Any],
+    setting_name: str,
+    default_relative_path: str,
+) -> Path:
+    runtime_settings = config.get("runtime_settings")
+    runtime_settings = runtime_settings if isinstance(runtime_settings, Mapping) else {}
+    raw = runtime_settings.get(setting_name, default_relative_path)
+    if not isinstance(raw, str) or not raw.strip():
+        raise RuntimeError(f"runtime_{setting_name}_invalid")
+    candidate = Path(raw).expanduser()
+    if not candidate.is_absolute():
+        candidate = Path(PROJECT_ROOT) / candidate
+    resolved = candidate.resolve()
+    project_root = Path(PROJECT_ROOT).resolve()
+    if not resolved.is_relative_to(project_root) or not resolved.is_file():
+        raise RuntimeError(f"runtime_{setting_name}_invalid")
+    return resolved
 
 
 def _load_env_value(*names: str) -> str:
@@ -987,10 +1011,16 @@ def _validate_loaded_retrieval_inputs(
     identity: RetrievalRuntimeIdentity,
     library: list[Manifest],
     resource_index: dict[str, dict],
+    *,
+    policy_path: str | Path | None = None,
 ) -> None:
     """Bind the in-memory pool/index view to the pre-paid immutable identity."""
 
-    validate_loaded_retrieval_backend(identity, resource_index=resource_index)
+    validate_loaded_retrieval_backend(
+        identity,
+        resource_index=resource_index,
+        policy_path=policy_path,
+    )
 
     library_ids = {item.id for item in library}
     index_ids = set(resource_index)
@@ -1774,6 +1804,8 @@ async def _run_pipeline_with_cost_ledger(
     network_policy_mode: str = "disabled",
     planner_variant: str = "resource_aware",
     runtime_authority: str = "git",
+    execution_substrate: object | None = None,
+    execution_substrate_mode: str = "default",
 ) -> str:
     llm_key = config["llm_key"]
     llm_settings = config.get("llm_settings", {})
@@ -1782,7 +1814,22 @@ async def _run_pipeline_with_cost_ledger(
             llm_settings.get("capability_probe_enforcement_policy")
         )
     )
-    control_role_policy = load_control_role_policy()
+    control_role_policy_path = _runtime_policy_path(
+        config,
+        "control_role_policy_path",
+        "sgar_mvp/config/control_role_policy.json",
+    )
+    retrieval_policy_path = _runtime_policy_path(
+        config,
+        "retrieval_policy_path",
+        "sgar_mvp/config/retrieval_policy.json",
+    )
+    # Bind the selected policy before any resource-loader path can import the
+    # lazy retrieval backend.  This is essential for isolated experiment
+    # policies and is a no-op identity check for the default production policy.
+    bind_retrieval_policy_path(retrieval_policy_path)
+    control_role_policy = load_control_role_policy(control_role_policy_path)
+    retrieval_policy = load_retrieval_policy(retrieval_policy_path)
     base_url = llm_settings.get("base_url", "https://api.openai.com/v1")
     configured_model = llm_settings.get("model", DEFAULT_SYSTEM_MODEL_CHAIN[0])
     model_transport_bundle = create_production_model_transport_bundle(
@@ -1791,6 +1838,35 @@ async def _run_pipeline_with_cost_ledger(
     )
     if runtime_authority not in {"git", "release"}:
         raise RuntimeError("runtime_authority_invalid")
+    if (
+        runtime_authority == "release"
+        and control_role_policy.protocol != CONTROL_ROLE_POLICY_PROTOCOL
+    ):
+        raise RuntimeError("experimental_control_policy_forbidden_in_release")
+    planner_policy = control_role_policy.for_role("planner")
+    configured_chain = tuple(llm_settings.get("system_model_chain") or ())
+    if configured_model != planner_policy.api_model_id or configured_chain not in {
+        (),
+        (planner_policy.api_model_id,),
+    }:
+        raise RuntimeError("configured_planner_control_policy_mismatch")
+    profiler_policy = control_role_policy.for_role("profiler")
+    if (
+        retrieval_policy.hyde.resource_id != profiler_policy.resource_id
+        or retrieval_policy.hyde.api_model_id != profiler_policy.api_model_id
+        or retrieval_policy.hyde.reasoning_effort != profiler_policy.reasoning_effort
+        or retrieval_policy.hyde.temperature != profiler_policy.temperature
+        or retrieval_policy.control_role_policy_sha256
+        != control_role_policy.policy_sha256
+    ):
+        raise RuntimeError("profiler_control_policy_mismatch")
+    evaluator_role_policy = control_role_policy.for_role("evaluator")
+    if (
+        evaluator_policy.model_resource_id != evaluator_role_policy.resource_id
+        or evaluator_policy.reasoning_effort != evaluator_role_policy.reasoning_effort
+        or evaluator_policy.temperature != evaluator_role_policy.temperature
+    ):
+        raise RuntimeError("evaluator_control_policy_mismatch")
     if runtime_authority == "release":
         provider_probe_receipt_path, provider_probe_receipt = (
             resolve_activated_release_provider_probe_receipt(
@@ -1812,6 +1888,7 @@ async def _run_pipeline_with_cost_ledger(
             expected_endpoint_identity_sha256=(
                 model_transport_bundle.endpoint_identity.identity_sha256
             ),
+            control_role_policy=control_role_policy,
         )
     provider_probe_records = {
         str(item["role"]): dict(item) for item in provider_probe_receipt["records"]
@@ -1822,6 +1899,21 @@ async def _run_pipeline_with_cost_ledger(
     trace_path = os.path.join(output_dir, "trace.jsonl")
     if os.path.exists(trace_path):
         os.remove(trace_path)
+    runtime_mode = "external" if execution_substrate is not None else "native"
+    _append_jsonl(
+        trace_path,
+        {
+            "event_type": "runtime_mode",
+            "stage": "main_startup",
+            "runtime_mode": runtime_mode,
+            "execution_substrate_mode": execution_substrate_mode,
+            "execution_substrate_id": (
+                str(getattr(execution_substrate, "runtime_id", ""))
+                if execution_substrate is not None
+                else None
+            ),
+        },
+    )
     retrieval_identity = build_retrieval_runtime_identity(
         project_root=PROJECT_ROOT,
         provider_compatibility=_provider_compatibility_projection(base_url),
@@ -1830,6 +1922,7 @@ async def _run_pipeline_with_cost_ledger(
         ),
         require_release_sealed=(runtime_authority == "release"),
         honor_release_environment=(runtime_authority == "release"),
+        policy_path=retrieval_policy_path,
     )
     _atomic_write_json(
         os.path.join(output_dir, "retrieval_runtime_identity.json"),
@@ -2007,6 +2100,7 @@ async def _run_pipeline_with_cost_ledger(
         retrieval_identity,
         library,
         resource_index,
+        policy_path=retrieval_policy_path,
     )
     capability_consistency = build_capability_consistency_report(resource_index)
     capability_report_path = os.path.join(
@@ -2246,6 +2340,8 @@ async def _run_pipeline_with_cost_ledger(
             raise RuntimeError(f"control_{role}_probe_resource_identity_mismatch")
         if record["reasoning_effort"] != expected_policy.reasoning_effort:
             raise RuntimeError(f"control_{role}_probe_reasoning_effort_mismatch")
+        if record.get("temperature") != expected_policy.temperature:
+            raise RuntimeError(f"control_{role}_probe_temperature_mismatch")
         verified_role_modes.setdefault(role, "native_strict_schema")
         verified_role_identity_modes[(role, resource_id, api_model_id)] = (
             "native_strict_schema"
@@ -2340,8 +2436,8 @@ async def _run_pipeline_with_cost_ledger(
             "adaptation_role_policy_sha256": (
                 adaptation_invocation_policy.role_policy_sha256
             ),
-            "reasoning_effort": "xhigh",
-            "temperature": None,
+            "reasoning_effort": compiler_invocation_policy.reasoning_effort,
+            "temperature": compiler_invocation_policy.temperature,
             "allow_model_failover": False,
             "verified_compiler_model_chain": [
                 {
@@ -2799,6 +2895,8 @@ async def _run_pipeline_with_cost_ledger(
                 task_invocation.invocation if task_invocation is not None else None
             ),
             async_model_transport=model_transport_bundle.async_port,
+            execution_substrate=execution_substrate,
+            execution_substrate_mode=execution_substrate_mode,
         )
         if task_invocation is not None:
             orchestrator.register_input_handles(task_invocation.internal_handles())
@@ -2938,7 +3036,11 @@ async def _run_pipeline_with_cost_ledger(
     return pipeline_status
 
 
-def _configured_pricing_refs(llm_settings: dict) -> list[str]:
+def _configured_pricing_refs(
+    llm_settings: dict,
+    *,
+    retrieval_policy_path: str | Path | None = None,
+) -> list[str]:
     """Collect exact configured model IDs without fuzzy or legacy-tag matching."""
 
     refs: list[str] = []
@@ -2961,10 +3063,11 @@ def _configured_pricing_refs(llm_settings: dict) -> list[str]:
         "context_compression_model",
     ):
         add(llm_settings.get(key))
-    add(load_retrieval_policy().hyde.api_model_id)
+    add(load_retrieval_policy(retrieval_policy_path).hyde.api_model_id)
     return refs
 
 
+@bound_pipeline
 async def run_pipeline(
     config: dict,
     user_query: str,
@@ -2976,17 +3079,35 @@ async def run_pipeline(
     run_id: str | None = None,
     planner_variant: str = "resource_aware",
     runtime_authority: str = "git",
+    *,
+    execution_substrate: object | None = None,
+    execution_substrate_mode: str = "default",
+    max_generation_requests: int | None = None,
+    max_embedding_requests: int | None = None,
 ) -> str:
     """Initialize accounting before paid work and finalize it on every exit."""
 
     llm_settings = dict(config.get("llm_settings", {}) or {})
+    retrieval_policy_path = _runtime_policy_path(
+        config,
+        "retrieval_policy_path",
+        "sgar_mvp/config/retrieval_policy.json",
+    )
+    evaluator_policy_path = _runtime_policy_path(
+        config,
+        "evaluator_policy_path",
+        "sgar_mvp/config/evaluator_policy.json",
+    )
     recovery_policy = load_recovery_policy(
         os.path.join(SCRIPT_DIR, "config", "recovery_policy.json")
     )
     evaluator_policy = load_evaluator_policy(
-        os.path.join(SCRIPT_DIR, "config", "evaluator_policy.json")
+        evaluator_policy_path
     )
-    required_model_refs = _configured_pricing_refs(llm_settings)
+    required_model_refs = _configured_pricing_refs(
+        llm_settings,
+        retrieval_policy_path=retrieval_policy_path,
+    )
     required_model_refs.append(recovery_policy.full_generation_model_resource_id)
     required_model_refs.append(evaluator_policy.model_resource_id)
     catalog = ModelPricingCatalog.from_manifest_file(
@@ -3002,6 +3123,7 @@ async def run_pipeline(
         policy=policy,
         output_dir=output_dir,
         run_id=run_id,
+        max_generation_requests=max_generation_requests,
     )
     try:
         execution_ledger = RunExecutionLedger(
@@ -3040,26 +3162,35 @@ async def run_pipeline(
         cost_ledger.close()
         raise
     try:
-        result = await _run_pipeline_with_cost_ledger(
-            config,
-            user_query,
-            output_dir,
-            report_path,
-            cost_ledger,
-            execution_ledger,
-            recovery_policy,
-            recovery_ledger,
-            evaluator_policy,
-            evaluation_ledger,
-            artifact_store,
-            context_commit_store,
-            system_role_probe_audit=system_role_probe_audit,
-            query_diagnostics=query_diagnostics,
-            task_invocation=task_invocation,
-            network_policy_mode=network_policy_mode,
-            planner_variant=planner_variant,
-            runtime_authority=runtime_authority,
-        )
+        with embedding_request_budget(max_embedding_requests) as embedding_budget:
+            try:
+                result = await _run_pipeline_with_cost_ledger(
+                    config,
+                    user_query,
+                    output_dir,
+                    report_path,
+                    cost_ledger,
+                    execution_ledger,
+                    recovery_policy,
+                    recovery_ledger,
+                    evaluator_policy,
+                    evaluation_ledger,
+                    artifact_store,
+                    context_commit_store,
+                    system_role_probe_audit=system_role_probe_audit,
+                    query_diagnostics=query_diagnostics,
+                    task_invocation=task_invocation,
+                    network_policy_mode=network_policy_mode,
+                    planner_variant=planner_variant,
+                    runtime_authority=runtime_authority,
+                    execution_substrate=execution_substrate,
+                    execution_substrate_mode=execution_substrate_mode,
+                )
+            finally:
+                _atomic_write_json(
+                    os.path.join(output_dir, "embedding_summary.json"),
+                    embedding_budget.summary(),
+                )
         if system_role_probe_audit.status == "in_progress":
             terminal = getattr(result, "failure", None)
             if not isinstance(terminal, TerminalFailureEnvelope):

@@ -12,6 +12,7 @@ from .pipeline_control import FrozenContract, canonical_sha256
 PROFILER_INPUT_PROTOCOL = "sgar-profiler-input-v1"
 PROFILER_OUTPUT_PROTOCOL = "sgar-profiler-output-v2"
 PROFILER_GENERATION_POLICY_PROTOCOL = "sgar-profiler-generation-policy-v2"
+PROFILER_GENERATION_POLICY_EXPERIMENT_PROTOCOL = "sgar-profiler-generation-policy-v3"
 PROFILER_PROVIDER_CAPABILITY_PROTOCOL = "sgar-profiler-provider-capability-v1"
 SOL_RESOURCE_ID = "model.gpt_5_6_sol.v1"
 SOL_API_MODEL_ID = "gpt-5.6-sol"
@@ -21,7 +22,7 @@ PROFILER_OUTPUT_CAP_PROBE_ORDER = (
     PROFILER_NORMAL_OUTPUT_CAP,
     PROFILER_TRUNCATION_RETRY_OUTPUT_CAP,
 )
-ProfilerReasoningEffort = Literal["xhigh"]
+ProfilerReasoningEffort = Literal["low", "medium", "high", "xhigh", "max"]
 ProfilerResponseMode = Literal["native_strict_schema", "json_object_local_validator"]
 
 
@@ -68,6 +69,7 @@ class ProfilerInputEnvelopeV1(FrozenContract):
     revision: dict[str, Any]
     subtask: ProfilerSubtaskContractV1
     semantic_requirements: tuple[dict[str, Any], ...] = ()
+    execution_requirements: tuple[dict[str, Any], ...] = ()
     materials: tuple[ProfilerMaterialDescriptorV1, ...] = ()
     dag_inputs: tuple[dict[str, Any], ...] = ()
     output_contract: dict[str, Any]
@@ -103,13 +105,16 @@ class ProfilerOutputV2(FrozenContract):
 
 
 class ProfilerGenerationPolicyV2(FrozenContract):
-    """Exact Sol-only request policy; an endpoint probe seals its effective cap."""
+    """Exact request policy; an endpoint probe seals its effective cap."""
 
-    protocol: Literal[PROFILER_GENERATION_POLICY_PROTOCOL] = (
+    protocol: Literal[
+        PROFILER_GENERATION_POLICY_PROTOCOL,
+        PROFILER_GENERATION_POLICY_EXPERIMENT_PROTOCOL,
+    ] = (
         PROFILER_GENERATION_POLICY_PROTOCOL
     )
-    resource_id: Literal[SOL_RESOURCE_ID] = SOL_RESOURCE_ID
-    api_model_id: Literal[SOL_API_MODEL_ID] = SOL_API_MODEL_ID
+    resource_id: str = SOL_RESOURCE_ID
+    api_model_id: str = SOL_API_MODEL_ID
     prompt_version: str = Field(min_length=1)
     reasoning_effort: ProfilerReasoningEffort
     requested_max_output_tokens: Literal[8192] = 8192
@@ -126,6 +131,12 @@ class ProfilerGenerationPolicyV2(FrozenContract):
 
     @model_validator(mode="after")
     def _seal(self) -> "ProfilerGenerationPolicyV2":
+        if self.protocol == PROFILER_GENERATION_POLICY_PROTOCOL and (
+            self.resource_id != SOL_RESOURCE_ID
+            or self.api_model_id != SOL_API_MODEL_ID
+            or self.reasoning_effort != "xhigh"
+        ):
+            raise ValueError("profiler_generation_policy_v2_identity_invalid")
         if self.temperature is not None:
             raise ValueError("profiler_reasoning_temperature_must_be_omitted")
         if self.output_cap_probe_order != PROFILER_OUTPUT_CAP_PROBE_ORDER:
@@ -157,8 +168,8 @@ class ProfilerProviderCapabilityV1(FrozenContract):
     )
     endpoint_identity_sha256: str
     transport_kind: Literal["chat_completions", "responses"]
-    resource_id: Literal[SOL_RESOURCE_ID] = SOL_RESOURCE_ID
-    api_model_id: Literal[SOL_API_MODEL_ID] = SOL_API_MODEL_ID
+    resource_id: str = SOL_RESOURCE_ID
+    api_model_id: str = SOL_API_MODEL_ID
     supported_reasoning_efforts: tuple[ProfilerReasoningEffort, ...]
     accepted_output_cap: Literal[16384] = 16384
     accepted_response_mode: ProfilerResponseMode
@@ -200,6 +211,7 @@ __all__ = [
     "PROFILER_INPUT_PROTOCOL",
     "PROFILER_OUTPUT_PROTOCOL",
     "PROFILER_GENERATION_POLICY_PROTOCOL",
+    "PROFILER_GENERATION_POLICY_EXPERIMENT_PROTOCOL",
     "PROFILER_OUTPUT_CAP_PROBE_ORDER",
     "PROFILER_NORMAL_OUTPUT_CAP",
     "PROFILER_TRUNCATION_RETRY_OUTPUT_CAP",

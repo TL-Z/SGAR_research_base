@@ -23,7 +23,10 @@ from .pipeline_control import FrozenContract, canonical_json_bytes, canonical_sh
 from .resource_runtime import ResourceDefinition
 
 
-CONTROLLER_CALLABLE_TOOL_PROTOCOL = "sgar-controller-callable-tool-v1"
+CONTROLLER_CALLABLE_TOOL_V1_PROTOCOL = "sgar-controller-callable-tool-v1"
+CONTROLLER_CALLABLE_TOOL_V2_PROTOCOL = "sgar-controller-callable-tool-v2"
+CONTROLLER_CALLABLE_TOOL_PROTOCOL = CONTROLLER_CALLABLE_TOOL_V2_PROTOCOL
+_CONTROLLER_CALLABLE_AUTHORITY_PROTOCOL = CONTROLLER_CALLABLE_TOOL_V1_PROTOCOL
 
 _SHA256 = re.compile(r"^[0-9a-f]{64}$")
 _WINDOWS_ABSOLUTE = re.compile(r"(?i)(?:^|[\s'\"=(])(?:[a-z]:[\\/]|\\\\)")
@@ -165,13 +168,20 @@ def validate_callable_port_partition(
 
 
 class ControllerCallableToolSpecV1(FrozenContract):
-    """Framework-completed identity for one Controller-callable Tool."""
+    """Version-aware framework identity for one Controller-callable Tool."""
 
-    protocol: Literal[CONTROLLER_CALLABLE_TOOL_PROTOCOL] = (
+    protocol: Literal[
+        CONTROLLER_CALLABLE_TOOL_V1_PROTOCOL,
+        CONTROLLER_CALLABLE_TOOL_V2_PROTOCOL,
+    ] = (
         CONTROLLER_CALLABLE_TOOL_PROTOCOL
     )
     callable_id: str
-    provider_tool_name: str = Field(pattern=r"^sgar_call_[a-f0-9]{24}$")
+    provider_tool_name: str = Field(
+        min_length=1,
+        max_length=64,
+        pattern=r"^[a-z0-9_]+$",
+    )
     resource_id: str = Field(min_length=1)
     resource_type: Literal["Tool"] = "Tool"
     capability_operation_id: str = Field(min_length=1)
@@ -260,7 +270,12 @@ class ControllerCallableToolSpecV1(FrozenContract):
         )
         if canonical_sha256(authority) != self.callable_id:
             raise ValueError("controller_callable_id_mismatch")
-        if self.provider_tool_name != f"sgar_call_{self.callable_id[:24]}":
+        expected_provider_name = derive_provider_tool_name(
+            capability_operation_id=self.capability_operation_id,
+            callable_id=self.callable_id,
+            protocol=self.protocol,
+        )
+        if self.provider_tool_name != expected_provider_name:
             raise ValueError("controller_provider_tool_name_mismatch")
         wire = _provider_tool_schema(
             provider_tool_name=self.provider_tool_name,
@@ -296,7 +311,7 @@ def _callable_authority_projection(
     output_realization_contract: OutputRealizationContractV1,
 ) -> dict[str, Any]:
     return {
-        "protocol": CONTROLLER_CALLABLE_TOOL_PROTOCOL,
+        "protocol": _CONTROLLER_CALLABLE_AUTHORITY_PROTOCOL,
         "resource_id": resource_id,
         "capability_operation_id": capability_operation_id,
         "entrypoint_id": entrypoint_id,
@@ -325,6 +340,30 @@ def _provider_tool_schema(
             "parameters": copy.deepcopy(dict(parameters)),
         },
     }
+
+
+def _provider_operation_slug(capability_operation_id: str) -> str:
+    operation_name = str(capability_operation_id or "").rsplit("::", 1)[-1]
+    normalized = re.sub(r"[^a-z0-9]+", "_", operation_name.casefold()).strip("_")
+    normalized = re.sub(r"_+", "_", normalized)
+    return (normalized or "tool")[:32].rstrip("_") or "tool"
+
+
+def derive_provider_tool_name(
+    *,
+    capability_operation_id: str,
+    callable_id: str,
+    protocol: str = CONTROLLER_CALLABLE_TOOL_PROTOCOL,
+) -> str:
+    """Project one provider-safe name from sealed framework authority only."""
+
+    identity = _require_sha256(callable_id, field_name="callable_id")
+    if protocol == CONTROLLER_CALLABLE_TOOL_V1_PROTOCOL:
+        return f"sgar_call_{identity[:24]}"
+    if protocol == CONTROLLER_CALLABLE_TOOL_V2_PROTOCOL:
+        slug = _provider_operation_slug(capability_operation_id)
+        return f"sgar_{slug}_{identity[:24]}"
+    raise ControllerToolingError("controller_callable_tool_protocol_unsupported")
 
 
 def derive_controller_callable_tool_spec(
@@ -410,8 +449,14 @@ def derive_controller_callable_tool_spec(
         output_realization_contract=realization,
     )
     callable_id = canonical_sha256(authority)
-    provider_tool_name = f"sgar_call_{callable_id[:24]}"
-    provider_description = f"Invoke sealed capability operation {operation.declared_operation}."
+    provider_tool_name = derive_provider_tool_name(
+        capability_operation_id=capability_operation_id,
+        callable_id=callable_id,
+    )
+    provider_description = (
+        f"Invoke sealed capability operation {operation.declared_operation}. "
+        "Use this function name exactly as supplied."
+    )
     if _host_path_locator(provider_description):
         raise ControllerToolingError("controller_callable_description_not_portable")
     wire = _provider_tool_schema(
@@ -468,9 +513,12 @@ def require_unique_provider_tool_names(
 
 __all__ = [
     "CONTROLLER_CALLABLE_TOOL_PROTOCOL",
+    "CONTROLLER_CALLABLE_TOOL_V1_PROTOCOL",
+    "CONTROLLER_CALLABLE_TOOL_V2_PROTOCOL",
     "ControllerCallableToolSpecV1",
     "ControllerToolingError",
     "derive_controller_callable_tool_spec",
+    "derive_provider_tool_name",
     "project_provider_tool_schema",
     "require_unique_provider_tool_names",
     "validate_callable_port_partition",

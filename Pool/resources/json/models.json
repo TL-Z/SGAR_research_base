@@ -192,6 +192,160 @@
       "success_trajectories": [],
       "failure_reflections": []
     },
+    "selection_scope": "control_only"
+  },
+  {
+    "manifest_version": "1.0",
+    "resource_id": "model.claude_opus_5.v1",
+    "resource_type": "Model",
+    "status": "active",
+    "capability": {
+      "summary": "High-capability model for complex coding, agentic workflows, and sustained reasoning.",
+      "core_primitives": [
+        "complex code generation",
+        "agentic task execution",
+        "long-context analysis",
+        "tool-assisted problem solving"
+      ],
+      "problem_space": "Language model for complex coding, agentic workflows, and sustained reasoning over supplied evidence. Accepts text and image input and produces text output. External tools are required to execute programs, browse sources, or modify files; documented native capabilities do not establish compatibility with the configured Chat Completions gateway.",
+      "domain_tags": [
+        "Language",
+        "Software Engineering",
+        "Visual Understanding"
+      ]
+    },
+    "constraint": {
+      "env_requirements": [
+        "Endpoint exposing claude-opus-5 through Chat Completions",
+        "Valid API key for the configured supplier gateway",
+        "Gateway support for each requested structured-output and tool-use feature"
+      ],
+      "io_signature": "Input modalities: text, image | Output modalities: text. Current gateway compatibility requires live verification.",
+      "artifact_input": [
+        "text",
+        "image"
+      ],
+      "artifact_output": [
+        "text"
+      ]
+    },
+    "io": {
+      "input_contract": [
+        {
+          "name": "messages",
+          "kind": "chat_messages",
+          "required": true,
+          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
+        },
+        {
+          "name": "tools",
+          "kind": "tool_schema_array",
+          "required": false,
+          "description": "Function schemas; the gateway must support the documented tool-call protocol."
+        },
+        {
+          "name": "response_format",
+          "kind": "json_schema",
+          "required": false,
+          "description": "JSON output request; schema enforcement is a separate declared capability and requires gateway verification."
+        }
+      ],
+      "output_contract": {
+        "artifact_type": "plaintext",
+        "description": "Generated text returned through the configured gateway."
+      }
+    },
+    "routing": {
+      "family_id": "model.anthropic.claude",
+      "dependency_slots": []
+    },
+    "execution": {
+      "runtime": "llm_chat_completion",
+      "uri": "${base_url}/v1/chat/completions",
+      "model_id": "claude-opus-5",
+      "execution_status": "active"
+    },
+    "utility": {
+      "latency_ms": 0,
+      "token_cost_factor": 0,
+      "expected_success_rate": 0,
+      "successes": 0,
+      "attempts": 0
+    },
+    "provenance": {
+      "reviewed_at": "2026-09-15",
+      "evidence_status": "provider_documented_not_gateway_verified",
+      "integration_status": "canonical_registered_gateway_verification_pending",
+      "source_urls": [
+        "https://platform.claude.com/docs/en/models/overview",
+        "https://platform.claude.com/docs/en/models/opus-5/whats-new-opus-5"
+      ],
+      "pricing_status": "supplier_quote_recorded",
+      "supplier_quote": {
+        "source": "user_supplied_supplier_screenshot",
+        "recorded_at": "2026-09-15",
+        "api_model_id": "claude-opus-5",
+        "pricing_unit": "USD_per_million_tokens",
+        "input_per_m": "7.6950",
+        "output_per_m": "38.4750",
+        "cache_read_per_m": "0.7700",
+        "cache_creation_per_m": "9.6190",
+        "unlisted_rates": "unknown_not_zero",
+        "accounting_scope": "Current runtime accounting uses ordinary input, output, and cache-read rates; cache creation remains recorded but is not treated as zero.",
+        "endpoint_verification": "not_run"
+      },
+      "gateway_verification_status": "not_run",
+      "source_dataset": "local_model_pool",
+      "source_item_id": "Pool/resources/models/claude-opus-5.json",
+      "source_uri": "file://Pool/resources/models/claude-opus-5.json",
+      "source_hash": "sha256:27d4b135ea3dc641339627e7a76bfc4007ac9721f9053a0dcf2f576682061831",
+      "conversion_method": "declared_model_capabilities_v2",
+      "license": "provider-service-terms",
+      "utility_status": "unmeasured_zero_placeholders"
+    },
+    "type_specific": {
+      "model": {
+        "profile_version": "model-capabilities-v1",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "supports": {
+          "tool_calling": true,
+          "json_mode": true,
+          "vision": true,
+          "reasoning": true,
+          "coding": true,
+          "structured_outputs": true
+        },
+        "thinking_mode": "adaptive_default_on",
+        "native_protocol": "anthropic_messages",
+        "documented_context_tokens": 1000000,
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "gateway_verification_status": "not_run",
+        "limitations": [
+          "Configured Chat Completions gateway compatibility is not established by native Anthropic documentation."
+        ],
+        "model_id": "claude-opus-5",
+        "provider": "anthropic",
+        "family": "claude",
+        "context_window": "1M Context",
+        "pricing": {
+          "input_per_m": 7.695,
+          "cache_per_m": 0.77,
+          "output_per_m": 38.475
+        },
+        "pricing_unit": "USD_per_million_tokens",
+        "supports_source": "provider_documented_not_gateway_verified"
+      }
+    },
+    "memory": {
+      "success_trajectories": [],
+      "failure_reflections": []
+    },
     "selection_scope": "candidate"
   },
   {
@@ -1675,7 +1829,7 @@
       "source_dataset": "local_model_pool",
       "source_item_id": "Pool/resources/models/gpt-5.6-sol.json",
       "source_uri": "file://Pool/resources/models/gpt-5.6-sol.json",
-      "source_hash": "sha256:5131eafe9243a4e07dec3352a38f9b26854d30f964f7b29ff1d2e2f50be4821c",
+      "source_hash": "sha256:00e1c7ee82f073d4aa52ac6a6feae4761ff83f1630456c697827340f6b9609e5",
       "conversion_method": "declared_model_capabilities_v2",
       "license": "provider-service-terms",
       "utility_status": "unmeasured_zero_placeholders"
@@ -1722,7 +1876,7 @@
       "success_trajectories": [],
       "failure_reflections": []
     },
-    "selection_scope": "control_only"
+    "selection_scope": "candidate"
   },
   {
     "manifest_version": "1.0",
@@ -2218,11 +2372,11 @@
   },
   {
     "manifest_version": "1.0",
-    "resource_id": "model.qwen3_coder_30b_a3b_instruct.v1",
+    "resource_id": "model.qwen3_coder_next.v1",
     "resource_type": "Model",
     "status": "active",
     "capability": {
-      "summary": "Non-thinking coding model with a smaller sparse-expert design.",
+      "summary": "Coding-agent model emphasizing recovery across extended tool interactions.",
       "core_primitives": [
         "repository code editing",
         "debugging",
@@ -2230,7 +2384,7 @@
         "test implementation",
         "tool-assisted programming"
       ],
-      "problem_space": "Coding model for repository editing and development tools. Applicable tasks include repository code editing, debugging, refactoring, test implementation, tool-assisted programming. Accepts text input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions. Published distinction: The documented architecture has 30.5 billion total and 3.3 billion active parameters. It uses a coding-oriented function-call format; parser and gateway compatibility must be verified independently.",
+      "problem_space": "Coding model for repository editing and development tools. Applicable tasks include repository code editing, debugging, refactoring, test implementation, tool-assisted programming. Accepts text input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions. Published distinction: The documented architecture has 80 billion total and 3 billion active parameters with a hybrid attention layout. Training emphasizes extended tool interactions and recovery after execution failures; tools still execute outside the model.",
       "domain_tags": [
         "Language",
         "Software Engineering"
@@ -2239,7 +2393,7 @@
     "constraint": {
       "env_requirements": [
         "OpenAI-Compatible API Endpoint",
-        "GPU >= 24GB VRAM (Local Deployment) or API Key (Cloud)"
+        "Valid API Key (Cloud) or High-Memory GPU"
       ],
       "io_signature": "Input modalities: text | Output modalities: text. Gateway transport support requires verification.",
       "artifact_input": [
@@ -2276,7 +2430,7 @@
     "execution": {
       "runtime": "llm_chat_completion",
       "uri": "${base_url}/v1/chat/completions",
-      "model_id": "qwen3-coder-30b-a3b-instruct",
+      "model_id": "qwen3-coder-next",
       "execution_status": "active"
     },
     "utility": {
@@ -2288,36 +2442,42 @@
     },
     "provenance": {
       "semantic_review": {
-        "reviewed_at": "2026-09-09",
+        "reviewed_at": "2026-09-15",
         "policy": "model-capabilities-v1",
         "source_urls": [
-          "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/raw/main/README.md"
+          "https://huggingface.co/Qwen/Qwen3-Coder-Next"
         ],
         "evidence_status": "provider_documented_not_gateway_verified",
-        "source_document_sha256": {
-          "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/raw/main/README.md": "98e8f0e00f2d6c7f1743fc4ef2b6297dcc57bec73d71f36588aed984370ac3f3"
-        },
-        "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
-        "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
+        "task_profile_basis": "Task categories derive from documented operations; no empirical quality ranking or fixed framework role.",
+        "context_policy": "The configured context label is preserved separately from documented native context; neither proves the supplier limit."
       },
       "model_distinction_review": {
-        "evidence_kind": "documented_architecture",
+        "evidence_kind": "provider_documented_design",
         "source_urls": [
-          "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/raw/main/README.md"
+          "https://huggingface.co/Qwen/Qwen3-Coder-Next"
         ],
-        "source_document_sha256": {
-          "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/raw/main/README.md": "8b1aa7e67131e92e91d2b617fbc4214bfe6389fa6d0d08f6b1a5868212be9fcc"
-        },
         "interpretation_limit": "Published task emphasis is non-exclusive. Architecture and product positioning do not establish supplier latency, measured quality, or a fixed framework role.",
         "policy": "model-distinctions-v1",
-        "reviewed_at": "2026-09-09",
+        "reviewed_at": "2026-09-15",
         "evidence_status": "provider_documented_not_gateway_verified",
         "scope": "Non-exclusive published task emphasis and architecture; no empirical cross-model quality ordering."
       },
+      "pricing_status": "supplier_quote_recorded_unlisted_rates_unknown",
+      "supplier_quote": {
+        "source": "user_supplied_supplier_screenshot",
+        "recorded_at": "2026-09-15",
+        "api_model_id": "qwen3-coder-next",
+        "pricing_unit": "USD_per_million_tokens",
+        "input_per_m": "0.5250",
+        "output_per_m": "3.9370",
+        "cache_per_m": "unknown_not_zero",
+        "accounting_scope": "Current runtime accounting supports ordinary input, output, and optional cache-read rates."
+      },
+      "gateway_verification_status": "windows_historical_probe_only",
       "source_dataset": "local_model_pool",
-      "source_item_id": "Pool/resources/models/qwen3-coder-30b-a3b-instruct.json",
-      "source_uri": "file://Pool/resources/models/qwen3-coder-30b-a3b-instruct.json",
-      "source_hash": "sha256:c8870b6ea4cb58d50439a9cc5566c5632bbac8c57c05dfedee2353dc24d24666",
+      "source_item_id": "Pool/resources/models/qwen3-coder-next.json",
+      "source_uri": "file://Pool/resources/models/qwen3-coder-next.json",
+      "source_hash": "sha256:2127655f65eeb357bea6277adeabce1669c1843b25ac237cf6d3b78f321ce7b9",
       "conversion_method": "declared_model_capabilities_v2",
       "license": "provider-service-terms",
       "utility_status": "unmeasured_zero_placeholders"
@@ -2344,14 +2504,14 @@
         "evidence_status": "provider_documented_not_gateway_verified",
         "gateway_verification_status": "not_run",
         "limitations": [],
-        "model_id": "qwen3-coder-30b-a3b-instruct",
+        "model_id": "qwen3-coder-next",
         "provider": "qwen",
         "family": "qwen3",
         "context_window": "131K Context",
         "pricing": {
-          "input_per_m": 0.131,
-          "cache_per_m": 0.0,
-          "output_per_m": 0.525
+          "input_per_m": 0.525,
+          "cache_per_m": null,
+          "output_per_m": 3.937
         },
         "pricing_unit": "USD_per_million_tokens",
         "supports_source": "provider_documented_not_gateway_verified"
@@ -2365,7 +2525,7 @@
   },
   {
     "manifest_version": "1.0",
-    "resource_id": "model.qwen3_vl_30b_a3b_instruct.v1",
+    "resource_id": "model.qwen3_vl_235b_a22b_instruct.v1",
     "resource_type": "Model",
     "status": "active",
     "capability": {
@@ -2377,7 +2537,7 @@
         "video question answering",
         "visual reasoning"
       ],
-      "problem_space": "Vision-language model for visual grounding and document understanding. Applicable tasks include document OCR, chart interpretation, visual grounding, video question answering, visual reasoning. Accepts text, image, video input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions. Published distinction: The published architecture is sparse-expert, with 30 billion total and 3 billion active parameters. This is the direct-response instruction edition for text and visual tasks; model size and edition do not establish actual supplier latency or accuracy.",
+      "problem_space": "Vision-language model for visual grounding and document understanding. Applicable tasks include document OCR, chart interpretation, visual grounding, video question answering, visual reasoning. Accepts text, image, video input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions. Published distinction: The published architecture is sparse-expert, with 235 billion total and 22 billion active parameters. This is the direct-response instruction edition for text and visual tasks; model size and edition do not establish actual supplier latency or accuracy.",
       "domain_tags": [
         "Language",
         "Software Engineering",
@@ -2387,7 +2547,7 @@
     "constraint": {
       "env_requirements": [
         "OpenAI-Compatible API Endpoint",
-        "Valid API Key (Cloud) or GPU with Multimodal Support"
+        "Valid API Key (Cloud) or High-Memory GPU with Multimodal Support"
       ],
       "io_signature": "Input modalities: text, image, video | Output modalities: text. Gateway transport support requires verification.",
       "artifact_input": [
@@ -2420,7 +2580,7 @@
     "execution": {
       "runtime": "llm_chat_completion",
       "uri": "${base_url}/v1/chat/completions",
-      "model_id": "qwen3-vl-30b-a3b-instruct",
+      "model_id": "qwen3-vl-235b-a22b-instruct",
       "execution_status": "active"
     },
     "utility": {
@@ -2432,38 +2592,42 @@
     },
     "provenance": {
       "semantic_review": {
-        "reviewed_at": "2026-09-09",
+        "reviewed_at": "2026-09-15",
         "policy": "model-capabilities-v1",
         "source_urls": [
-          "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/README.md"
+          "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct"
         ],
         "evidence_status": "provider_documented_not_gateway_verified",
-        "source_document_sha256": {
-          "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/README.md": "37d278ac62511b5267c1a65d83d5c93a1234c7c3aafc68fb5be48a385269aef5"
-        },
-        "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
-        "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
+        "task_profile_basis": "Task categories derive from documented operations; no empirical quality ranking or fixed framework role.",
+        "context_policy": "The configured context label is preserved separately from documented native context; neither proves the supplier limit."
       },
       "model_distinction_review": {
         "evidence_kind": "documented_architecture_and_mode",
         "source_urls": [
-          "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/README.md",
-          "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/config.json"
+          "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct"
         ],
-        "source_document_sha256": {
-          "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/README.md": "e4f6a2dbf91f79745f328e1da89e6a9a458b6e311dfd4cb1dd7888e0cda3c787",
-          "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/config.json": "6129b3f54d517a18553cf7525ff4886be6831c5806fc094d632b8ef38d859912"
-        },
         "interpretation_limit": "Published task emphasis is non-exclusive. Architecture and product positioning do not establish supplier latency, measured quality, or a fixed framework role.",
         "policy": "model-distinctions-v1",
-        "reviewed_at": "2026-09-09",
+        "reviewed_at": "2026-09-15",
         "evidence_status": "provider_documented_not_gateway_verified",
         "scope": "Non-exclusive published task emphasis and architecture; no empirical cross-model quality ordering."
       },
+      "pricing_status": "supplier_quote_recorded_unlisted_rates_unknown",
+      "supplier_quote": {
+        "source": "user_supplied_supplier_screenshot",
+        "recorded_at": "2026-09-15",
+        "api_model_id": "qwen3-vl-235b-a22b-instruct",
+        "pricing_unit": "USD_per_million_tokens",
+        "input_per_m": "0.4690",
+        "output_per_m": "1.8750",
+        "cache_per_m": "unknown_not_zero",
+        "accounting_scope": "Current runtime accounting supports ordinary input, output, and optional cache-read rates."
+      },
+      "gateway_verification_status": "windows_historical_probe_only",
       "source_dataset": "local_model_pool",
-      "source_item_id": "Pool/resources/models/qwen3-vl-30b-a3b-instruct.json",
-      "source_uri": "file://Pool/resources/models/qwen3-vl-30b-a3b-instruct.json",
-      "source_hash": "sha256:0b23d3e93695e1f4be790d05269c000874b2f0ad2d8a6e6ea211e6690761e30a",
+      "source_item_id": "Pool/resources/models/qwen3-vl-235b-a22b-instruct.json",
+      "source_uri": "file://Pool/resources/models/qwen3-vl-235b-a22b-instruct.json",
+      "source_hash": "sha256:0a1253dd4590d8a768f2a49c705995112480efb944f98c7eb22468f19e0a6152",
       "conversion_method": "declared_model_capabilities_v2",
       "license": "provider-service-terms",
       "utility_status": "unmeasured_zero_placeholders"
@@ -2492,14 +2656,165 @@
         "evidence_status": "provider_documented_not_gateway_verified",
         "gateway_verification_status": "not_run",
         "limitations": [],
-        "model_id": "qwen3-vl-30b-a3b-instruct",
+        "model_id": "qwen3-vl-235b-a22b-instruct",
         "provider": "qwen",
         "family": "qwen3",
         "context_window": "131K Context",
         "pricing": {
-          "input_per_m": 0.131,
-          "cache_per_m": 0.0,
-          "output_per_m": 0.525
+          "input_per_m": 0.469,
+          "cache_per_m": null,
+          "output_per_m": 1.875
+        },
+        "pricing_unit": "USD_per_million_tokens",
+        "supports_source": "provider_documented_not_gateway_verified"
+      }
+    },
+    "memory": {
+      "success_trajectories": [],
+      "failure_reflections": []
+    },
+    "selection_scope": "candidate"
+  },
+  {
+    "manifest_version": "1.0",
+    "resource_id": "model.qwen3_5_35b_a3b.v1",
+    "resource_type": "Model",
+    "status": "active",
+    "capability": {
+      "summary": "Cost-efficient multimodal generalist for text, reasoning, coding, tool use, and visual understanding.",
+      "core_primitives": [
+        "text reasoning",
+        "code generation",
+        "structured generation",
+        "tool-assisted analysis",
+        "visual understanding"
+      ],
+      "problem_space": "General-purpose multimodal model for text reasoning, code generation, structured generation, tool-assisted analysis, and visual understanding. Accepts text and image input and produces text output. External tools execute outside the model. Current gateway capability and comparative quality require independent Linux verification.",
+      "domain_tags": [
+        "Language",
+        "Software Engineering",
+        "Visual Understanding"
+      ]
+    },
+    "constraint": {
+      "env_requirements": [
+        "OpenAI-Compatible API Endpoint",
+        "Valid API Key (Cloud) or High-Memory GPU with Multimodal Support"
+      ],
+      "io_signature": "Input modalities: text, image | Output modalities: text. Gateway transport support requires verification.",
+      "artifact_input": [
+        "text",
+        "image"
+      ],
+      "artifact_output": [
+        "text"
+      ]
+    },
+    "io": {
+      "input_contract": [
+        {
+          "name": "messages",
+          "kind": "chat_messages",
+          "required": true,
+          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
+        },
+        {
+          "name": "tools",
+          "kind": "tool_schema_array",
+          "required": false,
+          "description": "Function schemas; the gateway must support the documented tool-call protocol."
+        }
+      ],
+      "output_contract": {
+        "artifact_type": "plaintext",
+        "description": "Generated text returned through the configured gateway."
+      }
+    },
+    "routing": {
+      "family_id": "model.qwen.qwen3",
+      "dependency_slots": []
+    },
+    "execution": {
+      "runtime": "llm_chat_completion",
+      "uri": "${base_url}/v1/chat/completions",
+      "model_id": "qwen3.5-35b-a3b",
+      "execution_status": "active"
+    },
+    "utility": {
+      "latency_ms": 0,
+      "token_cost_factor": 0,
+      "expected_success_rate": 0,
+      "successes": 0,
+      "attempts": 0
+    },
+    "provenance": {
+      "semantic_review": {
+        "reviewed_at": "2026-09-15",
+        "policy": "model-capabilities-v1",
+        "source_urls": [],
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "task_profile_basis": "Broad task categories are registration metadata, not an empirical ranking or fixed framework role.",
+        "context_policy": "The configured context label is preserved separately from gateway verification."
+      },
+      "model_distinction_review": {
+        "evidence_kind": "user_supplied_focused_protocol_evidence",
+        "interpretation_limit": "The attached local protocol pass establishes point-in-time usability only; Linux health and paired task comparisons determine active retention.",
+        "policy": "model-distinctions-v1",
+        "reviewed_at": "2026-09-15",
+        "evidence_status": "windows_historical_probe_only",
+        "scope": "Broad low-price baseline for the bounded Qwen retention comparison."
+      },
+      "pricing_status": "supplier_quote_recorded_unlisted_rates_unknown",
+      "supplier_quote": {
+        "source": "user_supplied_supplier_screenshot",
+        "recorded_at": "2026-09-15",
+        "api_model_id": "qwen3.5-35b-a3b",
+        "pricing_unit": "USD_per_million_tokens",
+        "input_per_m": "0.0750",
+        "output_per_m": "0.6000",
+        "cache_per_m": "unknown_not_zero",
+        "accounting_scope": "Current runtime accounting supports ordinary input, output, and optional cache-read rates."
+      },
+      "gateway_verification_status": "windows_historical_probe_only",
+      "source_dataset": "local_model_pool",
+      "source_item_id": "Pool/resources/models/qwen3.5-35b-a3b.json",
+      "source_uri": "file://Pool/resources/models/qwen3.5-35b-a3b.json",
+      "source_hash": "sha256:da1193d85715aa4559aae2ad1ae0b792c4ef8b97fe5e59cf56ec432b7a4760a5",
+      "conversion_method": "declared_model_capabilities_v2",
+      "license": "provider-service-terms",
+      "utility_status": "unmeasured_zero_placeholders"
+    },
+    "type_specific": {
+      "model": {
+        "profile_version": "model-capabilities-v1",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "supports": {
+          "tool_calling": true,
+          "json_mode": null,
+          "vision": true,
+          "reasoning": true,
+          "coding": true
+        },
+        "thinking_mode": "hybrid",
+        "native_protocol": "openai_compatible_chat",
+        "documented_context_tokens": 262144,
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "gateway_verification_status": "not_run",
+        "limitations": [],
+        "model_id": "qwen3.5-35b-a3b",
+        "provider": "qwen",
+        "family": "qwen3",
+        "context_window": "262K Context",
+        "pricing": {
+          "input_per_m": 0.075,
+          "cache_per_m": null,
+          "output_per_m": 0.6
         },
         "pricing_unit": "USD_per_million_tokens",
         "supports_source": "provider_documented_not_gateway_verified"

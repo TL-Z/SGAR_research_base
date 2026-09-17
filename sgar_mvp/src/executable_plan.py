@@ -28,6 +28,7 @@ from .formal_contracts import (
     ExecutableEdgeContractV2,
     ExecutionObligationV1,
     ExecutionObligationV2,
+    ExecutionResourceRequirementV1,
     MaterialDescriptorV1,
     SemanticEdgeContractV2,
 )
@@ -610,6 +611,7 @@ class PlanCompilerInputEnvelope(FrozenContract):
     dependency_edges: tuple[CandidateDependencyEdge, ...] = ()
     public_context: CompilerPublicContext
     execution_obligations: tuple[ExecutionObligationV1 | ExecutionObligationV2, ...] = ()
+    execution_requirements: tuple[ExecutionResourceRequirementV1, ...] = ()
     materials: tuple[MaterialDescriptorV1, ...] = ()
     runtime_capabilities: RuntimeCapabilities
     pricing_catalog_sha256: str
@@ -658,6 +660,9 @@ class PlanCompilerInputEnvelope(FrozenContract):
         obligation_ids = [item.obligation_id for item in self.execution_obligations]
         if len(obligation_ids) != len(set(obligation_ids)):
             raise ValueError("plan_input_execution_obligation_duplicate")
+        requirement_ids = [item.requirement_id for item in self.execution_requirements]
+        if len(requirement_ids) != len(set(requirement_ids)):
+            raise ValueError("plan_input_execution_requirement_duplicate")
         material_ids = [item.source_id for item in self.materials]
         if len(material_ids) != len(set(material_ids)):
             raise ValueError("plan_input_material_source_duplicate")
@@ -1618,6 +1623,7 @@ class CompilerStepDecisionV3(FrozenContract):
     output_role: Literal["final", "selected_resource", "intermediate"]
     intermediate_contract: CompilerIntermediateContractV3 | None = None
     agent_base_model_resource_id: str | None = None
+    advisory_profile_refs: tuple[str, ...] = ()
 
     @model_validator(mode="after")
     def _output_shape(self) -> "CompilerStepDecisionV3":
@@ -1964,7 +1970,14 @@ def _project_compiler_decision_v3(
                     for source_operation in source_card.capability_operations
                     for artifact_type in source_operation.produced_artifact_types
                 )
-            if accepted_types and mapping.source_kind != "literal":
+            advisory_skill_binding = (
+                mapping.source_kind == "step_output"
+                and cards.get(decision_steps[str(mapping.from_step)].resource_id) is not None
+                and cards[decision_steps[str(mapping.from_step)].resource_id].resource_type == "Skill"
+                and card.resource_type == "Agent"
+                and decision_steps[str(mapping.from_step)].resource_id in step.advisory_profile_refs
+            )
+            if accepted_types and mapping.source_kind != "literal" and not advisory_skill_binding:
                 if not source_types:
                     raise ValueError("compiler_v3_input_artifact_type_unproven")
                 if not any(
@@ -2135,7 +2148,7 @@ def _project_compiler_decision_v3(
                     item.target_port, item.source_id, item.handle_id, item.content_sha256))),
                 output_key=output_key,
                 output_contract=output,
-                advisory_profile_refs=(),
+                advisory_profile_refs=step.advisory_profile_refs,
                 agent_base_model_resource_id=step.agent_base_model_resource_id,
             )
         )
@@ -2152,6 +2165,8 @@ def _project_compiler_decision_v3(
                     pending.append(dependency_id)
         return closure
 
+    controller_step_id: str | None = None
+    controller_callable_material_ids: set[str] = set()
     if decision.controller_callable_tools:
         controller_steps = tuple(
             item
@@ -2161,6 +2176,7 @@ def _project_compiler_decision_v3(
         if len(controller_steps) != 1:
             raise ValueError("controller_callable_tool_requires_single_controller")
         controller_step = controller_steps[0]
+        controller_step_id = controller_step.step_id
         controller_dependency_closure = step_closure(controller_step.depends_on)
         for callable_tool in decision.controller_callable_tools:
             card = cards.get(callable_tool.resource_id)
@@ -2235,6 +2251,7 @@ def _project_compiler_decision_v3(
                         candidate_card=card,
                         runtime_capabilities=envelope.runtime_capabilities,
                     )
+                    controller_callable_material_ids.add(str(mapping.source_id))
                 elif mapping.source_kind == "resource":
                     source_card = cards.get(str(mapping.source_id))
                     if source_card is None:
@@ -2328,6 +2345,12 @@ def _project_compiler_decision_v3(
             for material_step in relevant_steps:
                 visit_material_step(material_step.step_id)
             proven_material_ids: set[str] = set()
+            if controller_step_id in closure_ids:
+                proven_material_ids.update(
+                    required_material_ids.intersection(
+                        controller_callable_material_ids
+                    )
+                )
             for step_id in closure_ids:
                 step = decision_steps[step_id]
                 operation = selected_operations[step_id]

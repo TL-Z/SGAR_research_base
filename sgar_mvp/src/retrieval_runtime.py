@@ -71,6 +71,7 @@ from .pipeline_control import (
 )
 from .planner_contracts import PlannerContractConflict, validate_planner_subtask_contract
 from .formal_contracts import (
+    ExecutionResourceRequirementV1,
     NodeSemanticContractV2,
     SemanticEdgeContractV2,
     SemanticRequirementDeclarationV1,
@@ -82,6 +83,7 @@ from .profiler_protocol import (
 )
 from .internal_language import INTERNAL_LANGUAGE_POLICY
 from .retrieval_policy import RetrievalPolicy, load_retrieval_policy
+from .runtime_policy_context import bind_retrieval_policy_path
 from .release_source_seal import load_and_verify_source_seal
 from .resource_runtime import (
     ResourceDefinition,
@@ -745,6 +747,7 @@ def build_retrieval_runtime_identity(
     now_epoch: float | None = None,
     require_release_sealed: bool = False,
     honor_release_environment: bool = True,
+    policy_path: str | Path | None = None,
 ) -> RetrievalRuntimeIdentity:
     """Validate and freeze all formal retrieval inputs without network access."""
 
@@ -780,8 +783,10 @@ def build_retrieval_runtime_identity(
             )
         except Exception as exc:
             raise RetrievalRuntimeError("sealed_local_validation_source_seal_invalid") from exc
-    policy_path = (
-        Path(configured_policy_path).resolve()
+    selected_policy_path = (
+        Path(policy_path).resolve()
+        if policy_path is not None
+        else Path(configured_policy_path).resolve()
         if configured_policy_path
         else root / "sgar_mvp" / "config" / "retrieval_policy.json"
     )
@@ -799,12 +804,12 @@ def build_retrieval_runtime_identity(
         "metadata": selected_index_dir / "resource_meta.pkl",
     }
     build_manifest_path = selected_index_dir / "index_build_manifest.json"
-    required_paths = [policy_path, effective_path, catalog_path, health_path, *index_paths.values()]
+    required_paths = [selected_policy_path, effective_path, catalog_path, health_path, *index_paths.values()]
     if any(not path.is_file() for path in required_paths):
         raise RetrievalRuntimeError("retrieval_identity_required_file_missing")
 
     try:
-        policy: RetrievalPolicy = load_retrieval_policy(policy_path)
+        policy: RetrievalPolicy = load_retrieval_policy(selected_policy_path)
     except Exception as exc:
         raise RetrievalRuntimeError("retrieval_policy_schema_invalid") from exc
     if policy.active_strategy != "capability_only":
@@ -1011,6 +1016,7 @@ def validate_loaded_retrieval_backend(
     resource_index: Mapping[str, Mapping[str, Any]] | None = None,
     project_root: str | Path = PROJECT_ROOT,
     backend: Any | None = None,
+    policy_path: str | Path | None = None,
 ) -> None:
     """Bind the lazy retrieval backend to the frozen runtime identity.
 
@@ -1021,6 +1027,8 @@ def validate_loaded_retrieval_backend(
     """
 
     root = Path(project_root).resolve()
+    if policy_path is not None:
+        bind_retrieval_policy_path(policy_path)
     loaded = backend if backend is not None else importlib.import_module("retrieve")
     backend_file = getattr(loaded, "__file__", None)
     try:
@@ -1184,6 +1192,7 @@ class RetrievalContractProjection(FrozenContract):
     planner_capability_evidence: tuple[str, ...] = ()
     planner_capability_gap: str | None = None
     semantic_requirements: tuple[SemanticRequirementDeclarationV1, ...] = ()
+    execution_requirements: tuple[ExecutionResourceRequirementV1, ...] = ()
     contract_sha256: str = ""
 
     @field_validator("interface_contract", mode="before")
@@ -1357,6 +1366,7 @@ def project_retrieval_contract(
         semantic_requirements=(
             () if semantic_v2 is not None else tuple(subtask.semantic_requirements)
         ),
+        execution_requirements=tuple(subtask.execution_requirements),
     )
 
 
@@ -1399,6 +1409,9 @@ def ideal_profile_input_envelope(
         ),
         semantic_requirements=tuple(
             item.model_dump(mode="json") for item in projection.semantic_requirements
+        ),
+        execution_requirements=tuple(
+            item.model_dump(mode="json") for item in projection.execution_requirements
         ),
         materials=tuple(
             ProfilerMaterialDescriptorV1(
@@ -1855,10 +1868,11 @@ class _ResolutionFailure(RuntimeError):
 
 _ORIGIN_PRIORITY = {
     CandidateOrigin.RETRIEVAL: 0,
-    CandidateOrigin.PLANNER_CAPABILITY_EVIDENCE: 1,
-    CandidateOrigin.EXPLICIT_DEPENDENCY: 2,
-    CandidateOrigin.AGENT_BASE_MODEL: 3,
-    CandidateOrigin.DEPENDENCY_SLOT: 4,
+    CandidateOrigin.USER_EXECUTION_REQUIREMENT: 1,
+    CandidateOrigin.PLANNER_CAPABILITY_EVIDENCE: 2,
+    CandidateOrigin.EXPLICIT_DEPENDENCY: 3,
+    CandidateOrigin.AGENT_BASE_MODEL: 4,
+    CandidateOrigin.DEPENDENCY_SLOT: 5,
 }
 
 
@@ -2326,6 +2340,24 @@ class _CandidatePoolBuilder:
         self._agent_vectors: dict[str, tuple[float, ...]] = {}
         self._validate_library_identity()
         self._prepare_compatibility()
+
+    def _required_resource_id(self, requirement: ExecutionResourceRequirementV1) -> str | None:
+        if requirement.resource_id is not None:
+            manifest = self.manifest_by_id.get(requirement.resource_id)
+            if manifest is None or manifest.type.value != requirement.resource_type:
+                raise RetrievalRuntimeError("execution_requirement_resource_unavailable")
+            return requirement.resource_id
+        if requirement.api_model_id is None:
+            return None
+        matches = [
+            resource_id
+            for resource_id, raw in self.raw_by_id.items()
+            if self.manifest_by_id[resource_id].type == ManifestType.MODEL
+            and _model_api_id(raw) == requirement.api_model_id
+        ]
+        if len(matches) != 1:
+            raise RetrievalRuntimeError("execution_requirement_api_identity_unresolved")
+        return matches[0]
 
     def _validate_library_identity(self) -> None:
         if len(self.manifest_by_id) != len(self.library):
@@ -2893,8 +2925,27 @@ class _CandidatePoolBuilder:
                 query_role="agent_base_model",
                 parent_resource_id=resource_id,
             )
+            required_base_ids = tuple(
+                dict.fromkeys(
+                    resource_id
+                    for requirement in self.contract.execution_requirements
+                    if requirement.relation == "agent_base_model"
+                    for resource_id in (self._required_resource_id(requirement),)
+                    if resource_id is not None
+                )
+            )
+            if len(required_base_ids) > 1:
+                raise _ResolutionFailure("multiple_required_agent_base_models")
+            if required_base_ids:
+                required_base_id = required_base_ids[0]
+                model_ranked = sorted(
+                    model_ranked,
+                    key=lambda item: (item[0].id != required_base_id, item[4]),
+                )
             selected_model: tuple[Manifest, float, int, _Resolution] | None = None
             for model_manifest, model_score, _cap, _con, model_rank in model_ranked:
+                if required_base_ids and model_manifest.id != required_base_ids[0]:
+                    continue
                 try:
                     child = self._resolve_resource(
                         model_manifest.id,
@@ -3083,6 +3134,59 @@ class _CandidatePoolBuilder:
                 resource_id=resource_id,
                 resource_type=manifest.type.value,
                 origin=CandidateOrigin.PLANNER_CAPABILITY_EVIDENCE,
+                required_by_resource_id=None,
+                dependency_slot=None,
+                score=score,
+                rank=rank,
+            )
+            self._merge_resolution(global_resolution, resolution)
+
+        required_ids = tuple(
+            dict.fromkeys(
+                resource_id
+                for requirement in self.contract.execution_requirements
+                for resource_id in (self._required_resource_id(requirement),)
+                if resource_id is not None
+            )
+        )
+        for resource_id in required_ids:
+            if resource_id in global_resolution.entries:
+                continue
+            manifest = self.manifest_by_id[resource_id]
+            if manifest.type.value not in base_rankings:
+                base_rankings[manifest.type.value] = self._rank(
+                    self.profile.capability_vector,
+                    manifest.type.value,
+                    query_role="base",
+                )
+                rank_by_id.update(
+                    {
+                        item.id: (score, rank)
+                        for item, score, _cap, _con, rank in base_rankings[manifest.type.value]
+                    }
+                )
+            ranked = rank_by_id.get(resource_id)
+            if ranked is None:
+                raise RetrievalRuntimeError("execution_requirement_resource_not_eligible")
+            score, rank = ranked
+            try:
+                resolution = self._resolve_resource(
+                    resource_id,
+                    origin=CandidateOrigin.USER_EXECUTION_REQUIREMENT,
+                    parent_resource_id=None,
+                    dependency_slot=None,
+                    score=score,
+                    rank=rank,
+                    ancestors=(),
+                )
+            except _ResolutionFailure as exc:
+                raise RetrievalRuntimeError(
+                    f"execution_requirement_resource_rejected:{exc.reason_code}"
+                ) from exc
+            resolution.entries[resource_id] = _CandidateEntry(
+                resource_id=resource_id,
+                resource_type=manifest.type.value,
+                origin=CandidateOrigin.USER_EXECUTION_REQUIREMENT,
                 required_by_resource_id=None,
                 dependency_slot=None,
                 score=score,

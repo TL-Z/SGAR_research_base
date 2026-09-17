@@ -1,0 +1,68 @@
+{
+  "accounting_persistence_failure_count": 0,
+  "blocked_call_count": 0,
+  "budget_status": {
+    "limit_reached": false,
+    "mode": "stop_after_limit",
+    "overshoot_usd": "0.000000000000",
+    "usage_unknown_blocks_next_call": false,
+    "warning_emitted": false
+  },
+  "by_model": {
+    "model.gpt_5_6_sol.v1": {
+      "attempt_count": 2,
+      "cached_input_tokens": 11008,
+      "input_tokens": 17568,
+      "observed_model_cost_usd": "0.056771280000",
+      "output_tokens": 4299,
+      "response_count": 2
+    }
+  },
+  "by_stage": {
+    "planner_decompose": {
+      "attempt_count": 2,
+      "cached_input_tokens": 11008,
+      "input_tokens": 17568,
+      "observed_model_cost_usd": "0.056771280000",
+      "output_tokens": 4299,
+      "response_count": 2
+    }
+  },
+  "by_subtask": {
+    "__global__": {
+      "attempt_count": 2,
+      "cached_input_tokens": 11008,
+      "input_tokens": 17568,
+      "observed_model_cost_usd": "0.056771280000",
+      "output_tokens": 4299,
+      "response_count": 2
+    }
+  },
+  "finished_call_count": 2,
+  "no_response_attempt_count": 0,
+  "observed_total_model_cost_usd": "0.056771280000",
+  "pending_call_count": 0,
+  "pricing_catalog_sha256": "221b024c487460ca1e991d64d8e64245ab80716970fd7eee4efb7abd749a47aa",
+  "provider_reported_cost_complete": true,
+  "resolved_cost_policy": {
+    "limit_usd": "10.000000000000",
+    "mode": "stop_after_limit",
+    "policy_sha256": "b3f8323f6fa74e42b09e2c05a0fb2200c4023f8fcd39d6ae24daeb9dbb3eb778",
+    "schema_version": "model-cost-policy-v1",
+    "strict_pricing": true,
+    "unknown_model": "reject",
+    "warning_usd": "10.000000000000"
+  },
+  "resource_pool_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25",
+  "response_usage_invalid_count": 0,
+  "response_usage_missing_count": 0,
+  "run_id": "9c66d36b3ef248d4af8f36a586930042",
+  "schema_version": "sgar-model-cost-summary-v1",
+  "started_call_count": 2,
+  "token_usage": {
+    "cached_input_tokens": 11008,
+    "input_tokens": 17568,
+    "output_tokens": 4299
+  },
+  "warning_count": 0
+}

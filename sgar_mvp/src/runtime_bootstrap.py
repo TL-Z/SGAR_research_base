@@ -21,7 +21,8 @@ class RuntimeBootstrapError(ValueError):
 _FIELDS = {
     "runtime_authority", "output_root", "temporary_directory",
     "pip_cache_directory", "release_storage_root", "activated_system_seal_path",
-    "control_probe_receipt_path",
+    "control_probe_receipt_path", "control_role_policy_path",
+    "retrieval_policy_path", "evaluator_policy_path",
 }
 
 

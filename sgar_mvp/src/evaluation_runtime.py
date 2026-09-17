@@ -1401,9 +1401,12 @@ class EvaluationCoordinator:
                 },
                 {"role": "user", "content": prompt},
             ],
-            "reasoning_effort": self.policy.reasoning_effort,
             "max_tokens": self.policy.max_output_tokens,
         }
+        if self.policy.reasoning_effort is not None:
+            api_kwargs["reasoning_effort"] = self.policy.reasoning_effort
+        if self.policy.temperature is not None:
+            api_kwargs["temperature"] = self.policy.temperature
         api_kwargs["response_format"] = system_role_response_format(
             "evaluator",
             mode=normalize_structured_response_mode(

@@ -10,6 +10,7 @@ Physical execution nodes that process individual subtasks.
 
 from sgar_mvp.src.direct_network import (
     direct_async_http_client, direct_environment, direct_container_environment_args,
+    load_tool_proxy_config, tool_proxy_audit, tool_proxy_environment,
 )
 
 import re
@@ -33,6 +34,7 @@ from openai import (
 from loguru import logger
 
 from .schema import ArtifactType, TypedResourceRef
+from .runtime_abstraction import require_legacy_runtime
 from .capability_registry import GLOBAL_CAPABILITY_REGISTRY
 from .public_inputs import (
     InternalMetadataLayoutError,
@@ -567,8 +569,10 @@ class ControllerTurnExecutor:
         "You are the bounded S-GAR Controller runtime. Follow only the sealed task, "
         "authorized input snapshot, declared output contract, supplied Agent Card, "
         "and the provided callable Tool schemas. You may call only those Tools using "
-        "their declared dynamic arguments. Tool results will be returned as role=tool "
-        "messages. When no Tool call is needed, return the final artifact."
+        "their declared dynamic arguments. Use exactly function.name from the supplied "
+        "tools array; resource IDs and capability operation IDs are descriptive identities, "
+        "not callable function names. Tool results will be returned as role=tool messages. "
+        "When no Tool call is needed, return the final artifact."
     )
 
     def __init__(
@@ -1396,24 +1400,21 @@ class DumbExecutor(BaseExecutor):
                 for entry in public_inputs
                 if not self._is_project_path(entry["host_path"])
             ]
-            if not external_public_paths:
-                raise ValueError(
-                    "external run workspace requires an exact external public input"
-                )
-            try:
-                narrowest_root = os.path.commonpath(
-                    [writable["host_path"], *external_public_paths]
-                )
-            except ValueError as exc:
-                raise ValueError(
-                    "external routes must share one exact run workspace"
-                ) from exc
-            if os.path.normcase(os.path.abspath(narrowest_root)) != os.path.normcase(
-                external_workspace
-            ):
-                raise ValueError(
-                    "external run workspace must be the narrowest shared route root"
-                )
+            if external_public_paths:
+                try:
+                    narrowest_root = os.path.commonpath(
+                        [writable["host_path"], *external_public_paths]
+                    )
+                except ValueError as exc:
+                    raise ValueError(
+                        "external routes must share one exact run workspace"
+                    ) from exc
+                if os.path.normcase(os.path.abspath(narrowest_root)) != os.path.normcase(
+                    external_workspace
+                ):
+                    raise ValueError(
+                        "external run workspace must be the narrowest shared route root"
+                    )
 
         # Mounting the project root would otherwise leave alternate copies of
         # masked assets reachable through VCS objects or agent/editor metadata.
@@ -1694,6 +1695,7 @@ class DumbExecutor(BaseExecutor):
     async def execute(
         self, subtask_desc: str, context_data: str, **kwargs
     ) -> ExecutionResult:
+        require_legacy_runtime("DumbExecutor.execute")
         start = time.time()
         command = kwargs.get("command", subtask_desc)
         raw_args = kwargs.get("args", [])
@@ -1842,7 +1844,22 @@ class DumbExecutor(BaseExecutor):
         ])
         # Override inherited host, Docker-client and image proxy defaults.
         # --network none above still controls resources without network permission.
-        docker_args.extend(direct_container_environment_args())
+        proxy_config = load_tool_proxy_config(self.project_root)
+        proxy_audit = tool_proxy_audit(proxy_config)
+        docker_env.update(
+            tool_proxy_environment(
+                proxy_config,
+                network_required=network_required,
+                network_policy_mode=network_policy.mode,
+            )
+        )
+        docker_args.extend(
+            direct_container_environment_args(
+                proxy_config=proxy_config,
+                network_required=network_required,
+                network_policy_mode=network_policy.mode,
+            )
+        )
         for key, value in dict(extra_env).items():
             key_text = str(key or "").strip()
             if not re.match(r"^[A-Za-z_][A-Za-z0-9_]*$", key_text):
@@ -2004,6 +2021,7 @@ class DumbExecutor(BaseExecutor):
             "network_mode": "enabled" if network_required else "none",
             "network_policy_protocol": "sgar-network-policy-v1",
             "network_policy_mode": network_policy.mode,
+            **proxy_audit,
             "attempt_count": 1,
             "execution_audit": execution_audit,
             "sandbox_scope_hash": execution_audit["scope_hash"],
@@ -2254,6 +2272,7 @@ class HostPythonExecutor(BaseExecutor):
         context_data: str,
         **kwargs: Any,
     ) -> ExecutionResult:
+        require_legacy_runtime("HostPythonExecutor.execute")
         start = time.time()
         args = list(kwargs.get("args") or [])
         install_packages = list(kwargs.get("install_packages") or [])

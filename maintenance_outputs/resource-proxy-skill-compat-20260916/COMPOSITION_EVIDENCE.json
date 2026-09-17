@@ -1,0 +1,9 @@
+{
+  "status": "not_closed",
+  "run": "composition-run/20260915T201306Z_9c66d36b3ef2",
+  "terminal": "planner_semantic_ir_invalid",
+  "provider_calls": 2,
+  "resource_runtime": false,
+  "first_boundary": "Planner strict wire payload invalid after two existing attempts; no Skill/Tool execution reached.",
+  "compiler_advisory_binding_fix": "Skill step output is exempt from ordinary Agent artifact-type compatibility only when referenced by advisory_profile_refs; accepted-plan projection preserves advisory_profile_refs."
+}

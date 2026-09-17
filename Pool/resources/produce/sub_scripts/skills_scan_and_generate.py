@@ -31,6 +31,10 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from Pool.resources.produce.skill_semantics import apply_skill_semantics
+from sgar_mvp.src.skill_package_identity import (
+    skill_package_files,
+    skill_package_fingerprint,
+)
 
 SOURCE_CONFIG = PRODUCE_DIR / "skill_sources.json"
 RESOURCE_ROOT = PROJECT_ROOT / "Pool" / "resources"
@@ -226,27 +230,11 @@ def _first_prose(body: str) -> str:
 
 
 def _package_files(package_root: Path) -> Iterable[Path]:
-    for path in sorted(package_root.rglob("*")):
-        if not path.is_file():
-            continue
-        relative = path.relative_to(package_root)
-        if any(part.lower() in IGNORED_PACKAGE_PARTS for part in relative.parts):
-            continue
-        yield path
+    yield from skill_package_files(package_root, IGNORED_PACKAGE_PARTS)
 
 
 def _package_fingerprint(package_root: Path) -> Tuple[str, int]:
-    digest = hashlib.sha256()
-    total = 0
-    for path in _package_files(package_root):
-        relative = path.relative_to(package_root).as_posix().encode("utf-8")
-        data = path.read_bytes()
-        digest.update(len(relative).to_bytes(4, "big"))
-        digest.update(relative)
-        digest.update(len(data).to_bytes(8, "big"))
-        digest.update(data)
-        total += len(data)
-    return digest.hexdigest(), total
+    return skill_package_fingerprint(package_root, IGNORED_PACKAGE_PARTS)
 
 
 def _detect_license_text(text: str) -> str:

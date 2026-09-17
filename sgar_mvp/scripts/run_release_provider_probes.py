@@ -23,7 +23,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from sgar_mvp.main import load_config
-from sgar_mvp.src.control_role_policy import load_control_role_policy
+from sgar_mvp.src.control_role_policy import ControlRolePolicyV1, load_control_role_policy
 from sgar_mvp.src.model_accounting import (
     ModelCostPolicy,
     ModelPricingCatalog,
@@ -55,70 +55,42 @@ CHECKPOINT_PROTOCOL = "sgar-release-control-provider-probe-checkpoint-v1"
 FAILURE_PROTOCOL = "sgar-release-control-provider-probe-failure-v1"
 
 
-def release_probe_specs() -> tuple[dict[str, Any], ...]:
+def release_probe_specs(
+    control_role_policy: ControlRolePolicyV1 | None = None,
+) -> tuple[dict[str, Any], ...]:
     """Return the exact deterministic requests shared with cost admission."""
 
-    control = load_control_role_policy()
+    control = control_role_policy or load_control_role_policy()
     definitions = (
-        (
-            "profiler",
-            "hyde",
-            "retrieval_format_probe",
-            control.for_role("profiler").reasoning_effort,
-            control.for_role("profiler").role_policy_sha256,
-            16384,
-        ),
-        (
-            "planner",
-            "planner",
-            "planner_decompose",
-            control.for_role("planner").reasoning_effort,
-            control.for_role("planner").role_policy_sha256,
-            DEFAULT_PLANNER_MAX_OUTPUT_TOKENS,
-        ),
-        (
-            "plan_compiler",
-            "plan_compiler",
-            "plan_compiler",
-            control.for_role("plan_compiler").reasoning_effort,
-            control.for_role("plan_compiler").role_policy_sha256,
-            None,
-        ),
-        (
-            "plan_adaptation",
-            "plan_adaptation",
-            "command_adaptation",
-            control.for_role("plan_adaptation").reasoning_effort,
-            control.for_role("plan_adaptation").role_policy_sha256,
-            None,
-        ),
-        (
-            "evaluator",
-            "evaluator",
-            "evaluator",
-            control.for_role("evaluator").reasoning_effort,
-            control.for_role("evaluator").role_policy_sha256,
-            8192,
-        ),
+        ("profiler", "hyde", "retrieval_format_probe", 16384),
+        ("planner", "planner", "planner_decompose", DEFAULT_PLANNER_MAX_OUTPUT_TOKENS),
+        ("plan_compiler", "plan_compiler", "plan_compiler", None),
+        ("plan_adaptation", "plan_adaptation", "command_adaptation", None),
+        ("evaluator", "evaluator", "evaluator", 8192),
     )
     records: list[dict[str, Any]] = []
-    for public_role, schema_role, accounting_stage, effort, policy_sha, cap in definitions:
+    for public_role, schema_role, accounting_stage, cap in definitions:
+        role_policy = control.for_role(public_role)  # type: ignore[arg-type]
         requirement = system_role_requirement(schema_role)
         request = build_exact_schema_probe_request(
-            model_id="gpt-5.6-sol",
+            model_id=role_policy.api_model_id,
             requirement=requirement,
-            request_fields={"reasoning_effort": effort},
+            request_fields=role_policy.request_fields(),
         )
         if cap is not None:
             request["max_tokens"] = cap
-        if request.get("reasoning_effort") != effort or "temperature" in request:
+        if any(request.get(name) != value for name, value in role_policy.request_fields().items()):
             raise RuntimeError("release_probe_request_policy_invalid")
         records.append(
             {
                 "role": public_role,
                 "schema_role": schema_role,
                 "accounting_stage": accounting_stage,
-                "request_policy_sha256": policy_sha,
+                "request_policy_sha256": role_policy.role_policy_sha256,
+                "model_resource_id": role_policy.resource_id,
+                "api_model_id": role_policy.api_model_id,
+                "reasoning_effort": role_policy.reasoning_effort,
+                "temperature": role_policy.temperature,
                 "requirement": requirement,
                 "request": request,
                 "request_sha256": model_request_sha256(request),
@@ -249,7 +221,8 @@ def main() -> int:
     ):
         raise RuntimeError("release_probe_admission_invalid")
 
-    specs = release_probe_specs()
+    control_role_policy = load_control_role_policy()
+    specs = release_probe_specs(control_role_policy)
     admitted_requests = {
         str(item["role"]): str(item["request_sha256"])
         for item in admission.get("probes") or ()
@@ -299,10 +272,10 @@ def main() -> int:
             request = dict(item["request"])
             context = ledger.new_operation(
                 stage=item["accounting_stage"],
-                selected_resource_id="model.gpt_5_6_sol.v1",
-                model_resource_id="model.gpt_5_6_sol.v1",
+                selected_resource_id=item["model_resource_id"],
+                model_resource_id=item["model_resource_id"],
                 request_policy_sha256=item["request_policy_sha256"],
-                reasoning_effort=str(request["reasoning_effort"]),
+                reasoning_effort=item["reasoning_effort"],
             )
             response = bundle.sync.send(ledger=ledger, context=context, **request)
             content = _response_content(response)
@@ -322,10 +295,10 @@ def main() -> int:
                 "request_sha256": item["request_sha256"],
                 "request_policy_sha256": item["request_policy_sha256"],
                 "prompt_sha256": item["prompt_sha256"],
-                "reasoning_effort": request["reasoning_effort"],
-                "temperature": None,
-                "model_resource_id": "model.gpt_5_6_sol.v1",
-                "api_model_id": "gpt-5.6-sol",
+                "reasoning_effort": item["reasoning_effort"],
+                "temperature": item["temperature"],
+                "model_resource_id": item["model_resource_id"],
+                "api_model_id": item["api_model_id"],
                 "endpoint_identity_sha256": bundle.endpoint_identity.identity_sha256,
                 "schema_sha256": item["requirement"].schema_sha256,
                 "response_sha256": hashlib.sha256(content.encode("utf-8")).hexdigest(),
@@ -352,7 +325,9 @@ def main() -> int:
         capability = ProfilerProviderCapabilityV1(
             endpoint_identity_sha256=bundle.endpoint_identity.identity_sha256,
             transport_kind="chat_completions",
-            supported_reasoning_efforts=("xhigh",),
+            resource_id=str(profiler["model_resource_id"]),
+            api_model_id=str(profiler["api_model_id"]),
+            supported_reasoning_efforts=(str(profiler["reasoning_effort"]),),
             accepted_output_cap=16384,
             accepted_response_mode="native_strict_schema",
             finish_reason_semantics={"stop": "complete", "length": "truncated"},

@@ -1,0 +1,9 @@
+{
+    "task": {
+        "name": "swe-bench/sympy__sympy-20590",
+        "ref": "latest"
+    },
+    "trial_name": "sympy__sympy-20590__bjqCEs5",
+    "trials_dir": "jobs/2026-09-17__19-46-48",
+    "job_id": "ff6d91f6-acb3-4a10-bbb1-7844c508cab7"
+}

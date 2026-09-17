@@ -8,6 +8,10 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Sequence
 
 from .pipeline_control import canonical_sha256
+from .skill_package_identity import (
+    SkillPackagePathCollisionError,
+    skill_package_files,
+)
 
 
 DEFAULT_MAX_SKILL_BYTES = 128 * 1024
@@ -251,13 +255,14 @@ class SkillPackageLoader:
                 raise SkillPackageError("skill_package_identity_missing", "Selected references require package identity.")
             if expected_package:
                 # Same byte framing and exclusions as deterministic_skill_ingestion_v1.
-                ignored = {".git", ".github", "__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache", "node_modules"}
                 digest = hashlib.sha256()
                 measured = {}
-                for path in sorted(entrypoint.parent.rglob("*")):
+                try:
+                    package_files = skill_package_files(entrypoint.parent)
+                except SkillPackagePathCollisionError as exc:
+                    raise SkillPackageError(exc.code, str(exc)) from exc
+                for path in package_files:
                     relative = path.relative_to(entrypoint.parent)
-                    if any(part.lower() in ignored for part in relative.parts) or not path.is_file():
-                        continue
                     safe_path = self._resolve_package_reference(entrypoint.parent, relative.as_posix())
                     data = safe_path.read_bytes()
                     name = relative.as_posix().encode("utf-8")

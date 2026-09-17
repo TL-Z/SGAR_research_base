@@ -480,7 +480,11 @@ def _neutralize_unobserved_utility(manifest: dict[str, Any]) -> None:
         utility["evidence_status"] = "unobserved"
 
 
-def synchronize(*, check: bool = False) -> dict[str, Any]:
+def synchronize(
+    *,
+    check: bool = False,
+    resource_ids: set[str] | None = None,
+) -> dict[str, Any]:
     paths = sorted(
         path for path in REGISTRY.rglob("*.json") if not path.name.startswith("_")
     )
@@ -489,6 +493,8 @@ def synchronize(*, check: bool = False) -> dict[str, Any]:
     rest_count = 0
     for manifest_path in paths:
         manifest = json.loads(manifest_path.read_text(encoding="utf-8-sig"))
+        if resource_ids and str(manifest.get("resource_id") or "") not in resource_ids:
+            continue
         implementation = _implementation_path(manifest)
         runtime = str((manifest.get("execution") or {}).get("runtime") or "")
         runtime_counts[runtime] = runtime_counts.get(runtime, 0) + 1
@@ -527,8 +533,12 @@ def synchronize(*, check: bool = False) -> dict[str, Any]:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--check", action="store_true")
+    parser.add_argument("--resource-id", action="append", default=[])
     args = parser.parse_args()
-    report = synchronize(check=args.check)
+    report = synchronize(
+        check=args.check,
+        resource_ids=set(args.resource_id) or None,
+    )
     print(json.dumps(report, ensure_ascii=False, indent=2))
     return 1 if args.check and report["changed_count"] else 0
 

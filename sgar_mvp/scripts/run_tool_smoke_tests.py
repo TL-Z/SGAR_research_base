@@ -91,7 +91,24 @@ def run(command: list[str], *, cwd: Path | None = None, timeout: int = 300) -> s
 
 
 def container_path(path: Path) -> str:
-    return "/app/" + path.resolve().relative_to(PROJECT_ROOT).as_posix()
+    resolved = path.resolve()
+    if resolved.is_relative_to(PROJECT_ROOT):
+        return "/app/" + resolved.relative_to(PROJECT_ROOT).as_posix()
+    return resolved.as_posix()
+
+
+def external_mount_args(path: Path) -> list[str]:
+    resolved = path.resolve()
+    if resolved.is_relative_to(PROJECT_ROOT):
+        return []
+    return ["-v", f"{resolved}:{resolved}"]
+
+
+def artifact_reference(path: Path) -> str:
+    resolved = path.resolve()
+    if resolved.is_relative_to(PROJECT_ROOT):
+        return resolved.relative_to(PROJECT_ROOT).as_posix()
+    return resolved.as_posix()
 
 
 def build_fixture_template(root: Path, image: str) -> None:
@@ -192,6 +209,7 @@ with (root/"sample.pdf").open("wb") as f: writer.write(f)
             "--rm",
             "-v",
             f"{PROJECT_ROOT}:/app",
+            *external_mount_args(root),
             image,
             "python",
             "-c",
@@ -473,6 +491,7 @@ def run_one(
             "SGAR_HOST_WORKSPACE_ROOT=/app",
             "-v",
             f"{PROJECT_ROOT}:/app",
+            *external_mount_args(workspace),
             "-w",
             "/app",
             image,
@@ -509,8 +528,8 @@ def run_one(
                 "output_sha256": sha256(stdout.encode("utf-8", errors="replace")),
                 "output_bytes": len(stdout.encode("utf-8", errors="replace")),
                 "stderr_preview": stderr[:500] or None,
-                "stdout_artifact": str(stdout_path.relative_to(PROJECT_ROOT).as_posix()),
-                "stderr_artifact": str(stderr_path.relative_to(PROJECT_ROOT).as_posix()),
+                "stdout_artifact": artifact_reference(stdout_path),
+                "stderr_artifact": artifact_reference(stderr_path),
                 "docker_image_id": image_id,
             }
         except subprocess.TimeoutExpired:

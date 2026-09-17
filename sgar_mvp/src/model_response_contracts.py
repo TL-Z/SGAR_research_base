@@ -2351,7 +2351,9 @@ def build_exact_schema_probe_request(
         "response_format": structured_response_format(requirement, mode=mode),
     }
     normalized_fields = dict(request_fields or {})
-    unsupported = sorted(set(normalized_fields).difference({"reasoning_effort"}))
+    unsupported = sorted(
+        set(normalized_fields).difference({"reasoning_effort", "temperature"})
+    )
     if unsupported:
         raise ModelResponseContractError("exact_probe_request_fields_unsupported")
     if "reasoning_effort" in normalized_fields:
@@ -2360,6 +2362,16 @@ def build_exact_schema_probe_request(
             raise ModelResponseContractError("exact_probe_reasoning_effort_invalid")
         request.pop("temperature", None)
         request["reasoning_effort"] = effort
+    if "temperature" in normalized_fields:
+        try:
+            temperature = float(normalized_fields["temperature"])
+        except (TypeError, ValueError) as exc:
+            raise ModelResponseContractError(
+                "exact_probe_temperature_invalid"
+            ) from exc
+        if not 0.0 <= temperature <= 2.0:
+            raise ModelResponseContractError("exact_probe_temperature_invalid")
+        request["temperature"] = temperature
     return request
 
 

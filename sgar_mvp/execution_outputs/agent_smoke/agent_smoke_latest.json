@@ -1,0 +1,811 @@
+{
+  "timestamp_utc": "20260915T134804Z",
+  "base_url": "https://svip.xty.app/v1",
+  "model_resource_id": "model.qwen3_5_35b_a3b.v1",
+  "model_api_id": "qwen3.5-35b-a3b",
+  "agent_matrix": [
+    {
+      "agent_id": "agent.backend_architecture_expert.v1",
+      "bound_model_api_id": "qwen3.5-35b-a3b",
+      "success": true,
+      "output": "Principal Python backend architect generating implementation-ready architecture specifications detailing components, interfaces, and migration risks.",
+      "error": null,
+      "cost_metric": {
+        "latency_ms": 11863.227367401123,
+        "agent_id": "agent.backend_architecture_expert.v1",
+        "base_model": "qwen3.5-35b-a3b",
+        "token_usage": {
+          "prompt_tokens": 622,
+          "completion_tokens": 992,
+          "cached_tokens": 0
+        },
+        "json_mode_requested": false,
+        "prompt_only_json": false,
+        "format_enforcement_mode": null,
+        "format_contract_sha256": null,
+        "temperature_requested": 0.0,
+        "temperature_control": "unknown_omitted",
+        "attempt_count": 1,
+        "retry_events": [],
+        "failure_layer": "none",
+        "semantic_normalization_applied": true,
+        "transport_audit": {
+          "status": "checked",
+          "passed": true,
+          "protocol": "same-request-initial-plus-2-v1",
+          "attempt_count": 1,
+          "request_hashes": [
+            "sha256:4007f3f22bb4c427addf1dfbc1db58261a7348c8f24fecd8f8f902a5e09a5d4e"
+          ],
+          "provenance_hashes": [],
+          "retry_responsibilities": [],
+          "response_received": true
+        },
+        "model_accounting_reference": null
+      }
+    },
+    {
+      "agent_id": "agent.test_driven_qa.v1",
+      "bound_model_api_id": "qwen3.5-35b-a3b",
+      "success": true,
+      "output": "I am a Test-Driven QA engineer capable of producing risk assessments and prioritized test scenarios.",
+      "error": null,
+      "cost_metric": {
+        "latency_ms": 36908.783197402954,
+        "agent_id": "agent.test_driven_qa.v1",
+        "base_model": "qwen3.5-35b-a3b",
+        "token_usage": {
+          "prompt_tokens": 618,
+          "completion_tokens": 2989,
+          "cached_tokens": 0
+        },
+        "json_mode_requested": false,
+        "prompt_only_json": false,
+        "format_enforcement_mode": null,
+        "format_contract_sha256": null,
+        "temperature_requested": 0.0,
+        "temperature_control": "unknown_omitted",
+        "attempt_count": 1,
+        "retry_events": [],
+        "failure_layer": "none",
+        "semantic_normalization_applied": true,
+        "transport_audit": {
+          "status": "checked",
+          "passed": true,
+          "protocol": "same-request-initial-plus-2-v1",
+          "attempt_count": 1,
+          "request_hashes": [
+            "sha256:9fbae1cd968604327000e7329ff54eca0955b66421e713fc143e6ac3855d63d5"
+          ],
+          "provenance_hashes": [],
+          "retry_responsibilities": [],
+          "response_received": true
+        },
+        "model_accounting_reference": null
+      }
+    },
+    {
+      "agent_id": "agent.business_requirements_analyst.v1",
+      "bound_model_api_id": "qwen3.5-35b-a3b",
+      "success": true,
+      "output": "Senior Business Analyst converting ambiguous requests into testable, implementation-neutral requirements specifications.",
+      "error": null,
+      "cost_metric": {
+        "latency_ms": 15499.05014038086,
+        "agent_id": "agent.business_requirements_analyst.v1",
+        "base_model": "qwen3.5-35b-a3b",
+        "token_usage": {
+          "prompt_tokens": 643,
+          "completion_tokens": 1162,
+          "cached_tokens": 0
+        },
+        "json_mode_requested": false,
+        "prompt_only_json": false,
+        "format_enforcement_mode": null,
+        "format_contract_sha256": null,
+        "temperature_requested": 0.0,
+        "temperature_control": "unknown_omitted",
+        "attempt_count": 1,
+        "retry_events": [],
+        "failure_layer": "none",
+        "semantic_normalization_applied": true,
+        "transport_audit": {
+          "status": "checked",
+          "passed": true,
+          "protocol": "same-request-initial-plus-2-v1",
+          "attempt_count": 1,
+          "request_hashes": [
+            "sha256:12475b21f46bf7d084a97665c9bea3e946c5abc135d29785419401ac8b7a4699"
+          ],
+          "provenance_hashes": [],
+          "retry_responsibilities": [],
+          "response_received": true
+        },
+        "model_accounting_reference": null
+      }
+    },
+    {
+      "agent_id": "agent.code_reviewer.v1",
+      "bound_model_api_id": "qwen3.5-35b-a3b",
+      "success": true,
+      "output": "I am a Code Reviewer providing security, performance, and maintainability findings with practical remediations for your code changes.",
+      "error": null,
+      "cost_metric": {
+        "latency_ms": 36113.139152526855,
+        "agent_id": "agent.code_reviewer.v1",
+        "base_model": "qwen3.5-35b-a3b",
+        "token_usage": {
+          "prompt_tokens": 636,
+          "completion_tokens": 2332,
+          "cached_tokens": 0
+        },
+        "json_mode_requested": false,
+        "prompt_only_json": false,
+        "format_enforcement_mode": null,
+        "format_contract_sha256": null,
+        "temperature_requested": 0.0,
+        "temperature_control": "unknown_omitted",
+        "attempt_count": 1,
+        "retry_events": [],
+        "failure_layer": "none",
+        "semantic_normalization_applied": true,
+        "transport_audit": {
+          "status": "checked",
+          "passed": true,
+          "protocol": "same-request-initial-plus-2-v1",
+          "attempt_count": 1,
+          "request_hashes": [
+            "sha256:fd60aecd5e21adcaab6683bd0c15a4b84b761c6581162ede18f1da77f9c49f38"
+          ],
+          "provenance_hashes": [],
+          "retry_responsibilities": [],
+          "response_received": true
+        },
+        "model_accounting_reference": null
+      }
+    },
+    {
+      "agent_id": "agent.root_cause_debugger.v1",
+      "bound_model_api_id": "qwen3.5-35b-a3b",
+      "success": true,
+      "output": "I am a Root-Cause Debugger providing ranked hypotheses and minimal repair strategies for software failures.",
+      "error": null,
+      "cost_metric": {
+        "latency_ms": 54112.94937133789,
+        "agent_id": "agent.root_cause_debugger.v1",
+        "base_model": "qwen3.5-35b-a3b",
+        "token_usage": {
+          "prompt_tokens": 636,
+          "completion_tokens": 3596,
+          "cached_tokens": 0
+        },
+        "json_mode_requested": false,
+        "prompt_only_json": false,
+        "format_enforcement_mode": null,
+        "format_contract_sha256": null,
+        "temperature_requested": 0.0,
+        "temperature_control": "unknown_omitted",
+        "attempt_count": 1,
+        "retry_events": [],
+        "failure_layer": "none",
+        "semantic_normalization_applied": true,
+        "transport_audit": {
+          "status": "checked",
+          "passed": true,
+          "protocol": "same-request-initial-plus-2-v1",
+          "attempt_count": 1,
+          "request_hashes": [
+            "sha256:ff9d4e5c62a7c4c0c87206a85d2b777b2252faa4778923a72d70b7b69a0b31c5"
+          ],
+          "provenance_hashes": [],
+          "retry_responsibilities": [],
+          "response_received": true
+        },
+        "model_accounting_reference": null
+      }
+    },
+    {
+      "agent_id": "agent.security_auditor.v1",
+      "bound_model_api_id": "qwen3.5-35b-a3b",
+      "success": true,
+      "output": "I am a security auditor producing evidence-based vulnerability reports and remediation guidance from supplied context.",
+      "error": null,
+      "cost_metric": {
+        "latency_ms": 27681.265354156494,
+        "agent_id": "agent.security_auditor.v1",
+        "base_model": "qwen3.5-35b-a3b",
+        "token_usage": {
+          "prompt_tokens": 671,
+          "completion_tokens": 2948,
+          "cached_tokens": 0
+        },
+        "json_mode_requested": false,
+        "prompt_only_json": false,
+        "format_enforcement_mode": null,
+        "format_contract_sha256": null,
+        "temperature_requested": 0.0,
+        "temperature_control": "unknown_omitted",
+        "attempt_count": 1,
+        "retry_events": [],
+        "failure_layer": "none",
+        "semantic_normalization_applied": true,
+        "transport_audit": {
+          "status": "checked",
+          "passed": true,
+          "protocol": "same-request-initial-plus-2-v1",
+          "attempt_count": 1,
+          "request_hashes": [
+            "sha256:34553bfbf6125891bfecdeadf18c8813c15a18d187a92e06a09fe635eda2d583"
+          ],
+          "provenance_hashes": [],
+          "retry_responsibilities": [],
+          "response_received": true
+        },
+        "model_accounting_reference": null
+      }
+    },
+    {
+      "agent_id": "agent.documentation_engineer.v1",
+      "bound_model_api_id": "qwen3.5-35b-a3b",
+      "success": true,
+      "output": "I am a Documentation Engineer producing accurate, task-oriented Markdown documentation from supplied code and interfaces.",
+      "error": null,
+      "cost_metric": {
+        "latency_ms": 17291.390657424927,
+        "agent_id": "agent.documentation_engineer.v1",
+        "base_model": "qwen3.5-35b-a3b",
+        "token_usage": {
+          "prompt_tokens": 619,
+          "completion_tokens": 1438,
+          "cached_tokens": 0
+        },
+        "json_mode_requested": false,
+        "prompt_only_json": false,
+        "format_enforcement_mode": null,
+        "format_contract_sha256": null,
+        "temperature_requested": 0.0,
+        "temperature_control": "unknown_omitted",
+        "attempt_count": 1,
+        "retry_events": [],
+        "failure_layer": "none",
+        "semantic_normalization_applied": true,
+        "transport_audit": {
+          "status": "checked",
+          "passed": true,
+          "protocol": "same-request-initial-plus-2-v1",
+          "attempt_count": 1,
+          "request_hashes": [
+            "sha256:7d1d9c9594df0f53db638351bdba08f2f37e8314730a02e021dc8f0a728c4613"
+          ],
+          "provenance_hashes": [],
+          "retry_responsibilities": [],
+          "response_received": true
+        },
+        "model_accounting_reference": null
+      }
+    },
+    {
+      "agent_id": "agent.data_analyst.v1",
+      "bound_model_api_id": "qwen3.5-35b-a3b",
+      "success": true,
+      "output": "I am a senior data analyst providing reproducible findings from your structured data.",
+      "error": null,
+      "cost_metric": {
+        "latency_ms": 35729.562520980835,
+        "agent_id": "agent.data_analyst.v1",
+        "base_model": "qwen3.5-35b-a3b",
+        "token_usage": {
+          "prompt_tokens": 640,
+          "completion_tokens": 2585,
+          "cached_tokens": 0
+        },
+        "json_mode_requested": false,
+        "prompt_only_json": false,
+        "format_enforcement_mode": null,
+        "format_contract_sha256": null,
+        "temperature_requested": 0.0,
+        "temperature_control": "unknown_omitted",
+        "attempt_count": 1,
+        "retry_events": [],
+        "failure_layer": "none",
+        "semantic_normalization_applied": true,
+        "transport_audit": {
+          "status": "checked",
+          "passed": true,
+          "protocol": "same-request-initial-plus-2-v1",
+          "attempt_count": 1,
+          "request_hashes": [
+            "sha256:922236d344f641679b7fadd7e45181a5ffc4fc8dbd58de2261ff5d5106fa8088"
+          ],
+          "provenance_hashes": [],
+          "retry_responsibilities": [],
+          "response_received": true
+        },
+        "model_accounting_reference": null
+      }
+    },
+    {
+      "agent_id": "agent.research_analyst.v1",
+      "bound_model_api_id": "qwen3.5-35b-a3b",
+      "success": true,
+      "output": "I am a senior research analyst writing evidence-traceable reports that cite sources and label inferences.",
+      "error": null,
+      "cost_metric": {
+        "latency_ms": 22882.71689414978,
+        "agent_id": "agent.research_analyst.v1",
+        "base_model": "qwen3.5-35b-a3b",
+        "token_usage": {
+          "prompt_tokens": 668,
+          "completion_tokens": 2090,
+          "cached_tokens": 0
+        },
+        "json_mode_requested": false,
+        "prompt_only_json": false,
+        "format_enforcement_mode": null,
+        "format_contract_sha256": null,
+        "temperature_requested": 0.0,
+        "temperature_control": "unknown_omitted",
+        "attempt_count": 1,
+        "retry_events": [],
+        "failure_layer": "none",
+        "semantic_normalization_applied": true,
+        "transport_audit": {
+          "status": "checked",
+          "passed": true,
+          "protocol": "same-request-initial-plus-2-v1",
+          "attempt_count": 1,
+          "request_hashes": [
+            "sha256:4bfcb4a2417dc35bb7e51134cbf07c95637cdb0c75f62f54cc1de9e94a448140"
+          ],
+          "provenance_hashes": [],
+          "retry_responsibilities": [],
+          "response_received": true
+        },
+        "model_accounting_reference": null
+      }
+    },
+    {
+      "agent_id": "agent.search_specialist.v1",
+      "bound_model_api_id": "qwen3.5-35b-a3b",
+      "success": true,
+      "output": "My role is Search Specialist, delivering curated evidence sets for downstream consumption.",
+      "error": null,
+      "cost_metric": {
+        "latency_ms": 29098.93536567688,
+        "agent_id": "agent.search_specialist.v1",
+        "base_model": "qwen3.5-35b-a3b",
+        "token_usage": {
+          "prompt_tokens": 684,
+          "completion_tokens": 1912,
+          "cached_tokens": 0
+        },
+        "json_mode_requested": false,
+        "prompt_only_json": false,
+        "format_enforcement_mode": null,
+        "format_contract_sha256": null,
+        "temperature_requested": 0.0,
+        "temperature_control": "unknown_omitted",
+        "attempt_count": 1,
+        "retry_events": [],
+        "failure_layer": "none",
+        "semantic_normalization_applied": true,
+        "transport_audit": {
+          "status": "checked",
+          "passed": true,
+          "protocol": "same-request-initial-plus-2-v1",
+          "attempt_count": 1,
+          "request_hashes": [
+            "sha256:3747deb1fa3f896bc184d8e752a794b01477a71f145fe8c7c5622321d94dbc7b"
+          ],
+          "provenance_hashes": [],
+          "retry_responsibilities": [],
+          "response_received": true
+        },
+        "model_accounting_reference": null
+      }
+    },
+    {
+      "agent_id": "agent.api_designer.v1",
+      "bound_model_api_id": "qwen3.5-35b-a3b",
+      "success": true,
+      "output": "I am an API Designer producing stable, implementation-ready API contracts with defined endpoints and schemas.",
+      "error": null,
+      "cost_metric": {
+        "latency_ms": 25042.638301849365,
+        "agent_id": "agent.api_designer.v1",
+        "base_model": "qwen3.5-35b-a3b",
+        "token_usage": {
+          "prompt_tokens": 662,
+          "completion_tokens": 1815,
+          "cached_tokens": 0
+        },
+        "json_mode_requested": false,
+        "prompt_only_json": false,
+        "format_enforcement_mode": null,
+        "format_contract_sha256": null,
+        "temperature_requested": 0.0,
+        "temperature_control": "unknown_omitted",
+        "attempt_count": 1,
+        "retry_events": [],
+        "failure_layer": "none",
+        "semantic_normalization_applied": true,
+        "transport_audit": {
+          "status": "checked",
+          "passed": true,
+          "protocol": "same-request-initial-plus-2-v1",
+          "attempt_count": 1,
+          "request_hashes": [
+            "sha256:f56007be7bd4a08596b89ac330996965eb9b8c0df2f62e53dd7c88a1d0c90774"
+          ],
+          "provenance_hashes": [],
+          "retry_responsibilities": [],
+          "response_received": true
+        },
+        "model_accounting_reference": null
+      }
+    },
+    {
+      "agent_id": "agent.frontend_developer.v1",
+      "bound_model_api_id": "qwen3.5-35b-a3b",
+      "success": true,
+      "output": "I am a Frontend Developer producing comprehensive UI implementation guidance and code-ready specifications.",
+      "error": null,
+      "cost_metric": {
+        "latency_ms": 55561.795711517334,
+        "agent_id": "agent.frontend_developer.v1",
+        "base_model": "qwen3.5-35b-a3b",
+        "token_usage": {
+          "prompt_tokens": 642,
+          "completion_tokens": 5830,
+          "cached_tokens": 0
+        },
+        "json_mode_requested": false,
+        "prompt_only_json": false,
+        "format_enforcement_mode": null,
+        "format_contract_sha256": null,
+        "temperature_requested": 0.0,
+        "temperature_control": "unknown_omitted",
+        "attempt_count": 1,
+        "retry_events": [],
+        "failure_layer": "none",
+        "semantic_normalization_applied": true,
+        "transport_audit": {
+          "status": "checked",
+          "passed": true,
+          "protocol": "same-request-initial-plus-2-v1",
+          "attempt_count": 1,
+          "request_hashes": [
+            "sha256:94e5bb0930dfb8ae8bc410a1246b0942b841daeed0c88611491c50c769786b31"
+          ],
+          "provenance_hashes": [],
+          "retry_responsibilities": [],
+          "response_received": true
+        },
+        "model_accounting_reference": null
+      }
+    },
+    {
+      "agent_id": "agent.fullstack_implementation_engineer.v1",
+      "bound_model_api_id": "qwen3.5-35b-a3b",
+      "success": true,
+      "output": "As a Fullstack Implementation Engineer, I transform approved feature specifications into coherent cross-layer implementation packages.",
+      "error": null,
+      "cost_metric": {
+        "latency_ms": 26734.0567111969,
+        "agent_id": "agent.fullstack_implementation_engineer.v1",
+        "base_model": "qwen3.5-35b-a3b",
+        "token_usage": {
+          "prompt_tokens": 660,
+          "completion_tokens": 1415,
+          "cached_tokens": 0
+        },
+        "json_mode_requested": false,
+        "prompt_only_json": false,
+        "format_enforcement_mode": null,
+        "format_contract_sha256": null,
+        "temperature_requested": 0.0,
+        "temperature_control": "unknown_omitted",
+        "attempt_count": 1,
+        "retry_events": [],
+        "failure_layer": "none",
+        "semantic_normalization_applied": true,
+        "transport_audit": {
+          "status": "checked",
+          "passed": true,
+          "protocol": "same-request-initial-plus-2-v1",
+          "attempt_count": 1,
+          "request_hashes": [
+            "sha256:65bb83aca713a45de274223a2fbac45991ecbcd344000e8b56d72d7c11710cc2"
+          ],
+          "provenance_hashes": [],
+          "retry_responsibilities": [],
+          "response_received": true
+        },
+        "model_accounting_reference": null
+      }
+    },
+    {
+      "agent_id": "agent.database_optimizer.v1",
+      "bound_model_api_id": "qwen3.5-35b-a3b",
+      "success": true,
+      "output": "I am a Database Optimizer delivering safe, measurable optimization recommendations for slow workloads and latency targets.",
+      "error": null,
+      "cost_metric": {
+        "latency_ms": 20889.612197875977,
+        "agent_id": "agent.database_optimizer.v1",
+        "base_model": "qwen3.5-35b-a3b",
+        "token_usage": {
+          "prompt_tokens": 667,
+          "completion_tokens": 1922,
+          "cached_tokens": 0
+        },
+        "json_mode_requested": false,
+        "prompt_only_json": false,
+        "format_enforcement_mode": null,
+        "format_contract_sha256": null,
+        "temperature_requested": 0.0,
+        "temperature_control": "unknown_omitted",
+        "attempt_count": 1,
+        "retry_events": [],
+        "failure_layer": "none",
+        "semantic_normalization_applied": true,
+        "transport_audit": {
+          "status": "checked",
+          "passed": true,
+          "protocol": "same-request-initial-plus-2-v1",
+          "attempt_count": 1,
+          "request_hashes": [
+            "sha256:4ce5d96e6f25ff0efd9ec15de0121b87480ea42d9c950effb8bd4b350e62423b"
+          ],
+          "provenance_hashes": [],
+          "retry_responsibilities": [],
+          "response_received": true
+        },
+        "model_accounting_reference": null
+      }
+    },
+    {
+      "agent_id": "agent.data_engineer.v1",
+      "bound_model_api_id": "qwen3.5-35b-a3b",
+      "success": true,
+      "output": "I am a senior data engineer producing complete pipeline specifications covering sources, transformations, and quality tests.",
+      "error": null,
+      "cost_metric": {
+        "latency_ms": 35075.90198516846,
+        "agent_id": "agent.data_engineer.v1",
+        "base_model": "qwen3.5-35b-a3b",
+        "token_usage": {
+          "prompt_tokens": 668,
+          "completion_tokens": 3704,
+          "cached_tokens": 0
+        },
+        "json_mode_requested": false,
+        "prompt_only_json": false,
+        "format_enforcement_mode": null,
+        "format_contract_sha256": null,
+        "temperature_requested": 0.0,
+        "temperature_control": "unknown_omitted",
+        "attempt_count": 1,
+        "retry_events": [],
+        "failure_layer": "none",
+        "semantic_normalization_applied": true,
+        "transport_audit": {
+          "status": "checked",
+          "passed": true,
+          "protocol": "same-request-initial-plus-2-v1",
+          "attempt_count": 1,
+          "request_hashes": [
+            "sha256:ad8c2df7cce1fea3ab739fe292092d00727d562bfeb7f9b8024a53c9fb3bd6dc"
+          ],
+          "provenance_hashes": [],
+          "retry_responsibilities": [],
+          "response_received": true
+        },
+        "model_accounting_reference": null
+      }
+    },
+    {
+      "agent_id": "agent.performance_engineer.v1",
+      "bound_model_api_id": "qwen3.5-35b-a3b",
+      "success": true,
+      "output": "I am a Performance Engineer generating actionable optimization plans with ranked experiments and acceptance thresholds.",
+      "error": null,
+      "cost_metric": {
+        "latency_ms": 20177.804946899414,
+        "agent_id": "agent.performance_engineer.v1",
+        "base_model": "qwen3.5-35b-a3b",
+        "token_usage": {
+          "prompt_tokens": 636,
+          "completion_tokens": 1637,
+          "cached_tokens": 0
+        },
+        "json_mode_requested": false,
+        "prompt_only_json": false,
+        "format_enforcement_mode": null,
+        "format_contract_sha256": null,
+        "temperature_requested": 0.0,
+        "temperature_control": "unknown_omitted",
+        "attempt_count": 1,
+        "retry_events": [],
+        "failure_layer": "none",
+        "semantic_normalization_applied": true,
+        "transport_audit": {
+          "status": "checked",
+          "passed": true,
+          "protocol": "same-request-initial-plus-2-v1",
+          "attempt_count": 1,
+          "request_hashes": [
+            "sha256:f2bd0e1cfceb027cbc61caac041ec774a5ae439a5a8ab133a9a3d18812bf5025"
+          ],
+          "provenance_hashes": [],
+          "retry_responsibilities": [],
+          "response_received": true
+        },
+        "model_accounting_reference": null
+      }
+    },
+    {
+      "agent_id": "agent.devops_incident_responder.v1",
+      "bound_model_api_id": "qwen3.5-35b-a3b",
+      "success": true,
+      "output": "I am the DevOps Incident Responder producing Markdown incident reports with ranked hypotheses and recovery steps.",
+      "error": null,
+      "cost_metric": {
+        "latency_ms": 16701.881885528564,
+        "agent_id": "agent.devops_incident_responder.v1",
+        "base_model": "qwen3.5-35b-a3b",
+        "token_usage": {
+          "prompt_tokens": 684,
+          "completion_tokens": 1598,
+          "cached_tokens": 0
+        },
+        "json_mode_requested": false,
+        "prompt_only_json": false,
+        "format_enforcement_mode": null,
+        "format_contract_sha256": null,
+        "temperature_requested": 0.0,
+        "temperature_control": "unknown_omitted",
+        "attempt_count": 1,
+        "retry_events": [],
+        "failure_layer": "none",
+        "semantic_normalization_applied": true,
+        "transport_audit": {
+          "status": "checked",
+          "passed": true,
+          "protocol": "same-request-initial-plus-2-v1",
+          "attempt_count": 1,
+          "request_hashes": [
+            "sha256:bc34f58a05ae354053b081d5b8a138f32ecb24fe0842bfdffebe7e22d68b5141"
+          ],
+          "provenance_hashes": [],
+          "retry_responsibilities": [],
+          "response_received": true
+        },
+        "model_accounting_reference": null
+      }
+    },
+    {
+      "agent_id": "agent.accessibility_tester.v1",
+      "bound_model_api_id": "qwen3.5-35b-a3b",
+      "success": true,
+      "output": "I am an Accessibility Tester delivering WCAG compliance reports with identified issues and remediation guidance.",
+      "error": null,
+      "cost_metric": {
+        "latency_ms": 23777.703046798706,
+        "agent_id": "agent.accessibility_tester.v1",
+        "base_model": "qwen3.5-35b-a3b",
+        "token_usage": {
+          "prompt_tokens": 643,
+          "completion_tokens": 2018,
+          "cached_tokens": 0
+        },
+        "json_mode_requested": false,
+        "prompt_only_json": false,
+        "format_enforcement_mode": null,
+        "format_contract_sha256": null,
+        "temperature_requested": 0.0,
+        "temperature_control": "unknown_omitted",
+        "attempt_count": 1,
+        "retry_events": [],
+        "failure_layer": "none",
+        "semantic_normalization_applied": true,
+        "transport_audit": {
+          "status": "checked",
+          "passed": true,
+          "protocol": "same-request-initial-plus-2-v1",
+          "attempt_count": 1,
+          "request_hashes": [
+            "sha256:3ccdaa422a475c0e82d0fe5c6364fa96807e74f385cee6e25f3776c2d2f07eaa"
+          ],
+          "provenance_hashes": [],
+          "retry_responsibilities": [],
+          "response_received": true
+        },
+        "model_accounting_reference": null
+      }
+    },
+    {
+      "agent_id": "agent.refactoring_specialist.v1",
+      "bound_model_api_id": "qwen3.5-35b-a3b",
+      "success": true,
+      "output": "I am a Refactoring Specialist producing code refactors alongside characterization tests to guarantee stability.",
+      "error": null,
+      "cost_metric": {
+        "latency_ms": 29538.676977157593,
+        "agent_id": "agent.refactoring_specialist.v1",
+        "base_model": "qwen3.5-35b-a3b",
+        "token_usage": {
+          "prompt_tokens": 641,
+          "completion_tokens": 2294,
+          "cached_tokens": 0
+        },
+        "json_mode_requested": false,
+        "prompt_only_json": false,
+        "format_enforcement_mode": null,
+        "format_contract_sha256": null,
+        "temperature_requested": 0.0,
+        "temperature_control": "unknown_omitted",
+        "attempt_count": 1,
+        "retry_events": [],
+        "failure_layer": "none",
+        "semantic_normalization_applied": true,
+        "transport_audit": {
+          "status": "checked",
+          "passed": true,
+          "protocol": "same-request-initial-plus-2-v1",
+          "attempt_count": 1,
+          "request_hashes": [
+            "sha256:80af3f8c5d1ebd92ddec0da7bf4da3700cd6e71a4b40fd83deeecbaf21057541"
+          ],
+          "provenance_hashes": [],
+          "retry_responsibilities": [],
+          "response_received": true
+        },
+        "model_accounting_reference": null
+      }
+    },
+    {
+      "agent_id": "agent.product_manager.v1",
+      "bound_model_api_id": "qwen3.5-35b-a3b",
+      "success": true,
+      "output": "I am a Product Manager producing focused product briefs with explicit trade-offs, prioritization, and measurable outcome definitions.",
+      "error": null,
+      "cost_metric": {
+        "latency_ms": 16038.331508636475,
+        "agent_id": "agent.product_manager.v1",
+        "base_model": "qwen3.5-35b-a3b",
+        "token_usage": {
+          "prompt_tokens": 664,
+          "completion_tokens": 1432,
+          "cached_tokens": 0
+        },
+        "json_mode_requested": false,
+        "prompt_only_json": false,
+        "format_enforcement_mode": null,
+        "format_contract_sha256": null,
+        "temperature_requested": 0.0,
+        "temperature_control": "unknown_omitted",
+        "attempt_count": 1,
+        "retry_events": [],
+        "failure_layer": "none",
+        "semantic_normalization_applied": true,
+        "transport_audit": {
+          "status": "checked",
+          "passed": true,
+          "protocol": "same-request-initial-plus-2-v1",
+          "attempt_count": 1,
+          "request_hashes": [
+            "sha256:04ac54b5e040b7b0da6108aede72d1e050c024e1277c7230a04536fe89deb376"
+          ],
+          "provenance_hashes": [],
+          "retry_responsibilities": [],
+          "response_received": true
+        },
+        "model_accounting_reference": null
+      }
+    }
+  ],
+  "joint_plan": {
+    "skipped": true
+  }
+}

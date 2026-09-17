@@ -14,8 +14,10 @@ from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 
 from .executors import DumbExecutor, ExecutionResult, HostPythonExecutor
+from .runtime_abstraction import require_execution_substrate
 from .pipeline_control import canonical_sha256
 from .process_supervisor import NetworkExecutionPolicy
+from .direct_network import load_tool_proxy_config, tool_proxy_audit
 from .resource_runtime import (
     ExecutionWorldDescriptor,
     ResourceCallRequest,
@@ -202,6 +204,7 @@ class PreparedToolDispatch:
         compare=False,
         repr=False,
     )
+    execution_substrate_mode: str = "default"
 
     def execution_world(self) -> ExecutionWorldDescriptor:
         scope_projection = _public_scope_projection(
@@ -237,6 +240,13 @@ class PreparedToolDispatch:
                     "extra_env_names": sorted(str(key) for key in self.extra_env),
                     "network_required": self.network_required,
                     "network_policy_mode": self.network_policy_mode,
+                    "tool_proxy_config_fingerprint": (
+                        tool_proxy_audit(load_tool_proxy_config(self.project_root))[
+                            "proxy_config_fingerprint"
+                        ]
+                        if self.network_required and self.network_policy_mode == "declared"
+                        else ""
+                    ),
                     "scope": scope_projection,
                 },
             )
@@ -270,8 +280,13 @@ class PreparedToolDispatch:
 class ToolExecutionProvider:
     """Execute one already prepared Tool call through a direct-argv executor."""
 
-    def __init__(self, prepared: PreparedToolDispatch) -> None:
+    def __init__(self, prepared: PreparedToolDispatch, *, execution_substrate: Any = None) -> None:
         self.prepared = prepared
+        self.execution_substrate = require_execution_substrate(
+            execution_substrate, mode=prepared.execution_substrate_mode
+        )
+        if self.execution_substrate is not None:
+            self.execution_substrate.validate_dispatch(prepared)
         self.execution_world = prepared.execution_world()
         self.dispatch_count = 0
 
@@ -284,46 +299,53 @@ class ToolExecutionProvider:
         self.dispatch_count += 1
         writable_root = None
         before_inventory: dict[str, dict[str, Any]] = {}
-        if self.prepared.sandbox_scope:
+        if self.execution_substrate is None and self.prepared.sandbox_scope:
             writable = self.prepared.sandbox_scope.get("writable_root") or {}
             if isinstance(writable, Mapping) and writable.get("host_path"):
                 writable_root = Path(str(writable["host_path"]))
                 before_inventory = _workspace_inventory(writable_root)
-        if (
-            self.prepared.runtime_profile == "host-python-stdlib"
-            and not self.prepared.sandbox_scope
+        if self.execution_substrate is not None:
+            result = await self.execution_substrate.execute(prepared=self.prepared, request=request)
+        elif (
+            self.prepared.execution_substrate_mode == "external"
         ):
-            executor = HostPythonExecutor(
-                project_root=self.prepared.project_root,
-                timeout_sec=self.prepared.timeout_sec,
-            )
+            raise RuntimeError("UNBOUND_RUNTIME_PATH: external provider has no substrate")
         else:
-            executor = DumbExecutor(timeout_sec=self.prepared.timeout_sec)
-        result = await executor.execute(
-            self.prepared.subtask_description,
-            self.prepared.context_data,
-            command=self.prepared.command,
-            args=list(self.prepared.args),
-            extra_env=dict(self.prepared.extra_env),
-            runtime_environment=self.prepared.runtime_environment,
-            network_required=self.prepared.network_required,
-            network_policy_mode=self.prepared.network_policy_mode,
-            allowed_runtime_environment_names=(
-                self.prepared.allowed_runtime_environment_names
-            ),
-            stdout_limit_bytes=self.prepared.stdout_limit_bytes,
-            stderr_limit_bytes=self.prepared.stderr_limit_bytes,
-            formal_supervision=True,
-            run_id=request.execution_context.run_id,
-            resource_call_id=request.call_id,
-            step_id=request.execution_context.step_id,
-            attempt=request.execution_context.attempt,
-            **(
-                {"sandbox_scope": dict(self.prepared.sandbox_scope)}
-                if self.prepared.sandbox_scope
-                else {}
-            ),
-        )
+            if (
+                self.prepared.runtime_profile == "host-python-stdlib"
+                and not self.prepared.sandbox_scope
+            ):
+                executor = HostPythonExecutor(
+                    project_root=self.prepared.project_root,
+                    timeout_sec=self.prepared.timeout_sec,
+                )
+            else:
+                executor = DumbExecutor(timeout_sec=self.prepared.timeout_sec)
+            result = await executor.execute(
+                self.prepared.subtask_description,
+                self.prepared.context_data,
+                command=self.prepared.command,
+                args=list(self.prepared.args),
+                extra_env=dict(self.prepared.extra_env),
+                runtime_environment=self.prepared.runtime_environment,
+                network_required=self.prepared.network_required,
+                network_policy_mode=self.prepared.network_policy_mode,
+                allowed_runtime_environment_names=(
+                    self.prepared.allowed_runtime_environment_names
+                ),
+                stdout_limit_bytes=self.prepared.stdout_limit_bytes,
+                stderr_limit_bytes=self.prepared.stderr_limit_bytes,
+                formal_supervision=True,
+                run_id=request.execution_context.run_id,
+                resource_call_id=request.call_id,
+                step_id=request.execution_context.step_id,
+                attempt=request.execution_context.attempt,
+                **(
+                    {"sandbox_scope": dict(self.prepared.sandbox_scope)}
+                    if self.prepared.sandbox_scope
+                    else {}
+                ),
+            )
         result.cost_metric.update(
             {
                 "resource_runtime_protocol": "sgar-resource-runtime-v1",
@@ -339,7 +361,29 @@ class ToolExecutionProvider:
                 after_inventory,
             )
         artifacts: tuple[ArtifactHandle, ...] = ()
-        if result.is_success and self.prepared.artifact_adapter is not None:
+        if self.execution_substrate is not None and result.is_success:
+            artifacts = tuple(
+                ArtifactHandle(
+                    handle_id=str(item["handle_id"]),
+                    kind=str(item.get("kind") or "tool_output"),
+                    producer_task=item.get("producer_task"),
+                    producer_step=item.get("producer_step"),
+                    logical_path=str(item.get("logical_path") or item.get("tool_path") or ""),
+                    host_path=None,
+                    tool_path=str(item.get("tool_path") or item.get("logical_path") or ""),
+                    artifact_type=str(item.get("artifact_type") or "file"),
+                    validation_status="not_run",
+                    current_run=True,
+                    provenance={
+                        "content_sha256": item.get("content_sha256"),
+                        "byte_size": item.get("byte_size"),
+                        "runtime": "external_task_state",
+                    },
+                )
+                for item in (result.cost_metric.get("external_artifact_handles") or [])
+                if isinstance(item, Mapping) and item.get("handle_id")
+            )
+        if self.execution_substrate is None and result.is_success and self.prepared.artifact_adapter is not None:
             artifacts = tuple(self.prepared.artifact_adapter(result))
         canonical = execution_result_to_resource_result(
             result,

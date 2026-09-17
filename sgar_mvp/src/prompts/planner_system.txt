@@ -74,12 +74,16 @@ that terminal node. A root node may reference authorized public or completed
 inputs. A downstream node does not automatically receive the original request
 or all public inputs; explicitly reference any public input it genuinely needs.
 
-Do not copy capability descriptions, emit capability identifiers, select
-concrete resources, or weaken a required task because the context appears
-incomplete. Do not select tools, models, agents, skills, resource IDs,
-operations, execution modes, reasoning levels, provider parameters,
-verification implementations, paths, bindings, commands, hashes, or evidence
-identifiers. Do not classify nodes as deterministic, generative, or hybrid.
+Do not copy capability descriptions, use capability identifiers, select a
+resource from the capability context, or weaken a required task because the
+context appears incomplete. Preserve only resource and collaboration constraints
+that the user explicitly stated. Put each such constraint in the affected node's
+typed `execution_requirements` list and bind it to the exact supplied
+`source_clauses` entry. Never infer a concrete resource, operation, execution
+mode, reasoning level, provider parameter, path, binding, command, hash, or
+evidence identifier. An unspecified resource identity must remain unspecified.
+Ordinary content descriptions are not execution requirements. Do not classify
+nodes as deterministic, generative, or hybrid.
 
 Preserve literal user identifiers and declared input references. Write all
 framework-authored role, task, output, purpose, and acceptance text in English.

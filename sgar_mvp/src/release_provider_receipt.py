@@ -10,7 +10,7 @@ from typing import Any, Mapping
 
 from .pipeline_control import canonical_sha256
 from .release_source_seal import load_and_verify_source_seal
-from .control_role_policy import load_control_role_policy
+from .control_role_policy import ControlRolePolicyV1, load_control_role_policy
 from .model_response_contracts import (
     build_exact_schema_probe_request,
     system_role_requirement,
@@ -50,14 +50,18 @@ _RELEASE_PROVIDER_OUTPUT_CAPS = {
 }
 
 
-def _expected_probe_identity(role: str) -> dict[str, str]:
-    control = load_control_role_policy()
+def _expected_probe_identity(
+    role: str,
+    *,
+    control_role_policy: ControlRolePolicyV1 | None = None,
+) -> dict[str, str]:
+    control = control_role_policy or load_control_role_policy()
     role_policy = control.for_role(role)  # type: ignore[arg-type]
     requirement = system_role_requirement(_RELEASE_PROVIDER_SCHEMA_ROLES[role])
     request = build_exact_schema_probe_request(
-        model_id="gpt-5.6-sol",
+        model_id=role_policy.api_model_id,
         requirement=requirement,
-        request_fields={"reasoning_effort": role_policy.reasoning_effort},
+        request_fields=role_policy.request_fields(),
     )
     output_cap = _RELEASE_PROVIDER_OUTPUT_CAPS[role]
     if output_cap is not None:
@@ -90,7 +94,9 @@ def load_and_verify_release_provider_probe_receipt(
     *,
     expected_endpoint_identity_sha256: str | None = None,
     expected_source_seal_sha256: str | None = None,
+    control_role_policy: ControlRolePolicyV1 | None = None,
 ) -> dict[str, Any]:
+    control = control_role_policy or load_control_role_policy()
     source = path.resolve()
     payload = json.loads(source.read_text(encoding="utf-8-sig"))
     claimed = _require_sha(payload.get("result_sha256"), code="release_probe_result_hash_missing")
@@ -146,16 +152,20 @@ def load_and_verify_release_provider_probe_receipt(
         if not isinstance(item, Mapping):
             raise RuntimeError("release_probe_record_invalid")
         role = str(item.get("role") or "")
+        role_policy = control.for_role(role)  # type: ignore[arg-type]
         if (
-            item.get("model_resource_id") != "model.gpt_5_6_sol.v1"
-            or item.get("api_model_id") != "gpt-5.6-sol"
-            or item.get("reasoning_effort") != RELEASE_PROVIDER_PROBE_EFFORTS[role]
-            or item.get("temperature") is not None
+            item.get("model_resource_id") != role_policy.resource_id
+            or item.get("api_model_id") != role_policy.api_model_id
+            or item.get("reasoning_effort") != role_policy.reasoning_effort
+            or item.get("temperature") != role_policy.temperature
             or item.get("finish_reason") != "stop"
             or item.get("endpoint_identity_sha256") != endpoint
         ):
             raise RuntimeError(f"release_probe_record_policy_invalid:{role}")
-        expected = _expected_probe_identity(role)
+        expected = _expected_probe_identity(
+            role,
+            control_role_policy=control,
+        )
         for field_name in (
             "request_sha256",
             "request_policy_sha256",

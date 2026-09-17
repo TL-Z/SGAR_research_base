@@ -1,0 +1,68 @@
+{
+  "accounting_persistence_failure_count": 0,
+  "blocked_call_count": 0,
+  "budget_status": {
+    "limit_reached": false,
+    "mode": "stop_after_limit",
+    "overshoot_usd": "0.000000000000",
+    "usage_unknown_blocks_next_call": false,
+    "warning_emitted": false
+  },
+  "by_model": {
+    "model.gpt_5_6_sol.v1": {
+      "attempt_count": 2,
+      "cached_input_tokens": 0,
+      "input_tokens": 0,
+      "observed_model_cost_usd": "0.000000000000",
+      "output_tokens": 0,
+      "response_count": 0
+    }
+  },
+  "by_stage": {
+    "planner_decompose": {
+      "attempt_count": 2,
+      "cached_input_tokens": 0,
+      "input_tokens": 0,
+      "observed_model_cost_usd": "0.000000000000",
+      "output_tokens": 0,
+      "response_count": 0
+    }
+  },
+  "by_subtask": {
+    "__global__": {
+      "attempt_count": 2,
+      "cached_input_tokens": 0,
+      "input_tokens": 0,
+      "observed_model_cost_usd": "0.000000000000",
+      "output_tokens": 0,
+      "response_count": 0
+    }
+  },
+  "finished_call_count": 2,
+  "no_response_attempt_count": 2,
+  "observed_total_model_cost_usd": "0.000000000000",
+  "pending_call_count": 0,
+  "pricing_catalog_sha256": "221b024c487460ca1e991d64d8e64245ab80716970fd7eee4efb7abd749a47aa",
+  "provider_reported_cost_complete": false,
+  "resolved_cost_policy": {
+    "limit_usd": "10.000000000000",
+    "mode": "stop_after_limit",
+    "policy_sha256": "b3f8323f6fa74e42b09e2c05a0fb2200c4023f8fcd39d6ae24daeb9dbb3eb778",
+    "schema_version": "model-cost-policy-v1",
+    "strict_pricing": true,
+    "unknown_model": "reject",
+    "warning_usd": "10.000000000000"
+  },
+  "resource_pool_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25",
+  "response_usage_invalid_count": 0,
+  "response_usage_missing_count": 0,
+  "run_id": "30b82a24e41a4692b6b075cd411eb8cb",
+  "schema_version": "sgar-model-cost-summary-v1",
+  "started_call_count": 2,
+  "token_usage": {
+    "cached_input_tokens": 0,
+    "input_tokens": 0,
+    "output_tokens": 0
+  },
+  "warning_count": 0
+}

@@ -3,15 +3,17 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal
 
-from pydantic import Field, model_validator
+from pydantic import Field, field_validator, model_validator
 
 from .pipeline_control import FrozenContract, canonical_sha256
 
 
 CONTROL_ROLE_POLICY_PROTOCOL = "sgar-control-role-policy-v2"
+CONTROL_ROLE_POLICY_EXPERIMENT_PROTOCOL = "sgar-control-role-policy-v3"
 CONTROL_ROLE_POLICY_PATH = (
     Path(__file__).resolve().parents[1] / "config" / "control_role_policy.json"
 )
@@ -28,16 +30,34 @@ class ControlRoleInvocationPolicyV1(FrozenContract):
     """Exact request policy for one production control role."""
 
     role: ControlRole
-    resource_id: Literal["model.gpt_5_6_sol.v1"] = "model.gpt_5_6_sol.v1"
-    api_model_id: Literal["gpt-5.6-sol"] = "gpt-5.6-sol"
-    reasoning_effort: Literal["high", "xhigh"]
-    temperature: None = None
+    resource_id: str = "model.gpt_5_6_sol.v1"
+    api_model_id: str = "gpt-5.6-sol"
+    reasoning_effort: Literal["low", "medium", "high", "xhigh", "max"] | None
+    temperature: float | None = Field(default=None, ge=0.0, le=2.0)
     allow_model_failover: Literal[False] = False
     response_mode: Literal["native_strict_schema"] = "native_strict_schema"
     role_policy_sha256: str = ""
 
+    @field_validator("resource_id")
+    @classmethod
+    def _resource_id_is_canonical(cls, value: str) -> str:
+        normalized = str(value or "").strip()
+        if not re.fullmatch(r"model\.[A-Za-z0-9][A-Za-z0-9_.:-]*", normalized):
+            raise ValueError("control_role_resource_id_invalid")
+        return normalized
+
+    @field_validator("api_model_id")
+    @classmethod
+    def _api_model_id_is_present(cls, value: str) -> str:
+        normalized = str(value or "").strip()
+        if not normalized:
+            raise ValueError("control_role_api_model_id_invalid")
+        return normalized
+
     @model_validator(mode="after")
     def _seal(self) -> "ControlRoleInvocationPolicyV1":
+        if self.reasoning_effort is not None and self.temperature is not None:
+            raise ValueError("control_role_reasoning_and_temperature_conflict")
         projection = self.model_dump(mode="python", exclude={"role_policy_sha256"})
         expected = canonical_sha256(projection)
         if self.role_policy_sha256 and self.role_policy_sha256 != expected:
@@ -45,19 +65,24 @@ class ControlRoleInvocationPolicyV1(FrozenContract):
         object.__setattr__(self, "role_policy_sha256", expected)
         return self
 
-    def request_fields(self) -> dict[str, str]:
-        """Provider request fields authorized by this policy.
+    def request_fields(self) -> dict[str, Any]:
+        """Provider request fields authorized by this policy."""
 
-        Temperature is intentionally absent for Sol reasoning requests.
-        """
-
-        return {"reasoning_effort": self.reasoning_effort}
+        fields: dict[str, str | float] = {}
+        if self.reasoning_effort is not None:
+            fields["reasoning_effort"] = self.reasoning_effort
+        if self.temperature is not None:
+            fields["temperature"] = self.temperature
+        return fields
 
 
 class ControlRolePolicyV1(FrozenContract):
-    """Sol-only, no-failover policy for every production semantic control role."""
+    """No-failover policy for every production semantic control role."""
 
-    protocol: Literal[CONTROL_ROLE_POLICY_PROTOCOL] = CONTROL_ROLE_POLICY_PROTOCOL
+    protocol: Literal[
+        CONTROL_ROLE_POLICY_PROTOCOL,
+        CONTROL_ROLE_POLICY_EXPERIMENT_PROTOCOL,
+    ] = CONTROL_ROLE_POLICY_PROTOCOL
     roles: tuple[ControlRoleInvocationPolicyV1, ...]
     policy_sha256: str = ""
 
@@ -72,20 +97,22 @@ class ControlRolePolicyV1(FrozenContract):
             "evaluator",
         ):
             raise ValueError("control_role_policy_roles_invalid")
-        expected_efforts = {
-            "profiler": "xhigh",
-            "planner": "xhigh",
-            "plan_compiler": "xhigh",
-            "plan_adaptation": "xhigh",
-            "evaluator": "high",
-        }
-        if any(
-            item.reasoning_effort != expected_efforts[item.role]
-            for item in self.roles
-        ):
-            raise ValueError("control_role_policy_reasoning_effort_invalid")
-        if len({item.api_model_id for item in self.roles}) != 1:
-            raise ValueError("control_role_policy_model_mismatch")
+        if self.protocol == CONTROL_ROLE_POLICY_PROTOCOL:
+            expected_efforts = {
+                "profiler": "xhigh",
+                "planner": "xhigh",
+                "plan_compiler": "xhigh",
+                "plan_adaptation": "xhigh",
+                "evaluator": "high",
+            }
+            if any(
+                item.resource_id != "model.gpt_5_6_sol.v1"
+                or item.api_model_id != "gpt-5.6-sol"
+                or item.reasoning_effort != expected_efforts[item.role]
+                or item.temperature is not None
+                for item in self.roles
+            ):
+                raise ValueError("control_role_policy_v2_identity_invalid")
         projection = self.model_dump(mode="python", exclude={"policy_sha256"})
         expected = canonical_sha256(projection)
         if self.policy_sha256 and self.policy_sha256 != expected:
@@ -110,6 +137,7 @@ def load_control_role_policy(
 __all__ = [
     "CONTROL_ROLE_POLICY_PATH",
     "CONTROL_ROLE_POLICY_PROTOCOL",
+    "CONTROL_ROLE_POLICY_EXPERIMENT_PROTOCOL",
     "ControlRole",
     "ControlRoleInvocationPolicyV1",
     "ControlRolePolicyV1",

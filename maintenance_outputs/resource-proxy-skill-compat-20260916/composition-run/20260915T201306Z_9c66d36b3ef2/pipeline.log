@@ -1,0 +1,34 @@
+2026-09-16 04:13:06.383 | INFO     | sgar_mvp.src.terminal_progress:location:37 - Run directory: run://.
+2026-09-16 04:13:06.383 | INFO     | sgar_mvp.src.terminal_progress:location:37 - Full log: run://pipeline.log
+2026-09-16 04:13:06.384 | INFO     | __main__:main:3387 - ============================================================
+2026-09-16 04:13:06.394 | INFO     | __main__:main:3415 - S-GAR MVP — End-to-End Pipeline
+2026-09-16 04:13:06.394 | INFO     | __main__:main:3416 - ============================================================
+2026-09-16 04:13:06.671 | INFO     | __main__:main:3612 - Run ID: 9c66d36b3ef248d4af8f36a586930042
+2026-09-16 04:13:06.671 | INFO     | __main__:main:3613 - Explicit public inputs: 1
+2026-09-16 04:13:07.133 | INFO     | __main__:_run_pipeline_with_cost_ledger:1941 - [ControlModel] configured=['gpt-5.6-sol'] available=['gpt-5.6-sol'] skipped=[]
+2026-09-16 04:13:07.133 | INFO     | __main__:_run_pipeline_with_cost_ledger:1947 - [Environment] docker_cli=True docker_daemon=False docker_ready=False reason=ok
+2026-09-16 04:13:07.417 | INFO     | sgar_mvp.src.resource_loader:_load_real_pool_internal:279 - [ResourceLoader] 10 catalog resources are intentionally absent from the effective index; no zero-vector fallback was created
+2026-09-16 04:13:07.418 | INFO     | sgar_mvp.src.resource_loader:_load_real_pool_internal:285 - [ResourceLoader] Loaded 328 real resources (dim=2560), 16 indexed models
+2026-09-16 04:13:08.377 | WARNING  | sgar_mvp.src.router:__init__:670 - [Router] Policy model unavailable; using deterministic fallback bundle policy.
+2026-09-16 04:13:08.377 | INFO     | sgar_mvp.src.router:__init__:674 - [Router] Initialized | confidence=0.75 | granularity=0.00 | bundle_adv=1.00 | retrieval=capability_only
+2026-09-16 04:13:08.381 | INFO     | __main__:_run_pipeline_with_cost_ledger:2393 - ------------------------------------------------------------
+2026-09-16 04:13:08.382 | INFO     | __main__:_run_pipeline_with_cost_ledger:2394 - Phase 1: Task Decomposition (Planner)
+2026-09-16 04:13:08.382 | INFO     | __main__:_run_pipeline_with_cost_ledger:2395 - ------------------------------------------------------------
+2026-09-16 04:13:08.382 | INFO     | sgar_mvp.src.planner:__init__:573 - [Planner] Initialized with model=gpt-5.6-sol, base_url=https://svip.xty.app/v1
+2026-09-16 04:13:08.428 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Planner] Processing query
+Treat this as one indivisible final-output subtask; do not create an intermediate Model-only analysis task. The final producer must be the full-stack implementation Agent bound to the candidate Model qwen3.5-35b-a3b. The Agent must inspect the supplied small JSON dataset by actually calling its authorized filesystem read-file Tool, receive that Tool result, and apply the real verification-before-completion Skill before writing. Produce one concise Markdown evidence note stating that there are 2 rows and the total value is 8, and cite the Tool result. A correct answer without a real Tool call does not satisfy this bounded integration fixture.
+[End Processing query]
+2026-09-16 04:13:08.443 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Planner] Calling gpt-5.6-sol; attempt 1; waiting for response
+2026-09-16 04:15:27.322 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Planner] gpt-5.6-sol returned, 138.9s
+2026-09-16 04:15:27.333 | WARNING  | sgar_mvp.src.planner:decompose_task:2341 - [Planner] Strict schema output failed local validation for gpt-5.6-sol; retrying the same schema: planner_wire_v6_payload_invalid
+2026-09-16 04:15:27.343 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Planner] Calling gpt-5.6-sol; attempt 1; waiting for response
+2026-09-16 04:15:55.224 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Planner] gpt-5.6-sol returned, 27.9s
+2026-09-16 04:15:55.237 | WARNING  | sgar_mvp.src.planner:decompose_task:2341 - [Planner] Strict schema output failed local validation for gpt-5.6-sol; retrying the same schema: planner_wire_v6_payload_invalid
+2026-09-16 04:15:55.237 | ERROR    | sgar_mvp.src.planner:decompose_task:2390 - [Planner] All 2 attempts exhausted.
+2026-09-16 04:15:55.273 | ERROR    | __main__:main:3844 - S-GAR MVP - Structured Failure
+2026-09-16 04:15:55.273 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [End] Run failed
+2026-09-16 04:15:55.273 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Primary cause] Stage=planner_generation; responsibility=Plan/task content; code=planner_semantic_ir_invalid; exception=PlannerGenerationError
+2026-09-16 04:15:55.273 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Elapsed] 168.9s
+2026-09-16 04:15:55.273 | INFO     | sgar_mvp.src.terminal_progress:location:37 - Log: run://pipeline.log
+2026-09-16 04:15:55.273 | INFO     | sgar_mvp.src.terminal_progress:location:37 - Report: run://experiment_report.md
+2026-09-16 04:15:55.274 | INFO     | sgar_mvp.src.terminal_progress:location:37 - Run manifest: run://run_manifest.json

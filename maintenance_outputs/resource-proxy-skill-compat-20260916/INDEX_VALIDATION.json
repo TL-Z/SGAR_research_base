@@ -1,0 +1,49 @@
+{
+  "protocol": "sgar-active-index-validation-v1",
+  "generation_id": "2cd50d51aabe41a5972c0d41f578727c",
+  "resource_count": 328,
+  "effective_count": 328,
+  "readiness_effective_count": 328,
+  "dimension": 2560,
+  "capability_index": {
+    "rows": 328,
+    "dimension": 2560
+  },
+  "constraint_index": {
+    "rows": 328,
+    "dimension": 2560
+  },
+  "embedding_model": "Qwen/Qwen3-Embedding-4B",
+  "embedding_runtime_identity_sha256": "ebc78eccbfeb170885a5f575878d0eaa5cfeaa2aaa9f721288feaff662c3c4dd",
+  "component_sha256": {
+    "faiss_cap.index": "3076c77ee028010f05dbc6cd9f065c833b9ca7b4dd3e6ef2eaabe2d5421ae8d5",
+    "faiss_con.index": "d4dfda092804e187071c4f923d265fdb3cf5824358460e2ec7792dd43bc26fc7",
+    "resource_meta.pkl": "3ea3d3297daaeb56ded658c4a62041fca73021cee93ba23640629107165c6274",
+    "retrieval_profile_audit.json": "eb67286321962ca13bd35196b6821a486ba606e952d53a34db648932ff87048f",
+    "index_build_manifest.json": "646bde8ddf249e754e56f1486466b9920d3f1bc9699ae1da95d21518f81fdabb"
+  },
+  "runtime_identity_sha256": "877fbb1c4ef343271efdd85db9cb7cbdb59bf187b28cdc55a341dacc55aab013",
+  "loader_validation": "passed",
+  "directed_queries": {
+    "Model": [
+      "model.gpt_5_6_sol.v1",
+      "model.deepseek_v4_1_flash.v1",
+      "model.gpt_6_astra.v1"
+    ],
+    "Agent": [
+      "agent.business_requirements_analyst.v1",
+      "agent.performance_engineer.v1",
+      "agent.api_designer.v1"
+    ],
+    "Tool": [
+      "tool.mcp.fs_read_file.v1",
+      "tool.mcp.fs_read_multiple.v1",
+      "tool.mcp.fs_write_file.v1"
+    ],
+    "Skill": [
+      "skill.superpowers.verification-before-completion.v1",
+      "skill.openai_plugins.verification-before-completion.v1",
+      "skill.neolabhq.decay.v1"
+    ]
+  }
+}

@@ -29,6 +29,7 @@ from .pipeline_control import (
 )
 from .terminal_failure import TerminalFailureEnvelope
 from .formal_contracts import (
+    ExecutionResourceRequirementV1,
     NodeSemanticContractV2,
     SemanticEdgeContractV2,
     SemanticRequirementDeclarationV1,
@@ -735,6 +736,10 @@ class Subtask(BaseModel):
             "Evidence-bound model decisions that are deterministically compiled into "
             "execution obligations; downstream components must not re-infer them from prose."
         ),
+    )
+    execution_requirements: List[ExecutionResourceRequirementV1] = Field(
+        default_factory=list,
+        description="User-declared resource relations bound to exact request clauses.",
     )
     semantic_contract_v2: Optional[NodeSemanticContractV2] = Field(
         default=None,

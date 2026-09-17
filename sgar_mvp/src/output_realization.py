@@ -624,7 +624,7 @@ def _strict_target_value(value: Any, target_contract: Mapping[str, Any]) -> Any:
         if not valid:
             raise OutputRealizationError("realized_output_target_contract_mismatch")
         return value
-    if artifact_type in {"plaintext", "csv", "markdown", "code", "file"}:
+    if artifact_type in {"text", "plaintext", "csv", "markdown", "code", "file"}:
         if not isinstance(value, str):
             raise OutputRealizationError("realized_textual_output_type_mismatch")
         return value

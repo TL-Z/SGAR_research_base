@@ -160,6 +160,7 @@ class RetrievalAttemptRecord(FrozenContract):
 
 class CandidateOrigin(str, Enum):
     RETRIEVAL = "retrieval"
+    USER_EXECUTION_REQUIREMENT = "user_execution_requirement"
     PLANNER_CAPABILITY_EVIDENCE = "planner_capability_evidence"
     EXPLICIT_DEPENDENCY = "explicit_dependency"
     DEPENDENCY_SLOT = "dependency_slot"
@@ -186,6 +187,7 @@ class CandidateResourceRef(FrozenContract):
         if self.origin in {
             CandidateOrigin.RETRIEVAL,
             CandidateOrigin.PLANNER_CAPABILITY_EVIDENCE,
+            CandidateOrigin.USER_EXECUTION_REQUIREMENT,
         }:
             if self.required_by_resource_id is not None or self.dependency_slot is not None:
                 raise ValueError("independent_candidate_cannot_claim_dependency_origin")

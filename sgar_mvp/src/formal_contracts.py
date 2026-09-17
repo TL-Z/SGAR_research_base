@@ -16,6 +16,7 @@ from .pipeline_control import FrozenContract, canonical_sha256
 
 
 SEMANTIC_REQUIREMENT_PROTOCOL = "sgar-semantic-requirement-v1"
+EXECUTION_RESOURCE_REQUIREMENT_PROTOCOL = "sgar-execution-resource-requirement-v1"
 EXECUTION_OBLIGATION_PROTOCOL = "sgar-execution-obligation-v1"
 NODE_SEMANTIC_CONTRACT_PROTOCOL = "sgar-node-semantic-contract-v3"
 SEMANTIC_EDGE_CONTRACT_PROTOCOL = "sgar-semantic-edge-contract-v2"
@@ -229,6 +230,56 @@ class SemanticRequirementDeclarationV1(FrozenContract):
         if self.status == "not_expressible" and reason is None:
             raise ValueError("unexpressible_requirement_reason_missing")
         object.__setattr__(self, "unexpressible_reason", reason)
+        return self
+
+
+class ExecutionResourceRequirementV1(FrozenContract):
+    """One user-declared, evidence-bound resource or collaboration constraint."""
+
+    protocol: Literal[EXECUTION_RESOURCE_REQUIREMENT_PROTOCOL] = (
+        EXECUTION_RESOURCE_REQUIREMENT_PROTOCOL
+    )
+    requirement_id: str = Field(min_length=1, pattern=r"^[A-Za-z][A-Za-z0-9_.:-]*$")
+    source_clause_ids: tuple[str, ...] = Field(min_length=1)
+    relation: Literal[
+        "direct_executor",
+        "agent_base_model",
+        "controller_callable_tool",
+        "advisory_skill",
+    ]
+    resource_type: Literal["Model", "Agent", "Tool", "Skill"]
+    resource_id: str | None = None
+    api_model_id: str | None = None
+    operation_id: str | None = None
+    required: Literal[True] = True
+
+    @field_validator("source_clause_ids")
+    @classmethod
+    def _source_clauses(cls, value: tuple[str, ...]) -> tuple[str, ...]:
+        normalized = tuple(str(item).strip() for item in value)
+        if any(not item for item in normalized) or len(normalized) != len(set(normalized)):
+            raise ValueError("execution_requirement_source_clause_ids_invalid")
+        return normalized
+
+    @field_validator("resource_id", "api_model_id", "operation_id")
+    @classmethod
+    def _optional_identity(cls, value: str | None) -> str | None:
+        normalized = str(value or "").strip()
+        return normalized or None
+
+    @model_validator(mode="after")
+    def _relation_shape(self) -> "ExecutionResourceRequirementV1":
+        expected_type = {
+            "agent_base_model": "Model",
+            "controller_callable_tool": "Tool",
+            "advisory_skill": "Skill",
+        }.get(self.relation)
+        if expected_type is not None and self.resource_type != expected_type:
+            raise ValueError("execution_requirement_relation_type_mismatch")
+        if self.api_model_id is not None and self.resource_type != "Model":
+            raise ValueError("execution_requirement_api_identity_requires_model")
+        if self.relation == "advisory_skill" and self.operation_id is not None:
+            raise ValueError("execution_requirement_skill_operation_unsupported")
         return self
 
 

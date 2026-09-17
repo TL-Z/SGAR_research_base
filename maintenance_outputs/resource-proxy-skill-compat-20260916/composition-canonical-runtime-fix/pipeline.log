@@ -1,0 +1,33 @@
+2026-09-16 11:44:05.345 | INFO     | sgar_mvp.src.terminal_progress:location:37 - Run directory: run://.
+2026-09-16 11:44:05.345 | INFO     | sgar_mvp.src.terminal_progress:location:37 - Full log: run://pipeline.log
+2026-09-16 11:44:05.346 | INFO     | __main__:main:3387 - ============================================================
+2026-09-16 11:44:05.357 | INFO     | __main__:main:3415 - S-GAR MVP — End-to-End Pipeline
+2026-09-16 11:44:05.357 | INFO     | __main__:main:3416 - ============================================================
+2026-09-16 11:44:05.700 | INFO     | __main__:main:3612 - Run ID: 30b82a24e41a4692b6b075cd411eb8cb
+2026-09-16 11:44:05.700 | INFO     | __main__:main:3613 - Explicit public inputs: 1
+2026-09-16 11:44:06.284 | INFO     | __main__:_run_pipeline_with_cost_ledger:1941 - [ControlModel] configured=['gpt-5.6-sol'] available=['gpt-5.6-sol'] skipped=[]
+2026-09-16 11:44:06.284 | INFO     | __main__:_run_pipeline_with_cost_ledger:1947 - [Environment] docker_cli=True docker_daemon=False docker_ready=False reason=ok
+2026-09-16 11:44:06.603 | INFO     | sgar_mvp.src.resource_loader:_load_real_pool_internal:279 - [ResourceLoader] 10 catalog resources are intentionally absent from the effective index; no zero-vector fallback was created
+2026-09-16 11:44:06.603 | INFO     | sgar_mvp.src.resource_loader:_load_real_pool_internal:285 - [ResourceLoader] Loaded 328 real resources (dim=2560), 16 indexed models
+2026-09-16 11:44:14.871 | WARNING  | sgar_mvp.src.router:__init__:670 - [Router] Policy model unavailable; using deterministic fallback bundle policy.
+2026-09-16 11:44:14.872 | INFO     | sgar_mvp.src.router:__init__:674 - [Router] Initialized | confidence=0.75 | granularity=0.00 | bundle_adv=1.00 | retrieval=capability_only
+2026-09-16 11:44:14.876 | INFO     | __main__:_run_pipeline_with_cost_ledger:2393 - ------------------------------------------------------------
+2026-09-16 11:44:14.876 | INFO     | __main__:_run_pipeline_with_cost_ledger:2394 - Phase 1: Task Decomposition (Planner)
+2026-09-16 11:44:14.876 | INFO     | __main__:_run_pipeline_with_cost_ledger:2395 - ------------------------------------------------------------
+2026-09-16 11:44:14.877 | INFO     | sgar_mvp.src.planner:__init__:573 - [Planner] Initialized with model=gpt-5.6-sol, base_url=https://svip.xty.app/v1
+2026-09-16 11:44:14.938 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Planner] Processing query
+Treat this as one indivisible final-output subtask; do not create an intermediate Model-only analysis task. The final producer must be Agent resource_id agent.fullstack_implementation_engineer.v1, bound to Model resource_id model.qwen3_5_35b_a3b.v1 with API identity qwen3.5-35b-a3b. The Agent must inspect the supplied small JSON dataset by actually calling Tool resource_id tool.mcp.fs_read_file.v1 with capability operation tool.mcp.fs_read_file.v1::read_text_file, receive that Tool result in the same controller session, and apply advisory Skill resource_id skill.superpowers.verification-before-completion.v1 before writing. Produce one concise Markdown evidence note stating that there are 2 rows and the total value is 8, and cite the Tool result. A correct answer without a real Tool call or without the Skill instruction does not satisfy this bounded integration fixture.
+[End Processing query]
+2026-09-16 11:44:14.958 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Planner] Calling gpt-5.6-sol; attempt 1; waiting for response
+2026-09-16 11:44:15.209 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Connection diagnostic] APIConnectionError → ConnectError → ConnectError → gaierror(errno=-3)
+2026-09-16 11:44:15.209 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Planner] Call failed: APIConnectionError; no response received ; attempt 1, 0.3s
+2026-09-16 11:44:15.211 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Planner] Calling gpt-5.6-sol; attempt 2; waiting for response
+2026-09-16 11:44:15.214 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Connection diagnostic] APIConnectionError → ConnectError → ConnectError → gaierror(errno=-3)
+2026-09-16 11:44:15.214 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Planner] Call failed: APIConnectionError; no response received ; attempt 2, 0.0s
+2026-09-16 11:44:15.268 | ERROR    | __main__:main:3844 - S-GAR MVP - Structured Failure
+2026-09-16 11:44:15.268 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [End] Run failed
+2026-09-16 11:44:15.268 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Primary cause] Stage=planner_generation; responsibility=Infrastructure/connection; code=planner_connect_failure; exception=PlannerGenerationError
+2026-09-16 11:44:15.268 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Elapsed] 9.9s
+2026-09-16 11:44:15.268 | INFO     | sgar_mvp.src.terminal_progress:location:37 - Log: run://pipeline.log
+2026-09-16 11:44:15.268 | INFO     | sgar_mvp.src.terminal_progress:location:37 - Report: run://experiment_report.md
+2026-09-16 11:44:15.268 | INFO     | sgar_mvp.src.terminal_progress:location:37 - Run manifest: run://run_manifest.json

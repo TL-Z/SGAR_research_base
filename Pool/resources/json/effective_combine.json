@@ -2936,201 +2936,6 @@
   },
   {
     "manifest_version": "1.0",
-    "resource_id": "model.claude_fable_5_1.v1",
-    "resource_type": "Model",
-    "status": "active",
-    "capability": {
-      "summary": "Reasoning model for sustained coding, research, and document workflows.",
-      "core_primitives": [
-        "multi-file code revision",
-        "multi-step research synthesis",
-        "document drafting",
-        "visual evidence interpretation"
-      ],
-      "problem_space": "Reasoning model for sustained coding, research, and document workflows. Applicable tasks include multi-file code revision, multi-step research synthesis, document drafting, visual evidence interpretation. Accepts text, image input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions.",
-      "domain_tags": [
-        "Language",
-        "Software Engineering",
-        "Visual Understanding"
-      ]
-    },
-    "constraint": {
-      "env_requirements": [
-        "Endpoint exposing the documented model through Chat Completions; gateway mapping unverified",
-        "Valid API key for the selected service or an explicitly configured self-hosted endpoint",
-        "Endpoint and transport support for every requested input and output modality",
-        "The source URI is a proposed relay interface, not evidence of native OpenAI protocol support.",
-        "Forced tool use is rejected by the documented native model. Tool-choice probes must respect this restriction.",
-        "Thinking blocks cannot be freely replayed to earlier models; review cross-model continuation before activation."
-      ],
-      "io_signature": "Input modalities: text, image | Output modalities: text. Gateway transport support requires verification.",
-      "artifact_input": [
-        "text",
-        "image"
-      ],
-      "artifact_output": [
-        "text"
-      ]
-    },
-    "io": {
-      "input_contract": [
-        {
-          "name": "messages",
-          "kind": "chat_messages",
-          "required": true,
-          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
-        },
-        {
-          "name": "tools",
-          "kind": "tool_schema_array",
-          "required": false,
-          "description": "Function schemas; the gateway must support the documented tool-call protocol."
-        }
-      ],
-      "output_contract": {
-        "artifact_type": "plaintext",
-        "description": "Generated text returned through the configured gateway."
-      }
-    },
-    "routing": {
-      "family_id": "model.anthropic.claude",
-      "dependency_slots": []
-    },
-    "execution": {
-      "runtime": "llm_chat_completion",
-      "uri": "${base_url}/v1/chat/completions",
-      "model_id": "claude-fable-5-1",
-      "execution_status": "active"
-    },
-    "utility": {
-      "latency_ms": 0,
-      "token_cost_factor": 0,
-      "expected_success_rate": 0,
-      "successes": 0,
-      "attempts": 0
-    },
-    "provenance": {
-      "reviewed_at": "2026-09-09",
-      "evidence_status": "provider_documented_not_gateway_verified",
-      "integration_status": "canonical_registered_gateway_verification_pending",
-      "source_urls": [
-        "https://platform.claude.com/docs/en/models/fable-5-1/overview"
-      ],
-      "documented_input_modalities": [
-        "text",
-        "image"
-      ],
-      "documented_output_modalities": [
-        "text"
-      ],
-      "documented_interface_facts": {
-        "max_output_tokens": 128000,
-        "thinking_mode": "adaptive_always_on",
-        "function_calling": true,
-        "forced_tool_choice": false,
-        "native_protocol": "anthropic_messages"
-      },
-      "task_profile_basis": "Neutral candidate task categories based on documented operations; not an empirical model ranking or fixed role assignment.",
-      "pricing_status": "supplier_quote_recorded_unlisted_rates_unknown",
-      "resource_tag_layout": [
-        "context_window",
-        "input_per_million_tokens",
-        "output_per_million_tokens",
-        "cache_read_per_million_tokens"
-      ],
-      "pricing_note": "Supplier screenshot rates are USD per million tokens in the existing catalog convention. Unlisted rates are unknown, not zero. Cache creation and audio rates are separate from the three legacy text rates and require accounting support before use.",
-      "utility_status": "unmeasured_zero_placeholders",
-      "gateway_verification_status": "not_run",
-      "configuration_note": "Source capability facts are preserved by the deterministic converter. Runtime and gateway readiness still require independent validation before activation.",
-      "supplier_quote": {
-        "source": "user_supplied_supplier_screenshot",
-        "recorded_at": "2026-09-09",
-        "source_image_sha256": "2eda5891da27d9e63e9f1bae8bf4a35a6e20fb4cf282c30f9e7716f6e4e4aa76",
-        "api_model_id": "claude-fable-5-1",
-        "pricing_unit": "USD_per_million_tokens",
-        "input_per_m": "15.3900",
-        "output_per_m": "76.9500",
-        "cache_read_per_m": "1.5390",
-        "cache_creation_per_m": "19.2380",
-        "audio_input_per_m": null,
-        "audio_output_per_m": null,
-        "unlisted_rates": "unknown_not_zero",
-        "accounting_scope": "Current runtime accounting supports only ordinary input, output, and cache-read tokens. Cache-creation and audio rates are recorded for later integration.",
-        "endpoint_verification": "not_run"
-      },
-      "supplier_model_mapping_status": "configured_from_user_screenshot_not_live_verified",
-      "semantic_review": {
-        "reviewed_at": "2026-09-09",
-        "policy": "model-capabilities-v1",
-        "source_urls": [
-          "https://platform.claude.com/docs/en/models/fable-5-1/overview"
-        ],
-        "evidence_status": "provider_documented_not_gateway_verified",
-        "source_document_sha256": {},
-        "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
-        "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
-      },
-      "source_dataset": "local_model_pool",
-      "source_item_id": "Pool/resources/models/claude-fable-5-1.json",
-      "source_uri": "file://Pool/resources/models/claude-fable-5-1.json",
-      "source_hash": "sha256:9b8f19123f2800c31d79fca79bb1eaacd7296b006f7cdcae86f3f9df4dfeb5a9",
-      "conversion_method": "declared_model_capabilities_v2",
-      "license": "provider-service-terms"
-    },
-    "type_specific": {
-      "model": {
-        "profile_version": "model-capabilities-v1",
-        "input_modalities": [
-          "text",
-          "image"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "supports": {
-          "tool_calling": true,
-          "json_mode": null,
-          "vision": true,
-          "reasoning": true,
-          "coding": true
-        },
-        "thinking_mode": "adaptive_always_on",
-        "native_protocol": "anthropic_messages",
-        "documented_context_tokens": 1000000,
-        "evidence_status": "provider_documented_not_gateway_verified",
-        "gateway_verification_status": "not_run",
-        "limitations": [
-          "Forced tool selection is not supported by the native Fable 5.1 interface."
-        ],
-        "documented_interface_facts": {
-          "max_output_tokens": 128000,
-          "thinking_mode": "adaptive_always_on",
-          "function_calling": true,
-          "forced_tool_choice": false,
-          "native_protocol": "anthropic_messages"
-        },
-        "max_output_tokens": 128000,
-        "model_id": "claude-fable-5-1",
-        "provider": "anthropic",
-        "family": "claude",
-        "context_window": "1M Context",
-        "pricing": {
-          "input_per_m": 15.39,
-          "cache_per_m": 1.539,
-          "output_per_m": 76.95
-        },
-        "pricing_unit": "USD_per_million_tokens",
-        "supports_source": "provider_documented_not_gateway_verified"
-      }
-    },
-    "memory": {
-      "success_trajectories": [],
-      "failure_reflections": []
-    },
-    "selection_scope": "candidate"
-  },
-  {
-    "manifest_version": "1.0",
     "resource_id": "model.claude_sonnet_5.v1",
     "resource_type": "Model",
     "status": "active",
@@ -4359,6 +4164,164 @@
   },
   {
     "manifest_version": "1.0",
+    "resource_id": "model.gpt_5_6_sol.v1",
+    "resource_type": "Model",
+    "status": "active",
+    "capability": {
+      "summary": "General professional-work tier with an extended native reasoning range.",
+      "core_primitives": [
+        "document synthesis",
+        "code generation",
+        "reasoning over supplied evidence",
+        "visual document interpretation"
+      ],
+      "problem_space": "Language model for multi-step analysis, coding, and document work. Applicable tasks include document synthesis, code generation, reasoning over supplied evidence, visual document interpretation. Accepts text, image input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions. Published distinction: The provider positions this as the full-size professional-work tier. Native reasoning extends through max, with medium as default, and the documented knowledge cutoff is February 2026; supplier settings and task quality are unmeasured.",
+      "domain_tags": [
+        "Language",
+        "Software Engineering",
+        "Visual Understanding"
+      ]
+    },
+    "constraint": {
+      "env_requirements": [
+        "OpenAI-Compatible API Endpoint",
+        "Valid API Key (Cloud)",
+        "Stable Network Connection"
+      ],
+      "io_signature": "Input modalities: text, image | Output modalities: text. Gateway transport support requires verification.",
+      "artifact_input": [
+        "text",
+        "image"
+      ],
+      "artifact_output": [
+        "text"
+      ]
+    },
+    "io": {
+      "input_contract": [
+        {
+          "name": "messages",
+          "kind": "chat_messages",
+          "required": true,
+          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
+        },
+        {
+          "name": "tools",
+          "kind": "tool_schema_array",
+          "required": false,
+          "description": "Function schemas; the gateway must support the documented tool-call protocol."
+        },
+        {
+          "name": "response_format",
+          "kind": "json_schema",
+          "required": false,
+          "description": "JSON output request; schema enforcement is a separate declared capability and requires gateway verification."
+        }
+      ],
+      "output_contract": {
+        "artifact_type": "plaintext",
+        "description": "Generated text returned through the configured gateway."
+      }
+    },
+    "routing": {
+      "family_id": "model.openai.gpt",
+      "dependency_slots": []
+    },
+    "execution": {
+      "runtime": "llm_chat_completion",
+      "uri": "${base_url}/v1/chat/completions",
+      "model_id": "gpt-5.6-sol",
+      "execution_status": "active"
+    },
+    "utility": {
+      "latency_ms": 0,
+      "token_cost_factor": 0,
+      "expected_success_rate": 0,
+      "successes": 0,
+      "attempts": 0
+    },
+    "provenance": {
+      "semantic_review": {
+        "reviewed_at": "2026-09-09",
+        "policy": "model-capabilities-v1",
+        "source_urls": [
+          "https://developers.openai.com/api/docs/models/gpt-5.6-sol.md"
+        ],
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "source_document_sha256": {
+          "https://developers.openai.com/api/docs/models/gpt-5.6-sol.md": "6aaf0b7116c48f427f3bbcd1d3f908d140ae3bfa44ea060bec3d007678b9c5df"
+        },
+        "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
+        "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
+      },
+      "model_distinction_review": {
+        "evidence_kind": "provider_documented_design",
+        "source_urls": [
+          "https://developers.openai.com/api/docs/models/gpt-5.6-sol.md"
+        ],
+        "source_document_sha256": {
+          "https://developers.openai.com/api/docs/models/gpt-5.6-sol.md": "727fe1b997df14e53af72f070db0fb99614c5e40f4c81ece05e6df4835bfa786"
+        },
+        "interpretation_limit": "Published task emphasis is non-exclusive. Architecture and product positioning do not establish supplier latency, measured quality, or a fixed framework role.",
+        "policy": "model-distinctions-v1",
+        "reviewed_at": "2026-09-09",
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "scope": "Non-exclusive published task emphasis and architecture; no empirical cross-model quality ordering."
+      },
+      "source_dataset": "local_model_pool",
+      "source_item_id": "Pool/resources/models/gpt-5.6-sol.json",
+      "source_uri": "file://Pool/resources/models/gpt-5.6-sol.json",
+      "source_hash": "sha256:00e1c7ee82f073d4aa52ac6a6feae4761ff83f1630456c697827340f6b9609e5",
+      "conversion_method": "declared_model_capabilities_v2",
+      "license": "provider-service-terms",
+      "utility_status": "unmeasured_zero_placeholders"
+    },
+    "type_specific": {
+      "model": {
+        "profile_version": "model-capabilities-v1",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "supports": {
+          "tool_calling": true,
+          "json_mode": true,
+          "vision": true,
+          "reasoning": true,
+          "coding": true,
+          "structured_outputs": true
+        },
+        "thinking_mode": "configurable",
+        "native_protocol": "chat_completions_and_responses",
+        "documented_context_tokens": 1050000,
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "gateway_verification_status": "not_run",
+        "limitations": [],
+        "max_output_tokens": 128000,
+        "model_id": "gpt-5.6-sol",
+        "provider": "openai",
+        "family": "gpt",
+        "context_window": "1M Context",
+        "pricing": {
+          "input_per_m": 1.35,
+          "cache_per_m": 0.135,
+          "output_per_m": 10.8
+        },
+        "pricing_unit": "USD_per_million_tokens",
+        "supports_source": "provider_documented_not_gateway_verified"
+      }
+    },
+    "memory": {
+      "success_trajectories": [],
+      "failure_reflections": []
+    },
+    "selection_scope": "candidate"
+  },
+  {
+    "manifest_version": "1.0",
     "resource_id": "model.gpt_5_nano.v1",
     "resource_type": "Model",
     "status": "active",
@@ -4995,6 +4958,157 @@
   },
   {
     "manifest_version": "1.0",
+    "resource_id": "model.qwen3_5_35b_a3b.v1",
+    "resource_type": "Model",
+    "status": "active",
+    "capability": {
+      "summary": "Cost-efficient multimodal generalist for text, reasoning, coding, tool use, and visual understanding.",
+      "core_primitives": [
+        "text reasoning",
+        "code generation",
+        "structured generation",
+        "tool-assisted analysis",
+        "visual understanding"
+      ],
+      "problem_space": "General-purpose multimodal model for text reasoning, code generation, structured generation, tool-assisted analysis, and visual understanding. Accepts text and image input and produces text output. External tools execute outside the model. Current gateway capability and comparative quality require independent Linux verification.",
+      "domain_tags": [
+        "Language",
+        "Software Engineering",
+        "Visual Understanding"
+      ]
+    },
+    "constraint": {
+      "env_requirements": [
+        "OpenAI-Compatible API Endpoint",
+        "Valid API Key (Cloud) or High-Memory GPU with Multimodal Support"
+      ],
+      "io_signature": "Input modalities: text, image | Output modalities: text. Gateway transport support requires verification.",
+      "artifact_input": [
+        "text",
+        "image"
+      ],
+      "artifact_output": [
+        "text"
+      ]
+    },
+    "io": {
+      "input_contract": [
+        {
+          "name": "messages",
+          "kind": "chat_messages",
+          "required": true,
+          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
+        },
+        {
+          "name": "tools",
+          "kind": "tool_schema_array",
+          "required": false,
+          "description": "Function schemas; the gateway must support the documented tool-call protocol."
+        }
+      ],
+      "output_contract": {
+        "artifact_type": "plaintext",
+        "description": "Generated text returned through the configured gateway."
+      }
+    },
+    "routing": {
+      "family_id": "model.qwen.qwen3",
+      "dependency_slots": []
+    },
+    "execution": {
+      "runtime": "llm_chat_completion",
+      "uri": "${base_url}/v1/chat/completions",
+      "model_id": "qwen3.5-35b-a3b",
+      "execution_status": "active"
+    },
+    "utility": {
+      "latency_ms": 0,
+      "token_cost_factor": 0,
+      "expected_success_rate": 0,
+      "successes": 0,
+      "attempts": 0
+    },
+    "provenance": {
+      "semantic_review": {
+        "reviewed_at": "2026-09-15",
+        "policy": "model-capabilities-v1",
+        "source_urls": [],
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "task_profile_basis": "Broad task categories are registration metadata, not an empirical ranking or fixed framework role.",
+        "context_policy": "The configured context label is preserved separately from gateway verification."
+      },
+      "model_distinction_review": {
+        "evidence_kind": "user_supplied_focused_protocol_evidence",
+        "interpretation_limit": "The attached local protocol pass establishes point-in-time usability only; Linux health and paired task comparisons determine active retention.",
+        "policy": "model-distinctions-v1",
+        "reviewed_at": "2026-09-15",
+        "evidence_status": "windows_historical_probe_only",
+        "scope": "Broad low-price baseline for the bounded Qwen retention comparison."
+      },
+      "pricing_status": "supplier_quote_recorded_unlisted_rates_unknown",
+      "supplier_quote": {
+        "source": "user_supplied_supplier_screenshot",
+        "recorded_at": "2026-09-15",
+        "api_model_id": "qwen3.5-35b-a3b",
+        "pricing_unit": "USD_per_million_tokens",
+        "input_per_m": "0.0750",
+        "output_per_m": "0.6000",
+        "cache_per_m": "unknown_not_zero",
+        "accounting_scope": "Current runtime accounting supports ordinary input, output, and optional cache-read rates."
+      },
+      "gateway_verification_status": "windows_historical_probe_only",
+      "source_dataset": "local_model_pool",
+      "source_item_id": "Pool/resources/models/qwen3.5-35b-a3b.json",
+      "source_uri": "file://Pool/resources/models/qwen3.5-35b-a3b.json",
+      "source_hash": "sha256:da1193d85715aa4559aae2ad1ae0b792c4ef8b97fe5e59cf56ec432b7a4760a5",
+      "conversion_method": "declared_model_capabilities_v2",
+      "license": "provider-service-terms",
+      "utility_status": "unmeasured_zero_placeholders"
+    },
+    "type_specific": {
+      "model": {
+        "profile_version": "model-capabilities-v1",
+        "input_modalities": [
+          "text",
+          "image"
+        ],
+        "output_modalities": [
+          "text"
+        ],
+        "supports": {
+          "tool_calling": true,
+          "json_mode": null,
+          "vision": true,
+          "reasoning": true,
+          "coding": true
+        },
+        "thinking_mode": "hybrid",
+        "native_protocol": "openai_compatible_chat",
+        "documented_context_tokens": 262144,
+        "evidence_status": "provider_documented_not_gateway_verified",
+        "gateway_verification_status": "not_run",
+        "limitations": [],
+        "model_id": "qwen3.5-35b-a3b",
+        "provider": "qwen",
+        "family": "qwen3",
+        "context_window": "262K Context",
+        "pricing": {
+          "input_per_m": 0.075,
+          "cache_per_m": null,
+          "output_per_m": 0.6
+        },
+        "pricing_unit": "USD_per_million_tokens",
+        "supports_source": "provider_documented_not_gateway_verified"
+      }
+    },
+    "memory": {
+      "success_trajectories": [],
+      "failure_reflections": []
+    },
+    "selection_scope": "candidate"
+  },
+  {
+    "manifest_version": "1.0",
     "resource_id": "model.qwen3_8_flash.v1",
     "resource_type": "Model",
     "status": "active",
@@ -5389,154 +5503,7 @@
   },
   {
     "manifest_version": "1.0",
-    "resource_id": "model.qwen3_coder_30b_a3b_instruct.v1",
-    "resource_type": "Model",
-    "status": "active",
-    "capability": {
-      "summary": "Non-thinking coding model with a smaller sparse-expert design.",
-      "core_primitives": [
-        "repository code editing",
-        "debugging",
-        "refactoring",
-        "test implementation",
-        "tool-assisted programming"
-      ],
-      "problem_space": "Coding model for repository editing and development tools. Applicable tasks include repository code editing, debugging, refactoring, test implementation, tool-assisted programming. Accepts text input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions. Published distinction: The documented architecture has 30.5 billion total and 3.3 billion active parameters. It uses a coding-oriented function-call format; parser and gateway compatibility must be verified independently.",
-      "domain_tags": [
-        "Language",
-        "Software Engineering"
-      ]
-    },
-    "constraint": {
-      "env_requirements": [
-        "OpenAI-Compatible API Endpoint",
-        "GPU >= 24GB VRAM (Local Deployment) or API Key (Cloud)"
-      ],
-      "io_signature": "Input modalities: text | Output modalities: text. Gateway transport support requires verification.",
-      "artifact_input": [
-        "text"
-      ],
-      "artifact_output": [
-        "text"
-      ]
-    },
-    "io": {
-      "input_contract": [
-        {
-          "name": "messages",
-          "kind": "chat_messages",
-          "required": true,
-          "description": "Messages accepted by the configured gateway; native media support requires transport verification."
-        },
-        {
-          "name": "tools",
-          "kind": "tool_schema_array",
-          "required": false,
-          "description": "Function schemas; the gateway must support the documented tool-call protocol."
-        }
-      ],
-      "output_contract": {
-        "artifact_type": "plaintext",
-        "description": "Generated text returned through the configured gateway."
-      }
-    },
-    "routing": {
-      "family_id": "model.qwen.qwen3",
-      "dependency_slots": []
-    },
-    "execution": {
-      "runtime": "llm_chat_completion",
-      "uri": "${base_url}/v1/chat/completions",
-      "model_id": "qwen3-coder-30b-a3b-instruct",
-      "execution_status": "active"
-    },
-    "utility": {
-      "latency_ms": 0,
-      "token_cost_factor": 0,
-      "expected_success_rate": 0,
-      "successes": 0,
-      "attempts": 0
-    },
-    "provenance": {
-      "semantic_review": {
-        "reviewed_at": "2026-09-09",
-        "policy": "model-capabilities-v1",
-        "source_urls": [
-          "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/raw/main/README.md"
-        ],
-        "evidence_status": "provider_documented_not_gateway_verified",
-        "source_document_sha256": {
-          "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/raw/main/README.md": "98e8f0e00f2d6c7f1743fc4ef2b6297dcc57bec73d71f36588aed984370ac3f3"
-        },
-        "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
-        "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
-      },
-      "model_distinction_review": {
-        "evidence_kind": "documented_architecture",
-        "source_urls": [
-          "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/raw/main/README.md"
-        ],
-        "source_document_sha256": {
-          "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/raw/main/README.md": "8b1aa7e67131e92e91d2b617fbc4214bfe6389fa6d0d08f6b1a5868212be9fcc"
-        },
-        "interpretation_limit": "Published task emphasis is non-exclusive. Architecture and product positioning do not establish supplier latency, measured quality, or a fixed framework role.",
-        "policy": "model-distinctions-v1",
-        "reviewed_at": "2026-09-09",
-        "evidence_status": "provider_documented_not_gateway_verified",
-        "scope": "Non-exclusive published task emphasis and architecture; no empirical cross-model quality ordering."
-      },
-      "source_dataset": "local_model_pool",
-      "source_item_id": "Pool/resources/models/qwen3-coder-30b-a3b-instruct.json",
-      "source_uri": "file://Pool/resources/models/qwen3-coder-30b-a3b-instruct.json",
-      "source_hash": "sha256:c8870b6ea4cb58d50439a9cc5566c5632bbac8c57c05dfedee2353dc24d24666",
-      "conversion_method": "declared_model_capabilities_v2",
-      "license": "provider-service-terms",
-      "utility_status": "unmeasured_zero_placeholders"
-    },
-    "type_specific": {
-      "model": {
-        "profile_version": "model-capabilities-v1",
-        "input_modalities": [
-          "text"
-        ],
-        "output_modalities": [
-          "text"
-        ],
-        "supports": {
-          "tool_calling": true,
-          "json_mode": null,
-          "vision": false,
-          "reasoning": true,
-          "coding": true
-        },
-        "thinking_mode": "non_thinking",
-        "native_protocol": "openai_compatible_chat",
-        "documented_context_tokens": 262144,
-        "evidence_status": "provider_documented_not_gateway_verified",
-        "gateway_verification_status": "not_run",
-        "limitations": [],
-        "model_id": "qwen3-coder-30b-a3b-instruct",
-        "provider": "qwen",
-        "family": "qwen3",
-        "context_window": "131K Context",
-        "pricing": {
-          "input_per_m": 0.131,
-          "cache_per_m": 0.0,
-          "output_per_m": 0.525
-        },
-        "pricing_unit": "USD_per_million_tokens",
-        "supports_source": "provider_documented_not_gateway_verified"
-      }
-    },
-    "memory": {
-      "success_trajectories": [],
-      "failure_reflections": []
-    },
-    "selection_scope": "candidate"
-  },
-  {
-    "manifest_version": "1.0",
-    "resource_id": "model.qwen3_vl_30b_a3b_instruct.v1",
+    "resource_id": "model.qwen3_vl_235b_a22b_instruct.v1",
     "resource_type": "Model",
     "status": "active",
     "capability": {
@@ -5548,7 +5515,7 @@
         "video question answering",
         "visual reasoning"
       ],
-      "problem_space": "Vision-language model for visual grounding and document understanding. Applicable tasks include document OCR, chart interpretation, visual grounding, video question answering, visual reasoning. Accepts text, image, video input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions. Published distinction: The published architecture is sparse-expert, with 30 billion total and 3 billion active parameters. This is the direct-response instruction edition for text and visual tasks; model size and edition do not establish actual supplier latency or accuracy.",
+      "problem_space": "Vision-language model for visual grounding and document understanding. Applicable tasks include document OCR, chart interpretation, visual grounding, video question answering, visual reasoning. Accepts text, image, video input and produces text output. External tools are required to execute programs, browse sources, or modify files; generated instructions alone do not perform those actions. Published distinction: The published architecture is sparse-expert, with 235 billion total and 22 billion active parameters. This is the direct-response instruction edition for text and visual tasks; model size and edition do not establish actual supplier latency or accuracy.",
       "domain_tags": [
         "Language",
         "Software Engineering",
@@ -5558,7 +5525,7 @@
     "constraint": {
       "env_requirements": [
         "OpenAI-Compatible API Endpoint",
-        "Valid API Key (Cloud) or GPU with Multimodal Support"
+        "Valid API Key (Cloud) or High-Memory GPU with Multimodal Support"
       ],
       "io_signature": "Input modalities: text, image, video | Output modalities: text. Gateway transport support requires verification.",
       "artifact_input": [
@@ -5591,7 +5558,7 @@
     "execution": {
       "runtime": "llm_chat_completion",
       "uri": "${base_url}/v1/chat/completions",
-      "model_id": "qwen3-vl-30b-a3b-instruct",
+      "model_id": "qwen3-vl-235b-a22b-instruct",
       "execution_status": "active"
     },
     "utility": {
@@ -5603,38 +5570,42 @@
     },
     "provenance": {
       "semantic_review": {
-        "reviewed_at": "2026-09-09",
+        "reviewed_at": "2026-09-15",
         "policy": "model-capabilities-v1",
         "source_urls": [
-          "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/README.md"
+          "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct"
         ],
         "evidence_status": "provider_documented_not_gateway_verified",
-        "source_document_sha256": {
-          "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/README.md": "37d278ac62511b5267c1a65d83d5c93a1234c7c3aafc68fb5be48a385269aef5"
-        },
-        "task_profile_basis": "Task categories derived from documented operations; no empirical quality ranking or fixed framework role.",
-        "context_policy": "Legacy configured limit is preserved separately from documented native context; neither proves the supplier limit."
+        "task_profile_basis": "Task categories derive from documented operations; no empirical quality ranking or fixed framework role.",
+        "context_policy": "The configured context label is preserved separately from documented native context; neither proves the supplier limit."
       },
       "model_distinction_review": {
         "evidence_kind": "documented_architecture_and_mode",
         "source_urls": [
-          "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/README.md",
-          "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/config.json"
+          "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct"
         ],
-        "source_document_sha256": {
-          "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/README.md": "e4f6a2dbf91f79745f328e1da89e6a9a458b6e311dfd4cb1dd7888e0cda3c787",
-          "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/config.json": "6129b3f54d517a18553cf7525ff4886be6831c5806fc094d632b8ef38d859912"
-        },
         "interpretation_limit": "Published task emphasis is non-exclusive. Architecture and product positioning do not establish supplier latency, measured quality, or a fixed framework role.",
         "policy": "model-distinctions-v1",
-        "reviewed_at": "2026-09-09",
+        "reviewed_at": "2026-09-15",
         "evidence_status": "provider_documented_not_gateway_verified",
         "scope": "Non-exclusive published task emphasis and architecture; no empirical cross-model quality ordering."
       },
+      "pricing_status": "supplier_quote_recorded_unlisted_rates_unknown",
+      "supplier_quote": {
+        "source": "user_supplied_supplier_screenshot",
+        "recorded_at": "2026-09-15",
+        "api_model_id": "qwen3-vl-235b-a22b-instruct",
+        "pricing_unit": "USD_per_million_tokens",
+        "input_per_m": "0.4690",
+        "output_per_m": "1.8750",
+        "cache_per_m": "unknown_not_zero",
+        "accounting_scope": "Current runtime accounting supports ordinary input, output, and optional cache-read rates."
+      },
+      "gateway_verification_status": "windows_historical_probe_only",
       "source_dataset": "local_model_pool",
-      "source_item_id": "Pool/resources/models/qwen3-vl-30b-a3b-instruct.json",
-      "source_uri": "file://Pool/resources/models/qwen3-vl-30b-a3b-instruct.json",
-      "source_hash": "sha256:0b23d3e93695e1f4be790d05269c000874b2f0ad2d8a6e6ea211e6690761e30a",
+      "source_item_id": "Pool/resources/models/qwen3-vl-235b-a22b-instruct.json",
+      "source_uri": "file://Pool/resources/models/qwen3-vl-235b-a22b-instruct.json",
+      "source_hash": "sha256:0a1253dd4590d8a768f2a49c705995112480efb944f98c7eb22468f19e0a6152",
       "conversion_method": "declared_model_capabilities_v2",
       "license": "provider-service-terms",
       "utility_status": "unmeasured_zero_placeholders"
@@ -5663,14 +5634,14 @@
         "evidence_status": "provider_documented_not_gateway_verified",
         "gateway_verification_status": "not_run",
         "limitations": [],
-        "model_id": "qwen3-vl-30b-a3b-instruct",
+        "model_id": "qwen3-vl-235b-a22b-instruct",
         "provider": "qwen",
         "family": "qwen3",
         "context_window": "131K Context",
         "pricing": {
-          "input_per_m": 0.131,
-          "cache_per_m": 0.0,
-          "output_per_m": 0.525
+          "input_per_m": 0.469,
+          "cache_per_m": null,
+          "output_per_m": 1.875
         },
         "pricing_unit": "USD_per_million_tokens",
         "supports_source": "provider_documented_not_gateway_verified"
@@ -29192,160 +29163,6 @@
   },
   {
     "manifest_version": "v2",
-    "resource_id": "tool.api.arxiv.search.v1",
-    "resource_type": "Tool",
-    "status": "active",
-    "capability": {
-      "summary": "Search arXiv preprints by an all-fields query",
-      "description": "Queries arXiv's Atom feed endpoint with a fixed all:<query> search and optional max-results value. HTTP 2xx/3xx responses produce a success envelope; HTTP 4xx/5xx responses produce an error envelope and a non-zero exit; request exceptions also produce an error envelope and a non-zero exit.",
-      "domain_tags": [
-        "research",
-        "science",
-        "search"
-      ],
-      "core_primitives": [
-        "search_arxiv_preprints",
-        "return_feed_in_json_envelope"
-      ],
-      "problem_space": "Academic preprint discovery by arXiv all-fields query; not full-text retrieval, peer-review validation, or general scholarly database search."
-    },
-    "constraint": {
-      "io_signature": "Input: query string and optional max_results string; output: JSON wrapper envelope with arXiv http_status and feed or HTTP error body. HTTP 2xx/3xx responses produce a success envelope; HTTP 4xx/5xx responses produce an error envelope and a non-zero exit; request exceptions also produce an error envelope and a non-zero exit.",
-      "accepted_inputs": [
-        "one arXiv search phrase",
-        "optional numeric max-results string; wrapper default is 3"
-      ],
-      "output_shape": "HTTP 2xx/3xx: {status: \"success\", tool: string, url: string, http_status: integer, result: object|string}. HTTP 4xx/5xx: {status: \"error\", tool: string, url: string, http_status: integer, result: object|string}, exit 1. Request exception: {status: \"error\", tool: string, message: string}, exit 1.",
-      "limitations": [
-        "fixed GET http://export.arxiv.org/api/query with search_query=all:<query> and max_results=<value>; no field-specific query syntax exposed",
-        "only requests.RequestException becomes status=error",
-        "HTTP 2xx/3xx responses produce a success envelope; HTTP 4xx/5xx responses produce an error envelope and a non-zero exit; request exceptions also produce an error envelope and a non-zero exit.",
-        "wrapper does not parse Atom entries or truncate the response; the API controls feed content and result count",
-        "no auth, cache, or retry; shared helper uses a 25-second timeout and external results can change"
-      ],
-      "artifact_output": [
-        "json"
-      ],
-      "execution_risk": "medium",
-      "http_status_semantics": {
-        "success": "HTTP 200-399",
-        "failure": "HTTP 400-599 or request exception",
-        "failure_exit_code": 1
-      }
-    },
-    "io": {
-      "input_contract": [
-        {
-          "name": "query",
-          "kind": "string",
-          "required": true,
-          "cli_position": 1
-        },
-        {
-          "name": "max_results",
-          "kind": "string",
-          "required": false,
-          "cli_position": 2
-        }
-      ],
-      "output_contract": {
-        "artifact_type": "json",
-        "description": "JSON envelope containing the arXiv feed body with requested URL and HTTP status."
-      }
-    },
-    "routing": {
-      "family": "academic-preprint-search",
-      "intent_tags": [
-        "search arXiv preprints",
-        "find academic papers by all-fields query"
-      ],
-      "negative_intents": [
-        "download or summarize full paper PDFs",
-        "search clinical trials or general web pages"
-      ]
-    },
-    "execution": {
-      "runtime": "rest_api",
-      "uri": "file://Pool/resources/tools/api/api.arxiv.search.py",
-      "execution_status": "active",
-      "execution_risk": "medium"
-    },
-    "utility": {
-      "latency_ms": 200.0,
-      "token_cost_factor": 0.02,
-      "expected_success_rate": 0.5,
-      "successes": 0,
-      "attempts": 0,
-      "evidence_status": "unobserved"
-    },
-    "provenance": {
-      "source": "https://info.arxiv.org/help/api/index.html",
-      "license": "arXiv-nonexclusive",
-      "recognized_public_tool": true,
-      "source_hash": "sha256:3f9ebaef9d551cd70ce8bfa275921f08ca50252d8c3327416822aa63a614c924",
-      "local_implementation_uri": "file://Pool/resources/tools/api/api.arxiv.search.py",
-      "auth_required": false,
-      "auth_evidence": "wrapper_and_shared_adapter_read_no_credentials",
-      "supporting_source_hashes": {
-        "file://Pool/resources/tools/api/_apilib.py": "sha256:e60bba3d1f3dcd9fcd408042ad7951e52d6ecd66d57cb9a58c249d521c8811a7"
-      }
-    },
-    "type_specific": {
-      "tool": {
-        "tool_kind": "rest_api",
-        "deterministic": false
-      }
-    },
-    "type": {
-      "resource_type": "Tool"
-    },
-    "input_contract": [
-      {
-        "name": "query",
-        "kind": "string",
-        "required": true,
-        "cli_position": 1
-      },
-      {
-        "name": "max_results",
-        "kind": "string",
-        "required": false,
-        "cli_position": 2
-      }
-    ],
-    "output_contract": {
-      "artifact_type": "json",
-      "description": "JSON envelope containing the arXiv feed body with requested URL and HTTP status."
-    },
-    "runtime_requirements": {
-      "runtime_profile": "sgar-runtime",
-      "python": "==3.11.9",
-      "python_packages": [
-        {
-          "name": "requests",
-          "version": "==2.32.3",
-          "required": true
-        }
-      ],
-      "node_packages": [],
-      "system_packages": [],
-      "commands": [],
-      "env_vars": [],
-      "network_required": true,
-      "install_policy": "never",
-      "max_auto_heals": 0,
-      "docker_image": "sgar-runtime:rc1",
-      "rest": {
-        "endpoint": null,
-        "auth_required": false,
-        "auth_evidence": "wrapper_and_shared_adapter_read_no_credentials",
-        "timeout_seconds": 25,
-        "success_http_status": "200-399"
-      }
-    }
-  },
-  {
-    "manifest_version": "v2",
     "resource_id": "tool.api.clinicaltrials.v1",
     "resource_type": "Tool",
     "status": "active",
@@ -30801,160 +30618,6 @@
   },
   {
     "manifest_version": "v2",
-    "resource_id": "tool.api.google_dns.v1",
-    "resource_type": "Tool",
-    "status": "active",
-    "capability": {
-      "summary": "Resolve a DNS record through Google DoH",
-      "description": "Queries Google Public DNS-over-HTTPS for required name and optional record type, defaulting type to A. HTTP 2xx/3xx responses produce a success envelope; HTTP 4xx/5xx responses produce an error envelope and a non-zero exit; request exceptions also produce an error envelope and a non-zero exit.",
-      "domain_tags": [
-        "dns",
-        "network-resolution"
-      ],
-      "core_primitives": [
-        "resolve_dns",
-        "query_google_doh"
-      ],
-      "problem_space": "DNS record resolution; not domain ownership verification, website availability testing, or network intrusion."
-    },
-    "constraint": {
-      "io_signature": "Input: name at CLI position 1 and optional type at position 2. Output: shared JSON envelope with url, http_status, and Google DNS result. HTTP 2xx/3xx responses produce a success envelope; HTTP 4xx/5xx responses produce an error envelope and a non-zero exit; request exceptions also produce an error envelope and a non-zero exit.",
-      "accepted_inputs": [
-        "one DNS name",
-        "optional DNS record type string; default is A"
-      ],
-      "output_shape": "HTTP 2xx/3xx: {status: \"success\", tool: string, url: string, http_status: integer, result: object|string}. HTTP 4xx/5xx: {status: \"error\", tool: string, url: string, http_status: integer, result: object|string}, exit 1. Request exception: {status: \"error\", tool: string, message: string}, exit 1.",
-      "limitations": [
-        "fixed GET https://dns.google/resolve with name=<name> and type=<type or A>",
-        "no DNSSEC, CD, DO, ECS, padding, response-format, pagination, or resolver-selection input",
-        "wrapper does not locally truncate or interpret Answer/Status fields",
-        "DNS answers are time-sensitive and resolver-dependent; no auth, cache, or retry"
-      ],
-      "artifact_output": [
-        "json"
-      ],
-      "execution_risk": "medium",
-      "http_status_semantics": {
-        "success": "HTTP 200-399",
-        "failure": "HTTP 400-599 or request exception",
-        "failure_exit_code": 1
-      }
-    },
-    "io": {
-      "input_contract": [
-        {
-          "name": "name",
-          "kind": "string",
-          "required": true,
-          "cli_position": 1
-        },
-        {
-          "name": "type",
-          "kind": "string",
-          "required": false,
-          "default": "A",
-          "cli_position": 2
-        }
-      ],
-      "output_contract": {
-        "artifact_type": "json",
-        "description": "Shared JSON envelope containing Google DNS status and answer records, URL, and HTTP status."
-      }
-    },
-    "routing": {
-      "family": "dns-record-resolution",
-      "intent_tags": [
-        "resolve a DNS record",
-        "query Google Public DNS over HTTPS"
-      ],
-      "negative_intents": [
-        "verify domain ownership",
-        "scan a host or diagnose a network intrusion"
-      ]
-    },
-    "execution": {
-      "runtime": "rest_api",
-      "uri": "file://Pool/resources/tools/api/api.google_dns.py",
-      "execution_status": "active",
-      "execution_risk": "medium"
-    },
-    "utility": {
-      "latency_ms": 200.0,
-      "token_cost_factor": 0.02,
-      "expected_success_rate": 0.5,
-      "successes": 0,
-      "attempts": 0,
-      "evidence_status": "unobserved"
-    },
-    "provenance": {
-      "source": "https://developers.google.com/speed/public-dns/docs/doh",
-      "license": "proprietary-free",
-      "recognized_public_tool": true,
-      "source_hash": "sha256:a89761c6b84d690b92764512a0bd2fa09323e4edfd3ea23a9822f6b4d528050d",
-      "local_implementation_uri": "file://Pool/resources/tools/api/api.google_dns.py",
-      "auth_required": false,
-      "auth_evidence": "wrapper_and_shared_adapter_read_no_credentials",
-      "supporting_source_hashes": {
-        "file://Pool/resources/tools/api/_apilib.py": "sha256:e60bba3d1f3dcd9fcd408042ad7951e52d6ecd66d57cb9a58c249d521c8811a7"
-      }
-    },
-    "type_specific": {
-      "tool": {
-        "tool_kind": "rest_api",
-        "deterministic": false
-      }
-    },
-    "type": {
-      "resource_type": "Tool"
-    },
-    "input_contract": [
-      {
-        "name": "name",
-        "kind": "string",
-        "required": true,
-        "cli_position": 1
-      },
-      {
-        "name": "type",
-        "kind": "string",
-        "required": false,
-        "default": "A",
-        "cli_position": 2
-      }
-    ],
-    "output_contract": {
-      "artifact_type": "json",
-      "description": "Shared JSON envelope containing Google DNS status and answer records, URL, and HTTP status."
-    },
-    "runtime_requirements": {
-      "runtime_profile": "sgar-runtime",
-      "python": "==3.11.9",
-      "python_packages": [
-        {
-          "name": "requests",
-          "version": "==2.32.3",
-          "required": true
-        }
-      ],
-      "node_packages": [],
-      "system_packages": [],
-      "commands": [],
-      "env_vars": [],
-      "network_required": true,
-      "install_policy": "never",
-      "max_auto_heals": 0,
-      "docker_image": "sgar-runtime:rc1",
-      "rest": {
-        "endpoint": "https://dns.google/resolve",
-        "auth_required": false,
-        "auth_evidence": "wrapper_and_shared_adapter_read_no_credentials",
-        "timeout_seconds": 25,
-        "success_http_status": "200-399"
-      }
-    }
-  },
-  {
-    "manifest_version": "v2",
     "resource_id": "tool.api.hackernews_item.v1",
     "resource_type": "Tool",
     "status": "active",
@@ -31791,145 +31454,6 @@
   },
   {
     "manifest_version": "v2",
-    "resource_id": "tool.api.nominatim.geocode.v1",
-    "resource_type": "Tool",
-    "status": "active",
-    "capability": {
-      "summary": "Forward-geocode a place query with Nominatim",
-      "description": "Searches Nominatim with required q, fixed format=json, and limit=3. Despite the legacy artifact label, the wrapper returns a JSON array of search objects rather than GeoJSON. HTTP 2xx/3xx responses produce a success envelope; HTTP 4xx/5xx responses produce an error envelope and a non-zero exit; request exceptions also produce an error envelope and a non-zero exit.",
-      "domain_tags": [
-        "geocoding",
-        "openstreetmap"
-      ],
-      "core_primitives": [
-        "forward_geocode",
-        "find_place_candidates"
-      ],
-      "problem_space": "Place-name to coordinate lookup; not reverse geocoding, map rendering, routing, or address verification."
-    },
-    "constraint": {
-      "io_signature": "Input: q at CLI position 1. Output: shared JSON envelope with url, http_status, and Nominatim JSON result. HTTP 2xx/3xx responses produce a success envelope; HTTP 4xx/5xx responses produce an error envelope and a non-zero exit; request exceptions also produce an error envelope and a non-zero exit.",
-      "accepted_inputs": [
-        "one place, address, or free-form geocoding query"
-      ],
-      "output_shape": "HTTP 2xx/3xx: {status: \"success\", tool: string, url: string, http_status: integer, result: object|string}. HTTP 4xx/5xx: {status: \"error\", tool: string, url: string, http_status: integer, result: object|string}, exit 1. Request exception: {status: \"error\", tool: string, message: string}, exit 1.",
-      "limitations": [
-        "fixed GET https://nominatim.openstreetmap.org/search with format=json and limit=3",
-        "no reverse-geocoding mode, country/language/viewbox/bounded inputs",
-        "API caps the requested result count at three; wrapper does not further truncate or paginate",
-        "usage policy, rate limits, and result quality are external; no cache or retry"
-      ],
-      "artifact_output": [
-        "json"
-      ],
-      "execution_risk": "medium",
-      "http_status_semantics": {
-        "success": "HTTP 200-399",
-        "failure": "HTTP 400-599 or request exception",
-        "failure_exit_code": 1
-      }
-    },
-    "io": {
-      "input_contract": [
-        {
-          "name": "q",
-          "kind": "string",
-          "required": true,
-          "cli_position": 1
-        }
-      ],
-      "output_contract": {
-        "artifact_type": "json",
-        "description": "Shared JSON envelope containing up to three Nominatim search objects, URL, and HTTP status."
-      }
-    },
-    "routing": {
-      "family": "forward-geocoding",
-      "intent_tags": [
-        "convert an address to coordinates",
-        "find place candidates with OpenStreetMap"
-      ],
-      "negative_intents": [
-        "reverse geocode coordinates",
-        "calculate a route or render a map"
-      ]
-    },
-    "execution": {
-      "runtime": "rest_api",
-      "uri": "file://Pool/resources/tools/api/api.nominatim.geocode.py",
-      "execution_status": "active",
-      "execution_risk": "medium"
-    },
-    "utility": {
-      "latency_ms": 200.0,
-      "token_cost_factor": 0.02,
-      "expected_success_rate": 0.5,
-      "successes": 0,
-      "attempts": 0,
-      "evidence_status": "unobserved"
-    },
-    "provenance": {
-      "source": "https://nominatim.org/release-docs/latest/api/Search/",
-      "license": "ODbL",
-      "recognized_public_tool": true,
-      "source_hash": "sha256:1ded51aa2738d303feed1c07bfd526b2a95e94cb574ebdb916a24e6c3d5a30d7",
-      "local_implementation_uri": "file://Pool/resources/tools/api/api.nominatim.geocode.py",
-      "auth_required": false,
-      "auth_evidence": "wrapper_and_shared_adapter_read_no_credentials",
-      "supporting_source_hashes": {
-        "file://Pool/resources/tools/api/_apilib.py": "sha256:e60bba3d1f3dcd9fcd408042ad7951e52d6ecd66d57cb9a58c249d521c8811a7"
-      }
-    },
-    "type_specific": {
-      "tool": {
-        "tool_kind": "rest_api",
-        "deterministic": false
-      }
-    },
-    "type": {
-      "resource_type": "Tool"
-    },
-    "input_contract": [
-      {
-        "name": "q",
-        "kind": "string",
-        "required": true,
-        "cli_position": 1
-      }
-    ],
-    "output_contract": {
-      "artifact_type": "json",
-      "description": "Shared JSON envelope containing up to three Nominatim search objects, URL, and HTTP status."
-    },
-    "runtime_requirements": {
-      "runtime_profile": "sgar-runtime",
-      "python": "==3.11.9",
-      "python_packages": [
-        {
-          "name": "requests",
-          "version": "==2.32.3",
-          "required": true
-        }
-      ],
-      "node_packages": [],
-      "system_packages": [],
-      "commands": [],
-      "env_vars": [],
-      "network_required": true,
-      "install_policy": "never",
-      "max_auto_heals": 0,
-      "docker_image": "sgar-runtime:rc1",
-      "rest": {
-        "endpoint": "https://nominatim.openstreetmap.org/search",
-        "auth_required": false,
-        "auth_evidence": "wrapper_and_shared_adapter_read_no_credentials",
-        "timeout_seconds": 25,
-        "success_http_status": "200-399"
-      }
-    }
-  },
-  {
-    "manifest_version": "v2",
     "resource_id": "tool.api.open_meteo.v1",
     "resource_type": "Tool",
     "status": "active",
@@ -32212,6 +31736,131 @@
       "docker_image": "sgar-runtime:rc1",
       "rest": {
         "endpoint": "https://world.openfoodfacts.org/api/v2/product/{a(1)}.json",
+        "auth_required": false,
+        "auth_evidence": "wrapper_and_shared_adapter_read_no_credentials",
+        "timeout_seconds": 25,
+        "success_http_status": "200-399"
+      }
+    }
+  },
+  {
+    "manifest_version": "v2",
+    "resource_id": "tool.api.opensky_flights.v1",
+    "resource_type": "Tool",
+    "status": "active",
+    "capability": {
+      "summary": "Fetch live OpenSky aircraft state vectors",
+      "description": "Calls the OpenSky states/all endpoint with no query parameters and returns the live aircraft state response. The existing bbox input is ignored because the wrapper reads no CLI arguments. HTTP 2xx/3xx responses produce a success envelope; HTTP 4xx/5xx responses produce an error envelope and a non-zero exit; request exceptions also produce an error envelope and a non-zero exit.",
+      "domain_tags": [
+        "aviation",
+        "flight-tracking"
+      ],
+      "core_primitives": [
+        "retrieve_aircraft_states",
+        "monitor_live_flights"
+      ],
+      "problem_space": "Live aircraft state-vector retrieval; not route planning, flight-status lookup, or historical/paginated flight search."
+    },
+    "constraint": {
+      "io_signature": "Input: no user-bindable CLI parameters. Output: shared JSON envelope with url, http_status, and OpenSky result. HTTP 2xx/3xx responses produce a success envelope; HTTP 4xx/5xx responses produce an error envelope and a non-zero exit; request exceptions also produce an error envelope and a non-zero exit.",
+      "accepted_inputs": [
+        "no input; endpoint and query parameters are fixed by wrapper"
+      ],
+      "output_shape": "HTTP 2xx/3xx: {status: \"success\", tool: string, url: string, http_status: integer, result: object|string}. HTTP 4xx/5xx: {status: \"error\", tool: string, url: string, http_status: integer, result: object|string}, exit 1. Request exception: {status: \"error\", tool: string, message: string}, exit 1.",
+      "limitations": [
+        "fixed GET https://opensky-network.org/api/states/all with no params",
+        "bbox is ignored/not exposed; no geographic filter, time, pagination, or sorting",
+        "wrapper does not locally truncate or parse the state-vector array",
+        "live availability, rate limits, and authentication policy are external and may vary"
+      ],
+      "artifact_output": [
+        "json"
+      ],
+      "execution_risk": "medium",
+      "http_status_semantics": {
+        "success": "HTTP 200-399",
+        "failure": "HTTP 400-599 or request exception",
+        "failure_exit_code": 1
+      }
+    },
+    "io": {
+      "input_contract": [],
+      "output_contract": {
+        "artifact_type": "json",
+        "description": "Shared JSON envelope containing live OpenSky state vectors, URL, and HTTP status."
+      }
+    },
+    "routing": {
+      "family": "live-aircraft-state-vectors",
+      "intent_tags": [
+        "see live aircraft positions",
+        "retrieve OpenSky flight state vectors"
+      ],
+      "negative_intents": [
+        "search flights by route or booking status",
+        "retrieve historical aircraft tracks or paginated results"
+      ]
+    },
+    "execution": {
+      "runtime": "rest_api",
+      "uri": "file://Pool/resources/tools/api/api.opensky_flights.py",
+      "execution_status": "active",
+      "execution_risk": "medium"
+    },
+    "utility": {
+      "latency_ms": 200.0,
+      "token_cost_factor": 0.02,
+      "expected_success_rate": 0.5,
+      "successes": 0,
+      "attempts": 0,
+      "evidence_status": "unobserved"
+    },
+    "provenance": {
+      "source": "https://openskynetwork.github.io/opensky-api/",
+      "license": "non-commercial",
+      "recognized_public_tool": true,
+      "source_hash": "sha256:16cf5d8d4f870ef878c5593f94369d5b9c7da9e43bb5f870e4538906471601b6",
+      "local_implementation_uri": "file://Pool/resources/tools/api/api.opensky_flights.py",
+      "auth_required": false,
+      "auth_evidence": "wrapper_and_shared_adapter_read_no_credentials",
+      "supporting_source_hashes": {
+        "file://Pool/resources/tools/api/_apilib.py": "sha256:e60bba3d1f3dcd9fcd408042ad7951e52d6ecd66d57cb9a58c249d521c8811a7"
+      }
+    },
+    "type_specific": {
+      "tool": {
+        "tool_kind": "rest_api",
+        "deterministic": false
+      }
+    },
+    "type": {
+      "resource_type": "Tool"
+    },
+    "input_contract": [],
+    "output_contract": {
+      "artifact_type": "json",
+      "description": "Shared JSON envelope containing live OpenSky state vectors, URL, and HTTP status."
+    },
+    "runtime_requirements": {
+      "runtime_profile": "sgar-runtime",
+      "python": "==3.11.9",
+      "python_packages": [
+        {
+          "name": "requests",
+          "version": "==2.32.3",
+          "required": true
+        }
+      ],
+      "node_packages": [],
+      "system_packages": [],
+      "commands": [],
+      "env_vars": [],
+      "network_required": true,
+      "install_policy": "never",
+      "max_auto_heals": 0,
+      "docker_image": "sgar-runtime:rc1",
+      "rest": {
+        "endpoint": "https://opensky-network.org/api/states/all",
         "auth_required": false,
         "auth_evidence": "wrapper_and_shared_adapter_read_no_credentials",
         "timeout_seconds": 25,
@@ -34049,159 +33698,6 @@
       "docker_image": "sgar-runtime:rc1",
       "rest": {
         "endpoint": "https://earthquake.usgs.gov/fdsnws/event/1/query",
-        "auth_required": false,
-        "auth_evidence": "wrapper_and_shared_adapter_read_no_credentials",
-        "timeout_seconds": 25,
-        "success_http_status": "200-399"
-      }
-    }
-  },
-  {
-    "manifest_version": "v2",
-    "resource_id": "tool.api.wikipedia.summary.v1",
-    "resource_type": "Tool",
-    "status": "active",
-    "capability": {
-      "summary": "Fetch a localized Wikipedia article summary",
-      "description": "Calls the language-specific MediaWiki REST summary endpoint for one URL-quoted page title. HTTP 2xx/3xx responses produce a success envelope; HTTP 4xx/5xx responses produce an error envelope and a non-zero exit; request exceptions also produce an error envelope and a non-zero exit.",
-      "domain_tags": [
-        "knowledge",
-        "search"
-      ],
-      "core_primitives": [
-        "lookup_wikipedia_summary",
-        "select_language_wiki_endpoint"
-      ],
-      "problem_space": "Encyclopedic article-summary retrieval; not authoritative fact verification, full-page scraping, or general web search."
-    },
-    "constraint": {
-      "io_signature": "Input: page title and optional language code; output: JSON envelope containing http_status and the MediaWiki summary response or HTTP error body. HTTP 2xx/3xx responses produce a success envelope; HTTP 4xx/5xx responses produce an error envelope and a non-zero exit; request exceptions also produce an error envelope and a non-zero exit.",
-      "accepted_inputs": [
-        "one Wikipedia page title",
-        "optional language subdomain code; wrapper default en"
-      ],
-      "output_shape": "HTTP 2xx/3xx: {status: \"success\", tool: string, url: string, http_status: integer, result: object|string}. HTTP 4xx/5xx: {status: \"error\", tool: string, url: string, http_status: integer, result: object|string}, exit 1. Request exception: {status: \"error\", tool: string, message: string}, exit 1.",
-      "limitations": [
-        "fixed GET https://<lang>.wikipedia.org/api/rest_v1/page/summary/<URL-quoted-title>; no revision, extract length, or page-content option",
-        "only requests.RequestException becomes status=error",
-        "HTTP 2xx/3xx responses produce a success envelope; HTTP 4xx/5xx responses produce an error envelope and a non-zero exit; request exceptions also produce an error envelope and a non-zero exit.",
-        "wrapper URL-quotes the title but does not locally parse or truncate the response",
-        "no auth, cache, or retry; language domain and current article content determine the result"
-      ],
-      "artifact_output": [
-        "json"
-      ],
-      "execution_risk": "medium",
-      "http_status_semantics": {
-        "success": "HTTP 200-399",
-        "failure": "HTTP 400-599 or request exception",
-        "failure_exit_code": 1
-      }
-    },
-    "io": {
-      "input_contract": [
-        {
-          "name": "title",
-          "kind": "string",
-          "required": true,
-          "cli_position": 1
-        },
-        {
-          "name": "lang",
-          "kind": "string",
-          "required": false,
-          "cli_position": 2
-        }
-      ],
-      "output_contract": {
-        "artifact_type": "json",
-        "description": "JSON envelope containing the selected-language Wikipedia summary object, URL, and HTTP status."
-      }
-    },
-    "routing": {
-      "family": "localized-wikipedia-summary",
-      "intent_tags": [
-        "get a Wikipedia article summary",
-        "look up an encyclopedic page by title and language"
-      ],
-      "negative_intents": [
-        "scrape the full Wikipedia article",
-        "search arbitrary websites or verify facts against primary sources"
-      ]
-    },
-    "execution": {
-      "runtime": "rest_api",
-      "uri": "file://Pool/resources/tools/api/api.wikipedia.summary.py",
-      "execution_status": "active",
-      "execution_risk": "medium"
-    },
-    "utility": {
-      "latency_ms": 200.0,
-      "token_cost_factor": 0.02,
-      "expected_success_rate": 0.5,
-      "successes": 0,
-      "attempts": 0,
-      "evidence_status": "unobserved"
-    },
-    "provenance": {
-      "source": "https://www.mediawiki.org/wiki/API:REST_API",
-      "license": "CC-BY-SA",
-      "recognized_public_tool": true,
-      "source_hash": "sha256:6d7372532aeb73f112eccb0b1a23ee0df615d65424c068aec7d374eb1f821992",
-      "local_implementation_uri": "file://Pool/resources/tools/api/api.wikipedia.summary.py",
-      "auth_required": false,
-      "auth_evidence": "wrapper_and_shared_adapter_read_no_credentials",
-      "supporting_source_hashes": {
-        "file://Pool/resources/tools/api/_apilib.py": "sha256:e60bba3d1f3dcd9fcd408042ad7951e52d6ecd66d57cb9a58c249d521c8811a7"
-      }
-    },
-    "type_specific": {
-      "tool": {
-        "tool_kind": "rest_api",
-        "deterministic": false
-      }
-    },
-    "type": {
-      "resource_type": "Tool"
-    },
-    "input_contract": [
-      {
-        "name": "title",
-        "kind": "string",
-        "required": true,
-        "cli_position": 1
-      },
-      {
-        "name": "lang",
-        "kind": "string",
-        "required": false,
-        "cli_position": 2
-      }
-    ],
-    "output_contract": {
-      "artifact_type": "json",
-      "description": "JSON envelope containing the selected-language Wikipedia summary object, URL, and HTTP status."
-    },
-    "runtime_requirements": {
-      "runtime_profile": "sgar-runtime",
-      "python": "==3.11.9",
-      "python_packages": [
-        {
-          "name": "requests",
-          "version": "==2.32.3",
-          "required": true
-        }
-      ],
-      "node_packages": [],
-      "system_packages": [],
-      "commands": [],
-      "env_vars": [],
-      "network_required": true,
-      "install_policy": "never",
-      "max_auto_heals": 0,
-      "docker_image": "sgar-runtime:rc1",
-      "rest": {
-        "endpoint": "https://{lang}.wikipedia.org/api/rest_v1/page/summary/{urllib.parse.quote(a(1))}",
         "auth_required": false,
         "auth_evidence": "wrapper_and_shared_adapter_read_no_credentials",
         "timeout_seconds": 25,

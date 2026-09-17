@@ -61,10 +61,10 @@ from sgar_mvp.src.retrieval_lifecycle import (
 from sgar_mvp.src.profiler_protocol import (
     PROFILER_NORMAL_OUTPUT_CAP,
     PROFILER_TRUNCATION_RETRY_OUTPUT_CAP,
-    SOL_API_MODEL_ID,
     ProfilerInputEnvelopeV1,
     ProfilerOutputV2,
 )
+from sgar_mvp.src.runtime_policy_context import active_retrieval_policy_path
 from sgar_mvp.src.provider_reasoning import observe_provider_reasoning
 from sgar_mvp.src.release_source_seal import (
     load_and_verify_source_seal,
@@ -80,8 +80,13 @@ CAP_INDEX_FILE = INDEX_DIR / "faiss_cap.index"
 CON_INDEX_FILE = INDEX_DIR / "faiss_con.index"
 METADATA_FILE = INDEX_DIR / "resource_meta.pkl"
 MODEL_HEALTH_FILE = PROJECT_ROOT / "sgar_mvp" / "config" / "model_health.json"
-_POLICY_OVERRIDE = os.environ.get("SGAR_RETRIEVAL_POLICY_PATH")
-if _POLICY_OVERRIDE and os.environ.get("SGAR_SEALED_LOCAL_VALIDATION") != "1":
+_BOUND_POLICY_PATH = active_retrieval_policy_path()
+_POLICY_OVERRIDE = str(_BOUND_POLICY_PATH) if _BOUND_POLICY_PATH else os.environ.get("SGAR_RETRIEVAL_POLICY_PATH")
+if (
+    _POLICY_OVERRIDE
+    and _BOUND_POLICY_PATH is None
+    and os.environ.get("SGAR_SEALED_LOCAL_VALIDATION") != "1"
+):
     raise RuntimeError("retrieval_policy_environment_override_requires_sealed_validation")
 RETRIEVAL_POLICY = (
     load_retrieval_policy(Path(_POLICY_OVERRIDE).resolve())
@@ -774,13 +779,13 @@ def _generate_hyde_result(
             responsibility="framework",
             response_received=False,
         )
-    if selected_model != SOL_API_MODEL_ID:
+    if selected_model != RETRIEVAL_POLICY.hyde.api_model_id:
         raise HyDEGenerationError(
             "profiler_model_policy_violation",
             responsibility="framework",
             response_received=False,
         )
-    if selected_reasoning_effort != "xhigh":
+    if selected_reasoning_effort != RETRIEVAL_POLICY.hyde.reasoning_effort:
         raise HyDEGenerationError(
             "profiler_reasoning_effort_policy_violation",
             responsibility="framework",

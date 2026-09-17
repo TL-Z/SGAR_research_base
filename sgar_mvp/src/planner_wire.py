@@ -17,6 +17,7 @@ from typing import Any, Literal, Mapping, Sequence, cast
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from .formal_contracts import (
+    ExecutionResourceRequirementV1,
     NodeSemanticContractV2,
     SemanticEdgeContractV2,
     SemanticInputReferenceV2,
@@ -33,7 +34,7 @@ from .schema import (
 
 
 PLANNER_WIRE_PROTOCOL = "sgar-planner-wire-v7"
-PLANNER_WIRE_PROJECTOR_VERSION = "planner-wire-projector-v7.0"
+PLANNER_WIRE_PROJECTOR_VERSION = "planner-wire-projector-v7.1"
 LEGACY_LIVE_PLANNER_WIRE_PROTOCOL = "sgar-planner-wire-v5"
 LEGACY_LIVE_PLANNER_WIRE_PROJECTOR_VERSION = "planner-wire-projector-v5.1"
 LEGACY_TYPED_PLANNER_WIRE_PROTOCOL = "sgar-planner-wire-v4"
@@ -466,6 +467,9 @@ class PlannerNodeWireV6(_WireModel):
     inputs: list[PlannerInputReferenceWireV6]
     output: PlannerNodeOutputWireV6
     acceptance_criteria: list[str] = Field(min_length=1)
+    execution_requirements: list[ExecutionResourceRequirementV1] = Field(
+        default_factory=list
+    )
 
 
     @model_validator(mode="after")
@@ -1563,6 +1567,7 @@ def project_planner_wire_payload(
     allowed_public_input_refs: Sequence[str] | None = None,
     allowed_completed_output_refs: Sequence[str] | None = None,
     expected_final_deliverable: Mapping[str, Any] | None = None,
+    allowed_source_clause_ids: Sequence[str] | None = None,
 ) -> PlannerOutput:
     """Validate and deterministically project one live Planner V6 response."""
 
@@ -1613,7 +1618,27 @@ def project_planner_wire_payload(
         if allowed_completed_output_refs is not None
         else None
     )
+    allowed_clauses = (
+        set(str(value) for value in allowed_source_clause_ids)
+        if allowed_source_clause_ids is not None
+        else None
+    )
     for item in ordered:
+        requirement_ids = [value.requirement_id for value in item.execution_requirements]
+        if len(requirement_ids) != len(set(requirement_ids)):
+            raise PlannerWireContractError(
+                "planner_v7_execution_requirement_id_duplicate",
+                paths=(f"nodes[{item.node_key}].execution_requirements",),
+                invariant_ids=("planner_execution_requirement_id_unique",),
+            )
+        if allowed_clauses is not None:
+            for requirement in item.execution_requirements:
+                if set(requirement.source_clause_ids) - allowed_clauses:
+                    raise PlannerWireContractError(
+                        "planner_v7_execution_requirement_clause_unknown",
+                        paths=(f"nodes[{item.node_key}].execution_requirements",),
+                        invariant_ids=("planner_execution_requirement_evidence_bound",),
+                    )
         for reference in item.inputs:
             if (
                 reference.source == "public_input"
@@ -1740,6 +1765,10 @@ def project_planner_wire_payload(
                 "capability_evidence": [],
                 "capability_gap": None,
                 "semantic_requirements": [],
+                "execution_requirements": [
+                    value.model_dump(mode="json")
+                    for value in item.execution_requirements
+                ],
                 "semantic_contract_v2": semantic_contract.model_dump(mode="json"),
                 "incoming_semantic_edges_v2": [
                     edge.model_dump(mode="json")

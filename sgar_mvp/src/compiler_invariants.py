@@ -1793,6 +1793,7 @@ def validate_compiler_proposal_invariants(
                 str(item)
                 for item in profile_values
                 if item not in catalog.application_profiles.get(resource_id, ())
+                and catalog.candidate_resource_types.get(str(item)) != "Skill"
             )
             if unknown_profiles:
                 issues.append(

@@ -1,0 +1,9 @@
+{
+    "job_name": "2026-09-17__19-46-48",
+    "tasks": [
+        {
+            "name": "swe-bench/sympy__sympy-20590",
+            "ref": "latest"
+        }
+    ]
+}

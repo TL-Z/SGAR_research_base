@@ -1,0 +1,58 @@
+{
+  "protocol": "sgar-tool-exception-diagnostics-v2",
+  "proxy_scope": {
+    "project_env_names": [
+      "SGAR_TOOL_HTTP_PROXY",
+      "SGAR_TOOL_HTTPS_PROXY",
+      "SGAR_TOOL_NO_PROXY"
+    ],
+    "enabled": false,
+    "default": "direct",
+    "network_disabled_mode": "network none",
+    "llm_embedding_local_tools_receive_proxy": false
+  },
+  "focused_smoke": {
+    "tool.api.arxiv.search.v1": "transient_failure",
+    "failure_type": "smoke_timeout",
+    "attempts": 1
+  },
+  "network_diagnostics": {
+    "tool.api.arxiv.search.v1": {
+      "dns": "passed",
+      "tcp": "passed",
+      "tls_ca": "passed",
+      "http": "passed",
+      "status_code": 200
+    },
+    "tool.api.google_dns.v1": {
+      "dns": "passed",
+      "tcp": "failed",
+      "http": "failed",
+      "error": "network_unreachable"
+    },
+    "tool.api.nominatim.geocode.v1": {
+      "dns": "passed",
+      "tcp": "passed",
+      "tls_ca": "failed",
+      "http": "failed",
+      "error": "connection_reset_or_network_unreachable"
+    },
+    "tool.api.wikipedia.summary.v1": {
+      "dns": "passed",
+      "tcp": "passed",
+      "tls_ca": "failed",
+      "http": "failed",
+      "error": "tls_timeout_or_network_unreachable"
+    },
+    "tool.api.coingecko.price.v1": {
+      "dns": "passed",
+      "tcp": "failed",
+      "http": "failed",
+      "error": "connection_reset_or_network_unreachable"
+    }
+  },
+  "inactive": [
+    "tool.eslint_code_formatter.v1",
+    "tool.npm_package_auditor.v1"
+  ]
+}

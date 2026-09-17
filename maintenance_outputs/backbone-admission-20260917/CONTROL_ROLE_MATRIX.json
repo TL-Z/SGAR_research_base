@@ -1,0 +1,722 @@
+{
+  "protocol": "sgar-backbone-admission-suite-v1",
+  "status": "completed",
+  "per_role_attempt_limit": 2,
+  "maximum_physical_sends": 80,
+  "cost_limit_usd": "5.00",
+  "models": [
+    {
+      "label": "terra-high",
+      "resource_id": "model.gpt_5_6_terra.v1",
+      "api_model_id": "gpt-5.6-terra",
+      "status": "passed",
+      "roles": [
+        {
+          "role": "profiler",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 57
+            }
+          ]
+        },
+        {
+          "role": "planner",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 1180
+            }
+          ]
+        },
+        {
+          "role": "plan_compiler",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 323
+            }
+          ]
+        },
+        {
+          "role": "plan_adaptation",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 537
+            }
+          ]
+        },
+        {
+          "role": "evaluator",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 234
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "luna-high",
+      "resource_id": "model.gpt_5_6_luna.v1",
+      "api_model_id": "gpt-5.6-luna",
+      "status": "passed",
+      "roles": [
+        {
+          "role": "profiler",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 57
+            }
+          ]
+        },
+        {
+          "role": "planner",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 1180
+            }
+          ]
+        },
+        {
+          "role": "plan_compiler",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 323
+            }
+          ]
+        },
+        {
+          "role": "plan_adaptation",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 537
+            }
+          ]
+        },
+        {
+          "role": "evaluator",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 234
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "deepseek-v4-1-flash-high",
+      "resource_id": "model.deepseek_v4_1_flash.v1",
+      "api_model_id": "deepseek-v4.1-flash",
+      "status": "passed",
+      "roles": [
+        {
+          "role": "profiler",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 57
+            }
+          ]
+        },
+        {
+          "role": "planner",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 1180
+            }
+          ]
+        },
+        {
+          "role": "plan_compiler",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 323
+            }
+          ]
+        },
+        {
+          "role": "plan_adaptation",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 537
+            }
+          ]
+        },
+        {
+          "role": "evaluator",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 234
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "haiku-4-5-high",
+      "resource_id": "model.claude_haiku_4_5_20251001.v1",
+      "api_model_id": "claude-haiku-4-5-20251001",
+      "status": "failed",
+      "roles": [
+        {
+          "role": "profiler",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 69
+            }
+          ]
+        },
+        {
+          "role": "planner",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 1559
+            }
+          ]
+        },
+        {
+          "role": "plan_compiler",
+          "status": "failed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "failed",
+              "exception_type": "ModelResponseContractError",
+              "failure_code": "structured_response_json_invalid",
+              "response_bytes": 421
+            },
+            {
+              "attempt": 2,
+              "status": "failed",
+              "exception_type": "ModelResponseContractError",
+              "failure_code": "structured_response_json_invalid",
+              "response_bytes": 697
+            }
+          ]
+        },
+        {
+          "role": "plan_adaptation",
+          "status": "failed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "failed",
+              "exception_type": "ModelResponseContractError",
+              "failure_code": "structured_response_json_invalid",
+              "response_bytes": 441
+            },
+            {
+              "attempt": 2,
+              "status": "failed",
+              "exception_type": "ModelResponseContractError",
+              "failure_code": "structured_response_json_invalid",
+              "response_bytes": 423
+            }
+          ]
+        },
+        {
+          "role": "evaluator",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "failed",
+              "exception_type": "ModelResponseContractError",
+              "failure_code": "structured_response_json_invalid",
+              "response_bytes": 461
+            },
+            {
+              "attempt": 2,
+              "status": "passed",
+              "response_bytes": 246
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "haiku-4-5-thinking-high",
+      "resource_id": "model.claude_haiku_4_5_20251001_thinking.v1",
+      "api_model_id": "claude-haiku-4-5-20251001-thinking",
+      "status": "failed",
+      "roles": [
+        {
+          "role": "profiler",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 69
+            }
+          ]
+        },
+        {
+          "role": "planner",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 1192
+            }
+          ]
+        },
+        {
+          "role": "plan_compiler",
+          "status": "failed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "failed",
+              "exception_type": "ModelResponseContractError",
+              "failure_code": "structured_response_json_invalid",
+              "response_bytes": 654
+            },
+            {
+              "attempt": 2,
+              "status": "failed",
+              "exception_type": "ModelResponseContractError",
+              "failure_code": "structured_response_json_invalid",
+              "response_bytes": 844
+            }
+          ]
+        },
+        {
+          "role": "plan_adaptation",
+          "status": "failed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "failed",
+              "exception_type": "ModelResponseContractError",
+              "failure_code": "structured_response_json_invalid",
+              "response_bytes": 389
+            },
+            {
+              "attempt": 2,
+              "status": "failed",
+              "exception_type": "ModelResponseContractError",
+              "failure_code": "structured_response_json_invalid",
+              "response_bytes": 46
+            }
+          ]
+        },
+        {
+          "role": "evaluator",
+          "status": "failed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "failed",
+              "exception_type": "ModelResponseContractError",
+              "failure_code": "structured_response_json_invalid",
+              "response_bytes": 815
+            },
+            {
+              "attempt": 2,
+              "status": "failed",
+              "exception_type": "ModelResponseContractError",
+              "failure_code": "structured_response_json_invalid",
+              "response_bytes": 46
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "sonnet-5-high",
+      "resource_id": "model.claude_sonnet_5.v1",
+      "api_model_id": "claude-sonnet-5",
+      "status": "passed",
+      "roles": [
+        {
+          "role": "profiler",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 57
+            }
+          ]
+        },
+        {
+          "role": "planner",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 1180
+            }
+          ]
+        },
+        {
+          "role": "plan_compiler",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 323
+            }
+          ]
+        },
+        {
+          "role": "plan_adaptation",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 537
+            }
+          ]
+        },
+        {
+          "role": "evaluator",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 234
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "gemini-3-8-flash-high",
+      "resource_id": "model.gemini_3_8_flash.v1",
+      "api_model_id": "gemini-3.8-flash",
+      "status": "passed",
+      "roles": [
+        {
+          "role": "profiler",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 70
+            }
+          ]
+        },
+        {
+          "role": "planner",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 1180
+            }
+          ]
+        },
+        {
+          "role": "plan_compiler",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 387
+            }
+          ]
+        },
+        {
+          "role": "plan_adaptation",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 537
+            }
+          ]
+        },
+        {
+          "role": "evaluator",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 234
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "sol-baseline",
+      "resource_id": "model.gpt_5_6_sol.v1",
+      "api_model_id": "gpt-5.6-sol",
+      "status": "passed",
+      "roles": [
+        {
+          "role": "profiler",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 57
+            }
+          ]
+        },
+        {
+          "role": "planner",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 1180
+            }
+          ]
+        },
+        {
+          "role": "plan_compiler",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 323
+            }
+          ]
+        },
+        {
+          "role": "plan_adaptation",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 537
+            }
+          ]
+        },
+        {
+          "role": "evaluator",
+          "status": "passed",
+          "attempts": [
+            {
+              "attempt": 1,
+              "status": "passed",
+              "response_bytes": 234
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "accounting": {
+    "schema_version": "sgar-model-cost-summary-v1",
+    "run_id": "backbone-admission-suite-20260917",
+    "pricing_catalog_sha256": "f303841a78fd61f10e2303236a252eec34d7c1f39f8ecb029c4be1304f3f62b5",
+    "resource_pool_sha256": "2cb4031ee5521de420d296649f84c23f36593c5c5ababa4deb5357360e60a978",
+    "resolved_cost_policy": {
+      "schema_version": "model-cost-policy-v1",
+      "mode": "stop_after_limit",
+      "warning_usd": "4.500000000000",
+      "limit_usd": "5.000000000000",
+      "strict_pricing": true,
+      "unknown_model": "reject",
+      "policy_sha256": "c6e77e510c395aefe211f472f076d600c8bd176c2d4e2b7c9ae3b75726413d28"
+    },
+    "observed_total_model_cost_usd": "0.222943358000",
+    "provider_reported_cost_complete": true,
+    "token_usage": {
+      "input_tokens": 29664,
+      "cached_input_tokens": 0,
+      "output_tokens": 26894
+    },
+    "by_model": {
+      "model.claude_haiku_4_5_20251001.v1": {
+        "attempt_count": 8,
+        "response_count": 8,
+        "input_tokens": 2315,
+        "cached_input_tokens": 0,
+        "output_tokens": 8697,
+        "observed_model_cost_usd": "0.070486200000"
+      },
+      "model.claude_haiku_4_5_20251001_thinking.v1": {
+        "attempt_count": 8,
+        "response_count": 8,
+        "input_tokens": 2315,
+        "cached_input_tokens": 0,
+        "output_tokens": 11077,
+        "observed_model_cost_usd": "0.088800300000"
+      },
+      "model.claude_sonnet_5.v1": {
+        "attempt_count": 5,
+        "response_count": 5,
+        "input_tokens": 1276,
+        "cached_input_tokens": 0,
+        "output_tokens": 1809,
+        "observed_model_cost_usd": "0.031768038000"
+      },
+      "model.deepseek_v4_1_flash.v1": {
+        "attempt_count": 5,
+        "response_count": 5,
+        "input_tokens": 935,
+        "cached_input_tokens": 0,
+        "output_tokens": 1930,
+        "observed_model_cost_usd": "0.001623280000"
+      },
+      "model.gemini_3_8_flash.v1": {
+        "attempt_count": 5,
+        "response_count": 5,
+        "input_tokens": 778,
+        "cached_input_tokens": 0,
+        "output_tokens": 1438,
+        "observed_model_cost_usd": "0.002682340000"
+      },
+      "model.gpt_5_6_luna.v1": {
+        "attempt_count": 5,
+        "response_count": 5,
+        "input_tokens": 6375,
+        "cached_input_tokens": 0,
+        "output_tokens": 714,
+        "observed_model_cost_usd": "0.006526980000"
+      },
+      "model.gpt_5_6_sol.v1": {
+        "attempt_count": 5,
+        "response_count": 5,
+        "input_tokens": 7835,
+        "cached_input_tokens": 0,
+        "output_tokens": 707,
+        "observed_model_cost_usd": "0.014570280000"
+      },
+      "model.gpt_5_6_terra.v1": {
+        "attempt_count": 5,
+        "response_count": 5,
+        "input_tokens": 7835,
+        "cached_input_tokens": 0,
+        "output_tokens": 522,
+        "observed_model_cost_usd": "0.006485940000"
+      }
+    },
+    "by_stage": {
+      "command_adaptation": {
+        "attempt_count": 10,
+        "response_count": 10,
+        "input_tokens": 10863,
+        "cached_input_tokens": 0,
+        "output_tokens": 5804,
+        "observed_model_cost_usd": "0.050033551000"
+      },
+      "evaluator": {
+        "attempt_count": 10,
+        "response_count": 10,
+        "input_tokens": 3087,
+        "cached_input_tokens": 0,
+        "output_tokens": 7887,
+        "observed_model_cost_usd": "0.062769122000"
+      },
+      "plan_compiler": {
+        "attempt_count": 10,
+        "response_count": 10,
+        "input_tokens": 9751,
+        "cached_input_tokens": 0,
+        "output_tokens": 4292,
+        "observed_model_cost_usd": "0.040802161000"
+      },
+      "planner_decompose": {
+        "attempt_count": 8,
+        "response_count": 8,
+        "input_tokens": 4809,
+        "cached_input_tokens": 0,
+        "output_tokens": 6552,
+        "observed_model_cost_usd": "0.050915358000"
+      },
+      "retrieval_format_probe": {
+        "attempt_count": 8,
+        "response_count": 8,
+        "input_tokens": 1154,
+        "cached_input_tokens": 0,
+        "output_tokens": 2359,
+        "observed_model_cost_usd": "0.018423166000"
+      }
+    },
+    "by_subtask": {
+      "__global__": {
+        "attempt_count": 46,
+        "response_count": 46,
+        "input_tokens": 29664,
+        "cached_input_tokens": 0,
+        "output_tokens": 26894,
+        "observed_model_cost_usd": "0.222943358000"
+      }
+    },
+    "started_call_count": 46,
+    "max_generation_requests": 80,
+    "finished_call_count": 46,
+    "pending_call_count": 0,
+    "response_usage_missing_count": 0,
+    "response_usage_invalid_count": 0,
+    "no_response_attempt_count": 0,
+    "warning_count": 0,
+    "blocked_call_count": 0,
+    "accounting_persistence_failure_count": 0,
+    "budget_status": {
+      "mode": "stop_after_limit",
+      "warning_emitted": false,
+      "limit_reached": false,
+      "usage_unknown_blocks_next_call": false,
+      "overshoot_usd": "0.000000000000"
+    }
+  }
+}

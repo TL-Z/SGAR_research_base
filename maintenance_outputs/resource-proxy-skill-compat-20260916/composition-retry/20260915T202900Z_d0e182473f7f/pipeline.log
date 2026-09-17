@@ -1,0 +1,388 @@
+2026-09-16 04:29:00.615 | INFO     | sgar_mvp.src.terminal_progress:location:37 - Run directory: run://.
+2026-09-16 04:29:00.616 | INFO     | sgar_mvp.src.terminal_progress:location:37 - Full log: run://pipeline.log
+2026-09-16 04:29:00.616 | INFO     | __main__:main:3387 - ============================================================
+2026-09-16 04:29:00.627 | INFO     | __main__:main:3415 - S-GAR MVP — End-to-End Pipeline
+2026-09-16 04:29:00.627 | INFO     | __main__:main:3416 - ============================================================
+2026-09-16 04:29:00.909 | INFO     | __main__:main:3612 - Run ID: d0e182473f7f498a91b328f753d3740a
+2026-09-16 04:29:00.909 | INFO     | __main__:main:3613 - Explicit public inputs: 1
+2026-09-16 04:29:01.396 | INFO     | __main__:_run_pipeline_with_cost_ledger:1941 - [ControlModel] configured=['gpt-5.6-sol'] available=['gpt-5.6-sol'] skipped=[]
+2026-09-16 04:29:01.396 | INFO     | __main__:_run_pipeline_with_cost_ledger:1947 - [Environment] docker_cli=True docker_daemon=False docker_ready=False reason=ok
+2026-09-16 04:29:01.697 | INFO     | sgar_mvp.src.resource_loader:_load_real_pool_internal:279 - [ResourceLoader] 10 catalog resources are intentionally absent from the effective index; no zero-vector fallback was created
+2026-09-16 04:29:01.697 | INFO     | sgar_mvp.src.resource_loader:_load_real_pool_internal:285 - [ResourceLoader] Loaded 328 real resources (dim=2560), 16 indexed models
+2026-09-16 04:29:02.672 | WARNING  | sgar_mvp.src.router:__init__:670 - [Router] Policy model unavailable; using deterministic fallback bundle policy.
+2026-09-16 04:29:02.672 | INFO     | sgar_mvp.src.router:__init__:674 - [Router] Initialized | confidence=0.75 | granularity=0.00 | bundle_adv=1.00 | retrieval=capability_only
+2026-09-16 04:29:02.676 | INFO     | __main__:_run_pipeline_with_cost_ledger:2393 - ------------------------------------------------------------
+2026-09-16 04:29:02.676 | INFO     | __main__:_run_pipeline_with_cost_ledger:2394 - Phase 1: Task Decomposition (Planner)
+2026-09-16 04:29:02.677 | INFO     | __main__:_run_pipeline_with_cost_ledger:2395 - ------------------------------------------------------------
+2026-09-16 04:29:02.677 | INFO     | sgar_mvp.src.planner:__init__:573 - [Planner] Initialized with model=gpt-5.6-sol, base_url=https://svip.xty.app/v1
+2026-09-16 04:29:02.723 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Planner] Processing query
+Treat this as one indivisible final-output subtask; do not create an intermediate Model-only analysis task. The final producer must be the full-stack implementation Agent bound to the candidate Model qwen3.5-35b-a3b. The Agent must inspect the supplied small JSON dataset by actually calling its authorized filesystem read-file Tool, receive that Tool result, and apply the real verification-before-completion Skill before writing. Produce one concise Markdown evidence note stating that there are 2 rows and the total value is 8, and cite the Tool result. A correct answer without a real Tool call does not satisfy this bounded integration fixture.
+[End Processing query]
+2026-09-16 04:29:02.739 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Planner] Calling gpt-5.6-sol; attempt 1; waiting for response
+2026-09-16 04:31:31.576 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Planner] gpt-5.6-sol returned, 148.8s
+2026-09-16 04:31:31.592 | SUCCESS  | sgar_mvp.src.planner:decompose_task:2218 - [Planner] Decomposed into 1 subtasks (attempt 1/2)
+2026-09-16 04:31:31.592 | INFO     | sgar_mvp.src.planner:decompose_task:2224 -   ├─ [task_001] full-stack implementation agent | artifact=markdown | depends=∅
+2026-09-16 04:31:31.593 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Planner][task_001] Subtask query
+Treat this as one indivisible final-output subtask. Inspect the supplied JSON dataset by actually calling the authorized filesystem read-file Tool and receiving its result. Apply the verification-before-completion Skill, then write one concise Markdown evidence note that states there are 2 rows and the total value is 8, cites the Tool result, and contains no unsupported claims.
+[End Subtask query]
+2026-09-16 04:31:31.593 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Planner][task_001] Subtask details
+{
+  "id": "task_001",
+  "role": "full-stack implementation agent",
+  "description": "Treat this as one indivisible final-output subtask. Inspect the supplied JSON dataset by actually calling the authorized filesystem read-file Tool and receiving its result. Apply the verification-before-completion Skill, then write one concise Markdown evidence note that states there are 2 rows and the total value is 8, cites the Tool result, and contains no unsupported claims.",
+  "expected_output": "A concise Markdown evidence note stating that the supplied dataset has 2 rows and a total value of 8, with a citation to the returned filesystem read-file Tool result.",
+  "depends_on": [],
+  "dependency_inputs": [],
+  "incoming_edge_contracts": [],
+  "artifact_type": "markdown",
+  "output_extension": ".md",
+  "output_contract": {
+    "content_kind": "value",
+    "artifact_type": "markdown",
+    "output_extension": ".md",
+    "required_content": [
+      "A concise Markdown evidence note stating that the supplied dataset has 2 rows and a total value of 8, with a citation to the returned filesystem read-file Tool result."
+    ],
+    "produced_files": [
+      {
+        "path_hint": "v2_agent_tool_skill.md",
+        "artifact_type": "markdown",
+        "required": true,
+        "schema_hint": null
+      }
+    ],
+    "json_schema": null,
+    "interface_contract": {},
+    "grounding_requirements": [],
+    "acceptance_criteria": [
+      "The Markdown note explicitly states that the supplied dataset contains 2 rows and that the total value is 8.",
+      "The stated row count and total value are grounded in the supplied dataset and the result returned by the authorized filesystem read-file Tool.",
+      "The note cites the Tool result as its evidence source and contains no unsupported claims.",
+      "The output is one concise Markdown evidence note with the declared logical name and format."
+    ],
+    "downstream_consumers": []
+  },
+  "task_stage": "synthesize_final",
+  "planning_execution_mode": null,
+  "capability_evidence": [],
+  "capability_gap": null,
+  "semantic_requirements": [],
+  "execution_requirements": [
+    {
+      "protocol": "sgar-execution-resource-requirement-v1",
+      "requirement_id": "final_full_stack_agent",
+      "source_clause_ids": [
+        "request:0001:95ac2d4e94d6"
+      ],
+      "relation": "direct_executor",
+      "resource_type": "Agent",
+      "resource_id": "full-stack implementation Agent",
+      "api_model_id": null,
+      "operation_id": null,
+      "required": true
+    },
+    {
+      "protocol": "sgar-execution-resource-requirement-v1",
+      "requirement_id": "candidate_base_model",
+      "source_clause_ids": [
+        "request:0001:95ac2d4e94d6"
+      ],
+      "relation": "agent_base_model",
+      "resource_type": "Model",
+      "resource_id": null,
+      "api_model_id": "qwen3.5-35b-a3b",
+      "operation_id": null,
+      "required": true
+    },
+    {
+      "protocol": "sgar-execution-resource-requirement-v1",
+      "requirement_id": "filesystem_read_file_tool",
+      "source_clause_ids": [
+        "request:0001:95ac2d4e94d6"
+      ],
+      "relation": "controller_callable_tool",
+      "resource_type": "Tool",
+      "resource_id": "authorized filesystem read-file Tool",
+      "api_model_id": null,
+      "operation_id": "read-file",
+      "required": true
+    },
+    {
+      "protocol": "sgar-execution-resource-requirement-v1",
+      "requirement_id": "verification_before_completion_skill",
+      "source_clause_ids": [
+        "request:0001:95ac2d4e94d6"
+      ],
+      "relation": "advisory_skill",
+      "resource_type": "Skill",
+      "resource_id": "verification-before-completion Skill",
+      "api_model_id": null,
+      "operation_id": null,
+      "required": true
+    }
+  ],
+  "semantic_contract_v2": {
+    "protocol": "sgar-node-semantic-contract-v3",
+    "task_id": "task_001",
+    "role_intent": "full-stack implementation agent",
+    "task": "Treat this as one indivisible final-output subtask. Inspect the supplied JSON dataset by actually calling the authorized filesystem read-file Tool and receiving its result. Apply the verification-before-completion Skill, then write one concise Markdown evidence note that states there are 2 rows and the total value is 8, cites the Tool result, and contains no unsupported claims.",
+    "input_requirement": "requires_material",
+    "authorized_inputs": [
+      {
+        "source": "public_input",
+        "ref": "dataset",
+        "purpose": "Inspect the complete supplied JSON dataset through the authorized filesystem read-file Tool and use the returned Tool result as the evidence basis for the note."
+      }
+    ],
+    "output": {
+      "logical_name": "v2_agent_tool_skill.md",
+      "artifact_type": "markdown",
+      "contract_scope": "final_deliverable",
+      "semantic_description": "A concise Markdown evidence note stating that the supplied dataset has 2 rows and a total value of 8, with a citation to the returned filesystem read-file Tool result.",
+      "content_kind": "value"
+    },
+    "acceptance_conditions": [
+      "The Markdown note explicitly states that the supplied dataset contains 2 rows and that the total value is 8.",
+      "The stated row count and total value are grounded in the supplied dataset and the result returned by the authorized filesystem read-file Tool.",
+      "The note cites the Tool result as its evidence source and contains no unsupported claims.",
+      "The output is one concise Markdown evidence note with the declared logical name and format."
+    ],
+    "contract_sha256": "6042213d87b08061c7ed6b2ab057b11f84509ce00382432e6bb18823f86e89e7"
+  },
+  "incoming_semantic_edges_v2": []
+}
+[End Subtask details]
+2026-09-16 04:31:31.595 | INFO     | __main__:_run_pipeline_with_cost_ledger:2513 - ------------------------------------------------------------
+2026-09-16 04:31:31.595 | INFO     | __main__:_run_pipeline_with_cost_ledger:2514 - Phase 2: Router Adjudication
+2026-09-16 04:31:31.595 | INFO     | __main__:_run_pipeline_with_cost_ledger:2515 - ------------------------------------------------------------
+2026-09-16 04:31:33.899 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Profiler][task_001] Starting; complete input
+{
+  "contract_sha256": "0ea7e7b852743b95568a3dadb2b7b61764b3f3541bf7cde73ad5bfba1646530b",
+  "dag_inputs": [],
+  "envelope_sha256": "d4a98af5e4daafb14247495d3be5e5176dc901843b48b8a8d40454946bc56698",
+  "execution_requirements": [
+    {
+      "api_model_id": null,
+      "operation_id": null,
+      "protocol": "sgar-execution-resource-requirement-v1",
+      "relation": "direct_executor",
+      "required": true,
+      "requirement_id": "final_full_stack_agent",
+      "resource_id": "full-stack implementation Agent",
+      "resource_type": "Agent",
+      "source_clause_ids": [
+        "request:0001:95ac2d4e94d6"
+      ]
+    },
+    {
+      "api_model_id": "qwen3.5-35b-a3b",
+      "operation_id": null,
+      "protocol": "sgar-execution-resource-requirement-v1",
+      "relation": "agent_base_model",
+      "required": true,
+      "requirement_id": "candidate_base_model",
+      "resource_id": null,
+      "resource_type": "Model",
+      "source_clause_ids": [
+        "request:0001:95ac2d4e94d6"
+      ]
+    },
+    {
+      "api_model_id": null,
+      "operation_id": "read-file",
+      "protocol": "sgar-execution-resource-requirement-v1",
+      "relation": "controller_callable_tool",
+      "required": true,
+      "requirement_id": "filesystem_read_file_tool",
+      "resource_id": "authorized filesystem read-file Tool",
+      "resource_type": "Tool",
+      "source_clause_ids": [
+        "request:0001:95ac2d4e94d6"
+      ]
+    },
+    {
+      "api_model_id": null,
+      "operation_id": null,
+      "protocol": "sgar-execution-resource-requirement-v1",
+      "relation": "advisory_skill",
+      "required": true,
+      "requirement_id": "verification_before_completion_skill",
+      "resource_id": "verification-before-completion Skill",
+      "resource_type": "Skill",
+      "source_clause_ids": [
+        "request:0001:95ac2d4e94d6"
+      ]
+    }
+  ],
+  "internal_output_language": "en",
+  "materials": [
+    {
+      "artifact_type": "json",
+      "content_sha256": "389cf515dc408f226aeb1ef46129df1b525eb396db14f884671069e00c7d2fb3",
+      "coverage_status": "handle_only",
+      "handle_available": true,
+      "included_bytes": 0,
+      "included_content_sha256": null,
+      "logical_name": "dataset",
+      "original_bytes": 86,
+      "source_name": "v2_material.json"
+    }
+  ],
+  "output_contract": {
+    "acceptance_criteria": [
+      "The Markdown note explicitly states that the supplied dataset contains 2 rows and that the total value is 8.",
+      "The stated row count and total value are grounded in the supplied dataset and the result returned by the authorized filesystem read-file Tool.",
+      "The note cites the Tool result as its evidence source and contains no unsupported claims.",
+      "The output is one concise Markdown evidence note with the declared logical name and format."
+    ],
+    "artifact_type": "markdown",
+    "downstream_consumers": [],
+    "grounding_requirements": [],
+    "interface_contract": {},
+    "json_schema": null,
+    "output_extension": ".md",
+    "produced_files": [
+      {
+        "artifact_type": "markdown",
+        "path_hint": "v2_agent_tool_skill.md",
+        "required": true,
+        "schema_hint": null
+      }
+    ],
+    "required_content": [
+      "A concise Markdown evidence note stating that the supplied dataset has 2 rows and a total value of 8, with a citation to the returned filesystem read-file Tool result."
+    ]
+  },
+  "protocol": "sgar-profiler-input-v1",
+  "revision": {
+    "graph_revision": 0,
+    "protocol": "sgar-pipeline-control-v1",
+    "subtask_id": "task_001",
+    "subtask_revision": 0
+  },
+  "semantic_requirements": [],
+  "source_content_policy": "preserve_original",
+  "subtask": {
+    "description": "Treat this as one indivisible final-output subtask. Inspect the supplied JSON dataset by actually calling the authorized filesystem read-file Tool and receiving its result. Apply the verification-before-completion Skill, then write one concise Markdown evidence note that states there are 2 rows and the total value is 8, cites the Tool result, and contains no unsupported claims.",
+    "execution_mode": null,
+    "expected_output": "A concise Markdown evidence note stating that the supplied dataset has 2 rows and a total value of 8, with a citation to the returned filesystem read-file Tool result.",
+    "role_intent": "full-stack implementation agent"
+  }
+}
+[End Starting; complete input]
+2026-09-16 04:31:33.902 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Profiler][task_001] Calling gpt-5.6-sol; attempt 1; waiting for response
+2026-09-16 04:32:37.976 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Profiler][task_001] gpt-5.6-sol returned, 64.1s
+2026-09-16 04:32:52.294 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Profiler][task_001] Returned profile (before validation)
+{
+  "capability_text": "An implementation agent able to invoke the authorized filesystem `read-file` operation, retrieve and parse the complete JSON dataset represented by the available material handle, calculate and cross-check the row count and total value, and produce a concise evidence-grounded Markdown note. It must cite the returned tool result, preserve the declared logical name `dataset`, and verify that every statement is supported before completion.",
+  "constraint_text": "Must obtain the declared JSON material through the available handle and authorized filesystem `read-file` operation because no bytes are included in the envelope. Must emit one concise Markdown evidence note using the required output path hint `v2_agent_tool_skill.md`, state that the supplied dataset has 2 rows and a total value of 8, cite the returned `read-file` result as evidence, and contain no unsupported claims.",
+  "think": "The contract requires handle-based dataset retrieval, calculation of the declared row count and total, citation of the tool result, a concise Markdown artifact, and verification against unsupported claims.",
+  "metadata": {
+    "status": "generated",
+    "model_id": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "effective_max_output_tokens": 8192,
+    "normal_max_output_tokens": 8192,
+    "truncation_retry_max_output_tokens": 16384,
+    "model_attempt_output_caps": [
+      8192
+    ],
+    "truncation_retry_used": false,
+    "prompt_version": "ideal-resource-profiler-en-v3",
+    "prompt_sha256": "1cc62d801ba97b3c47f15516845be0f7d83027038e7dc0dc625c6eea3350ed99",
+    "latency_ms": 64078.07,
+    "usage": {
+      "prompt_tokens": 1995,
+      "completion_tokens": 1616,
+      "reasoning_tokens": 1413,
+      "total_tokens": 3611
+    },
+    "model_attempt_count": 1,
+    "model_attempt_limit": 2,
+    "transport_attempt_count": 1,
+    "transport_request_sha256": "11825e927c1dbe33b3fd2ae96c9445045deebce1d79c0c19ec18cf208e6ed300",
+    "transport_request_hashes": [
+      "11825e927c1dbe33b3fd2ae96c9445045deebce1d79c0c19ec18cf208e6ed300"
+    ],
+    "model_request_hashes": [
+      "11825e927c1dbe33b3fd2ae96c9445045deebce1d79c0c19ec18cf208e6ed300"
+    ],
+    "response_sha256": "f3450125f6ab76ed5523f4cae0a6b57b48ecf2e9ac15ad8f8756980eb6b897a0",
+    "finish_reason": "stop",
+    "response_mode": "native_strict_schema",
+    "endpoint_identity_sha256": "5a78a163678f3d030f6a9078ccc1a11f81d2946aa21e500af1f6a266b0ed24ff",
+    "wire_schema_sha256": "3ed48764a08782dd9651621f9a3ad593b2ffe58792f7c9c5904ad521be6c6384",
+    "provider_reasoning_observation": {
+      "protocol": "sgar-provider-reasoning-observation-v1",
+      "available": true,
+      "byte_count": 42,
+      "content_sha256": "f8bd876b02810a48dd6ee3ad6096ca535e1992d68f70b11cbd23411d1c966687",
+      "reasoning_tokens": 1413,
+      "trust": "provider_specific_unverified",
+      "observation_sha256": "951a136812e5bf9ef9931c2409d1f2a39e65674f7876d725237cad5d50eca8a8"
+    },
+    "model_accounting_reference": {
+      "operation_id": "715da70861c6406bbfddebc490f197f5",
+      "provider_attempt_id": "715da70861c6406bbfddebc490f197f5:1",
+      "provider_attempt_ids": [
+        "715da70861c6406bbfddebc490f197f5:1"
+      ]
+    },
+    "source_seal": null,
+    "deterministic_validation": {
+      "schema_valid": true,
+      "english_valid": true,
+      "think_valid": true,
+      "embeddable": true
+    },
+    "semantic_generation_attempt_count": 1,
+    "semantic_generation_attempt_limit": 2,
+    "generation_history": [
+      {
+        "attempt": 1,
+        "response_sha256": "f3450125f6ab76ed5523f4cae0a6b57b48ecf2e9ac15ad8f8756980eb6b897a0"
+      }
+    ]
+  }
+}
+[End Returned profile (before validation)]
+2026-09-16 04:32:52.294 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Profiler][task_001] Validated retrieval profile
+{
+  "protocol": "sgar-retrieval-runtime-v1",
+  "revision": {
+    "protocol": "sgar-pipeline-control-v1",
+    "graph_revision": 0,
+    "subtask_id": "task_001",
+    "subtask_revision": 0
+  },
+  "contract_sha256": "0ea7e7b852743b95568a3dadb2b7b61764b3f3541bf7cde73ad5bfba1646530b",
+  "raw_query_text": "{\"contract_sha256\":\"0ea7e7b852743b95568a3dadb2b7b61764b3f3541bf7cde73ad5bfba1646530b\",\"dag_inputs\":[],\"envelope_sha256\":\"d4a98af5e4daafb14247495d3be5e5176dc901843b48b8a8d40454946bc56698\",\"execution_requirements\":[{\"api_model_id\":null,\"operation_id\":null,\"protocol\":\"sgar-execution-resource-requirement-v1\",\"relation\":\"direct_executor\",\"required\":true,\"requirement_id\":\"final_full_stack_agent\",\"resource_id\":\"full-stack implementation Agent\",\"resource_type\":\"Agent\",\"source_clause_ids\":[\"request:0001:95ac2d4e94d6\"]},{\"api_model_id\":\"qwen3.5-35b-a3b\",\"operation_id\":null,\"protocol\":\"sgar-execution-resource-requirement-v1\",\"relation\":\"agent_base_model\",\"required\":true,\"requirement_id\":\"candidate_base_model\",\"resource_id\":null,\"resource_type\":\"Model\",\"source_clause_ids\":[\"request:0001:95ac2d4e94d6\"]},{\"api_model_id\":null,\"operation_id\":\"read-file\",\"protocol\":\"sgar-execution-resource-requirement-v1\",\"relation\":\"controller_callable_tool\",\"required\":true,\"requirement_id\":\"filesystem_read_file_tool\",\"resource_id\":\"authorized filesystem read-file Tool\",\"resource_type\":\"Tool\",\"source_clause_ids\":[\"request:0001:95ac2d4e94d6\"]},{\"api_model_id\":null,\"operation_id\":null,\"protocol\":\"sgar-execution-resource-requirement-v1\",\"relation\":\"advisory_skill\",\"required\":true,\"requirement_id\":\"verification_before_completion_skill\",\"resource_id\":\"verification-before-completion Skill\",\"resource_type\":\"Skill\",\"source_clause_ids\":[\"request:0001:95ac2d4e94d6\"]}],\"internal_output_language\":\"en\",\"materials\":[{\"artifact_type\":\"json\",\"content_sha256\":\"389cf515dc408f226aeb1ef46129df1b525eb396db14f884671069e00c7d2fb3\",\"coverage_status\":\"handle_only\",\"handle_available\":true,\"included_bytes\":0,\"included_content_sha256\":null,\"logical_name\":\"dataset\",\"original_bytes\":86,\"source_name\":\"v2_material.json\"}],\"output_contract\":{\"acceptance_criteria\":[\"The Markdown note explicitly states that the supplied dataset contains 2 rows and that the total value is 8.\",\"The stated row count and total value are grounded in the supplied dataset and the result returned by the authorized filesystem read-file Tool.\",\"The note cites the Tool result as its evidence source and contains no unsupported claims.\",\"The output is one concise Markdown evidence note with the declared logical name and format.\"],\"artifact_type\":\"markdown\",\"downstream_consumers\":[],\"grounding_requirements\":[],\"interface_contract\":{},\"json_schema\":null,\"output_extension\":\".md\",\"produced_files\":[{\"artifact_type\":\"markdown\",\"path_hint\":\"v2_agent_tool_skill.md\",\"required\":true,\"schema_hint\":null}],\"required_content\":[\"A concise Markdown evidence note stating that the supplied dataset has 2 rows and a total value of 8, with a citation to the returned filesystem read-file Tool result.\"]},\"protocol\":\"sgar-profiler-input-v1\",\"revision\":{\"graph_revision\":0,\"protocol\":\"sgar-pipeline-control-v1\",\"subtask_id\":\"task_001\",\"subtask_revision\":0},\"semantic_requirements\":[],\"source_content_policy\":\"preserve_original\",\"subtask\":{\"description\":\"Treat this as one indivisible final-output subtask. Inspect the supplied JSON dataset by actually calling the authorized filesystem read-file Tool and receiving its result. Apply the verification-before-completion Skill, then write one concise Markdown evidence note that states there are 2 rows and the total value is 8, cites the Tool result, and contains no unsupported claims.\",\"execution_mode\":null,\"expected_output\":\"A concise Markdown evidence note stating that the supplied dataset has 2 rows and a total value of 8, with a citation to the returned filesystem read-file Tool result.\",\"role_intent\":\"full-stack implementation agent\"}}",
+  "capability_text": "An implementation agent able to invoke the authorized filesystem `read-file` operation, retrieve and parse the complete JSON dataset represented by the available material handle, calculate and cross-check the row count and total value, and produce a concise evidence-grounded Markdown note. It must cite the returned tool result, preserve the declared logical name `dataset`, and verify that every statement is supported before completion.",
+  "constraint_text": "Must obtain the declared JSON material through the available handle and authorized filesystem `read-file` operation because no bytes are included in the envelope. Must emit one concise Markdown evidence note using the required output path hint `v2_agent_tool_skill.md`, state that the supplied dataset has 2 rows and a total value of 8, cite the returned `read-file` result as evidence, and contain no unsupported claims.",
+  "think": "The contract requires handle-based dataset retrieval, calculation of the declared row count and total, citation of the tool result, a concise Markdown artifact, and verification against unsupported claims.",
+  "explicit_hard_requirements": {
+    "public_input_artifact_types": [
+      "json"
+    ]
+  },
+  "prompt_version": "ideal-resource-profiler-en-v3",
+  "prompt_sha256": "1cc62d801ba97b3c47f15516845be0f7d83027038e7dc0dc625c6eea3350ed99",
+  "profile_sha256": "294e567f641df9b11b75d21c142b6ba575e2d100d9dbf1d37e402e80bf8dcdf8",
+  "model_accounting_reference": {
+    "operation_id": "715da70861c6406bbfddebc490f197f5",
+    "provider_attempt_id": "715da70861c6406bbfddebc490f197f5:1",
+    "provider_attempt_ids": [
+      "715da70861c6406bbfddebc490f197f5:1"
+    ]
+  }
+}
+[End Validated retrieval profile]
+2026-09-16 04:32:53.945 | INFO     | sgar_mvp.src.reporter:generate_report:843 - [Reporter] Report saved -> experiment_report.md
+2026-09-16 04:32:53.947 | ERROR    | __main__:_run_pipeline_with_cost_ledger:2652 - [Retrieval] Terminal candidate-pool failure for task_001: code=execution_requirement_resource_unavailable responsibility=framework
+2026-09-16 04:32:54.008 | ERROR    | __main__:main:3844 - S-GAR MVP - Structured Failure
+2026-09-16 04:32:54.008 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [End] Run failed
+2026-09-16 04:32:54.008 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Primary cause] Stage=retrieval; responsibility=Framework; code=execution_requirement_resource_unavailable; exception=RetrievalRuntimeError
+2026-09-16 04:32:54.008 | INFO     | sgar_mvp.src.terminal_progress:emit:26 - [Elapsed] 233.4s
+2026-09-16 04:32:54.008 | INFO     | sgar_mvp.src.terminal_progress:location:37 - Log: run://pipeline.log
+2026-09-16 04:32:54.008 | INFO     | sgar_mvp.src.terminal_progress:location:37 - Report: run://experiment_report.md
+2026-09-16 04:32:54.008 | INFO     | sgar_mvp.src.terminal_progress:location:37 - Run manifest: run://run_manifest.json

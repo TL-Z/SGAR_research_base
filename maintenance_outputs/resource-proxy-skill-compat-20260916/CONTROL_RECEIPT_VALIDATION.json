@@ -1,0 +1,8 @@
+{
+  "status": "unchanged",
+  "note": "No prompt/schema changes made by proxy patch; existing five-role receipts remain applicable.",
+  "blocked_models_not_called": [
+    "claude-opus-5",
+    "qwen3-coder-next"
+  ]
+}

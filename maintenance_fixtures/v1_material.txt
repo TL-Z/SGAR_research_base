@@ -1,0 +1,1 @@
+Verification fixture: confirm each requested item has a concrete evidence note before finalizing.

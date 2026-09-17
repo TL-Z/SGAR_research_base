@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import hashlib
 import json
 from collections import Counter
 from dataclasses import dataclass, field
@@ -10,6 +9,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
 
+from .skill_package_identity import skill_package_fingerprint
 from .skill_runtime import SkillPackageError, SkillPackageLoader
 
 
@@ -19,15 +19,6 @@ READINESS_STATUSES = {
     "inactive",
     "unavailable",
     "transient_failure",
-}
-IGNORED_SKILL_PACKAGE_PARTS = {
-    ".git",
-    ".github",
-    "__pycache__",
-    ".pytest_cache",
-    ".mypy_cache",
-    ".ruff_cache",
-    "node_modules",
 }
 REQUIRED_TOOL_RUNTIME_FIELDS = {
     "runtime_profile",
@@ -47,6 +38,8 @@ def utc_now() -> str:
 
 
 def sha256_bytes(data: bytes) -> str:
+    import hashlib
+
     return "sha256:" + hashlib.sha256(data).hexdigest()
 
 
@@ -74,20 +67,8 @@ def resolve_file_uri(project_root: Path, uri: str) -> Path:
 
 
 def skill_package_hash(package_root: Path) -> str:
-    digest = hashlib.sha256()
-    for path in sorted(package_root.rglob("*")):
-        if not path.is_file():
-            continue
-        relative_path = path.relative_to(package_root)
-        if any(part.lower() in IGNORED_SKILL_PACKAGE_PARTS for part in relative_path.parts):
-            continue
-        relative = relative_path.as_posix().encode("utf-8")
-        data = path.read_bytes()
-        digest.update(len(relative).to_bytes(4, "big"))
-        digest.update(relative)
-        digest.update(len(data).to_bytes(8, "big"))
-        digest.update(data)
-    return "sha256:" + digest.hexdigest()
+    digest, _ = skill_package_fingerprint(package_root)
+    return "sha256:" + digest
 
 
 def _evidence_index(payload: dict[str, Any], key: str) -> dict[str, dict[str, Any]]:

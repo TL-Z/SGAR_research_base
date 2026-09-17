@@ -1,0 +1,2767 @@
+{
+  "active_strategy": "capability_only",
+  "availability_records": [
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "agent.accessibility_tester.v1",
+      "resource_type": "Agent",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "agent.api_designer.v1",
+      "resource_type": "Agent",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "agent.backend_architecture_expert.v1",
+      "resource_type": "Agent",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "agent.business_requirements_analyst.v1",
+      "resource_type": "Agent",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "agent.code_reviewer.v1",
+      "resource_type": "Agent",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "agent.data_analyst.v1",
+      "resource_type": "Agent",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "agent.data_engineer.v1",
+      "resource_type": "Agent",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "agent.database_optimizer.v1",
+      "resource_type": "Agent",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "agent.devops_incident_responder.v1",
+      "resource_type": "Agent",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "agent.documentation_engineer.v1",
+      "resource_type": "Agent",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "agent.frontend_developer.v1",
+      "resource_type": "Agent",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "agent.fullstack_implementation_engineer.v1",
+      "resource_type": "Agent",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "agent.performance_engineer.v1",
+      "resource_type": "Agent",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "agent.product_manager.v1",
+      "resource_type": "Agent",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "agent.refactoring_specialist.v1",
+      "resource_type": "Agent",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "agent.research_analyst.v1",
+      "resource_type": "Agent",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "agent.root_cause_debugger.v1",
+      "resource_type": "Agent",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "agent.search_specialist.v1",
+      "resource_type": "Agent",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "agent.security_auditor.v1",
+      "resource_type": "Agent",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "agent.test_driven_qa.v1",
+      "resource_type": "Agent",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": false,
+      "provider_compatibility": "unknown",
+      "reason_code": "not_in_effective_pool",
+      "resource_id": "model.claude_fable_5_1.v1",
+      "resource_type": "Model",
+      "status": "unavailable"
+    },
+    {
+      "in_effective_pool": false,
+      "provider_compatibility": "unknown",
+      "reason_code": "not_in_effective_pool",
+      "resource_id": "model.claude_opus_5.v1",
+      "resource_type": "Model",
+      "status": "unavailable"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "model_ready_state_ready",
+      "resource_id": "model.claude_sonnet_5.v1",
+      "resource_type": "Model",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "model_ready_state_ready",
+      "resource_id": "model.deepseek_v4_1_flash.v1",
+      "resource_type": "Model",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "model_ready_state_ready",
+      "resource_id": "model.deepseek_v4_pro.v1",
+      "resource_type": "Model",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "model_ready_state_ready",
+      "resource_id": "model.gemini_3_8_flash.v1",
+      "resource_type": "Model",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "model_ready_state_ready",
+      "resource_id": "model.glm_5_3.v1",
+      "resource_type": "Model",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "model_ready_state_ready",
+      "resource_id": "model.gpt_5_3_codex.v1",
+      "resource_type": "Model",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "model_ready_state_ready",
+      "resource_id": "model.gpt_5_6_luna.v1",
+      "resource_type": "Model",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "model_ready_state_ready",
+      "resource_id": "model.gpt_5_6_sol.v1",
+      "resource_type": "Model",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "model_ready_state_ready",
+      "resource_id": "model.gpt_5_nano.v1",
+      "resource_type": "Model",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "model_ready_state_ready",
+      "resource_id": "model.gpt_6_astra.v1",
+      "resource_type": "Model",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "model_ready_state_ready",
+      "resource_id": "model.kimi_k2_7_code.v1",
+      "resource_type": "Model",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "model_ready_state_ready",
+      "resource_id": "model.kimi_k3.v1",
+      "resource_type": "Model",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "model_ready_state_ready",
+      "resource_id": "model.qwen3_5_35b_a3b.v1",
+      "resource_type": "Model",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "model_ready_state_ready",
+      "resource_id": "model.qwen3_8_flash.v1",
+      "resource_type": "Model",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "model_ready_state_ready",
+      "resource_id": "model.qwen3_8_max_0902.v1",
+      "resource_type": "Model",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": false,
+      "provider_compatibility": "unknown",
+      "reason_code": "not_in_effective_pool",
+      "resource_id": "model.qwen3_coder_next.v1",
+      "resource_type": "Model",
+      "status": "unavailable"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "model_ready_state_ready",
+      "resource_id": "model.qwen3_vl_235b_a22b_instruct.v1",
+      "resource_type": "Model",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.anthropic.algorithmic-art.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.anthropic.brand-guidelines.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.anthropic.canvas-design.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.anthropic.frontend-design.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.anthropic.internal-comms.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.anthropic.mcp-builder.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.anthropic.skill-creator.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.anthropic.slack-gif-creator.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.anthropic.theme-factory.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.anthropic.webapp-testing.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.claudekit.mcp-builder.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.claudekit.ui-styling.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.actualize.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.analyse-problem.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.brainstorm.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.cause-and-effect.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.commit.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.create-ideas.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.create-workflow-command.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.decay.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.design-testing-strategy.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.fix-tests.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.git-notes.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.load-issues.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.memorize.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.plan-do-check-act.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.propose-hypotheses.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.query.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.reflect.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.reset.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.review-local-changes.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.status.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.test-coverage.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.test-driven-development.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.test-skill.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.thought-based-reasoning.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.traiage-review.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.why.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.neolabhq.write-concisely.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.agents-sdk.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.android-emulator-qa.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.batch-draft-writer.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.brainstorming.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.build-zoom-contact-center-app.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.build-zoom-meeting-sdk-app.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.build-zoom-virtual-agent.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.building-native-ui.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.chatgpt-app-submission.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.cloudflare.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.dashboard-expert.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.deal-tracker.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.eod-wrapup.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.executing-plans.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.expo-deployment.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.expo-dev-client.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.expo-module.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.expo-tailwind-setup.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.expo-ui-jetpack-compose.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.expo-ui-swift-ui.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.finishing-a-development-branch.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.morning-briefing.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.netlify-blobs.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.netlify-caching.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.netlify-config.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.netlify-edge-functions.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.netlify-frameworks.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.netlify-image-cdn.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.probe-sdk.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.receiving-code-review.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.render-background-workers.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.render-cron-jobs.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.render-docker.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.render-domains.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.render-env-vars.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.render-keyvalue.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.render-networking.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.render-postgres.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.render-private-services.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.render-scaling.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.render-static-sites.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.render-web-services.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.requesting-code-review.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.scribe.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.setup-zoom-webhooks.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.setup-zoom-websockets.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.shopify-app-store-review.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.shopify-custom-data.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.shopify-onboarding-dev.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.supabase-postgres-best-practices-be9a8dce.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.superhuman-mail.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.systematic-debugging.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.temporal-developer.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.test-driven-development.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.ucp.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.upgrading-expo.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.use-dom.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.using-git-worktrees.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.using-superpowers.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.verification-before-completion.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.writing-plans.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.writing-skills.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.zoom-cobrowse-sdk.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.zoom-rtms.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.zoom-video-sdk-linux.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.openai_plugins.zoom-video-sdk-windows.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.superpowers.brainstorming.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.superpowers.dispatching-parallel-agents.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.superpowers.executing-plans.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.superpowers.finishing-a-development-branch.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.superpowers.receiving-code-review.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.superpowers.requesting-code-review.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.superpowers.systematic-debugging.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.superpowers.test-driven-development.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.superpowers.using-git-worktrees.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.superpowers.using-superpowers.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.superpowers.verification-before-completion.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.superpowers.writing-plans.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.algorand-vulnerability-scanner.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.ask-questions-if-underspecified.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.audit-augmentation.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.audit-context-building.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.audit-prep-assistant.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.cairo-vulnerability-scanner.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.code-maturity-assessor.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.constant-time-analysis.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.cosmos-vulnerability-scanner.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.crypto-protocol-diagram.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.diagramming-code.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.differential-review.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.dimensional-analysis.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.entry-point-analyzer.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.fuzzing-dictionary.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.fuzzing-obstacles.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.git-cleanup.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.graph-evolution.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.guidelines-advisor.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.harness-writing.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.insecure-defaults.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.interpreting-culture-index.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.let-fate-decide.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.modern-python.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.property-based-testing.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.secure-workflow-guide.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.sharp-edges.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.skill-improver.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.slicing-code-context.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.solana-vulnerability-scanner.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.spec-to-code-compliance.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.substrate-vulnerability-scanner.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.supply-chain-risk-auditor.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.token-integration-analyzer.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.ton-vulnerability-scanner.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.variant-analysis.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "skill.trailofbits.vulnerability-triage-brocards.v1",
+      "resource_type": "Skill",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.agify.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": false,
+      "provider_compatibility": "unknown",
+      "reason_code": "not_in_effective_pool",
+      "resource_id": "tool.api.arxiv.search.v1",
+      "resource_type": "Tool",
+      "status": "unavailable"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.clinicaltrials.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": false,
+      "provider_compatibility": "unknown",
+      "reason_code": "not_in_effective_pool",
+      "resource_id": "tool.api.coingecko.price.v1",
+      "resource_type": "Tool",
+      "status": "unavailable"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.crossref.works.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.datamuse_words.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.dictionary.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.dog_ceo.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.exchangerate.convert.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.fda_drug.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.frankfurter.rates.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.fruityvice.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.genderize.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": false,
+      "provider_compatibility": "unknown",
+      "reason_code": "not_in_effective_pool",
+      "resource_id": "tool.api.google_dns.v1",
+      "resource_type": "Tool",
+      "status": "unavailable"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.hackernews_item.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.ip_api_geo.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.iss_location.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.met_museum_art.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.nager_holidays.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.nationalize.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": false,
+      "provider_compatibility": "unknown",
+      "reason_code": "not_in_effective_pool",
+      "resource_id": "tool.api.nominatim.geocode.v1",
+      "resource_type": "Tool",
+      "status": "unavailable"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.open_meteo.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.openfoodfacts.product.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.opensky_flights.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.opentrivia.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.poetrydb.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.pokeapi.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.pubmed.esearch.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.randomuser.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.rest_countries.info.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.rickandmorty.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.stackexchange.search.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.thecocktaildb.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.themealdb.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.thesportsdb.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.universities_hipolabs.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.usgs.earthquakes.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": false,
+      "provider_compatibility": "unknown",
+      "reason_code": "not_in_effective_pool",
+      "resource_id": "tool.api.wikipedia.summary.v1",
+      "resource_type": "Tool",
+      "status": "unavailable"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.api.worldbank_indicator.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.bandit_security_scanner.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.black_format_runner.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.cargo_test_runner.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.clang_format_checker.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.cors_headers_checker.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.csv_column_filter.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.dependency_cve_checker.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.dns_query_latency_checker.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.docx2text.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.dotenv_to_json_converter.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.eslint_checker.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": false,
+      "provider_compatibility": "unknown",
+      "reason_code": "catalog_inactive",
+      "resource_id": "tool.eslint_code_formatter.v1",
+      "resource_type": "Tool",
+      "status": "unavailable"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.flake8_lint_runner.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.git_blame_analyzer.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.git_branch_cleaner.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.git_commit_lint.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.git_diff_stat.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.git_log_json.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.git_log_pretty_format.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.git_merge_conflicts_scanner.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.git_submodule_status.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.git_tags_inspector.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.go_fmt_checker.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.go_test_coverage.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.go_test_runner.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.graphql_schema_validator.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.html_to_markdown_converter.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.http_headers_security_auditor.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.jest_test_runner.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.json_jq_query_executor.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.json_to_toml_converter.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.json_to_yaml.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.junit_xml_parser.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.beautifulsoup_scrape.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.bleach_sanitize.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.chardet_detect.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.cryptography_hash_sign.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.dateparser_parse.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.detect_secrets.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.faker_generate.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.genson_schema.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.jinja2_render.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.jsonschema_validate.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.langdetect_detect.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.markdown_it_render.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.networkx_analyze.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.numpy_linalg.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.pandas_describe.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.pandas_pivot.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.pdfplumber_extract.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.phonenumbers_parse.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.pillow_transform.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.pint_convert.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.pygments_highlight.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.pygount_sloc.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.pypdf_merge.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.qrcode_generate.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.radon_complexity.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.shapely_geometry.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.sqlglot_transpile.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.sympy_solve.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.tablib_convert.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.lib.validators_check.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.markdown_table_extractor.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.markdown_to_html_converter.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.mcp.fs_create_directory.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.mcp.fs_directory_tree.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.mcp.fs_edit_file.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.mcp.fs_get_file_info.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.mcp.fs_list_directory.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.mcp.fs_move_file.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.mcp.fs_read_file.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.mcp.fs_read_multiple.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.mcp.fs_search_files.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.mcp.fs_write_file.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.mcp.git_add.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.mcp.git_branch_list.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.mcp.git_commit.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.mcp.git_create_branch.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.mcp.git_diff_staged.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.mcp.git_diff_unstaged.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.mcp.git_log.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.mcp.git_show.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.mcp.git_status.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.mcp.sequential_thinking.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.memory_profiler_exporter.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.npm_audit_json_exporter.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": false,
+      "provider_compatibility": "unknown",
+      "reason_code": "catalog_inactive",
+      "resource_id": "tool.npm_package_auditor.v1",
+      "resource_type": "Tool",
+      "status": "unavailable"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.npm_test_runner.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.pptx2text.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.pytest_runner.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.python_dead_code_scanner.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.python_script_runner.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.python_static_analyzer.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.ruff_lint_runner.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.rustfmt_checker.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.shellcheck_runner.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.sql_ddl_to_json_schema.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.stylelint_css_checker.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.system_ram_free_checker.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.tsc_compile_runner.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.vitest_runner.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.xlsx2csv.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.xml_to_json.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.xml_xpath_query_executor.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    },
+    {
+      "in_effective_pool": true,
+      "provider_compatibility": "unknown",
+      "reason_code": "effective_pool_ready",
+      "resource_id": "tool.yaml_to_json.v1",
+      "resource_type": "Tool",
+      "status": "available"
+    }
+  ],
+  "availability_sha256": "946ad906973b2d42d4b0fd3e8eccfb696617aed9e0c870a92d5d7fd68dc32b72",
+  "bge_prefix": "Given an S-GAR subtask, retrieve resources whose declared capabilities and problem space can perform it.",
+  "embedding_configuration_sha256": "7dff4a75340f09df459c8938222ad35b5f24379ca95e4ab1e0c034e54974ad41",
+  "embedding_model": "Qwen/Qwen3-Embedding-4B",
+  "hyde_api_model_id": "gpt-5.6-sol",
+  "hyde_max_tokens": 8192,
+  "hyde_prompt_version": "ideal-resource-profiler-en-v3",
+  "hyde_reasoning_effort": "xhigh",
+  "hyde_resource_id": "model.gpt_5_6_sol.v1",
+  "hyde_temperature": null,
+  "identity_sha256": "34aba00d5ff88d67dd0e9befc87a6acb7d9362aae5da9df726e77cf9abc73fe8",
+  "index_components": [
+    {
+      "name": "capability",
+      "sha256": "3076c77ee028010f05dbc6cd9f065c833b9ca7b4dd3e6ef2eaabe2d5421ae8d5"
+    },
+    {
+      "name": "constraint",
+      "sha256": "d4dfda092804e187071c4f923d265fdb3cf5824358460e2ec7792dd43bc26fc7"
+    },
+    {
+      "name": "metadata",
+      "sha256": "3ea3d3297daaeb56ded658c4a62041fca73021cee93ba23640629107165c6274"
+    }
+  ],
+  "index_sha256": "a06620387f88be4c1b5a1f3599023dccff0dded4f928386a7b1a8ecc34baaf9e",
+  "internal_language_policy_sha256": "dd09e24260a17e11b7b02785da8924a4dab81c4e5ed9ea2032d36eec2b942e4c",
+  "policy_sha256": "83b05aaba36dae05af16c278aeeaf7148a8e44c8a1c33d58909b55171bdfd296",
+  "pool_sha256": "567bde83d6c8959a9edbdb4c68a6f4b7717781e688a49e4dbce9eca5535e7283",
+  "profile_version": "typed-constraint-v8",
+  "profiler_schema_sha256": "3ed48764a08782dd9651621f9a3ad593b2ffe58792f7c9c5904ad521be6c6384",
+  "protocol": "sgar-retrieval-runtime-v1",
+  "typed_quotas": [
+    {
+      "quota": 5,
+      "resource_type": "Model"
+    },
+    {
+      "quota": 10,
+      "resource_type": "Tool"
+    },
+    {
+      "quota": 8,
+      "resource_type": "Skill"
+    },
+    {
+      "quota": 3,
+      "resource_type": "Agent"
+    },
+    {
+      "quota": 0,
+      "resource_type": "Resource"
+    },
+    {
+      "quota": 0,
+      "resource_type": "Device"
+    }
+  ]
+}

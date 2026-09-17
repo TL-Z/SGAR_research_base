@@ -103,6 +103,10 @@ class UsageUnknownBudgetError(BudgetControlError):
     error_code = "model_cost_usage_unknown"
 
 
+class RequestCountBudgetError(BudgetControlError):
+    error_code = "generation_request_limit_reached"
+
+
 class FrozenAccountingContract(BaseModel):
     model_config = ConfigDict(frozen=True, extra="forbid")
 
@@ -801,8 +805,14 @@ class RunCostLedger:
         policy: ModelCostPolicy,
         output_dir: str | Path,
         run_id: str | None = None,
+        max_generation_requests: int | None = None,
     ) -> None:
         self.catalog = catalog
+        if max_generation_requests is not None and (
+            type(max_generation_requests) is not int or max_generation_requests < 0
+        ):
+            raise ValueError("invalid_generation_request_limit")
+        self.max_generation_requests = max_generation_requests
         self.policy = policy
         self.output_dir = Path(output_dir)
         self.run_id = str(run_id or uuid.uuid4().hex)
@@ -928,6 +938,10 @@ class RunCostLedger:
         """Persist authorization before the network send; failure means no send."""
 
         with self._lock:
+            if (self.max_generation_requests is not None and
+                    len(self._terminal) + len(self._pending) >= self.max_generation_requests):
+                self._blocked(context=context, reason="generation_request_limit_reached")
+                raise RequestCountBudgetError("Generation request budget exhausted before send")
             if self.policy.mode == CostControlMode.STOP_AFTER_LIMIT.value:
                 if self._usage_unknown:
                     self._blocked(context=context, reason="provider_usage_unknown")
@@ -1272,6 +1286,7 @@ class RunCostLedger:
                 "by_stage": serialize_buckets(by_stage),
                 "by_subtask": serialize_buckets(by_subtask),
                 "started_call_count": len(self._terminal) + len(self._pending),
+                "max_generation_requests": self.max_generation_requests,
                 "finished_call_count": len(self._terminal),
                 "pending_call_count": len(self._pending),
                 "response_usage_missing_count": missing,

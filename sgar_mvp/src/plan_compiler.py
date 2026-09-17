@@ -190,7 +190,7 @@ COMPILER_OUTPUT_INSTRUCTIONS = (
 
 from .input_alignment import alignment_evidence
 
-PLAN_COMPILER_PROMPT_VERSION = "executable-plan-compiler-v33-node-constraint-guidance"
+PLAN_COMPILER_PROMPT_VERSION = "executable-plan-compiler-v34-execution-requirements"
 COMPILER_MODEL_INPUT_PROTOCOL = "sgar-compiler-decision-input-v9"
 PLAN_COMPILER_MAX_TRANSPORT_RETRIES = 2
 PLAN_COMPILER_MAX_TRANSPORT_ATTEMPTS = 3
@@ -460,6 +460,12 @@ PLAN_COMPILER_SYSTEM_PROMPT_V3 = (
     "The original task owns explicit requirements; "
     "Planner semantics define the subtask scope, and you choose implementation details only "
     "where those requirements leave room. Never turn an unverified answer guess into const, "
+    "execution_requirements are user-declared hard constraints. Satisfy every listed relation "
+    "exactly from candidate_cards: direct_executor selects the step resource, agent_base_model "
+    "selects the Agent backing Model, controller_callable_tool selects controller_callable_tools, "
+    "and advisory_skill requires an explicit Skill step whose output is bound to the controller "
+    "and whose resource ID appears in that controller step's advisory_profile_refs. Never invent "
+    "or substitute an explicit identity or operation. "
     "enum, fixed counts or bounds. Preserve explicit input, output and interface requirements. "
     "authorized_artifact_sources[*].execution_contract describes an accepted producer artifact, not a "
     "new requirement on your output. final_artifact_contract.content_kind is authoritative: "
@@ -1934,6 +1940,10 @@ def _compiler_model_input_projection(
             )
             for item in envelope.execution_obligations
         ],
+        "execution_requirements": [
+            item.model_dump(mode="json")
+            for item in envelope.execution_requirements
+        ],
         "authorized_artifact_sources": authorized_artifact_sources,
         "delivery_contract_sha256": delivery_contract_sha256,
         "incoming_edge_contracts": [
@@ -2246,7 +2256,7 @@ def _accepted_previous_plan_projection(envelope: PlanAdaptationInputEnvelope) ->
                               if op.capability_operation_id == step.capability_operation_id), None) if card else None
             if operation is None or operation.entrypoint_id != step.entrypoint_id:
                 raise ValueError("accepted_operation_not_available")
-            if step.output_key != step.step_id + "_output" or step.advisory_profile_refs:
+            if step.output_key != step.step_id + "_output":
                 raise ValueError("accepted_step_not_expressible_in_current_wire")
             if set(step.consumed_context_source_ids) != {b.source_id for b in step.context_bindings}:
                 raise ValueError("accepted_context_binding_incomplete")
@@ -2262,6 +2272,7 @@ def _accepted_previous_plan_projection(envelope: PlanAdaptationInputEnvelope) ->
                 "output_role": "final" if step.step_id == plan.final_output.step_id else "intermediate",
                 "concrete_output_contract": step.expected_output_contract.model_dump(mode="json"),
                 "agent_base_model_resource_id": step.agent_base_model_resource_id,
+                "advisory_profile_refs": list(step.advisory_profile_refs),
             })
             for tool in getattr(step.controller_session_spec, "callable_tools", ()):
                 callable_tools.append({
@@ -2500,6 +2511,112 @@ def _request_provider_constraint_audit(
         raise PlanCompilerIdentityError("compiler_response_format_type_invalid")
     _ensure_host_free(audit, field_name="compiler_provider_constraint_audit")
     return audit
+
+
+def require_execution_resource_requirements(
+    decision: CompilerDecisionProposalV3,
+    envelope: PlanCompilerInputEnvelope,
+) -> None:
+    """Reject a sufficient Compiler decision that violates a user-bound resource relation."""
+
+    if not decision.is_sufficient or not envelope.execution_requirements:
+        return
+    cards = {item.resource_id: item for item in envelope.candidate_cards}
+    steps = tuple(decision.steps)
+    skill_steps = {
+        step.step_id: step
+        for step in steps
+        if cards.get(step.resource_id) is not None
+        and cards[step.resource_id].resource_type == "Skill"
+    }
+
+    def model_identity_matches(resource_id: str, api_model_id: str | None) -> bool:
+        card = cards.get(resource_id)
+        return bool(
+            card is not None
+            and card.resource_type == "Model"
+            and (
+                api_model_id is None
+                or (
+                    card.model_pricing is not None
+                    and card.model_pricing.api_model_id == api_model_id
+                )
+            )
+        )
+
+    for requirement in envelope.execution_requirements:
+        matched = False
+        if requirement.relation == "direct_executor":
+            matched = any(
+                cards.get(step.resource_id) is not None
+                and cards[step.resource_id].resource_type == requirement.resource_type
+                and (requirement.resource_id is None or step.resource_id == requirement.resource_id)
+                and (
+                    requirement.operation_id is None
+                    or step.capability_operation_id == requirement.operation_id
+                )
+                and (
+                    requirement.api_model_id is None
+                    or model_identity_matches(step.resource_id, requirement.api_model_id)
+                )
+                for step in steps
+            )
+        elif requirement.relation == "agent_base_model":
+            matched = any(
+                cards.get(step.resource_id) is not None
+                and cards[step.resource_id].resource_type == "Agent"
+                and step.agent_base_model_resource_id is not None
+                and (
+                    requirement.resource_id is None
+                    or step.agent_base_model_resource_id == requirement.resource_id
+                )
+                and model_identity_matches(
+                    step.agent_base_model_resource_id,
+                    requirement.api_model_id,
+                )
+                for step in steps
+            )
+        elif requirement.relation == "controller_callable_tool":
+            matched = any(
+                (requirement.resource_id is None or item.resource_id == requirement.resource_id)
+                and (
+                    requirement.operation_id is None
+                    or item.capability_operation_id == requirement.operation_id
+                )
+                and cards.get(item.resource_id) is not None
+                and cards[item.resource_id].resource_type == "Tool"
+                for item in decision.controller_callable_tools
+            )
+        elif requirement.relation == "advisory_skill":
+            for controller in steps:
+                controller_card = cards.get(controller.resource_id)
+                if controller_card is None or controller_card.resource_type != "Agent":
+                    continue
+                referenced = tuple(controller.advisory_profile_refs)
+                candidate_ids = tuple(
+                    skill_id
+                    for skill_id in referenced
+                    if (requirement.resource_id is None or skill_id == requirement.resource_id)
+                    and any(step.resource_id == skill_id for step in skill_steps.values())
+                )
+                if not candidate_ids:
+                    continue
+                bound_skill_steps = {
+                    str(mapping.from_step)
+                    for mapping in controller.input_mappings
+                    if mapping.source_kind == "step_output" and mapping.from_step is not None
+                }
+                matched = any(
+                    step_id in bound_skill_steps
+                    and skill_steps[step_id].resource_id in candidate_ids
+                    for step_id in skill_steps
+                )
+                if matched:
+                    break
+        if not matched:
+            raise PlanFrameworkValidationError(
+                f"compiler_execution_requirement_unsatisfied:{requirement.requirement_id}"
+            )
 
 
 def _response_content(response: Any) -> str:
@@ -2980,6 +3097,9 @@ class ExecutablePlanCompiler:
             dependency_edges=candidate_pool.dependency_edges,
             public_context=public_context,
             execution_obligations=obligations,
+            execution_requirements=tuple(
+                candidate_pool.contract_projection.execution_requirements
+            ),
             materials=materials,
             runtime_capabilities=runtime_capabilities,
             pricing_catalog_sha256=pricing_catalog.pricing_catalog_sha256,
@@ -3841,6 +3961,7 @@ class ExecutablePlanCompiler:
                     decision=decision,
                     envelope=envelope,
                 )
+                require_execution_resource_requirements(decision, envelope)
                 normalized_payload, normalization_audit = normalize_compiler_proposal_payload(
                     proposal.model_dump(mode="json")
                 )
@@ -3907,6 +4028,10 @@ class ExecutablePlanCompiler:
                 projected_plan_proposal = project_compiler_decision_v3(
                     decision=adaptation_decision.plan_decision,
                     envelope=envelope,
+                )
+                require_execution_resource_requirements(
+                    adaptation_decision.plan_decision,
+                    envelope,
                 )
                 if not adaptation_decision.plan_decision.is_sufficient:
                     reason = ValueError("plan_adaptation_insufficient")

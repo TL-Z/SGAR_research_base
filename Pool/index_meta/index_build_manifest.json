@@ -1,22 +1,22 @@
 {
   "build_code_sha256": "a13006cc69db5c805075af4d13604429e1f349f5033071c563c4be3dbba7bb09",
-  "catalog_sha256": "eb84c3aa33ac46af8c949bcd7a6e3e0a8b2c836a53569b5b73a244ef02668baf",
+  "catalog_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25",
   "dimension": 2560,
-  "effective_pool_sha256": "f4b6189f6674b286acfbe6ee2eefd09ed06b46427c50520c94dd6513ab7fd5ae",
+  "effective_pool_sha256": "567bde83d6c8959a9edbdb4c68a6f4b7717781e688a49e4dbce9eca5535e7283",
   "embedding_configuration_sha256": "7dff4a75340f09df459c8938222ad35b5f24379ca95e4ab1e0c034e54974ad41",
   "embedding_identity_sha256": "2d1f9d75cbe76e0646c8f27f22b925238d448c2e8cbdf1ad8fdc9e95961b1063",
   "embedding_runtime_identity_v2_sha256": "ebc78eccbfeb170885a5f575878d0eaa5cfeaa2aaa9f721288feaff662c3c4dd",
   "files_sha256": {
-    "faiss_cap.index": "16712039f3b73a20f56af66e3e84459cd315a3936fd0ef60e5af525fcffa6ba7",
-    "faiss_con.index": "671434db50a351304414c34ecf94782478975a76e56ab41d990ce778e471274d",
-    "resource_meta.pkl": "9272a770f596334b84927d64da84792cfa5e1fa0fb0bd446b1a8de9dfb5c4022"
+    "faiss_cap.index": "3076c77ee028010f05dbc6cd9f065c833b9ca7b4dd3e6ef2eaabe2d5421ae8d5",
+    "faiss_con.index": "d4dfda092804e187071c4f923d265fdb3cf5824358460e2ec7792dd43bc26fc7",
+    "resource_meta.pkl": "3ea3d3297daaeb56ded658c4a62041fca73021cee93ba23640629107165c6274"
   },
-  "generation_id": "57f0c5c642269bc541932f74814ea3dc",
+  "generation_id": "2cd50d51aabe41a5972c0d41f578727c",
   "generation_kind": "local_model_pool_full_rebuild",
-  "index_meta_v2_sha256": "9419829500b1a3338d7ef1d4994e6c113de2e5ca51aea38783bedaf0ddb11ca2",
-  "manifest_sha256": "279eb4d18c4d3b3fcb1cf3bc4ebbf8947cb03c08b75e9e2f6932cf9db715e17a",
+  "index_meta_v2_sha256": "8b72835f057ce158f8db0a244dbbdb46d767cd6dcedae14c9d50bba5fe47172d",
+  "manifest_sha256": "c4d66e2bf3bed9638ec50c7552a76d60a60b53d42dfdf7bc5116de604f662461",
   "protocol": "sgar-retrieval-index-build-v1",
   "release_source_seal": null,
-  "resource_count": 331,
-  "resource_order_sha256": "2ed2035ebd34fc73dea775fd062488cdd4fffcc60e33755a81ee7f571123af23"
+  "resource_count": 328,
+  "resource_order_sha256": "5f3a766037ffbc7d7a74ccd9e6e35919398872cf3dcdbfcb44f984182e0c271f"
 }

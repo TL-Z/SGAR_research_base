@@ -1,0 +1,17 @@
+{
+  "request_id": "resource-coverage-v1-20260915",
+  "query": "Using the supplied verification fixture, use the candidate Model gpt-5.6-sol together with the verification-before-completion Skill to produce a short plaintext checklist with labeled lines Evidence, Checks, and Completion. Do not claim completion without citing the supplied fixture text. This is a bounded synthetic integration fixture requiring that exact Model resource and the real Skill.",
+  "inputs": [
+    {"name": "fixture", "path": "./v1_material.txt"}
+  ],
+  "final_deliverable_contract": {
+    "protocol": "sgar-final-deliverable-contract-v1",
+    "representation": "file",
+    "format_id": "plaintext",
+    "media_type": "text/plain",
+    "extension": ".txt",
+    "logical_name": "v1_verification.txt",
+    "primary_member": null,
+    "required_members": []
+  }
+}

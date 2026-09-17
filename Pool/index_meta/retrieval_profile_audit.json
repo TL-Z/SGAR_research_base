@@ -1,9 +1,30 @@
 {
   "duplicate_resource_aliases": {},
   "errors": [],
-  "indexed_resource_count": 331,
+  "indexed_resource_count": 328,
   "profile_version": "typed-constraint-v8",
-  "resource_count": 331,
+  "resource_count": 328,
   "valid": true,
-  "warnings": []
+  "warnings": [
+    {
+      "code": "missing_agent_dependency_hint",
+      "detail": "tool.api.arxiv.search.v1",
+      "resource_id": "agent.research_analyst.v1"
+    },
+    {
+      "code": "missing_agent_dependency_hint",
+      "detail": "tool.api.wikipedia.summary.v1",
+      "resource_id": "agent.research_analyst.v1"
+    },
+    {
+      "code": "missing_agent_dependency_hint",
+      "detail": "tool.api.arxiv.search.v1",
+      "resource_id": "agent.search_specialist.v1"
+    },
+    {
+      "code": "missing_agent_dependency_hint",
+      "detail": "tool.api.wikipedia.summary.v1",
+      "resource_id": "agent.search_specialist.v1"
+    }
+  ]
 }

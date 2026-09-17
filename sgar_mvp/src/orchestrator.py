@@ -344,6 +344,7 @@ class RuntimeArtifactRegistry:
     source_overlays: Dict[str, RuntimeArtifactRecord] = field(default_factory=dict)
     validation_results: Dict[str, Dict[str, Any]] = field(default_factory=dict)
     input_file_handles: Dict[str, ArtifactHandle] = field(default_factory=dict)
+    external_handles: Dict[str, ArtifactHandle] = field(default_factory=dict)
 
 
 class WorkspaceHandleResolver:
@@ -886,6 +887,8 @@ class DAGOrchestrator:
         network_policy_mode: str = "disabled",
         task_invocation: Optional[TaskInvocation] = None,
         async_model_transport: Optional[AsyncModelTransportPort] = None,
+        execution_substrate: Optional[Any] = None,
+        execution_substrate_mode: str = "default",
     ):
         self._execution_state_var: ContextVar[_ExecutionLocalState] = ContextVar(
             f"sgar_execution_state_{id(self)}",
@@ -899,6 +902,11 @@ class DAGOrchestrator:
         if network_policy_mode not in {"disabled", "declared"}:
             raise ValueError("network_policy_mode_invalid")
         self.network_policy_mode = network_policy_mode
+        from .runtime_abstraction import require_execution_substrate
+        self.execution_substrate = require_execution_substrate(
+            execution_substrate, mode=execution_substrate_mode
+        )
+        self.execution_substrate_mode = str(execution_substrate_mode)
         self.context = GlobalContext(
             context_commit_store=context_commit_store,
             artifact_store=artifact_store,
@@ -1598,6 +1606,12 @@ class DAGOrchestrator:
     ) -> Dict[str, Any]:
         """Create one isolated writable mount and exact read-only dependencies."""
 
+        if self.execution_substrate is not None:
+            return self.execution_substrate.step_scope(
+                step_id=str(step.step_id),
+                depends_on=tuple(getattr(step, "depends_on", ()) or ()),
+                attempt=int(getattr(execution_context, "attempt", 1)),
+            )
         base = copy.deepcopy(self._resource_runtime_sandbox_scope())
         project = Path(self.project_root).resolve()
         artifact_root = Path(self.artifact_dir).resolve()
@@ -1702,6 +1716,7 @@ class DAGOrchestrator:
         return (
             self._registry_artifact_handles()
             + list(self.artifact_registry.input_file_handles.values())
+            + list(self.artifact_registry.external_handles.values())
             + self._validation_result_handles()
         )
 
@@ -1753,7 +1768,9 @@ class DAGOrchestrator:
                 f"Handle {handle_id} has artifact_type {handle.artifact_type}, expected {expected_artifact_type}.",
                 None,
             )
-        if handle.kind != "validation_result":
+        if handle.kind != "validation_result" and not (
+            self.execution_substrate is not None and handle.tool_path
+        ):
             if not handle.host_path or not os.path.exists(handle.host_path):
                 return False, "artifact_handle_missing", f"Handle {handle_id} target path is missing.", None
             if expected_path_kind:
@@ -1994,6 +2011,8 @@ class DAGOrchestrator:
         return destination
 
     def _runtime_preparer_instance(self):
+        if self.execution_substrate is not None:
+            raise RuntimeError("UNBOUND_RUNTIME_PATH:legacy_runtime_preparation")
         if self.runtime_preparer is None:
             from .runtime_preparation import RuntimePreparer
 
@@ -5771,6 +5790,8 @@ class DAGOrchestrator:
 
     def _resolve_candidate_path(self, value: str) -> str:
         """Resolve a user/resource supplied path into the workspace when possible."""
+        if self.execution_substrate is not None:
+            raise RuntimeError("UNBOUND_RUNTIME_PATH:legacy_host_path_resolver")
         project_root = self._workspace_root()
         cleaned = str(value).strip().strip("'\"`鈥溾€濃€樷€?,;:!?锛屻€傦紱锛氾紒锛?)[]{}<>")
         if cleaned.startswith("file://"):
@@ -10187,7 +10208,27 @@ class DAGOrchestrator:
         """
 
         if not handle.host_path:
-            raise RuntimeError("formal_authorized_material_host_binding_missing")
+            content_sha256 = str(
+                (handle.provenance or {}).get("content_sha256") or ""
+            )
+            if not re.fullmatch(r"[0-9a-f]{64}", content_sha256):
+                raise RuntimeError("formal_authorized_material_task_hash_missing")
+            return (
+                MaterialDescriptorV1(
+                    source_id=source_id,
+                    logical_name=str(handle.logical_path or handle.handle_id),
+                    artifact_type=str(handle.artifact_type),
+                    content_sha256=content_sha256,
+                    original_bytes=int((handle.provenance or {}).get("byte_size") or 0),
+                    included_bytes=0,
+                    included_sha256=None,
+                    coverage_status="handle_only",
+                    handle_id=handle.handle_id,
+                    runtime_path=handle.tool_path,
+                    utf8_decodable=False,
+                ),
+                None,
+            )
         source_path = Path(handle.host_path)
         if not source_path.is_file():
             raise RuntimeError("formal_authorized_material_not_regular_file")
@@ -10739,6 +10780,7 @@ class DAGOrchestrator:
         async def execute_controller_session_step(
             *,
             step: ResourceApplicationStep,
+            controller_execution_context: ResourceExecutionContext | None,
             provider_model_id: str,
             bound_inputs: Mapping[str, Any],
             bound_outputs: Mapping[str, Any],
@@ -10749,7 +10791,7 @@ class DAGOrchestrator:
                 getattr(self, "_formal_execution_active", False)
             ):
                 return None
-            if resource_execution_context is None:
+            if controller_execution_context is None:
                 return ExecutionResult(
                     is_success=False,
                     output_data="",
@@ -11025,9 +11067,12 @@ class DAGOrchestrator:
                         network_policy_mode=str(
                             getattr(self, "network_policy_mode", "disabled")
                         ),
+                        execution_substrate_mode=self.execution_substrate_mode,
                     )
-                    provider = ToolExecutionProvider(prepared)
-                    call_execution_context = resource_execution_context.model_copy(
+                    provider = ToolExecutionProvider(
+                        prepared, execution_substrate=self.execution_substrate
+                    )
+                    call_execution_context = controller_execution_context.model_copy(
                         update={
                             "step_id": (
                                 f"{step.step_id}:controller_tool:"
@@ -11079,7 +11124,8 @@ class DAGOrchestrator:
                 skill_bundle = build_skill_bundle(
                     plan=plan, consumer=step, resource_index=resource_index,
                     loaded=verified_skill_loads, outputs=step_outputs, results=step_results,
-                    source_ids=step_source_ids, plan_sha256=resource_execution_context.plan_sha256,
+                    source_ids=step_source_ids,
+                    plan_sha256=controller_execution_context.plan_sha256,
                 )
                 if skill_bundle is not None:
                     register_request_source(
@@ -11114,7 +11160,7 @@ class DAGOrchestrator:
             )
             try:
                 session_result = await runner.run(
-                    run_id=resource_execution_context.run_id,
+                    run_id=controller_execution_context.run_id,
                     spec=spec,
                     resolved_inputs=dict(bound_inputs),
                     resolved_context=self._resolve_controller_context(step=step),
@@ -11253,8 +11299,17 @@ class DAGOrchestrator:
             )
             if (
                 resource_execution_context is not None
-                and ref.resource_type == ManifestType.TOOL
                 and bool(getattr(self, "_formal_execution_active", False))
+                and (
+                    ref.resource_type == ManifestType.TOOL
+                    or (
+                        isinstance(
+                            getattr(step, "controller_session_spec", None),
+                            ControllerSessionSpecV2,
+                        )
+                        and bool(step.controller_session_spec.callable_tools)
+                    )
+                )
             ):
                 step_scope = self._formal_step_sandbox_scope(
                     step=step,
@@ -11844,8 +11899,11 @@ class DAGOrchestrator:
                             getattr(self, "network_policy_mode", "disabled")
                         ),
                         artifact_adapter=register_runtime_artifacts,
+                        execution_substrate_mode=self.execution_substrate_mode,
                     )
-                    provider = ToolExecutionProvider(prepared_dispatch)
+                    provider = ToolExecutionProvider(
+                        prepared_dispatch, execution_substrate=self.execution_substrate
+                    )
                     step_execution_context = step_resource_context
                     output_contract = formal_step_output_contract(
                         step,
@@ -11924,6 +11982,9 @@ class DAGOrchestrator:
                         canonical_result=canonical_result,
                         resource_application=resource_application,
                     )
+                    if self.execution_substrate is not None:
+                        for handle in canonical_result.artifacts:
+                            self.artifact_registry.external_handles[handle.handle_id] = handle
                     produced_records = self._register_realized_inline_result(
                         task_id, step, result, produced_records)
                 else:
@@ -12220,6 +12281,7 @@ class DAGOrchestrator:
 
                 result = await execute_controller_session_step(
                     step=step,
+                    controller_execution_context=step_resource_context,
                     provider_model_id=base_model,
                     bound_inputs=bound_inputs,
                     bound_outputs=bound_outputs,
@@ -12406,6 +12468,7 @@ class DAGOrchestrator:
 
                 result = await execute_controller_session_step(
                     step=step,
+                    controller_execution_context=step_resource_context,
                     provider_model_id=model_id,
                     bound_inputs=bound_inputs,
                     bound_outputs=bound_outputs,

@@ -17,9 +17,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from dotenv import load_dotenv
-
-
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 SGAR_ROOT = PROJECT_ROOT / "sgar_mvp"
 if str(PROJECT_ROOT) not in sys.path:
@@ -39,7 +36,7 @@ from sgar_mvp.src.schema import (
 
 
 DEFAULT_MODEL_RESOURCE_ID = "model.gpt_5_4.v1"
-MODEL_HEALTH_PATH = SGAR_ROOT / "config" / "model_health.json"
+MODEL_HEALTH_PATH = SGAR_ROOT / "runtime_state" / "model_ready_state.json"
 
 
 def _load_json(path: Path) -> Any:
@@ -58,6 +55,22 @@ def _model_api_id(raw: dict[str, Any]) -> str:
     )
 
 
+def _load_env_value(*names: str) -> str:
+    values: dict[str, str] = {}
+    env_file = PROJECT_ROOT / ".env"
+    if env_file.is_file():
+        for line in env_file.read_text(encoding="utf-8").splitlines():
+            if not line.strip() or line.lstrip().startswith("#") or "=" not in line:
+                continue
+            key, value = line.split("=", 1)
+            values[key.strip()] = value.strip()
+    for name in names:
+        value = os.environ.get(name, "").strip() or values.get(name, "")
+        if value:
+            return value
+    return ""
+
+
 def _require_live_model(resource_id: str, model_api_id: str) -> None:
     if not MODEL_HEALTH_PATH.is_file():
         raise RuntimeError("Fresh model health gate is required before Agent smoke tests")
@@ -70,20 +83,28 @@ def _require_live_model(resource_id: str, model_api_id: str) -> None:
         ),
         None,
     )
-    if not probe or probe.get("status") != "ok" or not probe.get("text_ok"):
+    ready_state = probe.get("ready_state") if isinstance(probe, dict) else None
+    if (
+        not probe
+        or probe.get("status") != "ok"
+        or not probe.get("text_ok")
+        or not isinstance(ready_state, dict)
+        or ready_state.get("status") != "ready"
+    ):
         raise RuntimeError(
             f"Agent control Model has no successful fresh text probe: {resource_id} ({model_api_id})"
         )
 
 
 def _runtime_config() -> tuple[str, str]:
-    load_dotenv(PROJECT_ROOT / ".env")
     config = _load_json(SGAR_ROOT / "config.json")
     settings = config.get("llm_settings", {})
-    api_key = os.getenv("LLM_API_KEY", "").strip()
+    api_key = _load_env_value("LLM_API_KEY", "OPENAI_API_KEY")
     if not api_key:
         raise RuntimeError("LLM_API_KEY is not configured in the environment or .env")
-    base_url = str(settings.get("base_url") or "").strip()
+    base_url = _load_env_value("LLM_BASE_URL", "OPENAI_BASE_URL") or str(
+        settings.get("base_url") or ""
+    ).strip()
     if not base_url:
         raise RuntimeError("llm_settings.base_url is missing")
     return api_key, base_url
@@ -350,10 +371,18 @@ async def _main(args: argparse.Namespace) -> int:
     )
     run_dir.mkdir(parents=True, exist_ok=True)
 
+    selected_agents = agents
+    if args.agent_id:
+        requested = set(args.agent_id)
+        selected_agents = [item for item in agents if item.get("resource_id") in requested]
+        found = {str(item.get("resource_id")) for item in selected_agents}
+        if found != requested:
+            raise RuntimeError(f"Unknown Agent resources: {sorted(requested - found)}")
+
     matrix_results: list[dict[str, Any]] = []
     if not args.skip_agent_matrix:
         matrix_results = await _run_agent_matrix(
-            agents[: args.limit],
+            selected_agents[: args.limit],
             api_key=api_key,
             base_url=base_url,
             model_api_id=model_api_id,
@@ -403,6 +432,7 @@ async def _main(args: argparse.Namespace) -> int:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
     parser.add_argument("--model-resource-id", default=DEFAULT_MODEL_RESOURCE_ID)
+    parser.add_argument("--agent-id", action="append")
     parser.add_argument("--limit", type=int, default=20)
     parser.add_argument("--concurrency", type=int, default=4)
     parser.add_argument("--max-tokens", type=int, default=64)

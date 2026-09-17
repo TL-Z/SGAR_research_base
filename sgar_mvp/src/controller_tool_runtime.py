@@ -23,11 +23,7 @@ from .controller_tooling import (
     project_provider_tool_schema,
 )
 from .formal_contracts import MaterialDescriptorV1
-from .model_response_contracts import (
-    ModelResponseContractError,
-    require_semantic_json_schema,
-    validate_json_schema_instance,
-)
+from .model_response_contracts import validate_json_schema_instance
 from .output_realization import OutputRealizer, normalized_artifact_type
 from .pipeline_control import FrozenContract, canonical_json_bytes, canonical_sha256
 from .resource_runtime import (
@@ -352,13 +348,7 @@ def _validate_dynamic_arguments(
         raise ControllerToolRuntimeError(
             "controller_tool_dynamic_argument_required_missing"
         )
-    try:
-        schema = require_semantic_json_schema(parameters)
-        valid, _ = validate_json_schema_instance(arguments, schema)
-    except ModelResponseContractError as exc:
-        raise ControllerToolRuntimeError(
-            "controller_provider_tool_schema_identity_changed"
-        ) from exc
+    valid, _ = validate_json_schema_instance(arguments, parameters)
     if not valid:
         raise ControllerToolRuntimeError(
             "controller_tool_dynamic_argument_contract_mismatch"

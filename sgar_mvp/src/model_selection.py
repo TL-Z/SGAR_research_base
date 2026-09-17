@@ -74,15 +74,16 @@ def require_registered_models(resources: Iterable[Mapping[str, Any]], *,
 
 def control_model_index(resources: Iterable[Mapping[str, Any]], *,
                         root: str | Path = ROOT) -> dict[str, dict[str, Any]]:
-    """Resolve registered internal models independently of retrieval eligibility.
+    """Resolve all registered Model definitions for explicit control-role lookup.
 
-    This is catalog identity, not health admission. The caller must still verify
-    the exact control-role Provider evidence before making a request.
+    Candidate eligibility and control-role assignment are independent properties.
+    Callers still select only explicitly configured role resource IDs and must
+    verify the exact control-role Provider evidence before making a request.
     """
     rows = list(resources)
     require_registered_models(rows, root=root, complete=True)
     return {str(raw["resource_id"]): dict(raw) for raw in rows
-            if resource_type(raw) == "Model" and raw.get("selection_scope") == "control_only"}
+            if resource_type(raw) == "Model"}
 
 
 def apply_model_selection(raw: dict[str, Any], policy: Mapping[str, Any]) -> dict[str, Any]:

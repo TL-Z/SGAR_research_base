@@ -1,0 +1,1398 @@
+{
+  "protocol": "sgar-skill-hash-validation-v1",
+  "catalog_path": "/home/zhoutianle/Projects/SGAR_research_base/Pool/resources/json/combine.json",
+  "catalog_sha256_before": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25",
+  "catalog_sha256_after": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25",
+  "catalog_unchanged": true,
+  "skill_count": 154,
+  "passed": 154,
+  "failed": 0,
+  "entries": [
+    {
+      "resource_id": "skill.anthropic.algorithmic-art.v1",
+      "expected_package_hash": "sha256:3c0f40edf700ffc9047eae66f6476956a2399e4bceda8d860a9655b84330aecf",
+      "readiness_package_hash": "sha256:3c0f40edf700ffc9047eae66f6476956a2399e4bceda8d860a9655b84330aecf",
+      "ingestion_package_hash": "sha256:3c0f40edf700ffc9047eae66f6476956a2399e4bceda8d860a9655b84330aecf",
+      "runtime_package_hash": "sha256:3c0f40edf700ffc9047eae66f6476956a2399e4bceda8d860a9655b84330aecf",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.anthropic.brand-guidelines.v1",
+      "expected_package_hash": "sha256:93889071ae19a1954dd26428aa0ce08b46fb339847a2fc492885058519c75738",
+      "readiness_package_hash": "sha256:93889071ae19a1954dd26428aa0ce08b46fb339847a2fc492885058519c75738",
+      "ingestion_package_hash": "sha256:93889071ae19a1954dd26428aa0ce08b46fb339847a2fc492885058519c75738",
+      "runtime_package_hash": "sha256:93889071ae19a1954dd26428aa0ce08b46fb339847a2fc492885058519c75738",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.anthropic.canvas-design.v1",
+      "expected_package_hash": "sha256:2f31ec5ecefd896a46144f5b776ccb73d5c9a0c973551d574c95df8a77a98085",
+      "readiness_package_hash": "sha256:2f31ec5ecefd896a46144f5b776ccb73d5c9a0c973551d574c95df8a77a98085",
+      "ingestion_package_hash": "sha256:2f31ec5ecefd896a46144f5b776ccb73d5c9a0c973551d574c95df8a77a98085",
+      "runtime_package_hash": "sha256:2f31ec5ecefd896a46144f5b776ccb73d5c9a0c973551d574c95df8a77a98085",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.anthropic.frontend-design.v1",
+      "expected_package_hash": "sha256:e5d3bb114b5bb3aec3b33b7ac3d46e9bc79fad72a9252ee9ded45a94039dbead",
+      "readiness_package_hash": "sha256:e5d3bb114b5bb3aec3b33b7ac3d46e9bc79fad72a9252ee9ded45a94039dbead",
+      "ingestion_package_hash": "sha256:e5d3bb114b5bb3aec3b33b7ac3d46e9bc79fad72a9252ee9ded45a94039dbead",
+      "runtime_package_hash": "sha256:e5d3bb114b5bb3aec3b33b7ac3d46e9bc79fad72a9252ee9ded45a94039dbead",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.anthropic.internal-comms.v1",
+      "expected_package_hash": "sha256:c3f1fb1267a4db29469dd0a15338b887ac27598e7742af3ccb016c1102b70be7",
+      "readiness_package_hash": "sha256:c3f1fb1267a4db29469dd0a15338b887ac27598e7742af3ccb016c1102b70be7",
+      "ingestion_package_hash": "sha256:c3f1fb1267a4db29469dd0a15338b887ac27598e7742af3ccb016c1102b70be7",
+      "runtime_package_hash": "sha256:c3f1fb1267a4db29469dd0a15338b887ac27598e7742af3ccb016c1102b70be7",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.anthropic.mcp-builder.v1",
+      "expected_package_hash": "sha256:7110a9996be6de8dbc678e80930d1de0d390980c4f1b4d07c61fd4107b61ec9c",
+      "readiness_package_hash": "sha256:7110a9996be6de8dbc678e80930d1de0d390980c4f1b4d07c61fd4107b61ec9c",
+      "ingestion_package_hash": "sha256:7110a9996be6de8dbc678e80930d1de0d390980c4f1b4d07c61fd4107b61ec9c",
+      "runtime_package_hash": "sha256:7110a9996be6de8dbc678e80930d1de0d390980c4f1b4d07c61fd4107b61ec9c",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.anthropic.skill-creator.v1",
+      "expected_package_hash": "sha256:e540ebe0e12d530900be71650bb138766907b4916236c2d37b8c4701662abc5a",
+      "readiness_package_hash": "sha256:e540ebe0e12d530900be71650bb138766907b4916236c2d37b8c4701662abc5a",
+      "ingestion_package_hash": "sha256:e540ebe0e12d530900be71650bb138766907b4916236c2d37b8c4701662abc5a",
+      "runtime_package_hash": "sha256:e540ebe0e12d530900be71650bb138766907b4916236c2d37b8c4701662abc5a",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.anthropic.slack-gif-creator.v1",
+      "expected_package_hash": "sha256:b0cd736f30e2a0617b849efac992304ea5a071fe5b1c378c745dd1385d573daa",
+      "readiness_package_hash": "sha256:b0cd736f30e2a0617b849efac992304ea5a071fe5b1c378c745dd1385d573daa",
+      "ingestion_package_hash": "sha256:b0cd736f30e2a0617b849efac992304ea5a071fe5b1c378c745dd1385d573daa",
+      "runtime_package_hash": "sha256:b0cd736f30e2a0617b849efac992304ea5a071fe5b1c378c745dd1385d573daa",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.anthropic.theme-factory.v1",
+      "expected_package_hash": "sha256:735f87e88cc20f60bf784d4689dca2999f0e21fcdb222bbe24c82d584b5e6e4b",
+      "readiness_package_hash": "sha256:735f87e88cc20f60bf784d4689dca2999f0e21fcdb222bbe24c82d584b5e6e4b",
+      "ingestion_package_hash": "sha256:735f87e88cc20f60bf784d4689dca2999f0e21fcdb222bbe24c82d584b5e6e4b",
+      "runtime_package_hash": "sha256:735f87e88cc20f60bf784d4689dca2999f0e21fcdb222bbe24c82d584b5e6e4b",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.anthropic.webapp-testing.v1",
+      "expected_package_hash": "sha256:61eaf36bfb6f5f85959f39c9e4bab8597728f8395b052b20c0bb841dd9c9c858",
+      "readiness_package_hash": "sha256:61eaf36bfb6f5f85959f39c9e4bab8597728f8395b052b20c0bb841dd9c9c858",
+      "ingestion_package_hash": "sha256:61eaf36bfb6f5f85959f39c9e4bab8597728f8395b052b20c0bb841dd9c9c858",
+      "runtime_package_hash": "sha256:61eaf36bfb6f5f85959f39c9e4bab8597728f8395b052b20c0bb841dd9c9c858",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.claudekit.mcp-builder.v1",
+      "expected_package_hash": "sha256:7b9c26aaf7720c67fa01f451549b94196ad1e770304d9967cca94037d87974cb",
+      "readiness_package_hash": "sha256:7b9c26aaf7720c67fa01f451549b94196ad1e770304d9967cca94037d87974cb",
+      "ingestion_package_hash": "sha256:7b9c26aaf7720c67fa01f451549b94196ad1e770304d9967cca94037d87974cb",
+      "runtime_package_hash": "sha256:7b9c26aaf7720c67fa01f451549b94196ad1e770304d9967cca94037d87974cb",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.claudekit.ui-styling.v1",
+      "expected_package_hash": "sha256:d6b42ae9dc8756dc8467af5d3acc7bd1e2aae154fefef3e0bc80bc9e5399c6ce",
+      "readiness_package_hash": "sha256:d6b42ae9dc8756dc8467af5d3acc7bd1e2aae154fefef3e0bc80bc9e5399c6ce",
+      "ingestion_package_hash": "sha256:d6b42ae9dc8756dc8467af5d3acc7bd1e2aae154fefef3e0bc80bc9e5399c6ce",
+      "runtime_package_hash": "sha256:d6b42ae9dc8756dc8467af5d3acc7bd1e2aae154fefef3e0bc80bc9e5399c6ce",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.actualize.v1",
+      "expected_package_hash": "sha256:18808c55bf70503de4a5499acb77c1d4b3414917738fedfcc2feb3bf3d8030bc",
+      "readiness_package_hash": "sha256:18808c55bf70503de4a5499acb77c1d4b3414917738fedfcc2feb3bf3d8030bc",
+      "ingestion_package_hash": "sha256:18808c55bf70503de4a5499acb77c1d4b3414917738fedfcc2feb3bf3d8030bc",
+      "runtime_package_hash": "sha256:18808c55bf70503de4a5499acb77c1d4b3414917738fedfcc2feb3bf3d8030bc",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.analyse-problem.v1",
+      "expected_package_hash": "sha256:98b900d02a84da20faf28137a18b52f7fc2402974a565522df913aa744ba7ba3",
+      "readiness_package_hash": "sha256:98b900d02a84da20faf28137a18b52f7fc2402974a565522df913aa744ba7ba3",
+      "ingestion_package_hash": "sha256:98b900d02a84da20faf28137a18b52f7fc2402974a565522df913aa744ba7ba3",
+      "runtime_package_hash": "sha256:98b900d02a84da20faf28137a18b52f7fc2402974a565522df913aa744ba7ba3",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.brainstorm.v1",
+      "expected_package_hash": "sha256:cedfbe2e8551c78ce656250d9977f0486894f2c3164a48eafb8d5ada33d22f34",
+      "readiness_package_hash": "sha256:cedfbe2e8551c78ce656250d9977f0486894f2c3164a48eafb8d5ada33d22f34",
+      "ingestion_package_hash": "sha256:cedfbe2e8551c78ce656250d9977f0486894f2c3164a48eafb8d5ada33d22f34",
+      "runtime_package_hash": "sha256:cedfbe2e8551c78ce656250d9977f0486894f2c3164a48eafb8d5ada33d22f34",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.cause-and-effect.v1",
+      "expected_package_hash": "sha256:c53d184a153380dba6ea36b19194fb6575b09428f8ff555a98ca1b903fd5abd6",
+      "readiness_package_hash": "sha256:c53d184a153380dba6ea36b19194fb6575b09428f8ff555a98ca1b903fd5abd6",
+      "ingestion_package_hash": "sha256:c53d184a153380dba6ea36b19194fb6575b09428f8ff555a98ca1b903fd5abd6",
+      "runtime_package_hash": "sha256:c53d184a153380dba6ea36b19194fb6575b09428f8ff555a98ca1b903fd5abd6",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.commit.v1",
+      "expected_package_hash": "sha256:42717a048effe4b0a3c71ab03dcb36639d40e2e2290b5f2ef665ef7a830f6b1f",
+      "readiness_package_hash": "sha256:42717a048effe4b0a3c71ab03dcb36639d40e2e2290b5f2ef665ef7a830f6b1f",
+      "ingestion_package_hash": "sha256:42717a048effe4b0a3c71ab03dcb36639d40e2e2290b5f2ef665ef7a830f6b1f",
+      "runtime_package_hash": "sha256:42717a048effe4b0a3c71ab03dcb36639d40e2e2290b5f2ef665ef7a830f6b1f",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.create-ideas.v1",
+      "expected_package_hash": "sha256:47be27ea4f299b10045ddd0b4f6969c8c054e32f586bd8f913d36273fd535920",
+      "readiness_package_hash": "sha256:47be27ea4f299b10045ddd0b4f6969c8c054e32f586bd8f913d36273fd535920",
+      "ingestion_package_hash": "sha256:47be27ea4f299b10045ddd0b4f6969c8c054e32f586bd8f913d36273fd535920",
+      "runtime_package_hash": "sha256:47be27ea4f299b10045ddd0b4f6969c8c054e32f586bd8f913d36273fd535920",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.create-workflow-command.v1",
+      "expected_package_hash": "sha256:20fdf0c2823972405a6aabe1a7e178b1cbdd70e13f9979dc0733a90e57a892d8",
+      "readiness_package_hash": "sha256:20fdf0c2823972405a6aabe1a7e178b1cbdd70e13f9979dc0733a90e57a892d8",
+      "ingestion_package_hash": "sha256:20fdf0c2823972405a6aabe1a7e178b1cbdd70e13f9979dc0733a90e57a892d8",
+      "runtime_package_hash": "sha256:20fdf0c2823972405a6aabe1a7e178b1cbdd70e13f9979dc0733a90e57a892d8",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.decay.v1",
+      "expected_package_hash": "sha256:36d9937e964cc4fa5fa8678f09eafde3187dc44a610b2d02d0708f891d1c4cbf",
+      "readiness_package_hash": "sha256:36d9937e964cc4fa5fa8678f09eafde3187dc44a610b2d02d0708f891d1c4cbf",
+      "ingestion_package_hash": "sha256:36d9937e964cc4fa5fa8678f09eafde3187dc44a610b2d02d0708f891d1c4cbf",
+      "runtime_package_hash": "sha256:36d9937e964cc4fa5fa8678f09eafde3187dc44a610b2d02d0708f891d1c4cbf",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.design-testing-strategy.v1",
+      "expected_package_hash": "sha256:e313c732dab54b204ba856fcd40faeb4560032a11613ce151a59a21e74fa4547",
+      "readiness_package_hash": "sha256:e313c732dab54b204ba856fcd40faeb4560032a11613ce151a59a21e74fa4547",
+      "ingestion_package_hash": "sha256:e313c732dab54b204ba856fcd40faeb4560032a11613ce151a59a21e74fa4547",
+      "runtime_package_hash": "sha256:e313c732dab54b204ba856fcd40faeb4560032a11613ce151a59a21e74fa4547",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.fix-tests.v1",
+      "expected_package_hash": "sha256:f8ded0fdf04a359c6d1c0f7bb4b7891c430e0a8935bf27bd9d864a0077f5d400",
+      "readiness_package_hash": "sha256:f8ded0fdf04a359c6d1c0f7bb4b7891c430e0a8935bf27bd9d864a0077f5d400",
+      "ingestion_package_hash": "sha256:f8ded0fdf04a359c6d1c0f7bb4b7891c430e0a8935bf27bd9d864a0077f5d400",
+      "runtime_package_hash": "sha256:f8ded0fdf04a359c6d1c0f7bb4b7891c430e0a8935bf27bd9d864a0077f5d400",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.git-notes.v1",
+      "expected_package_hash": "sha256:4b537aa3f11bb1e5f1109e057fc9be22e7c58882713f272a7bae80f7a361bc1a",
+      "readiness_package_hash": "sha256:4b537aa3f11bb1e5f1109e057fc9be22e7c58882713f272a7bae80f7a361bc1a",
+      "ingestion_package_hash": "sha256:4b537aa3f11bb1e5f1109e057fc9be22e7c58882713f272a7bae80f7a361bc1a",
+      "runtime_package_hash": "sha256:4b537aa3f11bb1e5f1109e057fc9be22e7c58882713f272a7bae80f7a361bc1a",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.load-issues.v1",
+      "expected_package_hash": "sha256:4fb1e3f09ab03318369d1a8cb3767ea66d06dcfcf258bea4d055972431c8bc13",
+      "readiness_package_hash": "sha256:4fb1e3f09ab03318369d1a8cb3767ea66d06dcfcf258bea4d055972431c8bc13",
+      "ingestion_package_hash": "sha256:4fb1e3f09ab03318369d1a8cb3767ea66d06dcfcf258bea4d055972431c8bc13",
+      "runtime_package_hash": "sha256:4fb1e3f09ab03318369d1a8cb3767ea66d06dcfcf258bea4d055972431c8bc13",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.memorize.v1",
+      "expected_package_hash": "sha256:9af8741e29575110096325092d5996677b5d53e6eb151e10fbe9ab92f3782338",
+      "readiness_package_hash": "sha256:9af8741e29575110096325092d5996677b5d53e6eb151e10fbe9ab92f3782338",
+      "ingestion_package_hash": "sha256:9af8741e29575110096325092d5996677b5d53e6eb151e10fbe9ab92f3782338",
+      "runtime_package_hash": "sha256:9af8741e29575110096325092d5996677b5d53e6eb151e10fbe9ab92f3782338",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.plan-do-check-act.v1",
+      "expected_package_hash": "sha256:f881357867bf89979dab64e84bec20499c8c8cbddc99695dda8bef9422b4f459",
+      "readiness_package_hash": "sha256:f881357867bf89979dab64e84bec20499c8c8cbddc99695dda8bef9422b4f459",
+      "ingestion_package_hash": "sha256:f881357867bf89979dab64e84bec20499c8c8cbddc99695dda8bef9422b4f459",
+      "runtime_package_hash": "sha256:f881357867bf89979dab64e84bec20499c8c8cbddc99695dda8bef9422b4f459",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.propose-hypotheses.v1",
+      "expected_package_hash": "sha256:fbde6231edd12bf56661e923ea5ef084ff38351447f89bb80e1ab152cca4d68c",
+      "readiness_package_hash": "sha256:fbde6231edd12bf56661e923ea5ef084ff38351447f89bb80e1ab152cca4d68c",
+      "ingestion_package_hash": "sha256:fbde6231edd12bf56661e923ea5ef084ff38351447f89bb80e1ab152cca4d68c",
+      "runtime_package_hash": "sha256:fbde6231edd12bf56661e923ea5ef084ff38351447f89bb80e1ab152cca4d68c",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.query.v1",
+      "expected_package_hash": "sha256:ce42b7701fcb5d86203b3effb6962424dd4cfcd59ce5a4f05abbd4fb82a4ce6d",
+      "readiness_package_hash": "sha256:ce42b7701fcb5d86203b3effb6962424dd4cfcd59ce5a4f05abbd4fb82a4ce6d",
+      "ingestion_package_hash": "sha256:ce42b7701fcb5d86203b3effb6962424dd4cfcd59ce5a4f05abbd4fb82a4ce6d",
+      "runtime_package_hash": "sha256:ce42b7701fcb5d86203b3effb6962424dd4cfcd59ce5a4f05abbd4fb82a4ce6d",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.reflect.v1",
+      "expected_package_hash": "sha256:d86baaa46326547972a0b88dfb65e6c75ce3ffe49e7cf63ef78c742d67b5a096",
+      "readiness_package_hash": "sha256:d86baaa46326547972a0b88dfb65e6c75ce3ffe49e7cf63ef78c742d67b5a096",
+      "ingestion_package_hash": "sha256:d86baaa46326547972a0b88dfb65e6c75ce3ffe49e7cf63ef78c742d67b5a096",
+      "runtime_package_hash": "sha256:d86baaa46326547972a0b88dfb65e6c75ce3ffe49e7cf63ef78c742d67b5a096",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.reset.v1",
+      "expected_package_hash": "sha256:b76f27caecb18a3b0010bb7f235063515cde8a09822c9b134af1800f26d1e8dc",
+      "readiness_package_hash": "sha256:b76f27caecb18a3b0010bb7f235063515cde8a09822c9b134af1800f26d1e8dc",
+      "ingestion_package_hash": "sha256:b76f27caecb18a3b0010bb7f235063515cde8a09822c9b134af1800f26d1e8dc",
+      "runtime_package_hash": "sha256:b76f27caecb18a3b0010bb7f235063515cde8a09822c9b134af1800f26d1e8dc",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.review-local-changes.v1",
+      "expected_package_hash": "sha256:463fe6d536c064d74b5f5322910f45894f77de78ecd7182e136654fbe06242bc",
+      "readiness_package_hash": "sha256:463fe6d536c064d74b5f5322910f45894f77de78ecd7182e136654fbe06242bc",
+      "ingestion_package_hash": "sha256:463fe6d536c064d74b5f5322910f45894f77de78ecd7182e136654fbe06242bc",
+      "runtime_package_hash": "sha256:463fe6d536c064d74b5f5322910f45894f77de78ecd7182e136654fbe06242bc",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.status.v1",
+      "expected_package_hash": "sha256:df83902e7cafece4acc85f916ca1426d7f9630d8b2c478247736690583c3e4e0",
+      "readiness_package_hash": "sha256:df83902e7cafece4acc85f916ca1426d7f9630d8b2c478247736690583c3e4e0",
+      "ingestion_package_hash": "sha256:df83902e7cafece4acc85f916ca1426d7f9630d8b2c478247736690583c3e4e0",
+      "runtime_package_hash": "sha256:df83902e7cafece4acc85f916ca1426d7f9630d8b2c478247736690583c3e4e0",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.test-coverage.v1",
+      "expected_package_hash": "sha256:5f4753bf91f604da0be04dc4ce718dafbbd6c14cfcef2c59d73a3893d7161379",
+      "readiness_package_hash": "sha256:5f4753bf91f604da0be04dc4ce718dafbbd6c14cfcef2c59d73a3893d7161379",
+      "ingestion_package_hash": "sha256:5f4753bf91f604da0be04dc4ce718dafbbd6c14cfcef2c59d73a3893d7161379",
+      "runtime_package_hash": "sha256:5f4753bf91f604da0be04dc4ce718dafbbd6c14cfcef2c59d73a3893d7161379",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.test-driven-development.v1",
+      "expected_package_hash": "sha256:789ccd044a0f887c68954bd9050925552779e6bf6e5fea61070018deecbce05e",
+      "readiness_package_hash": "sha256:789ccd044a0f887c68954bd9050925552779e6bf6e5fea61070018deecbce05e",
+      "ingestion_package_hash": "sha256:789ccd044a0f887c68954bd9050925552779e6bf6e5fea61070018deecbce05e",
+      "runtime_package_hash": "sha256:789ccd044a0f887c68954bd9050925552779e6bf6e5fea61070018deecbce05e",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.test-skill.v1",
+      "expected_package_hash": "sha256:5d8097f51f2e6ed459ca22de7565bb5de4b01ee1b31d75bcdd13a3cb9682318b",
+      "readiness_package_hash": "sha256:5d8097f51f2e6ed459ca22de7565bb5de4b01ee1b31d75bcdd13a3cb9682318b",
+      "ingestion_package_hash": "sha256:5d8097f51f2e6ed459ca22de7565bb5de4b01ee1b31d75bcdd13a3cb9682318b",
+      "runtime_package_hash": "sha256:5d8097f51f2e6ed459ca22de7565bb5de4b01ee1b31d75bcdd13a3cb9682318b",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.thought-based-reasoning.v1",
+      "expected_package_hash": "sha256:9e5d6de4dc1b9f7b3481929326bcccd97bc17e92eca7d0cbbeef4005a3835c90",
+      "readiness_package_hash": "sha256:9e5d6de4dc1b9f7b3481929326bcccd97bc17e92eca7d0cbbeef4005a3835c90",
+      "ingestion_package_hash": "sha256:9e5d6de4dc1b9f7b3481929326bcccd97bc17e92eca7d0cbbeef4005a3835c90",
+      "runtime_package_hash": "sha256:9e5d6de4dc1b9f7b3481929326bcccd97bc17e92eca7d0cbbeef4005a3835c90",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.traiage-review.v1",
+      "expected_package_hash": "sha256:b1d34b4c49869e86c9fbd1e5801fd44affea83564cb47e50558918edb3512fbd",
+      "readiness_package_hash": "sha256:b1d34b4c49869e86c9fbd1e5801fd44affea83564cb47e50558918edb3512fbd",
+      "ingestion_package_hash": "sha256:b1d34b4c49869e86c9fbd1e5801fd44affea83564cb47e50558918edb3512fbd",
+      "runtime_package_hash": "sha256:b1d34b4c49869e86c9fbd1e5801fd44affea83564cb47e50558918edb3512fbd",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.why.v1",
+      "expected_package_hash": "sha256:23ce701fa16bf5499beba5e8dadf7737cb5500ebb5bd20ba77cc5d46e4d3ce19",
+      "readiness_package_hash": "sha256:23ce701fa16bf5499beba5e8dadf7737cb5500ebb5bd20ba77cc5d46e4d3ce19",
+      "ingestion_package_hash": "sha256:23ce701fa16bf5499beba5e8dadf7737cb5500ebb5bd20ba77cc5d46e4d3ce19",
+      "runtime_package_hash": "sha256:23ce701fa16bf5499beba5e8dadf7737cb5500ebb5bd20ba77cc5d46e4d3ce19",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.neolabhq.write-concisely.v1",
+      "expected_package_hash": "sha256:c2208e8cd9b0ab1de97a82594de9dcefeced974ec10053ed1cf3f7488d5f8cd1",
+      "readiness_package_hash": "sha256:c2208e8cd9b0ab1de97a82594de9dcefeced974ec10053ed1cf3f7488d5f8cd1",
+      "ingestion_package_hash": "sha256:c2208e8cd9b0ab1de97a82594de9dcefeced974ec10053ed1cf3f7488d5f8cd1",
+      "runtime_package_hash": "sha256:c2208e8cd9b0ab1de97a82594de9dcefeced974ec10053ed1cf3f7488d5f8cd1",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.agents-sdk.v1",
+      "expected_package_hash": "sha256:69d8ecb90cef1d170d195c0b532e967e715796bae771130c26700b6399ed09a1",
+      "readiness_package_hash": "sha256:69d8ecb90cef1d170d195c0b532e967e715796bae771130c26700b6399ed09a1",
+      "ingestion_package_hash": "sha256:69d8ecb90cef1d170d195c0b532e967e715796bae771130c26700b6399ed09a1",
+      "runtime_package_hash": "sha256:69d8ecb90cef1d170d195c0b532e967e715796bae771130c26700b6399ed09a1",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.android-emulator-qa.v1",
+      "expected_package_hash": "sha256:2097a71d9d4bd144aaa90c3b1e157f2b66479486c576b3d952b2692bff30d1b9",
+      "readiness_package_hash": "sha256:2097a71d9d4bd144aaa90c3b1e157f2b66479486c576b3d952b2692bff30d1b9",
+      "ingestion_package_hash": "sha256:2097a71d9d4bd144aaa90c3b1e157f2b66479486c576b3d952b2692bff30d1b9",
+      "runtime_package_hash": "sha256:2097a71d9d4bd144aaa90c3b1e157f2b66479486c576b3d952b2692bff30d1b9",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.batch-draft-writer.v1",
+      "expected_package_hash": "sha256:ee8a8797761a88c8b35dc28b21be01cb5acd8ebe6e2cf7dea6bd20603b04191d",
+      "readiness_package_hash": "sha256:ee8a8797761a88c8b35dc28b21be01cb5acd8ebe6e2cf7dea6bd20603b04191d",
+      "ingestion_package_hash": "sha256:ee8a8797761a88c8b35dc28b21be01cb5acd8ebe6e2cf7dea6bd20603b04191d",
+      "runtime_package_hash": "sha256:ee8a8797761a88c8b35dc28b21be01cb5acd8ebe6e2cf7dea6bd20603b04191d",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.brainstorming.v1",
+      "expected_package_hash": "sha256:64c2cc7cfcac22885e1ebc638127db96a6e9e9203c4ad7651df4aaec8e764a52",
+      "readiness_package_hash": "sha256:64c2cc7cfcac22885e1ebc638127db96a6e9e9203c4ad7651df4aaec8e764a52",
+      "ingestion_package_hash": "sha256:64c2cc7cfcac22885e1ebc638127db96a6e9e9203c4ad7651df4aaec8e764a52",
+      "runtime_package_hash": "sha256:64c2cc7cfcac22885e1ebc638127db96a6e9e9203c4ad7651df4aaec8e764a52",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.build-zoom-contact-center-app.v1",
+      "expected_package_hash": "sha256:938c7c4ca60f9c1e3486c9b73531c56b656cfbeac7479f44a3fc012726b5ef81",
+      "readiness_package_hash": "sha256:938c7c4ca60f9c1e3486c9b73531c56b656cfbeac7479f44a3fc012726b5ef81",
+      "ingestion_package_hash": "sha256:938c7c4ca60f9c1e3486c9b73531c56b656cfbeac7479f44a3fc012726b5ef81",
+      "runtime_package_hash": "sha256:938c7c4ca60f9c1e3486c9b73531c56b656cfbeac7479f44a3fc012726b5ef81",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.build-zoom-meeting-sdk-app.v1",
+      "expected_package_hash": "sha256:87fc02454cae43cf9ac944683c844c9c50ccfff6422987ff34df9ea782b3daa8",
+      "readiness_package_hash": "sha256:87fc02454cae43cf9ac944683c844c9c50ccfff6422987ff34df9ea782b3daa8",
+      "ingestion_package_hash": "sha256:87fc02454cae43cf9ac944683c844c9c50ccfff6422987ff34df9ea782b3daa8",
+      "runtime_package_hash": "sha256:87fc02454cae43cf9ac944683c844c9c50ccfff6422987ff34df9ea782b3daa8",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.build-zoom-virtual-agent.v1",
+      "expected_package_hash": "sha256:07a4b522f5ca1c6db2fdda488ed846ac29f1de966edf203c6423fc9584e17200",
+      "readiness_package_hash": "sha256:07a4b522f5ca1c6db2fdda488ed846ac29f1de966edf203c6423fc9584e17200",
+      "ingestion_package_hash": "sha256:07a4b522f5ca1c6db2fdda488ed846ac29f1de966edf203c6423fc9584e17200",
+      "runtime_package_hash": "sha256:07a4b522f5ca1c6db2fdda488ed846ac29f1de966edf203c6423fc9584e17200",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.building-native-ui.v1",
+      "expected_package_hash": "sha256:96ca502d2003e4f2b38e8975e653a4761aca87ab191fec71170668708acad416",
+      "readiness_package_hash": "sha256:96ca502d2003e4f2b38e8975e653a4761aca87ab191fec71170668708acad416",
+      "ingestion_package_hash": "sha256:96ca502d2003e4f2b38e8975e653a4761aca87ab191fec71170668708acad416",
+      "runtime_package_hash": "sha256:96ca502d2003e4f2b38e8975e653a4761aca87ab191fec71170668708acad416",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.chatgpt-app-submission.v1",
+      "expected_package_hash": "sha256:2fec2fca4da49956d608e5f71e13111bb008dd770aa2f6ea3e4c83ebf643e78c",
+      "readiness_package_hash": "sha256:2fec2fca4da49956d608e5f71e13111bb008dd770aa2f6ea3e4c83ebf643e78c",
+      "ingestion_package_hash": "sha256:2fec2fca4da49956d608e5f71e13111bb008dd770aa2f6ea3e4c83ebf643e78c",
+      "runtime_package_hash": "sha256:2fec2fca4da49956d608e5f71e13111bb008dd770aa2f6ea3e4c83ebf643e78c",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.cloudflare.v1",
+      "expected_package_hash": "sha256:70f3a0805df85f633fd8b024529f7c45ee92853e85acf7fba34e493eb5eed71b",
+      "readiness_package_hash": "sha256:70f3a0805df85f633fd8b024529f7c45ee92853e85acf7fba34e493eb5eed71b",
+      "ingestion_package_hash": "sha256:70f3a0805df85f633fd8b024529f7c45ee92853e85acf7fba34e493eb5eed71b",
+      "runtime_package_hash": "sha256:70f3a0805df85f633fd8b024529f7c45ee92853e85acf7fba34e493eb5eed71b",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.dashboard-expert.v1",
+      "expected_package_hash": "sha256:96d90b44cdb80f0eb2d99ee7d74f4b15b92d044d555ee918ed117d03ec43b0aa",
+      "readiness_package_hash": "sha256:96d90b44cdb80f0eb2d99ee7d74f4b15b92d044d555ee918ed117d03ec43b0aa",
+      "ingestion_package_hash": "sha256:96d90b44cdb80f0eb2d99ee7d74f4b15b92d044d555ee918ed117d03ec43b0aa",
+      "runtime_package_hash": "sha256:96d90b44cdb80f0eb2d99ee7d74f4b15b92d044d555ee918ed117d03ec43b0aa",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.deal-tracker.v1",
+      "expected_package_hash": "sha256:0aa51325686a7982439a3b919e6bb7af9cfbae95995e62b68e36e3a384e133e9",
+      "readiness_package_hash": "sha256:0aa51325686a7982439a3b919e6bb7af9cfbae95995e62b68e36e3a384e133e9",
+      "ingestion_package_hash": "sha256:0aa51325686a7982439a3b919e6bb7af9cfbae95995e62b68e36e3a384e133e9",
+      "runtime_package_hash": "sha256:0aa51325686a7982439a3b919e6bb7af9cfbae95995e62b68e36e3a384e133e9",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.eod-wrapup.v1",
+      "expected_package_hash": "sha256:7d73849cf112c06ef9be786b23576a56d7bac9ee440ca4c88634a5b18aeff810",
+      "readiness_package_hash": "sha256:7d73849cf112c06ef9be786b23576a56d7bac9ee440ca4c88634a5b18aeff810",
+      "ingestion_package_hash": "sha256:7d73849cf112c06ef9be786b23576a56d7bac9ee440ca4c88634a5b18aeff810",
+      "runtime_package_hash": "sha256:7d73849cf112c06ef9be786b23576a56d7bac9ee440ca4c88634a5b18aeff810",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.executing-plans.v1",
+      "expected_package_hash": "sha256:36088d5a20bb7b8fefbb7e7c74a67ba8705dfeb4c333755683fd32f530a2f3fc",
+      "readiness_package_hash": "sha256:36088d5a20bb7b8fefbb7e7c74a67ba8705dfeb4c333755683fd32f530a2f3fc",
+      "ingestion_package_hash": "sha256:36088d5a20bb7b8fefbb7e7c74a67ba8705dfeb4c333755683fd32f530a2f3fc",
+      "runtime_package_hash": "sha256:36088d5a20bb7b8fefbb7e7c74a67ba8705dfeb4c333755683fd32f530a2f3fc",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.expo-deployment.v1",
+      "expected_package_hash": "sha256:2ab0f191b5d4a1250659f33b73bc1013915da5ee23aafcfabb2914276bc92ef4",
+      "readiness_package_hash": "sha256:2ab0f191b5d4a1250659f33b73bc1013915da5ee23aafcfabb2914276bc92ef4",
+      "ingestion_package_hash": "sha256:2ab0f191b5d4a1250659f33b73bc1013915da5ee23aafcfabb2914276bc92ef4",
+      "runtime_package_hash": "sha256:2ab0f191b5d4a1250659f33b73bc1013915da5ee23aafcfabb2914276bc92ef4",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.expo-dev-client.v1",
+      "expected_package_hash": "sha256:5cceaf40987f943d171017c9cecdb9c298f897ff66d32ebb4e047b821fb1b8f6",
+      "readiness_package_hash": "sha256:5cceaf40987f943d171017c9cecdb9c298f897ff66d32ebb4e047b821fb1b8f6",
+      "ingestion_package_hash": "sha256:5cceaf40987f943d171017c9cecdb9c298f897ff66d32ebb4e047b821fb1b8f6",
+      "runtime_package_hash": "sha256:5cceaf40987f943d171017c9cecdb9c298f897ff66d32ebb4e047b821fb1b8f6",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.expo-module.v1",
+      "expected_package_hash": "sha256:34c6da25a1c322673a9846ebef2c902a06cd6f972f8278887cd2d558bbc24282",
+      "readiness_package_hash": "sha256:34c6da25a1c322673a9846ebef2c902a06cd6f972f8278887cd2d558bbc24282",
+      "ingestion_package_hash": "sha256:34c6da25a1c322673a9846ebef2c902a06cd6f972f8278887cd2d558bbc24282",
+      "runtime_package_hash": "sha256:34c6da25a1c322673a9846ebef2c902a06cd6f972f8278887cd2d558bbc24282",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.expo-tailwind-setup.v1",
+      "expected_package_hash": "sha256:91f09cc26755063f3f66ccd11af050f749d1289f6ec4a9b389c3922baf3f62ae",
+      "readiness_package_hash": "sha256:91f09cc26755063f3f66ccd11af050f749d1289f6ec4a9b389c3922baf3f62ae",
+      "ingestion_package_hash": "sha256:91f09cc26755063f3f66ccd11af050f749d1289f6ec4a9b389c3922baf3f62ae",
+      "runtime_package_hash": "sha256:91f09cc26755063f3f66ccd11af050f749d1289f6ec4a9b389c3922baf3f62ae",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.expo-ui-jetpack-compose.v1",
+      "expected_package_hash": "sha256:4357fb29fa5c527de142cee3e24e58293e1d00c1d270d6cb6d2a438e347d4840",
+      "readiness_package_hash": "sha256:4357fb29fa5c527de142cee3e24e58293e1d00c1d270d6cb6d2a438e347d4840",
+      "ingestion_package_hash": "sha256:4357fb29fa5c527de142cee3e24e58293e1d00c1d270d6cb6d2a438e347d4840",
+      "runtime_package_hash": "sha256:4357fb29fa5c527de142cee3e24e58293e1d00c1d270d6cb6d2a438e347d4840",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.expo-ui-swift-ui.v1",
+      "expected_package_hash": "sha256:09ec30e83591453b25b5686cafd6b284409d69cda9a82a9e9be22c1985e5743c",
+      "readiness_package_hash": "sha256:09ec30e83591453b25b5686cafd6b284409d69cda9a82a9e9be22c1985e5743c",
+      "ingestion_package_hash": "sha256:09ec30e83591453b25b5686cafd6b284409d69cda9a82a9e9be22c1985e5743c",
+      "runtime_package_hash": "sha256:09ec30e83591453b25b5686cafd6b284409d69cda9a82a9e9be22c1985e5743c",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.finishing-a-development-branch.v1",
+      "expected_package_hash": "sha256:2f01935ad45b77cfa516bf77eeccbcbb42e63a66d43a2113f850149d0881b0ff",
+      "readiness_package_hash": "sha256:2f01935ad45b77cfa516bf77eeccbcbb42e63a66d43a2113f850149d0881b0ff",
+      "ingestion_package_hash": "sha256:2f01935ad45b77cfa516bf77eeccbcbb42e63a66d43a2113f850149d0881b0ff",
+      "runtime_package_hash": "sha256:2f01935ad45b77cfa516bf77eeccbcbb42e63a66d43a2113f850149d0881b0ff",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.morning-briefing.v1",
+      "expected_package_hash": "sha256:df571e3fcac9eb8c446aac94ee9842f8093000eda5ddd2f8dc193262ee6f29b0",
+      "readiness_package_hash": "sha256:df571e3fcac9eb8c446aac94ee9842f8093000eda5ddd2f8dc193262ee6f29b0",
+      "ingestion_package_hash": "sha256:df571e3fcac9eb8c446aac94ee9842f8093000eda5ddd2f8dc193262ee6f29b0",
+      "runtime_package_hash": "sha256:df571e3fcac9eb8c446aac94ee9842f8093000eda5ddd2f8dc193262ee6f29b0",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.netlify-blobs.v1",
+      "expected_package_hash": "sha256:7eba5f8c6e3b28ccc0815c00d8150038fe013d1f0d8bb3a56efac20f077f6943",
+      "readiness_package_hash": "sha256:7eba5f8c6e3b28ccc0815c00d8150038fe013d1f0d8bb3a56efac20f077f6943",
+      "ingestion_package_hash": "sha256:7eba5f8c6e3b28ccc0815c00d8150038fe013d1f0d8bb3a56efac20f077f6943",
+      "runtime_package_hash": "sha256:7eba5f8c6e3b28ccc0815c00d8150038fe013d1f0d8bb3a56efac20f077f6943",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.netlify-caching.v1",
+      "expected_package_hash": "sha256:06b52b84548da977eeaa8ec8c54337be7d1941dd8d05dbb036bcedbb6bf5320b",
+      "readiness_package_hash": "sha256:06b52b84548da977eeaa8ec8c54337be7d1941dd8d05dbb036bcedbb6bf5320b",
+      "ingestion_package_hash": "sha256:06b52b84548da977eeaa8ec8c54337be7d1941dd8d05dbb036bcedbb6bf5320b",
+      "runtime_package_hash": "sha256:06b52b84548da977eeaa8ec8c54337be7d1941dd8d05dbb036bcedbb6bf5320b",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.netlify-config.v1",
+      "expected_package_hash": "sha256:30b41941a7583f0e6071fd801ac8614c5cfca59a0bcae8171b6b0bb70f590592",
+      "readiness_package_hash": "sha256:30b41941a7583f0e6071fd801ac8614c5cfca59a0bcae8171b6b0bb70f590592",
+      "ingestion_package_hash": "sha256:30b41941a7583f0e6071fd801ac8614c5cfca59a0bcae8171b6b0bb70f590592",
+      "runtime_package_hash": "sha256:30b41941a7583f0e6071fd801ac8614c5cfca59a0bcae8171b6b0bb70f590592",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.netlify-edge-functions.v1",
+      "expected_package_hash": "sha256:7af25a422fc8310c590651dd85acbc464872245d62269cbe10eb82eefc0d9acf",
+      "readiness_package_hash": "sha256:7af25a422fc8310c590651dd85acbc464872245d62269cbe10eb82eefc0d9acf",
+      "ingestion_package_hash": "sha256:7af25a422fc8310c590651dd85acbc464872245d62269cbe10eb82eefc0d9acf",
+      "runtime_package_hash": "sha256:7af25a422fc8310c590651dd85acbc464872245d62269cbe10eb82eefc0d9acf",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.netlify-frameworks.v1",
+      "expected_package_hash": "sha256:f70a530461671cded267fab5caa62ec6e67145f4c1408bf54b50a9a7d6f6c3bf",
+      "readiness_package_hash": "sha256:f70a530461671cded267fab5caa62ec6e67145f4c1408bf54b50a9a7d6f6c3bf",
+      "ingestion_package_hash": "sha256:f70a530461671cded267fab5caa62ec6e67145f4c1408bf54b50a9a7d6f6c3bf",
+      "runtime_package_hash": "sha256:f70a530461671cded267fab5caa62ec6e67145f4c1408bf54b50a9a7d6f6c3bf",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.netlify-image-cdn.v1",
+      "expected_package_hash": "sha256:87ea4a5886ea7ca7f33f3c4f12a895707dc730719d72903c10d39580e860a56f",
+      "readiness_package_hash": "sha256:87ea4a5886ea7ca7f33f3c4f12a895707dc730719d72903c10d39580e860a56f",
+      "ingestion_package_hash": "sha256:87ea4a5886ea7ca7f33f3c4f12a895707dc730719d72903c10d39580e860a56f",
+      "runtime_package_hash": "sha256:87ea4a5886ea7ca7f33f3c4f12a895707dc730719d72903c10d39580e860a56f",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.probe-sdk.v1",
+      "expected_package_hash": "sha256:698de0195235c33ed95c97d6cc2615f9044e2db2e91442aaadc06230e7a4c762",
+      "readiness_package_hash": "sha256:698de0195235c33ed95c97d6cc2615f9044e2db2e91442aaadc06230e7a4c762",
+      "ingestion_package_hash": "sha256:698de0195235c33ed95c97d6cc2615f9044e2db2e91442aaadc06230e7a4c762",
+      "runtime_package_hash": "sha256:698de0195235c33ed95c97d6cc2615f9044e2db2e91442aaadc06230e7a4c762",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.receiving-code-review.v1",
+      "expected_package_hash": "sha256:3f986dd9fa8635223029ff0735b2c92e269642c1b65f1b36a3ae8d4bbd0d640d",
+      "readiness_package_hash": "sha256:3f986dd9fa8635223029ff0735b2c92e269642c1b65f1b36a3ae8d4bbd0d640d",
+      "ingestion_package_hash": "sha256:3f986dd9fa8635223029ff0735b2c92e269642c1b65f1b36a3ae8d4bbd0d640d",
+      "runtime_package_hash": "sha256:3f986dd9fa8635223029ff0735b2c92e269642c1b65f1b36a3ae8d4bbd0d640d",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.render-background-workers.v1",
+      "expected_package_hash": "sha256:1a418efd54a45cada7dbeb83e6a715f2bfc69e3fb184a49f3329e470ecaf3487",
+      "readiness_package_hash": "sha256:1a418efd54a45cada7dbeb83e6a715f2bfc69e3fb184a49f3329e470ecaf3487",
+      "ingestion_package_hash": "sha256:1a418efd54a45cada7dbeb83e6a715f2bfc69e3fb184a49f3329e470ecaf3487",
+      "runtime_package_hash": "sha256:1a418efd54a45cada7dbeb83e6a715f2bfc69e3fb184a49f3329e470ecaf3487",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.render-cron-jobs.v1",
+      "expected_package_hash": "sha256:5acd1e19740568c56a9ed994a7d89572ffd103ccdab26fabeacb82fa09944eb8",
+      "readiness_package_hash": "sha256:5acd1e19740568c56a9ed994a7d89572ffd103ccdab26fabeacb82fa09944eb8",
+      "ingestion_package_hash": "sha256:5acd1e19740568c56a9ed994a7d89572ffd103ccdab26fabeacb82fa09944eb8",
+      "runtime_package_hash": "sha256:5acd1e19740568c56a9ed994a7d89572ffd103ccdab26fabeacb82fa09944eb8",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.render-docker.v1",
+      "expected_package_hash": "sha256:e948f8fe6d7c14f3d3df5e4e209d8713a6fb6282f8a45c1ca20ceac4d22babda",
+      "readiness_package_hash": "sha256:e948f8fe6d7c14f3d3df5e4e209d8713a6fb6282f8a45c1ca20ceac4d22babda",
+      "ingestion_package_hash": "sha256:e948f8fe6d7c14f3d3df5e4e209d8713a6fb6282f8a45c1ca20ceac4d22babda",
+      "runtime_package_hash": "sha256:e948f8fe6d7c14f3d3df5e4e209d8713a6fb6282f8a45c1ca20ceac4d22babda",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.render-domains.v1",
+      "expected_package_hash": "sha256:1947eb5d96105de320373396b2b7a23d0dda219df7c725ab6ac8e0da742c3d0d",
+      "readiness_package_hash": "sha256:1947eb5d96105de320373396b2b7a23d0dda219df7c725ab6ac8e0da742c3d0d",
+      "ingestion_package_hash": "sha256:1947eb5d96105de320373396b2b7a23d0dda219df7c725ab6ac8e0da742c3d0d",
+      "runtime_package_hash": "sha256:1947eb5d96105de320373396b2b7a23d0dda219df7c725ab6ac8e0da742c3d0d",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.render-env-vars.v1",
+      "expected_package_hash": "sha256:7aa709300621b693ecdae06a136b6a7a763a78b13825271813b0211e9b0583d1",
+      "readiness_package_hash": "sha256:7aa709300621b693ecdae06a136b6a7a763a78b13825271813b0211e9b0583d1",
+      "ingestion_package_hash": "sha256:7aa709300621b693ecdae06a136b6a7a763a78b13825271813b0211e9b0583d1",
+      "runtime_package_hash": "sha256:7aa709300621b693ecdae06a136b6a7a763a78b13825271813b0211e9b0583d1",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.render-keyvalue.v1",
+      "expected_package_hash": "sha256:e48a0f7f1cfdf333f88ffe10cb9b61443ee76d147caff5db8909b0c44eb458a1",
+      "readiness_package_hash": "sha256:e48a0f7f1cfdf333f88ffe10cb9b61443ee76d147caff5db8909b0c44eb458a1",
+      "ingestion_package_hash": "sha256:e48a0f7f1cfdf333f88ffe10cb9b61443ee76d147caff5db8909b0c44eb458a1",
+      "runtime_package_hash": "sha256:e48a0f7f1cfdf333f88ffe10cb9b61443ee76d147caff5db8909b0c44eb458a1",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.render-networking.v1",
+      "expected_package_hash": "sha256:ed47ad088fcdad79ae888be11f07a028344f9773e681d04c4187fc4d092c36cd",
+      "readiness_package_hash": "sha256:ed47ad088fcdad79ae888be11f07a028344f9773e681d04c4187fc4d092c36cd",
+      "ingestion_package_hash": "sha256:ed47ad088fcdad79ae888be11f07a028344f9773e681d04c4187fc4d092c36cd",
+      "runtime_package_hash": "sha256:ed47ad088fcdad79ae888be11f07a028344f9773e681d04c4187fc4d092c36cd",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.render-postgres.v1",
+      "expected_package_hash": "sha256:bc39f319476be80311e21ea6d449a930fa630409ded3e0d3b971301f78f2d9a4",
+      "readiness_package_hash": "sha256:bc39f319476be80311e21ea6d449a930fa630409ded3e0d3b971301f78f2d9a4",
+      "ingestion_package_hash": "sha256:bc39f319476be80311e21ea6d449a930fa630409ded3e0d3b971301f78f2d9a4",
+      "runtime_package_hash": "sha256:bc39f319476be80311e21ea6d449a930fa630409ded3e0d3b971301f78f2d9a4",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.render-private-services.v1",
+      "expected_package_hash": "sha256:15a074120c812dd519bc2a819c57e8284e05ca7248d6ce9d5926dba6ad4c7c70",
+      "readiness_package_hash": "sha256:15a074120c812dd519bc2a819c57e8284e05ca7248d6ce9d5926dba6ad4c7c70",
+      "ingestion_package_hash": "sha256:15a074120c812dd519bc2a819c57e8284e05ca7248d6ce9d5926dba6ad4c7c70",
+      "runtime_package_hash": "sha256:15a074120c812dd519bc2a819c57e8284e05ca7248d6ce9d5926dba6ad4c7c70",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.render-scaling.v1",
+      "expected_package_hash": "sha256:6dc7e54d2343f71370f0aa8bd178b736e135d0b3a8f36a70773b97f2b2120f5b",
+      "readiness_package_hash": "sha256:6dc7e54d2343f71370f0aa8bd178b736e135d0b3a8f36a70773b97f2b2120f5b",
+      "ingestion_package_hash": "sha256:6dc7e54d2343f71370f0aa8bd178b736e135d0b3a8f36a70773b97f2b2120f5b",
+      "runtime_package_hash": "sha256:6dc7e54d2343f71370f0aa8bd178b736e135d0b3a8f36a70773b97f2b2120f5b",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.render-static-sites.v1",
+      "expected_package_hash": "sha256:44be687bc5391bfe3b9e09772a360a783da4dd4eb89dc96abe0dcae6f8427d9e",
+      "readiness_package_hash": "sha256:44be687bc5391bfe3b9e09772a360a783da4dd4eb89dc96abe0dcae6f8427d9e",
+      "ingestion_package_hash": "sha256:44be687bc5391bfe3b9e09772a360a783da4dd4eb89dc96abe0dcae6f8427d9e",
+      "runtime_package_hash": "sha256:44be687bc5391bfe3b9e09772a360a783da4dd4eb89dc96abe0dcae6f8427d9e",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.render-web-services.v1",
+      "expected_package_hash": "sha256:088a071cc5ed00d7c7ded7aa279688c144ee908967a705e06d4534990f25880b",
+      "readiness_package_hash": "sha256:088a071cc5ed00d7c7ded7aa279688c144ee908967a705e06d4534990f25880b",
+      "ingestion_package_hash": "sha256:088a071cc5ed00d7c7ded7aa279688c144ee908967a705e06d4534990f25880b",
+      "runtime_package_hash": "sha256:088a071cc5ed00d7c7ded7aa279688c144ee908967a705e06d4534990f25880b",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.requesting-code-review.v1",
+      "expected_package_hash": "sha256:8310ad4eb448b7653b0b12f1ea90ae141d188ae8564ce45b3d58852b0fb18b19",
+      "readiness_package_hash": "sha256:8310ad4eb448b7653b0b12f1ea90ae141d188ae8564ce45b3d58852b0fb18b19",
+      "ingestion_package_hash": "sha256:8310ad4eb448b7653b0b12f1ea90ae141d188ae8564ce45b3d58852b0fb18b19",
+      "runtime_package_hash": "sha256:8310ad4eb448b7653b0b12f1ea90ae141d188ae8564ce45b3d58852b0fb18b19",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.scribe.v1",
+      "expected_package_hash": "sha256:6d123cc13dcbdddf8f8f95a0cce77e661ae778165e6707769d17e2b9e6b0b60a",
+      "readiness_package_hash": "sha256:6d123cc13dcbdddf8f8f95a0cce77e661ae778165e6707769d17e2b9e6b0b60a",
+      "ingestion_package_hash": "sha256:6d123cc13dcbdddf8f8f95a0cce77e661ae778165e6707769d17e2b9e6b0b60a",
+      "runtime_package_hash": "sha256:6d123cc13dcbdddf8f8f95a0cce77e661ae778165e6707769d17e2b9e6b0b60a",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.setup-zoom-webhooks.v1",
+      "expected_package_hash": "sha256:075253e8f23ef1d071395d846d9ff79c9e97959934177fc7b236c0d0c37bbf02",
+      "readiness_package_hash": "sha256:075253e8f23ef1d071395d846d9ff79c9e97959934177fc7b236c0d0c37bbf02",
+      "ingestion_package_hash": "sha256:075253e8f23ef1d071395d846d9ff79c9e97959934177fc7b236c0d0c37bbf02",
+      "runtime_package_hash": "sha256:075253e8f23ef1d071395d846d9ff79c9e97959934177fc7b236c0d0c37bbf02",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.setup-zoom-websockets.v1",
+      "expected_package_hash": "sha256:7f63f0f45f2676f9267673083094418c8e641edbe258706c8dc6b6773d759d57",
+      "readiness_package_hash": "sha256:7f63f0f45f2676f9267673083094418c8e641edbe258706c8dc6b6773d759d57",
+      "ingestion_package_hash": "sha256:7f63f0f45f2676f9267673083094418c8e641edbe258706c8dc6b6773d759d57",
+      "runtime_package_hash": "sha256:7f63f0f45f2676f9267673083094418c8e641edbe258706c8dc6b6773d759d57",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.shopify-app-store-review.v1",
+      "expected_package_hash": "sha256:9961f797f85e74525075d5d5fba9eeb0c91ffb8f3a58cc0fd1d9553322f73591",
+      "readiness_package_hash": "sha256:9961f797f85e74525075d5d5fba9eeb0c91ffb8f3a58cc0fd1d9553322f73591",
+      "ingestion_package_hash": "sha256:9961f797f85e74525075d5d5fba9eeb0c91ffb8f3a58cc0fd1d9553322f73591",
+      "runtime_package_hash": "sha256:9961f797f85e74525075d5d5fba9eeb0c91ffb8f3a58cc0fd1d9553322f73591",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.shopify-custom-data.v1",
+      "expected_package_hash": "sha256:0983639bd1094e0e746ce012462bbf8fc1f64b7e80f2a87a614525adde3a7a12",
+      "readiness_package_hash": "sha256:0983639bd1094e0e746ce012462bbf8fc1f64b7e80f2a87a614525adde3a7a12",
+      "ingestion_package_hash": "sha256:0983639bd1094e0e746ce012462bbf8fc1f64b7e80f2a87a614525adde3a7a12",
+      "runtime_package_hash": "sha256:0983639bd1094e0e746ce012462bbf8fc1f64b7e80f2a87a614525adde3a7a12",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.shopify-onboarding-dev.v1",
+      "expected_package_hash": "sha256:af7658e68590730a7e2b77b77446154db997346d16bd7d3753574b5373a0db7b",
+      "readiness_package_hash": "sha256:af7658e68590730a7e2b77b77446154db997346d16bd7d3753574b5373a0db7b",
+      "ingestion_package_hash": "sha256:af7658e68590730a7e2b77b77446154db997346d16bd7d3753574b5373a0db7b",
+      "runtime_package_hash": "sha256:af7658e68590730a7e2b77b77446154db997346d16bd7d3753574b5373a0db7b",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.supabase-postgres-best-practices-be9a8dce.v1",
+      "expected_package_hash": "sha256:401fbebb92aae06bfdfe203c02c6d347fcf25e004ca0da0ad85d2ce198b9a27f",
+      "readiness_package_hash": "sha256:401fbebb92aae06bfdfe203c02c6d347fcf25e004ca0da0ad85d2ce198b9a27f",
+      "ingestion_package_hash": "sha256:401fbebb92aae06bfdfe203c02c6d347fcf25e004ca0da0ad85d2ce198b9a27f",
+      "runtime_package_hash": "sha256:401fbebb92aae06bfdfe203c02c6d347fcf25e004ca0da0ad85d2ce198b9a27f",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.superhuman-mail.v1",
+      "expected_package_hash": "sha256:a8c6d9534dd678d08a15385f68a35a1f2d23e7b918935774c884d3323351469e",
+      "readiness_package_hash": "sha256:a8c6d9534dd678d08a15385f68a35a1f2d23e7b918935774c884d3323351469e",
+      "ingestion_package_hash": "sha256:a8c6d9534dd678d08a15385f68a35a1f2d23e7b918935774c884d3323351469e",
+      "runtime_package_hash": "sha256:a8c6d9534dd678d08a15385f68a35a1f2d23e7b918935774c884d3323351469e",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.systematic-debugging.v1",
+      "expected_package_hash": "sha256:ad54c6e8cca86ecbccca694de26304ef45d17c9d4fb9bc5e21d5d4c153d5ca44",
+      "readiness_package_hash": "sha256:ad54c6e8cca86ecbccca694de26304ef45d17c9d4fb9bc5e21d5d4c153d5ca44",
+      "ingestion_package_hash": "sha256:ad54c6e8cca86ecbccca694de26304ef45d17c9d4fb9bc5e21d5d4c153d5ca44",
+      "runtime_package_hash": "sha256:ad54c6e8cca86ecbccca694de26304ef45d17c9d4fb9bc5e21d5d4c153d5ca44",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.temporal-developer.v1",
+      "expected_package_hash": "sha256:432aa9b15d6f117b062bf5d9738c99bf2baad78f58dc163a174b05c33c6d8ad7",
+      "readiness_package_hash": "sha256:432aa9b15d6f117b062bf5d9738c99bf2baad78f58dc163a174b05c33c6d8ad7",
+      "ingestion_package_hash": "sha256:432aa9b15d6f117b062bf5d9738c99bf2baad78f58dc163a174b05c33c6d8ad7",
+      "runtime_package_hash": "sha256:432aa9b15d6f117b062bf5d9738c99bf2baad78f58dc163a174b05c33c6d8ad7",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.test-driven-development.v1",
+      "expected_package_hash": "sha256:58a1bf572c9e5dec88c4087a0316b7798d5d3b28ab7d17f895a3ccaa79864c95",
+      "readiness_package_hash": "sha256:58a1bf572c9e5dec88c4087a0316b7798d5d3b28ab7d17f895a3ccaa79864c95",
+      "ingestion_package_hash": "sha256:58a1bf572c9e5dec88c4087a0316b7798d5d3b28ab7d17f895a3ccaa79864c95",
+      "runtime_package_hash": "sha256:58a1bf572c9e5dec88c4087a0316b7798d5d3b28ab7d17f895a3ccaa79864c95",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.ucp.v1",
+      "expected_package_hash": "sha256:a2cc09cb0cd21e2136371f4ed2a44964f70e3898be2f2867802cce70b5cc8581",
+      "readiness_package_hash": "sha256:a2cc09cb0cd21e2136371f4ed2a44964f70e3898be2f2867802cce70b5cc8581",
+      "ingestion_package_hash": "sha256:a2cc09cb0cd21e2136371f4ed2a44964f70e3898be2f2867802cce70b5cc8581",
+      "runtime_package_hash": "sha256:a2cc09cb0cd21e2136371f4ed2a44964f70e3898be2f2867802cce70b5cc8581",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.upgrading-expo.v1",
+      "expected_package_hash": "sha256:7f767d616b6c8822da5927c6803c23d9ecc5b5454a01c93a3755ba254f4c16ed",
+      "readiness_package_hash": "sha256:7f767d616b6c8822da5927c6803c23d9ecc5b5454a01c93a3755ba254f4c16ed",
+      "ingestion_package_hash": "sha256:7f767d616b6c8822da5927c6803c23d9ecc5b5454a01c93a3755ba254f4c16ed",
+      "runtime_package_hash": "sha256:7f767d616b6c8822da5927c6803c23d9ecc5b5454a01c93a3755ba254f4c16ed",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.use-dom.v1",
+      "expected_package_hash": "sha256:77a3715323a3ea59150b679bfe60bf32728bd6f9a75ecfadffb4a5c42a2ce82f",
+      "readiness_package_hash": "sha256:77a3715323a3ea59150b679bfe60bf32728bd6f9a75ecfadffb4a5c42a2ce82f",
+      "ingestion_package_hash": "sha256:77a3715323a3ea59150b679bfe60bf32728bd6f9a75ecfadffb4a5c42a2ce82f",
+      "runtime_package_hash": "sha256:77a3715323a3ea59150b679bfe60bf32728bd6f9a75ecfadffb4a5c42a2ce82f",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.using-git-worktrees.v1",
+      "expected_package_hash": "sha256:e43a308531cf5fd658c833034cb8f7eae77d1150bd9f21db8c0b33eb8a24c6c5",
+      "readiness_package_hash": "sha256:e43a308531cf5fd658c833034cb8f7eae77d1150bd9f21db8c0b33eb8a24c6c5",
+      "ingestion_package_hash": "sha256:e43a308531cf5fd658c833034cb8f7eae77d1150bd9f21db8c0b33eb8a24c6c5",
+      "runtime_package_hash": "sha256:e43a308531cf5fd658c833034cb8f7eae77d1150bd9f21db8c0b33eb8a24c6c5",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.using-superpowers.v1",
+      "expected_package_hash": "sha256:3e68b7c1027fea384d2ec48f08b4796de4d98e2a98a3fff12be58da8d8e3b905",
+      "readiness_package_hash": "sha256:3e68b7c1027fea384d2ec48f08b4796de4d98e2a98a3fff12be58da8d8e3b905",
+      "ingestion_package_hash": "sha256:3e68b7c1027fea384d2ec48f08b4796de4d98e2a98a3fff12be58da8d8e3b905",
+      "runtime_package_hash": "sha256:3e68b7c1027fea384d2ec48f08b4796de4d98e2a98a3fff12be58da8d8e3b905",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.verification-before-completion.v1",
+      "expected_package_hash": "sha256:8cd22a163b0bc44ae4a71c63e967f2a3ccfb15bace8447765aa1a4c1b21955b8",
+      "readiness_package_hash": "sha256:8cd22a163b0bc44ae4a71c63e967f2a3ccfb15bace8447765aa1a4c1b21955b8",
+      "ingestion_package_hash": "sha256:8cd22a163b0bc44ae4a71c63e967f2a3ccfb15bace8447765aa1a4c1b21955b8",
+      "runtime_package_hash": "sha256:8cd22a163b0bc44ae4a71c63e967f2a3ccfb15bace8447765aa1a4c1b21955b8",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.writing-plans.v1",
+      "expected_package_hash": "sha256:3b5e830fddb2c9059fafc85ca23295710c41ddfba1137b3575211e395b8f3ef3",
+      "readiness_package_hash": "sha256:3b5e830fddb2c9059fafc85ca23295710c41ddfba1137b3575211e395b8f3ef3",
+      "ingestion_package_hash": "sha256:3b5e830fddb2c9059fafc85ca23295710c41ddfba1137b3575211e395b8f3ef3",
+      "runtime_package_hash": "sha256:3b5e830fddb2c9059fafc85ca23295710c41ddfba1137b3575211e395b8f3ef3",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.writing-skills.v1",
+      "expected_package_hash": "sha256:70326347c67f0c9c82b50f4fd9cf91c638c3ff2a35cb63820fc6d236a77900af",
+      "readiness_package_hash": "sha256:70326347c67f0c9c82b50f4fd9cf91c638c3ff2a35cb63820fc6d236a77900af",
+      "ingestion_package_hash": "sha256:70326347c67f0c9c82b50f4fd9cf91c638c3ff2a35cb63820fc6d236a77900af",
+      "runtime_package_hash": "sha256:70326347c67f0c9c82b50f4fd9cf91c638c3ff2a35cb63820fc6d236a77900af",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.zoom-cobrowse-sdk.v1",
+      "expected_package_hash": "sha256:d6da940905e5ea45c93d9a12e0c4c79efb8a8e0d0a1ff6eef40d3b21b1298814",
+      "readiness_package_hash": "sha256:d6da940905e5ea45c93d9a12e0c4c79efb8a8e0d0a1ff6eef40d3b21b1298814",
+      "ingestion_package_hash": "sha256:d6da940905e5ea45c93d9a12e0c4c79efb8a8e0d0a1ff6eef40d3b21b1298814",
+      "runtime_package_hash": "sha256:d6da940905e5ea45c93d9a12e0c4c79efb8a8e0d0a1ff6eef40d3b21b1298814",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.zoom-rtms.v1",
+      "expected_package_hash": "sha256:c045c748854b086aecf781d04cfd6185045d24c38e575cc6e4c926eadbf245cf",
+      "readiness_package_hash": "sha256:c045c748854b086aecf781d04cfd6185045d24c38e575cc6e4c926eadbf245cf",
+      "ingestion_package_hash": "sha256:c045c748854b086aecf781d04cfd6185045d24c38e575cc6e4c926eadbf245cf",
+      "runtime_package_hash": "sha256:c045c748854b086aecf781d04cfd6185045d24c38e575cc6e4c926eadbf245cf",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.zoom-video-sdk-linux.v1",
+      "expected_package_hash": "sha256:579f1f2b5296e62f78d1bdeaa59abd3df830b562977c55aca530abf7485ebe4c",
+      "readiness_package_hash": "sha256:579f1f2b5296e62f78d1bdeaa59abd3df830b562977c55aca530abf7485ebe4c",
+      "ingestion_package_hash": "sha256:579f1f2b5296e62f78d1bdeaa59abd3df830b562977c55aca530abf7485ebe4c",
+      "runtime_package_hash": "sha256:579f1f2b5296e62f78d1bdeaa59abd3df830b562977c55aca530abf7485ebe4c",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.openai_plugins.zoom-video-sdk-windows.v1",
+      "expected_package_hash": "sha256:987fb8bab19224698015737c022b770d14fae44271a8a888f13df973725cc55f",
+      "readiness_package_hash": "sha256:987fb8bab19224698015737c022b770d14fae44271a8a888f13df973725cc55f",
+      "ingestion_package_hash": "sha256:987fb8bab19224698015737c022b770d14fae44271a8a888f13df973725cc55f",
+      "runtime_package_hash": "sha256:987fb8bab19224698015737c022b770d14fae44271a8a888f13df973725cc55f",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.superpowers.brainstorming.v1",
+      "expected_package_hash": "sha256:21b4b1ed2f8950b8aa154a44c3df78a46d8887e73eb7d9f3bf95d5ddf6181d1b",
+      "readiness_package_hash": "sha256:21b4b1ed2f8950b8aa154a44c3df78a46d8887e73eb7d9f3bf95d5ddf6181d1b",
+      "ingestion_package_hash": "sha256:21b4b1ed2f8950b8aa154a44c3df78a46d8887e73eb7d9f3bf95d5ddf6181d1b",
+      "runtime_package_hash": "sha256:21b4b1ed2f8950b8aa154a44c3df78a46d8887e73eb7d9f3bf95d5ddf6181d1b",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.superpowers.dispatching-parallel-agents.v1",
+      "expected_package_hash": "sha256:6683c2b2942084352b20d11e8d83868c9c8b475da5b0fa122047e0ecfe4f4384",
+      "readiness_package_hash": "sha256:6683c2b2942084352b20d11e8d83868c9c8b475da5b0fa122047e0ecfe4f4384",
+      "ingestion_package_hash": "sha256:6683c2b2942084352b20d11e8d83868c9c8b475da5b0fa122047e0ecfe4f4384",
+      "runtime_package_hash": "sha256:6683c2b2942084352b20d11e8d83868c9c8b475da5b0fa122047e0ecfe4f4384",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.superpowers.executing-plans.v1",
+      "expected_package_hash": "sha256:74f1e11811c689c728ff58052097631736b7c00b7b59218f3e5fc9365a77706b",
+      "readiness_package_hash": "sha256:74f1e11811c689c728ff58052097631736b7c00b7b59218f3e5fc9365a77706b",
+      "ingestion_package_hash": "sha256:74f1e11811c689c728ff58052097631736b7c00b7b59218f3e5fc9365a77706b",
+      "runtime_package_hash": "sha256:74f1e11811c689c728ff58052097631736b7c00b7b59218f3e5fc9365a77706b",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.superpowers.finishing-a-development-branch.v1",
+      "expected_package_hash": "sha256:21fb98a5a692d05661ab2a6adeb3abc40de1a090bad2bb5f0c8f8f581b05b373",
+      "readiness_package_hash": "sha256:21fb98a5a692d05661ab2a6adeb3abc40de1a090bad2bb5f0c8f8f581b05b373",
+      "ingestion_package_hash": "sha256:21fb98a5a692d05661ab2a6adeb3abc40de1a090bad2bb5f0c8f8f581b05b373",
+      "runtime_package_hash": "sha256:21fb98a5a692d05661ab2a6adeb3abc40de1a090bad2bb5f0c8f8f581b05b373",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.superpowers.receiving-code-review.v1",
+      "expected_package_hash": "sha256:be90e53112c4cf463aa717fbc206baa14394e1f9a8404db7edab06002d479b7a",
+      "readiness_package_hash": "sha256:be90e53112c4cf463aa717fbc206baa14394e1f9a8404db7edab06002d479b7a",
+      "ingestion_package_hash": "sha256:be90e53112c4cf463aa717fbc206baa14394e1f9a8404db7edab06002d479b7a",
+      "runtime_package_hash": "sha256:be90e53112c4cf463aa717fbc206baa14394e1f9a8404db7edab06002d479b7a",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.superpowers.requesting-code-review.v1",
+      "expected_package_hash": "sha256:933ec0fb0d479c42e38b8ef41077c7c9136a5ff85fea7769d47a57d73b374f41",
+      "readiness_package_hash": "sha256:933ec0fb0d479c42e38b8ef41077c7c9136a5ff85fea7769d47a57d73b374f41",
+      "ingestion_package_hash": "sha256:933ec0fb0d479c42e38b8ef41077c7c9136a5ff85fea7769d47a57d73b374f41",
+      "runtime_package_hash": "sha256:933ec0fb0d479c42e38b8ef41077c7c9136a5ff85fea7769d47a57d73b374f41",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.superpowers.systematic-debugging.v1",
+      "expected_package_hash": "sha256:363a11f15cc4802dde84790f0ac2fb25a413e147f022176561e78cfc3bde715d",
+      "readiness_package_hash": "sha256:363a11f15cc4802dde84790f0ac2fb25a413e147f022176561e78cfc3bde715d",
+      "ingestion_package_hash": "sha256:363a11f15cc4802dde84790f0ac2fb25a413e147f022176561e78cfc3bde715d",
+      "runtime_package_hash": "sha256:363a11f15cc4802dde84790f0ac2fb25a413e147f022176561e78cfc3bde715d",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.superpowers.test-driven-development.v1",
+      "expected_package_hash": "sha256:42b35a79ebb6e8de58b5a229a46b9fb443176d15b556fcb49e51c15e3c6d2a29",
+      "readiness_package_hash": "sha256:42b35a79ebb6e8de58b5a229a46b9fb443176d15b556fcb49e51c15e3c6d2a29",
+      "ingestion_package_hash": "sha256:42b35a79ebb6e8de58b5a229a46b9fb443176d15b556fcb49e51c15e3c6d2a29",
+      "runtime_package_hash": "sha256:42b35a79ebb6e8de58b5a229a46b9fb443176d15b556fcb49e51c15e3c6d2a29",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.superpowers.using-git-worktrees.v1",
+      "expected_package_hash": "sha256:aad2e543e02921b488a6656efafb4e6c03e3d1f405e61e415c71b827e3417327",
+      "readiness_package_hash": "sha256:aad2e543e02921b488a6656efafb4e6c03e3d1f405e61e415c71b827e3417327",
+      "ingestion_package_hash": "sha256:aad2e543e02921b488a6656efafb4e6c03e3d1f405e61e415c71b827e3417327",
+      "runtime_package_hash": "sha256:aad2e543e02921b488a6656efafb4e6c03e3d1f405e61e415c71b827e3417327",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.superpowers.using-superpowers.v1",
+      "expected_package_hash": "sha256:3d20b9bfc846c9737e42d695e7e4533d220a804d3e2120cc5a7ee6910b3db22d",
+      "readiness_package_hash": "sha256:3d20b9bfc846c9737e42d695e7e4533d220a804d3e2120cc5a7ee6910b3db22d",
+      "ingestion_package_hash": "sha256:3d20b9bfc846c9737e42d695e7e4533d220a804d3e2120cc5a7ee6910b3db22d",
+      "runtime_package_hash": "sha256:3d20b9bfc846c9737e42d695e7e4533d220a804d3e2120cc5a7ee6910b3db22d",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.superpowers.verification-before-completion.v1",
+      "expected_package_hash": "sha256:a44da343ac540c5b8ee07bc4b46417c4e4be9a4f4b02eefe7888afbc80d086a8",
+      "readiness_package_hash": "sha256:a44da343ac540c5b8ee07bc4b46417c4e4be9a4f4b02eefe7888afbc80d086a8",
+      "ingestion_package_hash": "sha256:a44da343ac540c5b8ee07bc4b46417c4e4be9a4f4b02eefe7888afbc80d086a8",
+      "runtime_package_hash": "sha256:a44da343ac540c5b8ee07bc4b46417c4e4be9a4f4b02eefe7888afbc80d086a8",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.superpowers.writing-plans.v1",
+      "expected_package_hash": "sha256:ef74d2c5c4a4746dda40de8a3bc2c8d7ff6f813d1c407c95b18d72f12d33addf",
+      "readiness_package_hash": "sha256:ef74d2c5c4a4746dda40de8a3bc2c8d7ff6f813d1c407c95b18d72f12d33addf",
+      "ingestion_package_hash": "sha256:ef74d2c5c4a4746dda40de8a3bc2c8d7ff6f813d1c407c95b18d72f12d33addf",
+      "runtime_package_hash": "sha256:ef74d2c5c4a4746dda40de8a3bc2c8d7ff6f813d1c407c95b18d72f12d33addf",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.algorand-vulnerability-scanner.v1",
+      "expected_package_hash": "sha256:89361e5e8872c4e84fc49181c5a40139f35c8b9fc2795a6497d3a201da8fec1b",
+      "readiness_package_hash": "sha256:89361e5e8872c4e84fc49181c5a40139f35c8b9fc2795a6497d3a201da8fec1b",
+      "ingestion_package_hash": "sha256:89361e5e8872c4e84fc49181c5a40139f35c8b9fc2795a6497d3a201da8fec1b",
+      "runtime_package_hash": "sha256:89361e5e8872c4e84fc49181c5a40139f35c8b9fc2795a6497d3a201da8fec1b",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.ask-questions-if-underspecified.v1",
+      "expected_package_hash": "sha256:e8a8d8cf667a8e1c3271f0bd21071a322c67d86f8b6affc3ad6892863441b414",
+      "readiness_package_hash": "sha256:e8a8d8cf667a8e1c3271f0bd21071a322c67d86f8b6affc3ad6892863441b414",
+      "ingestion_package_hash": "sha256:e8a8d8cf667a8e1c3271f0bd21071a322c67d86f8b6affc3ad6892863441b414",
+      "runtime_package_hash": "sha256:e8a8d8cf667a8e1c3271f0bd21071a322c67d86f8b6affc3ad6892863441b414",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.audit-augmentation.v1",
+      "expected_package_hash": "sha256:1730fe461b8241f519458cb07ce148b1b382ba1636b5feba779aea9a68a22e5e",
+      "readiness_package_hash": "sha256:1730fe461b8241f519458cb07ce148b1b382ba1636b5feba779aea9a68a22e5e",
+      "ingestion_package_hash": "sha256:1730fe461b8241f519458cb07ce148b1b382ba1636b5feba779aea9a68a22e5e",
+      "runtime_package_hash": "sha256:1730fe461b8241f519458cb07ce148b1b382ba1636b5feba779aea9a68a22e5e",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.audit-context-building.v1",
+      "expected_package_hash": "sha256:5a0a69d666c0af81017c52f28c9fddae3b96ec12f0ed14f9e56c02daffcf5407",
+      "readiness_package_hash": "sha256:5a0a69d666c0af81017c52f28c9fddae3b96ec12f0ed14f9e56c02daffcf5407",
+      "ingestion_package_hash": "sha256:5a0a69d666c0af81017c52f28c9fddae3b96ec12f0ed14f9e56c02daffcf5407",
+      "runtime_package_hash": "sha256:5a0a69d666c0af81017c52f28c9fddae3b96ec12f0ed14f9e56c02daffcf5407",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.audit-prep-assistant.v1",
+      "expected_package_hash": "sha256:01b6c182162f83b9e0dbcccb1970df1c0b3b732325b4768b597595643068535a",
+      "readiness_package_hash": "sha256:01b6c182162f83b9e0dbcccb1970df1c0b3b732325b4768b597595643068535a",
+      "ingestion_package_hash": "sha256:01b6c182162f83b9e0dbcccb1970df1c0b3b732325b4768b597595643068535a",
+      "runtime_package_hash": "sha256:01b6c182162f83b9e0dbcccb1970df1c0b3b732325b4768b597595643068535a",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.cairo-vulnerability-scanner.v1",
+      "expected_package_hash": "sha256:c06a16f2f2ad0c9e33f71e4f9e12a1b5c28fbe5992174187710c883db7368f14",
+      "readiness_package_hash": "sha256:c06a16f2f2ad0c9e33f71e4f9e12a1b5c28fbe5992174187710c883db7368f14",
+      "ingestion_package_hash": "sha256:c06a16f2f2ad0c9e33f71e4f9e12a1b5c28fbe5992174187710c883db7368f14",
+      "runtime_package_hash": "sha256:c06a16f2f2ad0c9e33f71e4f9e12a1b5c28fbe5992174187710c883db7368f14",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.code-maturity-assessor.v1",
+      "expected_package_hash": "sha256:1a8b7244d8246328ad14680c7bdc8e0a7cd0aa6b814a54712b150e511e4c270a",
+      "readiness_package_hash": "sha256:1a8b7244d8246328ad14680c7bdc8e0a7cd0aa6b814a54712b150e511e4c270a",
+      "ingestion_package_hash": "sha256:1a8b7244d8246328ad14680c7bdc8e0a7cd0aa6b814a54712b150e511e4c270a",
+      "runtime_package_hash": "sha256:1a8b7244d8246328ad14680c7bdc8e0a7cd0aa6b814a54712b150e511e4c270a",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.constant-time-analysis.v1",
+      "expected_package_hash": "sha256:74cbeb132a25fa9a4daeb9f154b769ea7490f048a72531d0c01361f94ff16c40",
+      "readiness_package_hash": "sha256:74cbeb132a25fa9a4daeb9f154b769ea7490f048a72531d0c01361f94ff16c40",
+      "ingestion_package_hash": "sha256:74cbeb132a25fa9a4daeb9f154b769ea7490f048a72531d0c01361f94ff16c40",
+      "runtime_package_hash": "sha256:74cbeb132a25fa9a4daeb9f154b769ea7490f048a72531d0c01361f94ff16c40",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.cosmos-vulnerability-scanner.v1",
+      "expected_package_hash": "sha256:86c498b731564b175b2ba470c78e9c2ed496d82f7deda6bf0ce62441a9bc0f3a",
+      "readiness_package_hash": "sha256:86c498b731564b175b2ba470c78e9c2ed496d82f7deda6bf0ce62441a9bc0f3a",
+      "ingestion_package_hash": "sha256:86c498b731564b175b2ba470c78e9c2ed496d82f7deda6bf0ce62441a9bc0f3a",
+      "runtime_package_hash": "sha256:86c498b731564b175b2ba470c78e9c2ed496d82f7deda6bf0ce62441a9bc0f3a",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.crypto-protocol-diagram.v1",
+      "expected_package_hash": "sha256:607685f1e852ba6e1d8440a63ad70f119ec0b49844f485153c898178cdd3c3f4",
+      "readiness_package_hash": "sha256:607685f1e852ba6e1d8440a63ad70f119ec0b49844f485153c898178cdd3c3f4",
+      "ingestion_package_hash": "sha256:607685f1e852ba6e1d8440a63ad70f119ec0b49844f485153c898178cdd3c3f4",
+      "runtime_package_hash": "sha256:607685f1e852ba6e1d8440a63ad70f119ec0b49844f485153c898178cdd3c3f4",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.diagramming-code.v1",
+      "expected_package_hash": "sha256:f8c9c07bedf67d3592b525463f1ae0e5b1affe2c7a958c0f87a9b14ebbc3fcbc",
+      "readiness_package_hash": "sha256:f8c9c07bedf67d3592b525463f1ae0e5b1affe2c7a958c0f87a9b14ebbc3fcbc",
+      "ingestion_package_hash": "sha256:f8c9c07bedf67d3592b525463f1ae0e5b1affe2c7a958c0f87a9b14ebbc3fcbc",
+      "runtime_package_hash": "sha256:f8c9c07bedf67d3592b525463f1ae0e5b1affe2c7a958c0f87a9b14ebbc3fcbc",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.differential-review.v1",
+      "expected_package_hash": "sha256:82ffb38798c3430e3999de7bb9df9a0627d824251d693d3b0c55ec766723d4e4",
+      "readiness_package_hash": "sha256:82ffb38798c3430e3999de7bb9df9a0627d824251d693d3b0c55ec766723d4e4",
+      "ingestion_package_hash": "sha256:82ffb38798c3430e3999de7bb9df9a0627d824251d693d3b0c55ec766723d4e4",
+      "runtime_package_hash": "sha256:82ffb38798c3430e3999de7bb9df9a0627d824251d693d3b0c55ec766723d4e4",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.dimensional-analysis.v1",
+      "expected_package_hash": "sha256:8a2e8ce3c8b1596390a83947cc23ee9fc7048515bb162503bb0d346a977714f4",
+      "readiness_package_hash": "sha256:8a2e8ce3c8b1596390a83947cc23ee9fc7048515bb162503bb0d346a977714f4",
+      "ingestion_package_hash": "sha256:8a2e8ce3c8b1596390a83947cc23ee9fc7048515bb162503bb0d346a977714f4",
+      "runtime_package_hash": "sha256:8a2e8ce3c8b1596390a83947cc23ee9fc7048515bb162503bb0d346a977714f4",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.entry-point-analyzer.v1",
+      "expected_package_hash": "sha256:1dc759a79fef9b5f506b4aabb8cacf8bae01b9660be521d8ba15a5860d527286",
+      "readiness_package_hash": "sha256:1dc759a79fef9b5f506b4aabb8cacf8bae01b9660be521d8ba15a5860d527286",
+      "ingestion_package_hash": "sha256:1dc759a79fef9b5f506b4aabb8cacf8bae01b9660be521d8ba15a5860d527286",
+      "runtime_package_hash": "sha256:1dc759a79fef9b5f506b4aabb8cacf8bae01b9660be521d8ba15a5860d527286",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.fuzzing-dictionary.v1",
+      "expected_package_hash": "sha256:d25aad653860dd78913ac9c5554c9455df84beb7f58d14ee9a23e63a4a43eb7b",
+      "readiness_package_hash": "sha256:d25aad653860dd78913ac9c5554c9455df84beb7f58d14ee9a23e63a4a43eb7b",
+      "ingestion_package_hash": "sha256:d25aad653860dd78913ac9c5554c9455df84beb7f58d14ee9a23e63a4a43eb7b",
+      "runtime_package_hash": "sha256:d25aad653860dd78913ac9c5554c9455df84beb7f58d14ee9a23e63a4a43eb7b",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.fuzzing-obstacles.v1",
+      "expected_package_hash": "sha256:1300b9ff76a6e8d1101116e75ac9df0dc02eaabcc2c39597ecc121fb55a67c83",
+      "readiness_package_hash": "sha256:1300b9ff76a6e8d1101116e75ac9df0dc02eaabcc2c39597ecc121fb55a67c83",
+      "ingestion_package_hash": "sha256:1300b9ff76a6e8d1101116e75ac9df0dc02eaabcc2c39597ecc121fb55a67c83",
+      "runtime_package_hash": "sha256:1300b9ff76a6e8d1101116e75ac9df0dc02eaabcc2c39597ecc121fb55a67c83",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.git-cleanup.v1",
+      "expected_package_hash": "sha256:05587cdb261019c6ff1245e3a29fd0cacf5fa52ef50f5f086292e36d986f4a7b",
+      "readiness_package_hash": "sha256:05587cdb261019c6ff1245e3a29fd0cacf5fa52ef50f5f086292e36d986f4a7b",
+      "ingestion_package_hash": "sha256:05587cdb261019c6ff1245e3a29fd0cacf5fa52ef50f5f086292e36d986f4a7b",
+      "runtime_package_hash": "sha256:05587cdb261019c6ff1245e3a29fd0cacf5fa52ef50f5f086292e36d986f4a7b",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.graph-evolution.v1",
+      "expected_package_hash": "sha256:c708c626831c4ec1f395416a7d57aa52fc40c286833e7b85ec5fbba915b529b1",
+      "readiness_package_hash": "sha256:c708c626831c4ec1f395416a7d57aa52fc40c286833e7b85ec5fbba915b529b1",
+      "ingestion_package_hash": "sha256:c708c626831c4ec1f395416a7d57aa52fc40c286833e7b85ec5fbba915b529b1",
+      "runtime_package_hash": "sha256:c708c626831c4ec1f395416a7d57aa52fc40c286833e7b85ec5fbba915b529b1",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.guidelines-advisor.v1",
+      "expected_package_hash": "sha256:3cee74f8a368773d79837e7864002a04fd376cbebd25fcf42ba17a84a05bcfe0",
+      "readiness_package_hash": "sha256:3cee74f8a368773d79837e7864002a04fd376cbebd25fcf42ba17a84a05bcfe0",
+      "ingestion_package_hash": "sha256:3cee74f8a368773d79837e7864002a04fd376cbebd25fcf42ba17a84a05bcfe0",
+      "runtime_package_hash": "sha256:3cee74f8a368773d79837e7864002a04fd376cbebd25fcf42ba17a84a05bcfe0",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.harness-writing.v1",
+      "expected_package_hash": "sha256:77a8151c1b60b8ccd76b4385939471f0680d03901914552de807628c7cd79c55",
+      "readiness_package_hash": "sha256:77a8151c1b60b8ccd76b4385939471f0680d03901914552de807628c7cd79c55",
+      "ingestion_package_hash": "sha256:77a8151c1b60b8ccd76b4385939471f0680d03901914552de807628c7cd79c55",
+      "runtime_package_hash": "sha256:77a8151c1b60b8ccd76b4385939471f0680d03901914552de807628c7cd79c55",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.insecure-defaults.v1",
+      "expected_package_hash": "sha256:e6a40a7d579ed8b4b9d60279dea474358bedc0260a06201040297bd03964bd95",
+      "readiness_package_hash": "sha256:e6a40a7d579ed8b4b9d60279dea474358bedc0260a06201040297bd03964bd95",
+      "ingestion_package_hash": "sha256:e6a40a7d579ed8b4b9d60279dea474358bedc0260a06201040297bd03964bd95",
+      "runtime_package_hash": "sha256:e6a40a7d579ed8b4b9d60279dea474358bedc0260a06201040297bd03964bd95",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.interpreting-culture-index.v1",
+      "expected_package_hash": "sha256:d70c64e5b9853f57c035f339f7467236dec1af4585eb2db36c8986ebd0fca2df",
+      "readiness_package_hash": "sha256:d70c64e5b9853f57c035f339f7467236dec1af4585eb2db36c8986ebd0fca2df",
+      "ingestion_package_hash": "sha256:d70c64e5b9853f57c035f339f7467236dec1af4585eb2db36c8986ebd0fca2df",
+      "runtime_package_hash": "sha256:d70c64e5b9853f57c035f339f7467236dec1af4585eb2db36c8986ebd0fca2df",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.let-fate-decide.v1",
+      "expected_package_hash": "sha256:8bc0ba76fb0ffdcb5872a6c2e67d4ba6039c1795f0fc317ed866c162e4f88fae",
+      "readiness_package_hash": "sha256:8bc0ba76fb0ffdcb5872a6c2e67d4ba6039c1795f0fc317ed866c162e4f88fae",
+      "ingestion_package_hash": "sha256:8bc0ba76fb0ffdcb5872a6c2e67d4ba6039c1795f0fc317ed866c162e4f88fae",
+      "runtime_package_hash": "sha256:8bc0ba76fb0ffdcb5872a6c2e67d4ba6039c1795f0fc317ed866c162e4f88fae",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.modern-python.v1",
+      "expected_package_hash": "sha256:b3eeefdbc73698231f2d868e4803c5c78c462540481a95df6a1200746c30a117",
+      "readiness_package_hash": "sha256:b3eeefdbc73698231f2d868e4803c5c78c462540481a95df6a1200746c30a117",
+      "ingestion_package_hash": "sha256:b3eeefdbc73698231f2d868e4803c5c78c462540481a95df6a1200746c30a117",
+      "runtime_package_hash": "sha256:b3eeefdbc73698231f2d868e4803c5c78c462540481a95df6a1200746c30a117",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.property-based-testing.v1",
+      "expected_package_hash": "sha256:1f49152d15dcc9a8d32a98f11e75f6a205842cccc9189f5c8296e53b07e823a0",
+      "readiness_package_hash": "sha256:1f49152d15dcc9a8d32a98f11e75f6a205842cccc9189f5c8296e53b07e823a0",
+      "ingestion_package_hash": "sha256:1f49152d15dcc9a8d32a98f11e75f6a205842cccc9189f5c8296e53b07e823a0",
+      "runtime_package_hash": "sha256:1f49152d15dcc9a8d32a98f11e75f6a205842cccc9189f5c8296e53b07e823a0",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.secure-workflow-guide.v1",
+      "expected_package_hash": "sha256:8e35099caed8679bd781c62b8818cc2dcb2f2d055e5e44d1e1542b0c8a9eca1b",
+      "readiness_package_hash": "sha256:8e35099caed8679bd781c62b8818cc2dcb2f2d055e5e44d1e1542b0c8a9eca1b",
+      "ingestion_package_hash": "sha256:8e35099caed8679bd781c62b8818cc2dcb2f2d055e5e44d1e1542b0c8a9eca1b",
+      "runtime_package_hash": "sha256:8e35099caed8679bd781c62b8818cc2dcb2f2d055e5e44d1e1542b0c8a9eca1b",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.sharp-edges.v1",
+      "expected_package_hash": "sha256:5312b9f82c5f32be7eae6550dd9b26ef7c39f2497726e4d7edb3773b6d287a5f",
+      "readiness_package_hash": "sha256:5312b9f82c5f32be7eae6550dd9b26ef7c39f2497726e4d7edb3773b6d287a5f",
+      "ingestion_package_hash": "sha256:5312b9f82c5f32be7eae6550dd9b26ef7c39f2497726e4d7edb3773b6d287a5f",
+      "runtime_package_hash": "sha256:5312b9f82c5f32be7eae6550dd9b26ef7c39f2497726e4d7edb3773b6d287a5f",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.skill-improver.v1",
+      "expected_package_hash": "sha256:82001eebd32b68b5512e8a8817d94fea7c49c3de62230e1e9da1e110fd5f3611",
+      "readiness_package_hash": "sha256:82001eebd32b68b5512e8a8817d94fea7c49c3de62230e1e9da1e110fd5f3611",
+      "ingestion_package_hash": "sha256:82001eebd32b68b5512e8a8817d94fea7c49c3de62230e1e9da1e110fd5f3611",
+      "runtime_package_hash": "sha256:82001eebd32b68b5512e8a8817d94fea7c49c3de62230e1e9da1e110fd5f3611",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.slicing-code-context.v1",
+      "expected_package_hash": "sha256:f5b0252f97d6547652a4d4a1c7a2dbc32d6916c6229f67a33af3975af8d972c2",
+      "readiness_package_hash": "sha256:f5b0252f97d6547652a4d4a1c7a2dbc32d6916c6229f67a33af3975af8d972c2",
+      "ingestion_package_hash": "sha256:f5b0252f97d6547652a4d4a1c7a2dbc32d6916c6229f67a33af3975af8d972c2",
+      "runtime_package_hash": "sha256:f5b0252f97d6547652a4d4a1c7a2dbc32d6916c6229f67a33af3975af8d972c2",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.solana-vulnerability-scanner.v1",
+      "expected_package_hash": "sha256:5fcac301cddf24b6d7ab4a4f725f0feccf76497973ad47f3894ac02cf842f23e",
+      "readiness_package_hash": "sha256:5fcac301cddf24b6d7ab4a4f725f0feccf76497973ad47f3894ac02cf842f23e",
+      "ingestion_package_hash": "sha256:5fcac301cddf24b6d7ab4a4f725f0feccf76497973ad47f3894ac02cf842f23e",
+      "runtime_package_hash": "sha256:5fcac301cddf24b6d7ab4a4f725f0feccf76497973ad47f3894ac02cf842f23e",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.spec-to-code-compliance.v1",
+      "expected_package_hash": "sha256:ae76c33200a20ff22aaa64982f889740de5f9069b308f26d5ced4793bbd89e6a",
+      "readiness_package_hash": "sha256:ae76c33200a20ff22aaa64982f889740de5f9069b308f26d5ced4793bbd89e6a",
+      "ingestion_package_hash": "sha256:ae76c33200a20ff22aaa64982f889740de5f9069b308f26d5ced4793bbd89e6a",
+      "runtime_package_hash": "sha256:ae76c33200a20ff22aaa64982f889740de5f9069b308f26d5ced4793bbd89e6a",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.substrate-vulnerability-scanner.v1",
+      "expected_package_hash": "sha256:84667371daf7e48b03b059ec38c60b9373f43f463ea22d411966b9094e06fd5e",
+      "readiness_package_hash": "sha256:84667371daf7e48b03b059ec38c60b9373f43f463ea22d411966b9094e06fd5e",
+      "ingestion_package_hash": "sha256:84667371daf7e48b03b059ec38c60b9373f43f463ea22d411966b9094e06fd5e",
+      "runtime_package_hash": "sha256:84667371daf7e48b03b059ec38c60b9373f43f463ea22d411966b9094e06fd5e",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.supply-chain-risk-auditor.v1",
+      "expected_package_hash": "sha256:d541046a48a1a1048aade9e7819b2ea1bc2e31f6cf760fe1ec520fc7d328af97",
+      "readiness_package_hash": "sha256:d541046a48a1a1048aade9e7819b2ea1bc2e31f6cf760fe1ec520fc7d328af97",
+      "ingestion_package_hash": "sha256:d541046a48a1a1048aade9e7819b2ea1bc2e31f6cf760fe1ec520fc7d328af97",
+      "runtime_package_hash": "sha256:d541046a48a1a1048aade9e7819b2ea1bc2e31f6cf760fe1ec520fc7d328af97",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.token-integration-analyzer.v1",
+      "expected_package_hash": "sha256:ffd7712cd5d4c55412726bab459b6f9c165d9f41ab0e75d295149224e253bc1d",
+      "readiness_package_hash": "sha256:ffd7712cd5d4c55412726bab459b6f9c165d9f41ab0e75d295149224e253bc1d",
+      "ingestion_package_hash": "sha256:ffd7712cd5d4c55412726bab459b6f9c165d9f41ab0e75d295149224e253bc1d",
+      "runtime_package_hash": "sha256:ffd7712cd5d4c55412726bab459b6f9c165d9f41ab0e75d295149224e253bc1d",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.ton-vulnerability-scanner.v1",
+      "expected_package_hash": "sha256:b16e7543d033aa42763c949bd77432ba112896588d1183a184ad3f53c5c4ef6e",
+      "readiness_package_hash": "sha256:b16e7543d033aa42763c949bd77432ba112896588d1183a184ad3f53c5c4ef6e",
+      "ingestion_package_hash": "sha256:b16e7543d033aa42763c949bd77432ba112896588d1183a184ad3f53c5c4ef6e",
+      "runtime_package_hash": "sha256:b16e7543d033aa42763c949bd77432ba112896588d1183a184ad3f53c5c4ef6e",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.variant-analysis.v1",
+      "expected_package_hash": "sha256:8fe9ae9d39289df792428bac0b94b9ffe15a229657d3988ca8c00723ea1dff18",
+      "readiness_package_hash": "sha256:8fe9ae9d39289df792428bac0b94b9ffe15a229657d3988ca8c00723ea1dff18",
+      "ingestion_package_hash": "sha256:8fe9ae9d39289df792428bac0b94b9ffe15a229657d3988ca8c00723ea1dff18",
+      "runtime_package_hash": "sha256:8fe9ae9d39289df792428bac0b94b9ffe15a229657d3988ca8c00723ea1dff18",
+      "status": "passed",
+      "error": null
+    },
+    {
+      "resource_id": "skill.trailofbits.vulnerability-triage-brocards.v1",
+      "expected_package_hash": "sha256:da3db6110777be56e82c11c8738c54e9ef0e4e2aa203e8c0626b9b8b9c29ef53",
+      "readiness_package_hash": "sha256:da3db6110777be56e82c11c8738c54e9ef0e4e2aa203e8c0626b9b8b9c29ef53",
+      "ingestion_package_hash": "sha256:da3db6110777be56e82c11c8738c54e9ef0e4e2aa203e8c0626b9b8b9c29ef53",
+      "runtime_package_hash": "sha256:da3db6110777be56e82c11c8738c54e9ef0e4e2aa203e8c0626b9b8b9c29ef53",
+      "status": "passed",
+      "error": null
+    }
+  ]
+}

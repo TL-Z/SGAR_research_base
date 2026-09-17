@@ -1,0 +1,452 @@
+diff --git a/.env.example b/.env.example
+index 2161735..090b784 100644
+--- a/.env.example
++++ b/.env.example
+@@ -1,3 +1,7 @@
+ # Copy these names into the project-root .env file. Never commit the real key.
+ LLM_API_KEY=replace_with_your_new_key
+ LLM_BASE_URL=https://svip.xty.app/v1
++# Optional project-scoped proxy for declared network Tools only. Leave empty for direct access.
++SGAR_TOOL_HTTP_PROXY=
++SGAR_TOOL_HTTPS_PROXY=
++SGAR_TOOL_NO_PROXY=localhost,127.0.0.1
+diff --git a/sgar_mvp/src/direct_network.py b/sgar_mvp/src/direct_network.py
+index c6f5bb1..2c2bbca 100644
+--- a/sgar_mvp/src/direct_network.py
++++ b/sgar_mvp/src/direct_network.py
+@@ -6,6 +6,8 @@ Explicitly injected HTTP clients remain caller-owned (including offline mocks).
+ from __future__ import annotations
+ 
+ import os
++import hashlib
++from pathlib import Path
+ from typing import Any, Mapping, TYPE_CHECKING
+ 
+ if TYPE_CHECKING:
+@@ -17,6 +19,48 @@ PROXY_VARIABLES = (
+ )
+ BYPASS_VARIABLES = ("NO_PROXY", "no_proxy")
+ 
++TOOL_PROXY_VARIABLES = (
++    "SGAR_TOOL_HTTP_PROXY",
++    "SGAR_TOOL_HTTPS_PROXY",
++    "SGAR_TOOL_NO_PROXY",
++)
++
++
++def load_tool_proxy_config(project_root: str | os.PathLike[str] | None = None) -> dict[str, str]:
++    """Load optional project-scoped Tool proxy values without mutating the process."""
++    values: dict[str, str] = {}
++    root = Path(project_root).resolve() if project_root else Path.cwd().resolve()
++    env_path = root / ".env"
++    if env_path.is_file():
++        try:
++            for raw_line in env_path.read_text(encoding="utf-8").splitlines():
++                line = raw_line.strip()
++                if not line or line.startswith("#") or "=" not in line:
++                    continue
++                name, value = line.split("=", 1)
++                name = name.strip()
++                if name in TOOL_PROXY_VARIABLES:
++                    values[name] = value.strip().strip('"').strip("'")
++        except OSError:
++            values = {}
++    for name in TOOL_PROXY_VARIABLES:
++        if name in os.environ:
++            values[name] = os.environ.get(name, "").strip()
++    return {name: values.get(name, "") for name in TOOL_PROXY_VARIABLES}
++
++
++def tool_proxy_audit(config: Mapping[str, str]) -> dict[str, Any]:
++    """Return a credential-free proxy status and stable configuration fingerprint."""
++    normalized = {name: str(config.get(name, "") or "") for name in TOOL_PROXY_VARIABLES}
++    fingerprint = hashlib.sha256(
++        "\n".join(f"{name}={normalized[name]}" for name in TOOL_PROXY_VARIABLES).encode("utf-8")
++    ).hexdigest()
++    return {
++        "proxy_enabled": bool(normalized["SGAR_TOOL_HTTP_PROXY"] or normalized["SGAR_TOOL_HTTPS_PROXY"]),
++        "proxy_no_proxy_configured": bool(normalized["SGAR_TOOL_NO_PROXY"]),
++        "proxy_config_fingerprint": fingerprint,
++    }
++
+ 
+ def direct_environment(environment: Mapping[str, str]) -> dict[str, str]:
+     """Build a child environment without inherited proxy routes."""
+@@ -46,11 +90,41 @@ def direct_async_http_client(**kwargs: Any) -> httpx.AsyncClient:
+     return DefaultAsyncHttpxClient(**kwargs, trust_env=False)
+ 
+ 
+-def direct_container_environment_args() -> list[str]:
+-    """Override proxy defaults even when Docker/image configuration supplies them."""
++def direct_container_environment_args(
++    *,
++    proxy_config: Mapping[str, str] | None = None,
++    network_required: bool = False,
++    network_policy_mode: str = "disabled",
++) -> list[str]:
++    """Set safe proxy defaults, optionally enabling the project Tool proxy."""
+     result = []
+     for name in PROXY_VARIABLES:
+-        result.extend(("-e", name + "="))
++        result.extend(("-e", name))
+     for name in BYPASS_VARIABLES:
+-        result.extend(("-e", name + "=*"))
++        result.extend(("-e", name))
++    # Values are supplied through the subprocess environment, never argv.
++    # The argument list contains names only so credentials cannot leak.
+     return result
++
++
++def tool_proxy_environment(
++    config: Mapping[str, str] | None = None,
++    *,
++    network_required: bool = False,
++    network_policy_mode: str = "disabled",
++) -> dict[str, str]:
++    """Return proxy values for a child environment, with no credentials in argv."""
++    if not network_required or network_policy_mode != "declared":
++        return {}
++    values = config or {}
++    http = str(values.get("SGAR_TOOL_HTTP_PROXY", "") or "")
++    https = str(values.get("SGAR_TOOL_HTTPS_PROXY", "") or "")
++    no_proxy = str(values.get("SGAR_TOOL_NO_PROXY", "") or "*")
++    return {
++        "HTTP_PROXY": http,
++        "HTTPS_PROXY": https,
++        "NO_PROXY": no_proxy,
++        "http_proxy": http,
++        "https_proxy": https,
++        "no_proxy": no_proxy,
++    }
+diff --git a/sgar_mvp/src/executable_plan.py b/sgar_mvp/src/executable_plan.py
+index 9ddcc2d..e54af2f 100644
+--- a/sgar_mvp/src/executable_plan.py
++++ b/sgar_mvp/src/executable_plan.py
+@@ -28,6 +28,7 @@ from .formal_contracts import (
+     ExecutableEdgeContractV2,
+     ExecutionObligationV1,
+     ExecutionObligationV2,
++    ExecutionResourceRequirementV1,
+     MaterialDescriptorV1,
+     SemanticEdgeContractV2,
+ )
+@@ -610,6 +611,7 @@ class PlanCompilerInputEnvelope(FrozenContract):
+     dependency_edges: tuple[CandidateDependencyEdge, ...] = ()
+     public_context: CompilerPublicContext
+     execution_obligations: tuple[ExecutionObligationV1 | ExecutionObligationV2, ...] = ()
++    execution_requirements: tuple[ExecutionResourceRequirementV1, ...] = ()
+     materials: tuple[MaterialDescriptorV1, ...] = ()
+     runtime_capabilities: RuntimeCapabilities
+     pricing_catalog_sha256: str
+@@ -658,6 +660,9 @@ class PlanCompilerInputEnvelope(FrozenContract):
+         obligation_ids = [item.obligation_id for item in self.execution_obligations]
+         if len(obligation_ids) != len(set(obligation_ids)):
+             raise ValueError("plan_input_execution_obligation_duplicate")
++        requirement_ids = [item.requirement_id for item in self.execution_requirements]
++        if len(requirement_ids) != len(set(requirement_ids)):
++            raise ValueError("plan_input_execution_requirement_duplicate")
+         material_ids = [item.source_id for item in self.materials]
+         if len(material_ids) != len(set(material_ids)):
+             raise ValueError("plan_input_material_source_duplicate")
+@@ -1618,6 +1623,7 @@ class CompilerStepDecisionV3(FrozenContract):
+     output_role: Literal["final", "selected_resource", "intermediate"]
+     intermediate_contract: CompilerIntermediateContractV3 | None = None
+     agent_base_model_resource_id: str | None = None
++    advisory_profile_refs: tuple[str, ...] = ()
+ 
+     @model_validator(mode="after")
+     def _output_shape(self) -> "CompilerStepDecisionV3":
+@@ -1964,7 +1970,14 @@ def _project_compiler_decision_v3(
+                     for source_operation in source_card.capability_operations
+                     for artifact_type in source_operation.produced_artifact_types
+                 )
+-            if accepted_types and mapping.source_kind != "literal":
++            advisory_skill_binding = (
++                mapping.source_kind == "step_output"
++                and cards.get(decision_steps[str(mapping.from_step)].resource_id) is not None
++                and cards[decision_steps[str(mapping.from_step)].resource_id].resource_type == "Skill"
++                and card.resource_type == "Agent"
++                and decision_steps[str(mapping.from_step)].resource_id in step.advisory_profile_refs
++            )
++            if accepted_types and mapping.source_kind != "literal" and not advisory_skill_binding:
+                 if not source_types:
+                     raise ValueError("compiler_v3_input_artifact_type_unproven")
+                 if not any(
+@@ -2135,7 +2148,7 @@ def _project_compiler_decision_v3(
+                     item.target_port, item.source_id, item.handle_id, item.content_sha256))),
+                 output_key=output_key,
+                 output_contract=output,
+-                advisory_profile_refs=(),
++                advisory_profile_refs=step.advisory_profile_refs,
+                 agent_base_model_resource_id=step.agent_base_model_resource_id,
+             )
+         )
+diff --git a/sgar_mvp/src/executors.py b/sgar_mvp/src/executors.py
+index 1c876cf..6ed5da9 100644
+--- a/sgar_mvp/src/executors.py
++++ b/sgar_mvp/src/executors.py
+@@ -10,6 +10,7 @@ Physical execution nodes that process individual subtasks.
+ 
+ from sgar_mvp.src.direct_network import (
+     direct_async_http_client, direct_environment, direct_container_environment_args,
++    load_tool_proxy_config, tool_proxy_audit, tool_proxy_environment,
+ )
+ 
+ import re
+@@ -1842,7 +1843,22 @@ class DumbExecutor(BaseExecutor):
+         ])
+         # Override inherited host, Docker-client and image proxy defaults.
+         # --network none above still controls resources without network permission.
+-        docker_args.extend(direct_container_environment_args())
++        proxy_config = load_tool_proxy_config(self.project_root)
++        proxy_audit = tool_proxy_audit(proxy_config)
++        docker_env.update(
++            tool_proxy_environment(
++                proxy_config,
++                network_required=network_required,
++                network_policy_mode=network_policy.mode,
++            )
++        )
++        docker_args.extend(
++            direct_container_environment_args(
++                proxy_config=proxy_config,
++                network_required=network_required,
++                network_policy_mode=network_policy.mode,
++            )
++        )
+         for key, value in dict(extra_env).items():
+             key_text = str(key or "").strip()
+             if not re.match(r"^[A-Za-z_][A-Za-z0-9_]*$", key_text):
+@@ -2004,6 +2020,7 @@ class DumbExecutor(BaseExecutor):
+             "network_mode": "enabled" if network_required else "none",
+             "network_policy_protocol": "sgar-network-policy-v1",
+             "network_policy_mode": network_policy.mode,
++            **proxy_audit,
+             "attempt_count": 1,
+             "execution_audit": execution_audit,
+             "sandbox_scope_hash": execution_audit["scope_hash"],
+diff --git a/sgar_mvp/src/plan_compiler.py b/sgar_mvp/src/plan_compiler.py
+index 540da2a..bf82039 100644
+--- a/sgar_mvp/src/plan_compiler.py
++++ b/sgar_mvp/src/plan_compiler.py
+@@ -190,7 +190,7 @@ COMPILER_OUTPUT_INSTRUCTIONS = (
+ 
+ from .input_alignment import alignment_evidence
+ 
+-PLAN_COMPILER_PROMPT_VERSION = "executable-plan-compiler-v33-node-constraint-guidance"
++PLAN_COMPILER_PROMPT_VERSION = "executable-plan-compiler-v34-execution-requirements"
+ COMPILER_MODEL_INPUT_PROTOCOL = "sgar-compiler-decision-input-v9"
+ PLAN_COMPILER_MAX_TRANSPORT_RETRIES = 2
+ PLAN_COMPILER_MAX_TRANSPORT_ATTEMPTS = 3
+@@ -460,6 +460,12 @@ PLAN_COMPILER_SYSTEM_PROMPT_V3 = (
+     "The original task owns explicit requirements; "
+     "Planner semantics define the subtask scope, and you choose implementation details only "
+     "where those requirements leave room. Never turn an unverified answer guess into const, "
++    "execution_requirements are user-declared hard constraints. Satisfy every listed relation "
++    "exactly from candidate_cards: direct_executor selects the step resource, agent_base_model "
++    "selects the Agent backing Model, controller_callable_tool selects controller_callable_tools, "
++    "and advisory_skill requires an explicit Skill step whose output is bound to the controller "
++    "and whose resource ID appears in that controller step's advisory_profile_refs. Never invent "
++    "or substitute an explicit identity or operation. "
+     "enum, fixed counts or bounds. Preserve explicit input, output and interface requirements. "
+     "authorized_artifact_sources[*].execution_contract describes an accepted producer artifact, not a "
+     "new requirement on your output. final_artifact_contract.content_kind is authoritative: "
+@@ -1934,6 +1940,10 @@ def _compiler_model_input_projection(
+             )
+             for item in envelope.execution_obligations
+         ],
++        "execution_requirements": [
++            item.model_dump(mode="json")
++            for item in envelope.execution_requirements
++        ],
+         "authorized_artifact_sources": authorized_artifact_sources,
+         "delivery_contract_sha256": delivery_contract_sha256,
+         "incoming_edge_contracts": [
+@@ -2246,7 +2256,7 @@ def _accepted_previous_plan_projection(envelope: PlanAdaptationInputEnvelope) ->
+                               if op.capability_operation_id == step.capability_operation_id), None) if card else None
+             if operation is None or operation.entrypoint_id != step.entrypoint_id:
+                 raise ValueError("accepted_operation_not_available")
+-            if step.output_key != step.step_id + "_output" or step.advisory_profile_refs:
++            if step.output_key != step.step_id + "_output":
+                 raise ValueError("accepted_step_not_expressible_in_current_wire")
+             if set(step.consumed_context_source_ids) != {b.source_id for b in step.context_bindings}:
+                 raise ValueError("accepted_context_binding_incomplete")
+@@ -2262,6 +2272,7 @@ def _accepted_previous_plan_projection(envelope: PlanAdaptationInputEnvelope) ->
+                 "output_role": "final" if step.step_id == plan.final_output.step_id else "intermediate",
+                 "concrete_output_contract": step.expected_output_contract.model_dump(mode="json"),
+                 "agent_base_model_resource_id": step.agent_base_model_resource_id,
++                "advisory_profile_refs": list(step.advisory_profile_refs),
+             })
+             for tool in getattr(step.controller_session_spec, "callable_tools", ()):
+                 callable_tools.append({
+@@ -2502,6 +2513,112 @@ def _request_provider_constraint_audit(
+     return audit
+ 
+ 
++def require_execution_resource_requirements(
++    decision: CompilerDecisionProposalV3,
++    envelope: PlanCompilerInputEnvelope,
++) -> None:
++    """Reject a sufficient Compiler decision that violates a user-bound resource relation."""
++
++    if not decision.is_sufficient or not envelope.execution_requirements:
++        return
++    cards = {item.resource_id: item for item in envelope.candidate_cards}
++    steps = tuple(decision.steps)
++    skill_steps = {
++        step.step_id: step
++        for step in steps
++        if cards.get(step.resource_id) is not None
++        and cards[step.resource_id].resource_type == "Skill"
++    }
++
++    def model_identity_matches(resource_id: str, api_model_id: str | None) -> bool:
++        card = cards.get(resource_id)
++        return bool(
++            card is not None
++            and card.resource_type == "Model"
++            and (
++                api_model_id is None
++                or (
++                    card.model_pricing is not None
++                    and card.model_pricing.api_model_id == api_model_id
++                )
++            )
++        )
++
++    for requirement in envelope.execution_requirements:
++        matched = False
++        if requirement.relation == "direct_executor":
++            matched = any(
++                cards.get(step.resource_id) is not None
++                and cards[step.resource_id].resource_type == requirement.resource_type
++                and (requirement.resource_id is None or step.resource_id == requirement.resource_id)
++                and (
++                    requirement.operation_id is None
++                    or step.capability_operation_id == requirement.operation_id
++                )
++                and (
++                    requirement.api_model_id is None
++                    or model_identity_matches(step.resource_id, requirement.api_model_id)
++                )
++                for step in steps
++            )
++        elif requirement.relation == "agent_base_model":
++            matched = any(
++                cards.get(step.resource_id) is not None
++                and cards[step.resource_id].resource_type == "Agent"
++                and step.agent_base_model_resource_id is not None
++                and (
++                    requirement.resource_id is None
++                    or step.agent_base_model_resource_id == requirement.resource_id
++                )
++                and model_identity_matches(
++                    step.agent_base_model_resource_id,
++                    requirement.api_model_id,
++                )
++                for step in steps
++            )
++        elif requirement.relation == "controller_callable_tool":
++            matched = any(
++                (requirement.resource_id is None or item.resource_id == requirement.resource_id)
++                and (
++                    requirement.operation_id is None
++                    or item.capability_operation_id == requirement.operation_id
++                )
++                and cards.get(item.resource_id) is not None
++                and cards[item.resource_id].resource_type == "Tool"
++                for item in decision.controller_callable_tools
++            )
++        elif requirement.relation == "advisory_skill":
++            for controller in steps:
++                controller_card = cards.get(controller.resource_id)
++                if controller_card is None or controller_card.resource_type != "Agent":
++                    continue
++                referenced = tuple(controller.advisory_profile_refs)
++                candidate_ids = tuple(
++                    skill_id
++                    for skill_id in referenced
++                    if (requirement.resource_id is None or skill_id == requirement.resource_id)
++                    and any(step.resource_id == skill_id for step in skill_steps.values())
++                )
++                if not candidate_ids:
++                    continue
++                bound_skill_steps = {
++                    str(mapping.from_step)
++                    for mapping in controller.input_mappings
++                    if mapping.source_kind == "step_output" and mapping.from_step is not None
++                }
++                matched = any(
++                    step_id in bound_skill_steps
++                    and skill_steps[step_id].resource_id in candidate_ids
++                    for step_id in skill_steps
++                )
++                if matched:
++                    break
++        if not matched:
++            raise PlanFrameworkValidationError(
++                f"compiler_execution_requirement_unsatisfied:{requirement.requirement_id}"
++            )
++
++
+ def _response_content(response: Any) -> str:
+     try:
+         choices = response.choices
+@@ -2980,6 +3097,9 @@ class ExecutablePlanCompiler:
+             dependency_edges=candidate_pool.dependency_edges,
+             public_context=public_context,
+             execution_obligations=obligations,
++            execution_requirements=tuple(
++                candidate_pool.contract_projection.execution_requirements
++            ),
+             materials=materials,
+             runtime_capabilities=runtime_capabilities,
+             pricing_catalog_sha256=pricing_catalog.pricing_catalog_sha256,
+@@ -3841,6 +3961,7 @@ class ExecutablePlanCompiler:
+                     decision=decision,
+                     envelope=envelope,
+                 )
++                require_execution_resource_requirements(decision, envelope)
+                 normalized_payload, normalization_audit = normalize_compiler_proposal_payload(
+                     proposal.model_dump(mode="json")
+                 )
+@@ -3908,6 +4029,10 @@ class ExecutablePlanCompiler:
+                     decision=adaptation_decision.plan_decision,
+                     envelope=envelope,
+                 )
++                require_execution_resource_requirements(
++                    adaptation_decision.plan_decision,
++                    envelope,
++                )
+                 if not adaptation_decision.plan_decision.is_sufficient:
+                     reason = ValueError("plan_adaptation_insufficient")
+                     reason.output_diagnostic = {
+diff --git a/sgar_mvp/src/tool_execution_provider.py b/sgar_mvp/src/tool_execution_provider.py
+index 01a40dc..f9e00fd 100644
+--- a/sgar_mvp/src/tool_execution_provider.py
++++ b/sgar_mvp/src/tool_execution_provider.py
+@@ -16,6 +16,7 @@ from typing import Any, Callable, Mapping, Sequence
+ from .executors import DumbExecutor, ExecutionResult, HostPythonExecutor
+ from .pipeline_control import canonical_sha256
+ from .process_supervisor import NetworkExecutionPolicy
++from .direct_network import load_tool_proxy_config, tool_proxy_audit
+ from .resource_runtime import (
+     ExecutionWorldDescriptor,
+     ResourceCallRequest,
+@@ -237,6 +238,13 @@ class PreparedToolDispatch:
+                     "extra_env_names": sorted(str(key) for key in self.extra_env),
+                     "network_required": self.network_required,
+                     "network_policy_mode": self.network_policy_mode,
++                    "tool_proxy_config_fingerprint": (
++                        tool_proxy_audit(load_tool_proxy_config(self.project_root))[
++                            "proxy_config_fingerprint"
++                        ]
++                        if self.network_required and self.network_policy_mode == "declared"
++                        else ""
++                    ),
+                     "scope": scope_projection,
+                 },
+             )
+
+# Note: touched tracked files also contained pre-existing authorized dirty changes at task start;
+# this diff is a touched-file view, not a synthetic patch that rewrites those changes.

@@ -527,7 +527,7 @@
       "source": "https://www.coingecko.com/en/api",
       "license": "CC-BY-4.0",
       "recognized_public_tool": true,
-      "source_hash": "sha256:a79dc6870f29d7381b963a1b6d6d8a0e1d37bef51166492adb4eb830ea0100d0",
+      "source_hash": "sha256:08eca0014ce0b7dd0af2acc57779dffa3db0e8739fa26045c15a76e73dec8a63",
       "local_implementation_uri": "file://Pool/resources/tools/api/api.coingecko.price.py",
       "auth_required": false,
       "auth_evidence": "wrapper_and_shared_adapter_read_no_credentials",
@@ -3402,7 +3402,7 @@
       "source": "https://openskynetwork.github.io/opensky-api/",
       "license": "non-commercial",
       "recognized_public_tool": true,
-      "source_hash": "sha256:4ea6e3aa4984a05fef81588f223a72db13155af4f00579f343c69c548f613386",
+      "source_hash": "sha256:16cf5d8d4f870ef878c5593f94369d5b9c7da9e43bb5f870e4538906471601b6",
       "local_implementation_uri": "file://Pool/resources/tools/api/api.opensky_flights.py",
       "auth_required": false,
       "auth_evidence": "wrapper_and_shared_adapter_read_no_credentials",
@@ -18694,7 +18694,80 @@
     ],
     "output_contract": {
       "artifact_type": "json",
-      "description": "JSON execution report with streams, exit code, latency, and heuristically detected changed-file paths; produced files are side effects, not the outer artifact."
+      "description": "JSON execution report with streams, exit code, latency, and heuristically detected changed-file paths; produced files are side effects, not the outer artifact.",
+      "schema_hint": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "oneOf": [
+          {
+            "type": "object",
+            "required": [
+              "status",
+              "error"
+            ],
+            "properties": {
+              "status": {
+                "enum": [
+                  "invalid",
+                  "blocked",
+                  "missing",
+                  "timeout"
+                ]
+              },
+              "error": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "required": [
+              "status",
+              "exit_code",
+              "script_path",
+              "cwd",
+              "stdout",
+              "stderr",
+              "produced_files",
+              "latency_ms"
+            ],
+            "properties": {
+              "status": {
+                "enum": [
+                  "ok",
+                  "failed"
+                ]
+              },
+              "exit_code": {
+                "type": "integer"
+              },
+              "script_path": {
+                "type": "string"
+              },
+              "cwd": {
+                "type": "string"
+              },
+              "stdout": {
+                "type": "string"
+              },
+              "stderr": {
+                "type": "string"
+              },
+              "produced_files": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "latency_ms": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": false
+          }
+        ]
+      }
     },
     "runtime_requirements": {
       "runtime_profile": "sgar-runtime",

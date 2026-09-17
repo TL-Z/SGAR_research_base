@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-15T20:11:52.042170+00:00",
+  "docker_image": "sgar-runtime:rc1",
+  "docker_image_id": "sha256:3df4a3e71cdb166638b00b2b1af650d54068abb07c11c05042d3f67c9d699185",
+  "policy": {
+    "real_execution_only": true,
+    "dynamic_install": false,
+    "max_auto_heals": 0,
+    "filesystem_scope": "per-tool isolated workspace"
+  },
+  "summary": {
+    "catalog_active": 1,
+    "ready": 0,
+    "blocked": 0,
+    "transient_failure": 1
+  },
+  "tools": [
+    {
+      "resource_id": "tool.api.arxiv.search.v1",
+      "status": "transient_failure",
+      "smoke_passed": false,
+      "failure_type": "smoke_timeout",
+      "latency_ms": 45000,
+      "attempt_count": 1,
+      "checked_at": "2026-09-15T20:11:52.042093+00:00",
+      "source_hash": "sha256:3f9ebaef9d551cd70ce8bfa275921f08ca50252d8c3327416822aa63a614c924",
+      "docker_image_id": "sha256:3df4a3e71cdb166638b00b2b1af650d54068abb07c11c05042d3f67c9d699185"
+    }
+  ]
+}

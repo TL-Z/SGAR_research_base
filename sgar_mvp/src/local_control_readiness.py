@@ -8,12 +8,14 @@ independent. This loader never sends requests or discovers another receipt.
 from pathlib import Path
 from typing import Any, Mapping
 
+from .control_role_policy import ControlRolePolicyV1
 from .release_provider_receipt import load_and_verify_release_provider_probe_receipt
 
 
 def load_git_control_probe_receipt(
     project_root: str | Path, *, config: Mapping[str, Any],
     expected_endpoint_identity_sha256: str,
+    control_role_policy: ControlRolePolicyV1 | None = None,
 ) -> tuple[Path, dict[str, Any]]:
     raw = config.get("runtime_settings", {}).get(
         "control_probe_receipt_path",
@@ -28,5 +30,7 @@ def load_git_control_probe_receipt(
     if not path.is_file():
         raise RuntimeError("git_control_probe_receipt_missing")
     return path, load_and_verify_release_provider_probe_receipt(
-        path, expected_endpoint_identity_sha256=expected_endpoint_identity_sha256,
+        path,
+        expected_endpoint_identity_sha256=expected_endpoint_identity_sha256,
+        control_role_policy=control_role_policy,
     )

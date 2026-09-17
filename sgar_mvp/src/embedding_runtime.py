@@ -8,6 +8,9 @@ import os
 import threading
 import urllib.error
 import urllib.request
+from contextlib import contextmanager
+from contextvars import ContextVar
+from dataclasses import dataclass, field
 from importlib import metadata as importlib_metadata
 from pathlib import Path
 from typing import Any, Literal, Mapping, Sequence
@@ -35,6 +38,86 @@ CONSTRAINT_QUERY_INSTRUCTION = (
     "output, interaction, and runtime constraints are compatible."
 )
 QueryRole = Literal["capability", "constraint", "raw"]
+
+
+class EmbeddingRequestLimitError(RetrievalLifecycleError):
+    """Raised before transport when the current run exhausted its request cap."""
+
+    failure_code = "embedding_request_limit_reached"
+
+    def __init__(self) -> None:
+        super().__init__(self.failure_code)
+
+
+@dataclass
+class EmbeddingRequestBudget:
+    """Per-run request counter shared by every embedding transport call."""
+
+    max_requests: int | None = None
+    started_request_count: int = 0
+    input_count: int = 0
+    blocked_request_count: int = 0
+    transports: list[dict[str, Any]] = field(default_factory=list)
+    _lock: threading.RLock = field(default_factory=threading.RLock, repr=False)
+
+    def __post_init__(self) -> None:
+        if self.max_requests is not None and (
+            type(self.max_requests) is not int or self.max_requests < 0
+        ):
+            raise ValueError("max_embedding_requests_invalid")
+
+    def authorize(self, *, model_id: str, input_count: int) -> None:
+        if type(input_count) is not int or input_count < 1:
+            raise ValueError("embedding_request_input_count_invalid")
+        with self._lock:
+            if (
+                self.max_requests is not None
+                and self.started_request_count >= self.max_requests
+            ):
+                self.blocked_request_count += 1
+                raise EmbeddingRequestLimitError()
+            self.started_request_count += 1
+            self.input_count += input_count
+            self.transports.append(
+                {
+                    "request_number": self.started_request_count,
+                    "model_id": str(model_id),
+                    "input_count": input_count,
+                }
+            )
+
+    def summary(self) -> dict[str, Any]:
+        with self._lock:
+            return {
+                "max_embedding_requests": self.max_requests,
+                "started_request_count": self.started_request_count,
+                "input_count": self.input_count,
+                "blocked_request_count": self.blocked_request_count,
+                "transports": list(self.transports),
+            }
+
+
+_EMBEDDING_REQUEST_BUDGET: ContextVar[EmbeddingRequestBudget | None] = ContextVar(
+    "sgar_embedding_request_budget", default=None
+)
+
+
+@contextmanager
+def embedding_request_budget(max_requests: int | None):
+    """Bind one optional embedding budget to the current pipeline context."""
+
+    budget = EmbeddingRequestBudget(max_requests=max_requests)
+    token = _EMBEDDING_REQUEST_BUDGET.set(budget)
+    try:
+        yield budget
+    finally:
+        _EMBEDDING_REQUEST_BUDGET.reset(token)
+
+
+def authorize_embedding_request(*, model_id: str, input_count: int) -> None:
+    budget = _EMBEDDING_REQUEST_BUDGET.get()
+    if budget is not None:
+        budget.authorize(model_id=model_id, input_count=input_count)
 
 
 class EmbeddingRuntimeConfigV1(FrozenContract):
@@ -703,6 +786,10 @@ class _OpenAICompatibleEmbeddingEncoder:
                 headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
                 method="POST",
             )
+            authorize_embedding_request(
+                model_id=self.config.api_model_id,
+                input_count=len(batch),
+            )
             try:
                 with urllib.request.urlopen(request, timeout=120) as response:
                     status = int(response.status)
@@ -739,9 +826,12 @@ __all__ = [
     "INDEX_META_PROTOCOL",
     "EmbeddingRuntimeConfigV1",
     "EmbeddingRuntimeIdentityV2",
+    "EmbeddingRequestBudget",
+    "EmbeddingRequestLimitError",
     "IndexMetaV2",
     "LocalEmbeddingEncoder",
     "embedding_config_from_metadata",
+    "embedding_request_budget",
     "embedding_runtime_identity_v2",
     "load_embedding_release_config",
     "prepare_document_texts",

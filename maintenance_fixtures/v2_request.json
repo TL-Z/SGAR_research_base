@@ -1,0 +1,17 @@
+{
+  "request_id": "resource-coverage-v2-20260915",
+  "query": "Treat this as one indivisible final-output subtask; do not create an intermediate Model-only analysis task. The final producer must be Agent resource_id agent.fullstack_implementation_engineer.v1, bound to Model resource_id model.qwen3_5_35b_a3b.v1 with API identity qwen3.5-35b-a3b. The Agent must inspect the supplied small JSON dataset by actually calling Tool resource_id tool.mcp.fs_read_file.v1 with capability operation tool.mcp.fs_read_file.v1::read_text_file, receive that Tool result in the same controller session, and apply advisory Skill resource_id skill.superpowers.verification-before-completion.v1 before writing. Produce one concise Markdown evidence note stating that there are 2 rows and the total value is 8, and cite the Tool result. A correct answer without a real Tool call or without the Skill instruction does not satisfy this bounded integration fixture.",
+  "inputs": [
+    {"name": "dataset", "path": "./v2_material.json"}
+  ],
+  "final_deliverable_contract": {
+    "protocol": "sgar-final-deliverable-contract-v1",
+    "representation": "file",
+    "format_id": "markdown",
+    "media_type": "text/markdown",
+    "extension": ".md",
+    "logical_name": "v2_agent_tool_skill.md",
+    "primary_member": null,
+    "required_members": []
+  }
+}

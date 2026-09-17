@@ -1,0 +1,100 @@
+{
+  "resource_id": "claude-opus-5",
+  "type": {
+    "resource_type": "Model",
+    "resource_tag": [
+      "1M Context",
+      "7.6950",
+      "38.4750",
+      "0.7700"
+    ]
+  },
+  "capability": {
+    "summary": "High-capability model for complex coding, agentic workflows, and sustained reasoning.",
+    "core_primitives": [
+      "complex code generation",
+      "agentic task execution",
+      "long-context analysis",
+      "tool-assisted problem solving"
+    ],
+    "problem_space": "Language model for complex coding, agentic workflows, and sustained reasoning over supplied evidence. Accepts text and image input and produces text output. External tools are required to execute programs, browse sources, or modify files; documented native capabilities do not establish compatibility with the configured Chat Completions gateway.",
+    "domain_tags": [
+      "Language",
+      "Software Engineering",
+      "Visual Understanding"
+    ]
+  },
+  "constraint": {
+    "env_requirements": [
+      "Endpoint exposing claude-opus-5 through Chat Completions",
+      "Valid API key for the configured supplier gateway",
+      "Gateway support for each requested structured-output and tool-use feature"
+    ],
+    "io_signature": "Input modalities: text, image | Output modalities: text. Current gateway compatibility requires live verification."
+  },
+  "utility": {
+    "latency_ms": 0,
+    "token_cost_factor": 0,
+    "expected_success_rate": 0
+  },
+  "execution": {
+    "uri": "${base_url}/v1/chat/completions",
+    "model_id": "claude-opus-5"
+  },
+  "memory": {
+    "success_trajectories": [],
+    "failure_reflections": []
+  },
+  "provenance": {
+    "reviewed_at": "2026-09-15",
+    "evidence_status": "provider_documented_not_gateway_verified",
+    "integration_status": "source_registered_pending_gateway_verification",
+    "source_urls": [
+      "https://platform.claude.com/docs/en/models/overview",
+      "https://platform.claude.com/docs/en/models/opus-5/whats-new-opus-5"
+    ],
+    "pricing_status": "supplier_quote_recorded",
+    "supplier_quote": {
+      "source": "user_supplied_supplier_screenshot",
+      "recorded_at": "2026-09-15",
+      "api_model_id": "claude-opus-5",
+      "pricing_unit": "USD_per_million_tokens",
+      "input_per_m": "7.6950",
+      "output_per_m": "38.4750",
+      "cache_read_per_m": "0.7700",
+      "cache_creation_per_m": "9.6190",
+      "unlisted_rates": "unknown_not_zero",
+      "accounting_scope": "Current runtime accounting uses ordinary input, output, and cache-read rates; cache creation remains recorded but is not treated as zero.",
+      "endpoint_verification": "not_run"
+    },
+    "gateway_verification_status": "not_run"
+  },
+  "type_specific": {
+    "model": {
+      "profile_version": "model-capabilities-v1",
+      "input_modalities": [
+        "text",
+        "image"
+      ],
+      "output_modalities": [
+        "text"
+      ],
+      "supports": {
+        "tool_calling": true,
+        "json_mode": true,
+        "vision": true,
+        "reasoning": true,
+        "coding": true,
+        "structured_outputs": true
+      },
+      "thinking_mode": "adaptive_default_on",
+      "native_protocol": "anthropic_messages",
+      "documented_context_tokens": 1000000,
+      "evidence_status": "provider_documented_not_gateway_verified",
+      "gateway_verification_status": "not_run",
+      "limitations": [
+        "Configured Chat Completions gateway compatibility is not established by native Anthropic documentation."
+      ]
+    }
+  }
+}

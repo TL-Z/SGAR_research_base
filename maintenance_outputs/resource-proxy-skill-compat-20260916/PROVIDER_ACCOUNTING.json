@@ -1,0 +1,8 @@
+{
+  "embedding_provider": "localhost-only",
+  "llm_provider_calls": 2,
+  "llm_cost_usd": "recorded in run cost summary",
+  "blocked_models_called": [],
+  "network_tool_external_calls": 5,
+  "note": "Network diagnostics are non-LLM and not billed."
+}

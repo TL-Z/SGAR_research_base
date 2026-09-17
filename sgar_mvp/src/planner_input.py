@@ -255,6 +255,7 @@ class PlannerInputEnvelopeV2(_PlannerInputModel):
     completed_outputs: list[PlannerCompletedOutputV2]
     final_deliverable: PlannerFinalDeliverableV2
     capability_context: list[dict[str, Any]]
+    source_clauses: list[PlannerSourceClauseV1] = Field(default_factory=list)
     limits: PlannerLimitsV2 = Field(default_factory=PlannerLimitsV2)
 
     @model_validator(mode="after")
@@ -629,6 +630,11 @@ def build_planner_input_envelope_v2(
             else None
         ),
         capability_context=capability_catalog.model_projection(),
+        source_clauses=_source_clause_catalog(
+            request_text=request_text,
+            final_contract=None,
+            protected_contracts=(),
+        ),
     )
 
 

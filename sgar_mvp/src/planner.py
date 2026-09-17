@@ -88,7 +88,7 @@ _PROMPT_DIR = os.path.join(os.path.dirname(__file__), "prompts")
 _PLANNER_PROMPT_FILE = os.path.join(_PROMPT_DIR, "planner_system.txt")
 _PLANNER_FEW_SHOT_FILE = os.path.join(_PROMPT_DIR, "planner_few_shots_v6.json")
 
-_PLANNER_PROMPT_VERSION = "planner-contract-v17-result-semantics"
+_PLANNER_PROMPT_VERSION = "planner-contract-v18-execution-requirements"
 PLANNER_REPLAN_PROMPT_VERSION = "sgar-planner-replan-en-v2"
 PLANNER_REPLAN_SYSTEM_PROMPT = (
     "You revise exactly one rejected S-GAR DAG node. Return one DAGPatch JSON object "
@@ -2127,6 +2127,9 @@ class SGARPlanner:
                         expected_final_deliverable=(
                             input_envelope.final_deliverable.model_dump(mode="python")
                         ),
+                        allowed_source_clause_ids=[
+                            item.clause_id for item in input_envelope.source_clauses
+                        ],
                     )
                     parsed_payload = projected_output.model_dump(mode="python")
                     metadata["planner_wire_projection"] = planner_wire_projection_audit(
@@ -2154,6 +2157,9 @@ class SGARPlanner:
                                     mode="python"
                                 )
                             ),
+                            allowed_source_clause_ids=[
+                                item.clause_id for item in input_envelope.source_clauses
+                            ],
                         ).model_dump(mode="python")
                 if mixed_extracted:
                     logger.warning("[Planner] Extracted JSON object from mixed provider output.")

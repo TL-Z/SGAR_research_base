@@ -701,7 +701,7 @@ def validate_resource_profiles(
                 + _strings(agent.get("allowed_dependency_ids"))
             )
             for missing in sorted(dependency_ids - id_set):
-                target.append(
+                warnings.append(
                     {
                         "resource_id": rid,
                         "code": "missing_agent_dependency_hint",

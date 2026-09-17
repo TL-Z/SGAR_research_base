@@ -1,0 +1,92 @@
+{
+  "accounting_persistence_failure_count": 0,
+  "blocked_call_count": 0,
+  "budget_status": {
+    "limit_reached": false,
+    "mode": "stop_after_limit",
+    "overshoot_usd": "0.000000000000",
+    "usage_unknown_blocks_next_call": false,
+    "warning_emitted": false
+  },
+  "by_model": {
+    "model.gpt_5_6_sol.v1": {
+      "attempt_count": 4,
+      "cached_input_tokens": 61184,
+      "input_tokens": 124149,
+      "observed_model_cost_usd": "0.335949390000",
+      "output_tokens": 22471,
+      "response_count": 4
+    }
+  },
+  "by_stage": {
+    "plan_compiler": {
+      "attempt_count": 2,
+      "cached_input_tokens": 61184,
+      "input_tokens": 114282,
+      "observed_model_cost_usd": "0.272365740000",
+      "output_tokens": 17817,
+      "response_count": 2
+    },
+    "planner_decompose": {
+      "attempt_count": 1,
+      "cached_input_tokens": 0,
+      "input_tokens": 7725,
+      "observed_model_cost_usd": "0.029177550000",
+      "output_tokens": 1736,
+      "response_count": 1
+    },
+    "retrieval_hyde": {
+      "attempt_count": 1,
+      "cached_input_tokens": 0,
+      "input_tokens": 2142,
+      "observed_model_cost_usd": "0.034406100000",
+      "output_tokens": 2918,
+      "response_count": 1
+    }
+  },
+  "by_subtask": {
+    "__global__": {
+      "attempt_count": 1,
+      "cached_input_tokens": 0,
+      "input_tokens": 7725,
+      "observed_model_cost_usd": "0.029177550000",
+      "output_tokens": 1736,
+      "response_count": 1
+    },
+    "task_001": {
+      "attempt_count": 3,
+      "cached_input_tokens": 61184,
+      "input_tokens": 116424,
+      "observed_model_cost_usd": "0.306771840000",
+      "output_tokens": 20735,
+      "response_count": 3
+    }
+  },
+  "finished_call_count": 4,
+  "no_response_attempt_count": 0,
+  "observed_total_model_cost_usd": "0.335949390000",
+  "pending_call_count": 0,
+  "pricing_catalog_sha256": "221b024c487460ca1e991d64d8e64245ab80716970fd7eee4efb7abd749a47aa",
+  "provider_reported_cost_complete": true,
+  "resolved_cost_policy": {
+    "limit_usd": "10.000000000000",
+    "mode": "stop_after_limit",
+    "policy_sha256": "b3f8323f6fa74e42b09e2c05a0fb2200c4023f8fcd39d6ae24daeb9dbb3eb778",
+    "schema_version": "model-cost-policy-v1",
+    "strict_pricing": true,
+    "unknown_model": "reject",
+    "warning_usd": "10.000000000000"
+  },
+  "resource_pool_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25",
+  "response_usage_invalid_count": 0,
+  "response_usage_missing_count": 0,
+  "run_id": "a4a93f823b2f458380a0e371a8a53845",
+  "schema_version": "sgar-model-cost-summary-v1",
+  "started_call_count": 4,
+  "token_usage": {
+    "cached_input_tokens": 61184,
+    "input_tokens": 124149,
+    "output_tokens": 22471
+  },
+  "warning_count": 0
+}

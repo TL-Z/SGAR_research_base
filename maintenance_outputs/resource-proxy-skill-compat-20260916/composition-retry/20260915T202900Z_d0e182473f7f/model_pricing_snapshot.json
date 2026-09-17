@@ -1,0 +1,218 @@
+{
+  "model_count": 19,
+  "models": [
+    {
+      "api_model_id": "claude-fable-5-1",
+      "cache_per_m": "1.539",
+      "input_per_m": "15.39",
+      "output_per_m": "76.95",
+      "pricing_unit": "USD_per_million_tokens",
+      "protocol": "sgar-model-pricing-v1",
+      "provider": "anthropic",
+      "resource_id": "model.claude_fable_5_1.v1",
+      "source_manifest_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25"
+    },
+    {
+      "api_model_id": "claude-opus-5",
+      "cache_per_m": "0.77",
+      "input_per_m": "7.695",
+      "output_per_m": "38.475",
+      "pricing_unit": "USD_per_million_tokens",
+      "protocol": "sgar-model-pricing-v1",
+      "provider": "anthropic",
+      "resource_id": "model.claude_opus_5.v1",
+      "source_manifest_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25"
+    },
+    {
+      "api_model_id": "claude-sonnet-5",
+      "cache_per_m": "0.308",
+      "input_per_m": "3.078",
+      "output_per_m": "15.39",
+      "pricing_unit": "USD_per_million_tokens",
+      "protocol": "sgar-model-pricing-v1",
+      "provider": "anthropic",
+      "resource_id": "model.claude_sonnet_5.v1",
+      "source_manifest_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25"
+    },
+    {
+      "api_model_id": "deepseek-v4.1-flash",
+      "cache_per_m": "0.004",
+      "input_per_m": "0.188",
+      "output_per_m": "0.75",
+      "pricing_unit": "USD_per_million_tokens",
+      "protocol": "sgar-model-pricing-v1",
+      "provider": "deepseek",
+      "resource_id": "model.deepseek_v4_1_flash.v1",
+      "source_manifest_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25"
+    },
+    {
+      "api_model_id": "deepseek-v4-pro-0813",
+      "cache_per_m": "0.028",
+      "input_per_m": "0.844",
+      "output_per_m": "2.531",
+      "pricing_unit": "USD_per_million_tokens",
+      "protocol": "sgar-model-pricing-v1",
+      "provider": "deepseek",
+      "resource_id": "model.deepseek_v4_pro.v1",
+      "source_manifest_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25"
+    },
+    {
+      "api_model_id": "gemini-3.8-flash",
+      "cache_per_m": "0.034",
+      "input_per_m": "0.337",
+      "output_per_m": "1.683",
+      "pricing_unit": "USD_per_million_tokens",
+      "protocol": "sgar-model-pricing-v1",
+      "provider": "google",
+      "resource_id": "model.gemini_3_8_flash.v1",
+      "source_manifest_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25"
+    },
+    {
+      "api_model_id": "glm-5.3",
+      "cache_per_m": "0.375",
+      "input_per_m": "1.5",
+      "output_per_m": "5.25",
+      "pricing_unit": "USD_per_million_tokens",
+      "protocol": "sgar-model-pricing-v1",
+      "provider": "zhipu",
+      "resource_id": "model.glm_5_3.v1",
+      "source_manifest_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25"
+    },
+    {
+      "api_model_id": "gpt-5.3-codex",
+      "cache_per_m": "0.0",
+      "input_per_m": "1.181",
+      "output_per_m": "9.45",
+      "pricing_unit": "USD_per_million_tokens",
+      "protocol": "sgar-model-pricing-v1",
+      "provider": "openai",
+      "resource_id": "model.gpt_5_3_codex.v1",
+      "source_manifest_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25"
+    },
+    {
+      "api_model_id": "gpt-5.6-luna",
+      "cache_per_m": "0.027",
+      "input_per_m": "0.27",
+      "output_per_m": "2.16",
+      "pricing_unit": "USD_per_million_tokens",
+      "protocol": "sgar-model-pricing-v1",
+      "provider": "openai",
+      "resource_id": "model.gpt_5_6_luna.v1",
+      "source_manifest_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25"
+    },
+    {
+      "api_model_id": "gpt-5.6-sol",
+      "cache_per_m": "0.135",
+      "input_per_m": "1.35",
+      "output_per_m": "10.8",
+      "pricing_unit": "USD_per_million_tokens",
+      "protocol": "sgar-model-pricing-v1",
+      "provider": "openai",
+      "resource_id": "model.gpt_5_6_sol.v1",
+      "source_manifest_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25"
+    },
+    {
+      "api_model_id": "gpt-5-nano",
+      "cache_per_m": "0.003",
+      "input_per_m": "0.034",
+      "output_per_m": "0.27",
+      "pricing_unit": "USD_per_million_tokens",
+      "protocol": "sgar-model-pricing-v1",
+      "provider": "openai",
+      "resource_id": "model.gpt_5_nano.v1",
+      "source_manifest_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25"
+    },
+    {
+      "api_model_id": "gpt-6-astra",
+      "cache_per_m": "0.27",
+      "input_per_m": "2.7",
+      "output_per_m": "13.5",
+      "pricing_unit": "USD_per_million_tokens",
+      "protocol": "sgar-model-pricing-v1",
+      "provider": "openai",
+      "resource_id": "model.gpt_6_astra.v1",
+      "source_manifest_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25"
+    },
+    {
+      "api_model_id": "kimi-k2.7-code",
+      "cache_per_m": "0.244",
+      "input_per_m": "1.219",
+      "output_per_m": "5.062",
+      "pricing_unit": "USD_per_million_tokens",
+      "protocol": "sgar-model-pricing-v1",
+      "provider": "moonshot",
+      "resource_id": "model.kimi_k2_7_code.v1",
+      "source_manifest_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25"
+    },
+    {
+      "api_model_id": "kimi-k3",
+      "cache_per_m": "0.375",
+      "input_per_m": "3.75",
+      "output_per_m": "18.75",
+      "pricing_unit": "USD_per_million_tokens",
+      "protocol": "sgar-model-pricing-v1",
+      "provider": "moonshot",
+      "resource_id": "model.kimi_k3.v1",
+      "source_manifest_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25"
+    },
+    {
+      "api_model_id": "qwen3.5-35b-a3b",
+      "cache_per_m": null,
+      "input_per_m": "0.075",
+      "output_per_m": "0.6",
+      "pricing_unit": "USD_per_million_tokens",
+      "protocol": "sgar-model-pricing-v1",
+      "provider": "qwen",
+      "resource_id": "model.qwen3_5_35b_a3b.v1",
+      "source_manifest_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25"
+    },
+    {
+      "api_model_id": "qwen3.8-flash",
+      "cache_per_m": "0.019",
+      "input_per_m": "0.15",
+      "output_per_m": "0.506",
+      "pricing_unit": "USD_per_million_tokens",
+      "protocol": "sgar-model-pricing-v1",
+      "provider": "qwen",
+      "resource_id": "model.qwen3_8_flash.v1",
+      "source_manifest_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25"
+    },
+    {
+      "api_model_id": "qwen3.8-max",
+      "cache_per_m": "0.281",
+      "input_per_m": "2.25",
+      "output_per_m": "6.75",
+      "pricing_unit": "USD_per_million_tokens",
+      "protocol": "sgar-model-pricing-v1",
+      "provider": "qwen",
+      "resource_id": "model.qwen3_8_max_0902.v1",
+      "source_manifest_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25"
+    },
+    {
+      "api_model_id": "qwen3-coder-next",
+      "cache_per_m": null,
+      "input_per_m": "0.525",
+      "output_per_m": "3.937",
+      "pricing_unit": "USD_per_million_tokens",
+      "protocol": "sgar-model-pricing-v1",
+      "provider": "qwen",
+      "resource_id": "model.qwen3_coder_next.v1",
+      "source_manifest_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25"
+    },
+    {
+      "api_model_id": "qwen3-vl-235b-a22b-instruct",
+      "cache_per_m": null,
+      "input_per_m": "0.469",
+      "output_per_m": "1.875",
+      "pricing_unit": "USD_per_million_tokens",
+      "protocol": "sgar-model-pricing-v1",
+      "provider": "qwen",
+      "resource_id": "model.qwen3_vl_235b_a22b_instruct.v1",
+      "source_manifest_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25"
+    }
+  ],
+  "pricing_catalog_sha256": "221b024c487460ca1e991d64d8e64245ab80716970fd7eee4efb7abd749a47aa",
+  "pricing_unit": "USD_per_million_tokens",
+  "resource_pool_sha256": "b6d3f3fa1f0c02f5c681ab5eb0de4b6429782b81889ba910174a74d418214e25",
+  "schema_version": "sgar-model-pricing-v1"
+}

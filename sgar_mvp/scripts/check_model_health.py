@@ -513,25 +513,29 @@ def check_one(
     retries: int,
     retry_delay_seconds: float,
     capability_assignments: set[str],
+    transport: SyncModelTransportPort | None = None,
 ) -> dict[str, Any]:
     started = time.perf_counter()
     checked_at = utc_now()
-    sdk_client = OpenAI(
-        http_client=direct_sync_http_client(),
-        api_key=api_key,
-        base_url=base_url,
-        timeout=timeout_seconds,
-        max_retries=0,
-    )
-    client = SyncModelTransportPort.from_sdk_client(
-        client=sdk_client,
-        endpoint_identity=ProviderEndpointIdentity.create(
-            provider="openai_compatible",
+    if transport is None:
+        sdk_client = OpenAI(
+            http_client=direct_sync_http_client(),
+            api_key=api_key,
             base_url=base_url,
-            credential_environment_variable=credential_environment_variable,
-            timeout_seconds=timeout_seconds,
-        ),
-    )
+            timeout=timeout_seconds,
+            max_retries=0,
+        )
+        client = SyncModelTransportPort.from_sdk_client(
+            client=sdk_client,
+            endpoint_identity=ProviderEndpointIdentity.create(
+                provider="openai_compatible",
+                base_url=base_url,
+                credential_environment_variable=credential_environment_variable,
+                timeout_seconds=timeout_seconds,
+            ),
+        )
+    else:
+        client = transport
     _, failure, attempts = run_with_infrastructure_retries(
         lambda: text_probe(client, info["model_id"], max_tokens),
         retries=retries,

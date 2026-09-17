@@ -17,6 +17,7 @@ from .pipeline_control import FrozenContract, SubtaskRevisionRef, canonical_sha2
 
 
 EVALUATOR_POLICY_PROTOCOL = "sgar-evaluator-policy-v2"
+EVALUATOR_POLICY_EXPERIMENT_PROTOCOL = "sgar-evaluator-policy-v3"
 EVALUATION_REFERENCE_PROTOCOL = "sgar-evaluation-reference-v1"
 EVALUATION_INPUT_PROTOCOL = "sgar-evaluation-input-v1"
 EVALUATION_DECISION_PROTOCOL = "sgar-evaluation-decision-v1"
@@ -278,13 +279,16 @@ class FinalArtifactCandidateV2(FrozenContract):
 
 
 class EvaluatorPolicy(FrozenContract):
-    protocol: Literal[EVALUATOR_POLICY_PROTOCOL] = EVALUATOR_POLICY_PROTOCOL
+    protocol: Literal[
+        EVALUATOR_POLICY_PROTOCOL,
+        EVALUATOR_POLICY_EXPERIMENT_PROTOCOL,
+    ] = EVALUATOR_POLICY_PROTOCOL
     model_resource_id: str = "model.gpt_5_6_sol.v1"
     max_initial_semantic_calls: Literal[1] = 1
     max_review_semantic_calls: Literal[1] = 1
     transport_retry_limit: Literal[2] = 2
-    reasoning_effort: Literal["high"] = "high"
-    temperature: None = None
+    reasoning_effort: Literal["low", "medium", "high", "xhigh", "max"] | None = "high"
+    temperature: float | None = Field(default=None, ge=0.0, le=2.0)
     strict_schema: Literal[True] = True
     initial_evidence_max_bytes: Literal[262144] = 262144
     review_evidence_max_bytes: Literal[262144] = 262144
@@ -307,6 +311,14 @@ class EvaluatorPolicy(FrozenContract):
 
     @model_validator(mode="after")
     def _seal(self) -> "EvaluatorPolicy":
+        if self.reasoning_effort is not None and self.temperature is not None:
+            raise ValueError("evaluator_reasoning_and_temperature_conflict")
+        if self.protocol == EVALUATOR_POLICY_PROTOCOL and (
+            self.model_resource_id != "model.gpt_5_6_sol.v1"
+            or self.reasoning_effort != "high"
+            or self.temperature is not None
+        ):
+            raise ValueError("evaluator_policy_v2_identity_invalid")
         expected = canonical_sha256(self.model_dump(mode="python", exclude={"policy_sha256"}))
         if self.policy_sha256 and require_sha256(
             self.policy_sha256, field_name="policy_sha256"
@@ -1009,6 +1021,7 @@ __all__ = [
     "EVALUATION_INPUT_PROTOCOL",
     "EVALUATION_REFERENCE_PROTOCOL",
     "EVALUATION_REVIEW_PROTOCOL",
+    "EVALUATOR_POLICY_EXPERIMENT_PROTOCOL",
     "EVALUATOR_POLICY_PROTOCOL",
     "ArtifactEvidenceBundle",
     "ArtifactDescriptorV2",

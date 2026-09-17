@@ -1,0 +1,20 @@
+{
+  "request_id": "resource-correction-composition-20260915",
+  "query": "Treat this as one indivisible final-output subtask. The direct executor must be Agent resource_id agent.fullstack_implementation_engineer.v1, its base Model must be resource_id model.qwen3_5_35b_a3b.v1 with API identity qwen3.5-35b-a3b, its controller must actually call Tool resource_id tool.mcp.fs_read_file.v1 using capability operation tool.mcp.fs_read_file.v1::read_text_file, and it must consume advisory Skill resource_id skill.superpowers.verification-before-completion.v1. The Tool must read the supplied JSON dataset through the authorized material scope and return its real result to the same Agent controller session. Produce one concise Markdown evidence note stating the row count and total value, citing the Tool result. A correct answer without a real Tool call or without the Skill instruction does not satisfy this synthetic fixture.",
+  "inputs": [
+    {
+      "name": "dataset",
+      "path": "./v2_material.json"
+    }
+  ],
+  "final_deliverable_contract": {
+    "protocol": "sgar-final-deliverable-contract-v1",
+    "representation": "file",
+    "format_id": "markdown",
+    "media_type": "text/markdown",
+    "extension": ".md",
+    "logical_name": "resource_composition_evidence.md",
+    "primary_member": null,
+    "required_members": []
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "protocol": "sgar-planner-strict-comparison-v1",
+  "role": "planner",
+  "physical_sends": 4,
+  "sdk_retries": 0,
+  "results": [
+    {
+      "resource_id": "model.gpt_5_6_sol.v1",
+      "api_model_id": "gpt-5.6-sol",
+      "status": "passed",
+      "error": null,
+      "request_sha256": "56d292d57bc6044c1328b4598d781734fe5c4b79bb8941d2e8ec768c22e4a218",
+      "response_sha256": "a5e6dbc0af31e55662ec887f702c84303290e44f2f7254cae9f45d5f37e053fd",
+      "raw_bytes": 1180,
+      "usage": {
+        "completion_tokens": 259,
+        "prompt_tokens": 842,
+        "total_tokens": 1101,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 27,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 0,
+          "cached_creation_tokens": 0
+        }
+      },
+      "elapsed_ms": 18171.99,
+      "endpoint_identity_sha256": "b84f1e9de29bcf3609b94527938f3844e51476c9753b4455cc8bd9594f91d0bc"
+    },
+    {
+      "resource_id": "model.gpt_6_astra.v1",
+      "api_model_id": "gpt-6-astra",
+      "status": "passed",
+      "error": null,
+      "request_sha256": "daf668451cb16802977b07b247a43ff7806adc232b4aec9ba39f7f54a5e98ba9",
+      "response_sha256": "a5e6dbc0af31e55662ec887f702c84303290e44f2f7254cae9f45d5f37e053fd",
+      "raw_bytes": 1180,
+      "usage": {
+        "completion_tokens": 248,
+        "prompt_tokens": 842,
+        "total_tokens": 1090,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": null,
+          "audio_tokens": null,
+          "reasoning_tokens": 20,
+          "rejected_prediction_tokens": null
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cached_tokens": 0,
+          "cached_creation_tokens": 0
+        }
+      },
+      "elapsed_ms": 9695.58,
+      "endpoint_identity_sha256": "b84f1e9de29bcf3609b94527938f3844e51476c9753b4455cc8bd9594f91d0bc"
+    },
+    {
+      "resource_id": "model.qwen3_5_35b_a3b.v1",
+      "api_model_id": "qwen3.5-35b-a3b",
+      "status": "passed",
+      "error": null,
+      "request_sha256": "14bec148584213cd5f924c14eed53db57d3ff0870fa28f8b619a7d42fb12a3b9",
+      "response_sha256": "a5e6dbc0af31e55662ec887f702c84303290e44f2f7254cae9f45d5f37e053fd",
+      "raw_bytes": 1180,
+      "usage": {
+        "completion_tokens": 1664,
+        "prompt_tokens": 258,
+        "total_tokens": 1922,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": null
+      },
+      "elapsed_ms": 18694.21,
+      "endpoint_identity_sha256": "b84f1e9de29bcf3609b94527938f3844e51476c9753b4455cc8bd9594f91d0bc"
+    },
+    {
+      "resource_id": "model.gpt_5_nano.v1",
+      "api_model_id": "gpt-5-nano",
+      "status": "passed",
+      "error": null,
+      "request_sha256": "013b83e80d53501f46c28c8eec8219c7216088070468adc4e4f4d80d41c35b18",
+      "response_sha256": "a5e6dbc0af31e55662ec887f702c84303290e44f2f7254cae9f45d5f37e053fd",
+      "raw_bytes": 1180,
+      "usage": {
+        "completion_tokens": 1604,
+        "prompt_tokens": 707,
+        "total_tokens": 2311,
+        "completion_tokens_details": {
+          "accepted_prediction_tokens": 0,
+          "audio_tokens": 0,
+          "reasoning_tokens": 1344,
+          "rejected_prediction_tokens": 0
+        },
+        "prompt_tokens_details": {
+          "audio_tokens": 0,
+          "cached_tokens": 0
+        },
+        "latency_checkpoint": {
+          "engine_tbt_ms": 6,
+          "engine_ttft_ms": 34,
+          "engine_ttlt_ms": 9811,
+          "pre_inference_ms": 122,
+          "service_tbt_ms": 6,
+          "service_ttft_ms": 310,
+          "service_ttlt_ms": 10081,
+          "user_visible_ttft_ms": 188
+        }
+      },
+      "elapsed_ms": 11937.06,
+      "endpoint_identity_sha256": "b84f1e9de29bcf3609b94527938f3844e51476c9753b4455cc8bd9594f91d0bc"
+    }
+  ]
+}
