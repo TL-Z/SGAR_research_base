@@ -72,6 +72,14 @@ from .terminal_failure import TerminalFailureEnvelope
 
 EVALUATOR_PROMPT_VERSION = "task-first-evaluator-en-v12-result-semantics"
 EVALUATOR_MAX_TRANSPORT_ATTEMPTS = 3
+EvaluationMode = Literal["off", "silent", "active"]
+
+
+def normalize_evaluation_mode(value: Any = None) -> EvaluationMode:
+    mode = str(value or "off").strip().lower()
+    if mode not in {"off", "silent", "active"}:
+        raise EvaluationRuntimeError("evaluation_mode_invalid")
+    return mode  # type: ignore[return-value]
 
 # Shared with the file prompt by a regression assertion; not an acceptance postprocessor.
 BOUND_SCHEMA_EVALUATION_INSTRUCTIONS = "BOUND SCHEMA CHECKS: framework_publication_facts.bound_schema_checks reports deterministic validation of the exact current output against documents explicitly bound to the selected final step. A pass proves conformance to that specific schema within the stated local coverage; use this fact rather than reinterpreting the same schema as a conflicting structural requirement. It does not prove business correctness, that the schema itself meets the original task, or compliance with another document. Unknown is not pass or invalidity. JSON Schema at a schema position uses true to allow any value and false to reject every value; these are not const constraints. An actual constant is expressed using const or enum inside a schema object. A Schema document's own output contract describes the document, not the business instance. Continue checking every assigned content, factual and task requirement; do not turn a structural pass into an overall pass."
@@ -1744,17 +1752,174 @@ class EvaluationCoordinator:
         )
 
 
+class StaticEvaluationCoordinator:
+    """Accept statically valid artifacts without dispatching an evaluator model."""
+
+    def __init__(
+        self,
+        *,
+        mode: EvaluationMode,
+        event_ledger: EvaluationEventLedger,
+        evidence_max_bytes: int = 262144,
+    ) -> None:
+        self.mode = normalize_evaluation_mode(mode)
+        if self.mode == "active":
+            raise EvaluationRuntimeError("static_evaluator_active_mode_invalid")
+        self.event_ledger = event_ledger
+        self.evidence_max_bytes = max(1, int(evidence_max_bytes))
+
+    async def evaluate(
+        self,
+        *,
+        manifest: StagedArtifactManifest,
+        content: bytes,
+        standard: EvaluationReferenceStandard,
+        context: EvaluationContextSnapshot,
+        payload_guard_factory: Callable[[int], Callable[[Mapping[str, Any]], None] | None],
+    ) -> EvaluationOutcome:
+        del payload_guard_factory
+        bundle = build_artifact_evidence(
+            content=content,
+            manifest=manifest,
+            standard=standard,
+            max_bytes=self.evidence_max_bytes,
+            review_index=0,
+        )
+        bundle = attach_context_source_evidence(
+            bundle=bundle,
+            standard=standard,
+            context=context,
+        )
+        criterion_results = tuple(
+            CriterionResult(
+                criterion_id=criterion.criterion_id,
+                status=(
+                    CriterionStatus.PASS
+                    if criterion.source is CriterionSource.MACHINE_CONTRACT
+                    else CriterionStatus.NOT_APPLICABLE
+                ),
+                evidence_ids=(
+                    tuple(bundle.criterion_evidence.get(criterion.criterion_id, ()))
+                    if criterion.source is CriterionSource.MACHINE_CONTRACT
+                    else ()
+                ),
+                concise_reason=(
+                    "Deterministic artifact checks passed."
+                    if criterion.source is CriterionSource.MACHINE_CONTRACT
+                    else "Semantic evaluation is disabled; external verification owns correctness."
+                ),
+            )
+            for criterion in standard.criteria
+        )
+        identity = canonical_sha256(
+            {
+                "mode": self.mode,
+                "artifact_manifest_sha256": manifest.manifest_sha256,
+                "reference_standard_sha256": standard.reference_standard_sha256,
+                "evidence_bundle_sha256": bundle.evidence_bundle_sha256,
+                "context_snapshot_sha256": context.context_snapshot_sha256,
+            }
+        )
+        request_sha256 = canonical_sha256(
+            {"protocol": "sgar-static-evaluation-v1", "identity": identity}
+        )
+        response_sha256 = canonical_sha256(
+            {
+                "status": "static_acceptance",
+                "mode": self.mode,
+                "semantic_evaluation_performed": False,
+            }
+        )
+        decision = EvaluationDecision(
+            verdict=EvaluationVerdict.PASS,
+            failure_code=None,
+            confidence=1.0,
+            criterion_results=criterion_results,
+            dimension_scores=EvaluationDimensionScores(),
+            critical_issues=(),
+            training_label="evaluator_noise",
+            reference_standard_sha256=standard.reference_standard_sha256,
+            evidence_bundle_sha256=bundle.evidence_bundle_sha256,
+            artifact_manifest_sha256=manifest.manifest_sha256,
+            context_snapshot_sha256=context.context_snapshot_sha256,
+            evaluator_model_resource_id="framework.static_acceptance",
+            evaluator_api_model_id="disabled",
+            accounting_operation_id=None,
+            request_sha256=request_sha256,
+            response_sha256=response_sha256,
+            review_index=0,
+        )
+        if self.mode == "silent":
+            operation_id = f"{identity}:static"
+            self.event_ledger.append_event(
+                "evaluation_static_started",
+                {
+                    "evaluation_operation_id": operation_id,
+                    "review_index": 0,
+                    "artifact_manifest_sha256": manifest.manifest_sha256,
+                    "reference_standard_sha256": standard.reference_standard_sha256,
+                    "evidence_bundle_sha256": bundle.evidence_bundle_sha256,
+                    "context_snapshot_sha256": context.context_snapshot_sha256,
+                    "request_sha256": request_sha256,
+                },
+            )
+            subtask_component = bounded_path_component(
+                manifest.artifact_revision.subtask_revision.subtask_id,
+                fallback="subtask",
+            )
+            artifact_name = (
+                f"{manifest.artifact_revision.subtask_revision.graph_revision}_"
+                f"{subtask_component}_"
+                f"{manifest.artifact_revision.subtask_revision.subtask_revision}_static.json"
+            )
+            self.event_ledger.write_artifact(
+                artifact_name,
+                {
+                    "schema_version": "sgar-static-evaluation-v1",
+                    "mode": self.mode,
+                    "semantic_evaluation_performed": False,
+                    "decision": decision.model_dump(mode="json"),
+                    "request_sha256": request_sha256,
+                    "response_sha256": response_sha256,
+                },
+            )
+            self.event_ledger.append_event(
+                "evaluation_static_finished",
+                {
+                    "evaluation_operation_id": operation_id,
+                    "review_index": 0,
+                    "status": "pass",
+                    "decision_sha256": decision.decision_sha256,
+                    "request_sha256": request_sha256,
+                    "response_sha256": response_sha256,
+                    "accounting_operation_id": None,
+                },
+            )
+        return EvaluationOutcome(
+            status="pass",
+            final_decision=decision,
+            initial_decision=decision,
+            review_decision=None,
+            review_triggered=False,
+            failure_code=None,
+            accounting_operation_ids=(),
+        )
+
+
 __all__ = [
     "EVALUATOR_MAX_TRANSPORT_ATTEMPTS",
     "EVALUATOR_PROMPT_VERSION",
     "EvaluationCoordinator",
+    "EvaluationMode",
     "EvaluationEventLedger",
     "EvaluationOutcome",
     "EvaluationPersistenceError",
     "EvaluationRuntimeError",
     "ResolvedEvaluatorModel",
+    "StaticEvaluationCoordinator",
     "build_artifact_evidence",
     "attach_context_source_evidence",
     "load_evaluator_policy",
+    "normalize_evaluation_mode",
     "resolve_evaluator_model",
 ]

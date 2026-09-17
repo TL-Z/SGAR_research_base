@@ -13,6 +13,7 @@
     "enable_control_model_failover": false,
     "enable_intelligent_resource_completion": false,
     "plan_compiler_response_mode": "native_strict_schema",
+    "evaluation_mode": "off",
     "evaluator_response_mode": "native_strict_schema",
     "supplemental_model_ids": [],
     "max_supplemental_models": 0,

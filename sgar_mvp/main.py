@@ -123,7 +123,9 @@ from sgar_mvp.src.evaluation_runtime import (
     EvaluationCoordinator,
     EvaluationEventLedger,
     EvaluationRuntimeError,
+    StaticEvaluationCoordinator,
     load_evaluator_policy,
+    normalize_evaluation_mode,
     resolve_evaluator_model,
 )
 from sgar_mvp.src.resource_loader import (
@@ -1794,7 +1796,7 @@ async def _run_pipeline_with_cost_ledger(
     execution_ledger: RunExecutionLedger,
     recovery_policy: RecoveryPolicy,
     recovery_ledger: RecoveryEventLedger,
-    evaluator_policy: EvaluatorPolicy,
+    evaluator_policy: EvaluatorPolicy | None,
     evaluation_ledger: EvaluationEventLedger,
     artifact_store: ArtifactLifecycleStore,
     context_commit_store: ContextCommitStore,
@@ -1809,6 +1811,9 @@ async def _run_pipeline_with_cost_ledger(
 ) -> str:
     llm_key = config["llm_key"]
     llm_settings = config.get("llm_settings", {})
+    evaluation_mode = normalize_evaluation_mode(
+        llm_settings.get("evaluation_mode")
+    )
     capability_probe_enforcement_policy = (
         normalize_capability_probe_enforcement_policy(
             llm_settings.get("capability_probe_enforcement_policy")
@@ -1860,13 +1865,16 @@ async def _run_pipeline_with_cost_ledger(
         != control_role_policy.policy_sha256
     ):
         raise RuntimeError("profiler_control_policy_mismatch")
-    evaluator_role_policy = control_role_policy.for_role("evaluator")
-    if (
-        evaluator_policy.model_resource_id != evaluator_role_policy.resource_id
-        or evaluator_policy.reasoning_effort != evaluator_role_policy.reasoning_effort
-        or evaluator_policy.temperature != evaluator_role_policy.temperature
-    ):
-        raise RuntimeError("evaluator_control_policy_mismatch")
+    if evaluation_mode != "off":
+        if evaluator_policy is None:
+            raise RuntimeError("evaluator_policy_missing")
+        evaluator_role_policy = control_role_policy.for_role("evaluator")
+        if (
+            evaluator_policy.model_resource_id != evaluator_role_policy.resource_id
+            or evaluator_policy.reasoning_effort != evaluator_role_policy.reasoning_effort
+            or evaluator_policy.temperature != evaluator_role_policy.temperature
+        ):
+            raise RuntimeError("evaluator_control_policy_mismatch")
     if runtime_authority == "release":
         provider_probe_receipt_path, provider_probe_receipt = (
             resolve_activated_release_provider_probe_receipt(
@@ -2197,23 +2205,28 @@ async def _run_pipeline_with_cost_ledger(
         )
         system_role_probe_audit.terminate(failure)
         return _pipeline_status_from_terminal_failure(failure)
-    evaluator_manifest = control_index.get(evaluator_policy.model_resource_id)
-    if not isinstance(evaluator_manifest, dict):
-        raise EvaluationRuntimeError("evaluator_model_not_in_control_catalog")
-    evaluator_definition = control_definitions.get(evaluator_policy.model_resource_id)
-    if evaluator_definition is None:
-        raise EvaluationRuntimeError("evaluator_resource_definition_missing")
-    evaluator_response_mode = _plan_compiler_response_mode(
-        evaluator_manifest,
-        configured_mode=llm_settings.get("evaluator_response_mode"),
-    )
-    resolved_evaluator_model = resolve_evaluator_model(
-        policy=evaluator_policy,
-        pricing_catalog=cost_ledger.catalog,
-        manifest=evaluator_manifest,
-        availability_status=evaluator_definition.status,
-        response_mode=evaluator_response_mode,
-    )
+    evaluator_manifest = None
+    evaluator_definition = None
+    resolved_evaluator_model = None
+    if evaluation_mode != "off":
+        assert evaluator_policy is not None
+        evaluator_manifest = control_index.get(evaluator_policy.model_resource_id)
+        if not isinstance(evaluator_manifest, dict):
+            raise EvaluationRuntimeError("evaluator_model_not_in_control_catalog")
+        evaluator_definition = control_definitions.get(evaluator_policy.model_resource_id)
+        if evaluator_definition is None:
+            raise EvaluationRuntimeError("evaluator_resource_definition_missing")
+        evaluator_response_mode = _plan_compiler_response_mode(
+            evaluator_manifest,
+            configured_mode=llm_settings.get("evaluator_response_mode"),
+        )
+        resolved_evaluator_model = resolve_evaluator_model(
+            policy=evaluator_policy,
+            pricing_catalog=cost_ledger.catalog,
+            manifest=evaluator_manifest,
+            availability_status=evaluator_definition.status,
+            response_mode=evaluator_response_mode,
+        )
     strict_plan_only = recovery_policy.sealed_runtime_mode == "strict_plan_only"
     full_generation_manifest = None
     full_generation_definition = None
@@ -2304,13 +2317,15 @@ async def _run_pipeline_with_cost_ledger(
             "manifest": compiler_target_manifest,
         }
     ]
-    required_role_models = [
-        (
-            "evaluator",
-            resolved_evaluator_model.resource_id,
-            resolved_evaluator_model.api_model_id,
-        ),
-    ]
+    required_role_models = []
+    if resolved_evaluator_model is not None:
+        required_role_models.append(
+            (
+                "evaluator",
+                resolved_evaluator_model.resource_id,
+                resolved_evaluator_model.api_model_id,
+            )
+        )
     if system_full_generation_policy is not None:
         raise RecoveryControlError("sealed_release_forbids_full_generation")
     for compiler_target in compiler_targets:
@@ -2352,14 +2367,18 @@ async def _run_pipeline_with_cost_ledger(
             model_id=api_model_id,
             response_mode="native_strict_schema",
         )
-    evaluator_response_mode = verified_role_modes["evaluator"]
-    resolved_evaluator_model = resolve_evaluator_model(
-        policy=evaluator_policy,
-        pricing_catalog=cost_ledger.catalog,
-        manifest=evaluator_manifest,
-        availability_status=evaluator_definition.status,
-        response_mode=evaluator_response_mode,
-    )
+    if evaluation_mode != "off":
+        assert evaluator_policy is not None
+        assert evaluator_manifest is not None
+        assert evaluator_definition is not None
+        evaluator_response_mode = verified_role_modes["evaluator"]
+        resolved_evaluator_model = resolve_evaluator_model(
+            policy=evaluator_policy,
+            pricing_catalog=cost_ledger.catalog,
+            manifest=evaluator_manifest,
+            availability_status=evaluator_definition.status,
+            response_mode=evaluator_response_mode,
+        )
     primary_compiler_target = compiler_targets[0]
     plan_response_mode = verified_role_identity_modes[
         (
@@ -2405,17 +2424,30 @@ async def _run_pipeline_with_cost_ledger(
         if system_full_generation_policy is not None
         else None
     )
-    evaluation_coordinator = EvaluationCoordinator(
-        transport=model_transport_bundle.async_port,
-        resolved_model=resolved_evaluator_model,
-        policy=evaluator_policy,
-        cost_ledger=cost_ledger,
+    evaluation_coordinator = (
+        EvaluationCoordinator(
+            transport=model_transport_bundle.async_port,
+            resolved_model=resolved_evaluator_model,
+            policy=evaluator_policy,
+            cost_ledger=cost_ledger,
+            event_ledger=evaluation_ledger,
+        )
+        if evaluation_mode != "off"
+        else StaticEvaluationCoordinator(
+            mode="off",
+            event_ledger=evaluation_ledger,
+        )
+    )
+    static_evaluation_coordinator = StaticEvaluationCoordinator(
+        mode="off",
         event_ledger=evaluation_ledger,
     )
     artifact_lifecycle_coordinator = ArtifactLifecycleCoordinator(
         artifact_store=artifact_store,
         context_store=context_commit_store,
         evaluation_coordinator=evaluation_coordinator,
+        evaluation_mode=evaluation_mode,
+        static_evaluation_coordinator=static_evaluation_coordinator,
     )
     plan_runtime_capabilities = _plan_runtime_capabilities(
         resource_index,
@@ -2473,11 +2505,22 @@ async def _run_pipeline_with_cost_ledger(
                 if system_full_generation_policy is not None
                 else None
             ),
-            "evaluator_policy_sha256": evaluator_policy.policy_sha256,
-            "evaluator_model_resource_id": resolved_evaluator_model.resource_id,
-            "evaluator_model_api_id": resolved_evaluator_model.api_model_id,
-            "evaluator_response_mode": resolved_evaluator_model.response_mode,
-            "evaluator_identity_sha256": resolved_evaluator_model.identity_sha256,
+            "evaluation_mode": evaluation_mode,
+            "evaluator_policy_sha256": (
+                evaluator_policy.policy_sha256 if evaluator_policy is not None else None
+            ),
+            "evaluator_model_resource_id": (
+                resolved_evaluator_model.resource_id if resolved_evaluator_model else None
+            ),
+            "evaluator_model_api_id": (
+                resolved_evaluator_model.api_model_id if resolved_evaluator_model else None
+            ),
+            "evaluator_response_mode": (
+                resolved_evaluator_model.response_mode if resolved_evaluator_model else None
+            ),
+            "evaluator_identity_sha256": (
+                resolved_evaluator_model.identity_sha256 if resolved_evaluator_model else None
+            ),
         },
     )
 
@@ -2897,6 +2940,7 @@ async def _run_pipeline_with_cost_ledger(
             async_model_transport=model_transport_bundle.async_port,
             execution_substrate=execution_substrate,
             execution_substrate_mode=execution_substrate_mode,
+            evaluation_mode=evaluation_mode,
         )
         if task_invocation is not None:
             orchestrator.register_input_handles(task_invocation.internal_handles())
@@ -3088,6 +3132,9 @@ async def run_pipeline(
     """Initialize accounting before paid work and finalize it on every exit."""
 
     llm_settings = dict(config.get("llm_settings", {}) or {})
+    evaluation_mode = normalize_evaluation_mode(
+        llm_settings.get("evaluation_mode")
+    )
     retrieval_policy_path = _runtime_policy_path(
         config,
         "retrieval_policy_path",
@@ -3101,15 +3148,18 @@ async def run_pipeline(
     recovery_policy = load_recovery_policy(
         os.path.join(SCRIPT_DIR, "config", "recovery_policy.json")
     )
-    evaluator_policy = load_evaluator_policy(
-        evaluator_policy_path
+    evaluator_policy = (
+        load_evaluator_policy(evaluator_policy_path)
+        if evaluation_mode != "off"
+        else None
     )
     required_model_refs = _configured_pricing_refs(
         llm_settings,
         retrieval_policy_path=retrieval_policy_path,
     )
     required_model_refs.append(recovery_policy.full_generation_model_resource_id)
-    required_model_refs.append(evaluator_policy.model_resource_id)
+    if evaluator_policy is not None:
+        required_model_refs.append(evaluator_policy.model_resource_id)
     catalog = ModelPricingCatalog.from_manifest_file(
         os.path.join(PROJECT_ROOT, "Pool", "resources", "json", "combine.json"),
         required_model_refs=list(dict.fromkeys(required_model_refs)),

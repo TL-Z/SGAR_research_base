@@ -1154,6 +1154,9 @@ class ArtifactPublicationResult:
     failure_code: str | None
     evaluation_accounting_operation_ids: tuple[str, ...]
     terminal_failure: TerminalFailureEnvelope | None = None
+    evaluation_mode: str = "active"
+    observed_evaluation_status: str | None = None
+    observed_evaluation_decision_sha256: str | None = None
 
 
 class ArtifactLifecycleCoordinator:
@@ -1165,10 +1168,52 @@ class ArtifactLifecycleCoordinator:
         artifact_store: ArtifactLifecycleStore,
         context_store: ContextCommitStore,
         evaluation_coordinator: Any,
+        evaluation_mode: str = "active",
+        static_evaluation_coordinator: Any | None = None,
     ) -> None:
         self.artifact_store = artifact_store
         self.context_store = context_store
         self.evaluation_coordinator = evaluation_coordinator
+        normalized_mode = str(evaluation_mode or "off").strip().lower()
+        if normalized_mode not in {"off", "silent", "active"}:
+            raise ArtifactLifecycleError("evaluation_mode_invalid")
+        self.evaluation_mode = normalized_mode
+        self.static_evaluation_coordinator = static_evaluation_coordinator
+
+    async def _silent_fallback(
+        self,
+        *,
+        manifest: StagedArtifactManifest,
+        content: bytes,
+        standard: Any,
+        context: Any,
+        payload_guard_factory: Any,
+    ) -> Any:
+        """Produce a deterministic acceptance decision after a non-gating review."""
+        coordinator = self.static_evaluation_coordinator
+        if coordinator is None:
+            raise ArtifactLifecycleError("silent_evaluation_static_fallback_missing")
+        return await coordinator.evaluate(
+            manifest=manifest,
+            content=content,
+            standard=standard,
+            context=context,
+            payload_guard_factory=payload_guard_factory,
+        )
+
+    def _commit_decision(
+        self,
+        *,
+        staged: StagedArtifactManifest,
+        decision: EvaluationDecision,
+    ) -> tuple[VerifiedArtifactManifest, CommittedArtifactManifest]:
+        verified = self.artifact_store.verify(manifest=staged, decision=decision)
+        committed = self.context_store.commit(
+            staged=staged,
+            verified=verified,
+            decision=decision,
+        )
+        return verified, committed
 
     async def publish(
         self,
@@ -1185,22 +1230,78 @@ class ArtifactLifecycleCoordinator:
             content=content,
             accounting_operation_ids=execution_accounting_operation_ids,
         )
-        outcome = await self.evaluation_coordinator.evaluate(
-            manifest=staged,
-            content=content,
-            standard=reference_standard,
-            context=evaluation_context,
-            payload_guard_factory=payload_guard_factory,
-        )
-        if outcome.status == "pass" and outcome.final_decision is not None:
-            verified = self.artifact_store.verify(
+        try:
+            outcome = await self.evaluation_coordinator.evaluate(
                 manifest=staged,
-                decision=outcome.final_decision,
+                content=content,
+                standard=reference_standard,
+                context=evaluation_context,
+                payload_guard_factory=payload_guard_factory,
             )
-            committed = self.context_store.commit(
+        except asyncio.CancelledError:
+            raise
+        except Exception:
+            if self.evaluation_mode != "silent":
+                raise
+            fallback = await self._silent_fallback(
+                manifest=staged,
+                content=content,
+                standard=reference_standard,
+                context=evaluation_context,
+                payload_guard_factory=payload_guard_factory,
+            )
+            assert fallback.final_decision is not None
+            verified, committed = self._commit_decision(
+                staged=staged, decision=fallback.final_decision
+            )
+            return ArtifactPublicationResult(
+                status="committed",
                 staged=staged,
+                decision=fallback.final_decision,
                 verified=verified,
-                decision=outcome.final_decision,
+                committed=committed,
+                quarantined=None,
+                review_triggered=False,
+                failure_code=None,
+                evaluation_accounting_operation_ids=(),
+                evaluation_mode=self.evaluation_mode,
+                observed_evaluation_status="framework_failure",
+                observed_evaluation_decision_sha256=None,
+            )
+        observed_status = outcome.status
+        if self.evaluation_mode == "silent":
+            fallback = await self._silent_fallback(
+                manifest=staged,
+                content=content,
+                standard=reference_standard,
+                context=evaluation_context,
+                payload_guard_factory=payload_guard_factory,
+            )
+            assert fallback.final_decision is not None
+            verified, committed = self._commit_decision(
+                staged=staged, decision=fallback.final_decision
+            )
+            return ArtifactPublicationResult(
+                status="committed",
+                staged=staged,
+                decision=fallback.final_decision,
+                verified=verified,
+                committed=committed,
+                quarantined=None,
+                review_triggered=outcome.review_triggered,
+                failure_code=None,
+                evaluation_accounting_operation_ids=outcome.accounting_operation_ids,
+                evaluation_mode=self.evaluation_mode,
+                observed_evaluation_status=observed_status,
+                observed_evaluation_decision_sha256=(
+                    outcome.final_decision.decision_sha256
+                    if outcome.final_decision is not None
+                    else None
+                ),
+            )
+        if outcome.status == "pass" and outcome.final_decision is not None:
+            verified, committed = self._commit_decision(
+                staged=staged, decision=outcome.final_decision
             )
             return ArtifactPublicationResult(
                 status="committed",
@@ -1212,6 +1313,13 @@ class ArtifactLifecycleCoordinator:
                 review_triggered=outcome.review_triggered,
                 failure_code=None,
                 evaluation_accounting_operation_ids=outcome.accounting_operation_ids,
+                evaluation_mode=self.evaluation_mode,
+                observed_evaluation_status=observed_status,
+                observed_evaluation_decision_sha256=(
+                    outcome.final_decision.decision_sha256
+                    if outcome.final_decision is not None
+                    else None
+                ),
             )
         reason_by_status = {
             "fail": "artifact_quality_failure",
@@ -1241,6 +1349,13 @@ class ArtifactLifecycleCoordinator:
             failure_code=outcome.failure_code,
             evaluation_accounting_operation_ids=outcome.accounting_operation_ids,
             terminal_failure=outcome.terminal_failure,
+            evaluation_mode=self.evaluation_mode,
+            observed_evaluation_status=observed_status,
+            observed_evaluation_decision_sha256=(
+                outcome.final_decision.decision_sha256
+                if outcome.final_decision is not None
+                else None
+            ),
         )
 
     async def publish_v2(
@@ -1283,6 +1398,32 @@ class ArtifactLifecycleCoordinator:
         except asyncio.CancelledError:
             raise
         except Exception as exc:
+            if self.evaluation_mode == "silent":
+                fallback = await self._silent_fallback(
+                    manifest=staged,
+                    content=evaluation_content,
+                    standard=reference_standard,
+                    context=evaluation_context,
+                    payload_guard_factory=payload_guard_factory,
+                )
+                assert fallback.final_decision is not None
+                verified, committed = self._commit_decision(
+                    staged=staged, decision=fallback.final_decision
+                )
+                return ArtifactPublicationResult(
+                    status="committed",
+                    staged=staged,
+                    decision=fallback.final_decision,
+                    verified=verified,
+                    committed=committed,
+                    quarantined=None,
+                    review_triggered=False,
+                    failure_code=None,
+                    evaluation_accounting_operation_ids=(),
+                    evaluation_mode=self.evaluation_mode,
+                    observed_evaluation_status="framework_failure",
+                    observed_evaluation_decision_sha256=None,
+                )
             revision = staged.artifact_revision.subtask_revision
             terminal_failure = TerminalFailureEnvelope.create(
                 responsibility="framework",
@@ -1310,13 +1451,44 @@ class ArtifactLifecycleCoordinator:
                 failure_code=terminal_failure.failure_code,
                 evaluation_accounting_operation_ids=(),
                 terminal_failure=terminal_failure,
+                evaluation_mode=self.evaluation_mode,
+                observed_evaluation_status="framework_failure",
+                observed_evaluation_decision_sha256=None,
+            )
+        observed_status = outcome.status
+        if self.evaluation_mode == "silent":
+            fallback = await self._silent_fallback(
+                manifest=staged,
+                content=evaluation_content,
+                standard=reference_standard,
+                context=evaluation_context,
+                payload_guard_factory=payload_guard_factory,
+            )
+            assert fallback.final_decision is not None
+            verified, committed = self._commit_decision(
+                staged=staged, decision=fallback.final_decision
+            )
+            return ArtifactPublicationResult(
+                status="committed",
+                staged=staged,
+                decision=fallback.final_decision,
+                verified=verified,
+                committed=committed,
+                quarantined=None,
+                review_triggered=outcome.review_triggered,
+                failure_code=None,
+                evaluation_accounting_operation_ids=outcome.accounting_operation_ids,
+                evaluation_mode=self.evaluation_mode,
+                observed_evaluation_status=observed_status,
+                observed_evaluation_decision_sha256=(
+                    outcome.final_decision.decision_sha256
+                    if outcome.final_decision is not None
+                    else None
+                ),
             )
         if outcome.status == "pass" and outcome.final_decision is not None:
-            verified = self.artifact_store.verify(manifest=staged, decision=outcome.final_decision)
-            committed = self.context_store.commit(
-                staged=staged,
-                verified=verified,
-                decision=outcome.final_decision,
+            verified, committed = self._commit_decision(
+                staged=staged, decision=outcome.final_decision
             )
             return ArtifactPublicationResult(
                 status="committed",
@@ -1328,6 +1500,13 @@ class ArtifactLifecycleCoordinator:
                 review_triggered=outcome.review_triggered,
                 failure_code=None,
                 evaluation_accounting_operation_ids=outcome.accounting_operation_ids,
+                evaluation_mode=self.evaluation_mode,
+                observed_evaluation_status=observed_status,
+                observed_evaluation_decision_sha256=(
+                    outcome.final_decision.decision_sha256
+                    if outcome.final_decision is not None
+                    else None
+                ),
             )
         reason_by_status = {
             "fail": "artifact_quality_failure",
@@ -1359,6 +1538,13 @@ class ArtifactLifecycleCoordinator:
             failure_code=outcome.failure_code,
             evaluation_accounting_operation_ids=outcome.accounting_operation_ids,
             terminal_failure=outcome.terminal_failure,
+            evaluation_mode=self.evaluation_mode,
+            observed_evaluation_status=observed_status,
+            observed_evaluation_decision_sha256=(
+                outcome.final_decision.decision_sha256
+                if outcome.final_decision is not None
+                else None
+            ),
         )
 
 

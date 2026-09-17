@@ -188,6 +188,7 @@ from .evaluation_contracts import (
     EvaluationSourceEvidence,
 )
 from .evaluation_reference import build_evaluation_reference_standard
+from .evaluation_runtime import normalize_evaluation_mode
 from .tool_execution_provider import (
     PreparedToolDispatch,
     ToolExecutionProvider,
@@ -889,6 +890,9 @@ class DAGOrchestrator:
         async_model_transport: Optional[AsyncModelTransportPort] = None,
         execution_substrate: Optional[Any] = None,
         execution_substrate_mode: str = "default",
+        # Direct embedders retain the historical evaluator gate unless the
+        # formal entry point explicitly supplies its config mode.
+        evaluation_mode: str = "active",
     ):
         self._execution_state_var: ContextVar[_ExecutionLocalState] = ContextVar(
             f"sgar_execution_state_{id(self)}",
@@ -907,6 +911,7 @@ class DAGOrchestrator:
             execution_substrate, mode=execution_substrate_mode
         )
         self.execution_substrate_mode = str(execution_substrate_mode)
+        self.evaluation_mode = normalize_evaluation_mode(evaluation_mode)
         self.context = GlobalContext(
             context_commit_store=context_commit_store,
             artifact_store=artifact_store,
@@ -15072,6 +15077,13 @@ class DAGOrchestrator:
             ):
                 result.cost_metric["tool_evidence_acceptance"] = "non_empty_complete_read"
                 return True, "", ""
+            if self.evaluation_mode != "active":
+                result.cost_metric["semantic_evaluation"] = {
+                    "mode": self.evaluation_mode,
+                    "performed": False,
+                    "authority": "external_verifier",
+                }
+                return True, "", ""
             # Planner expected_output can retain the original composite query.
             # The quality gate must evaluate this node's contract only, or it
             # will demand sibling/downstream artifacts from a single subtask.
@@ -15852,7 +15864,9 @@ class DAGOrchestrator:
             execution_accounting_operation_ids=execution_accounting_ids,
         )
         routing["evaluation"] = {
+            "mode": publication.evaluation_mode,
             "status": publication.status,
+            "observed_status": publication.observed_evaluation_status,
             "review_triggered": publication.review_triggered,
             "failure_code": publication.failure_code,
             "staged_manifest_sha256": publication.staged.manifest_sha256,
@@ -15869,6 +15883,7 @@ class DAGOrchestrator:
                 publication.quarantined.quarantine_sha256 if publication.quarantined else None
             ),
             "accounting_operation_ids": list(publication.evaluation_accounting_operation_ids),
+            "observed_evaluation_decision_sha256": publication.observed_evaluation_decision_sha256,
             "payload_checks": list(guard.checks),
         }
         result.cost_metric["artifact_lifecycle"] = dict(routing["evaluation"])
