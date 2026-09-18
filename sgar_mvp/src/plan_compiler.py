@@ -190,10 +190,31 @@ COMPILER_OUTPUT_INSTRUCTIONS = (
 
 from .input_alignment import alignment_evidence
 
-PLAN_COMPILER_PROMPT_VERSION = "executable-plan-compiler-v34-execution-requirements"
+PLAN_COMPILER_PROMPT_VERSION = "executable-plan-compiler-v35-cost-deterministic-selection"
 COMPILER_MODEL_INPUT_PROTOCOL = "sgar-compiler-decision-input-v9"
 PLAN_COMPILER_MAX_TRANSPORT_RETRIES = 2
 PLAN_COMPILER_MAX_TRANSPORT_ATTEMPTS = 3
+
+COMPILER_SELECTION_OBJECTIVE = (
+    "Selection objective for the API-based runtime: after proving feasibility and exact "
+    "contract compatibility, prefer the lowest-complexity plan with the fewest generative "
+    "model calls. Prefer a fully deterministic Tool/Resource workflow when its declared "
+    "operations, material bindings, output format, and verification evidence satisfy every "
+    "obligation. If deterministic steps need semantic interpretation, use the smallest "
+    "explicit hybrid graph (deterministic extraction/conversion/validation plus one bounded "
+    "generation step) rather than an Agent loop. Use an Agent/controller only when no direct "
+    "deterministic or one-model composition can satisfy the obligations, and bind every callable "
+    "Tool explicitly. Among plans with the same required capabilities and generation-call count, "
+    "minimize model cost using each candidate's exact model_pricing input_per_m, cache_per_m, and "
+    "output_per_m values; do not treat unknown non-model cost as zero. Never choose a more costly "
+    "Model merely because it has a higher retrieval rank, a stronger marketing description, or "
+    "more general capability if a cheaper candidate is contract-equivalent. Astra is not a default "
+    "or tie-break winner: select it only when its extra capability is necessary and no cheaper "
+    "candidate or deterministic composition is sufficient. Compare every feasible model in the "
+    "compiler_input.model_cost_comparison table; a selected plan must not claim cost equivalence "
+    "when a cheaper contract-equivalent candidate is available. Retrieval rank/semantic score is "
+    "evidence for eligibility, not a preference objective."
+)
 
 
 def plan_compiler_schema_failure_audit(
@@ -450,7 +471,7 @@ SCHEMA_NODE_CONSTRAINT_INSTRUCTIONS = (
 )
 
 PLAN_COMPILER_SYSTEM_PROMPT_V3 = (
-    INPUT_ALIGNMENT_RULES + COMPILER_OUTPUT_INSTRUCTIONS + FINAL_CONTRACT_INSTRUCTIONS +
+    INPUT_ALIGNMENT_RULES + COMPILER_OUTPUT_INSTRUCTIONS + COMPILER_SELECTION_OBJECTIVE + FINAL_CONTRACT_INSTRUCTIONS +
     "You are the SGAR semantic Plan Compiler. Return exactly one strict "
     "sgar-compiler-decision-v5 object. Decide only which authorized resource capability "
     "operations are necessary, how they form one static acyclic DAG, how declared input "
@@ -525,8 +546,9 @@ PLAN_COMPILER_SYSTEM_PROMPT_V3 = (
     "eligibility, (5) honor runtime constraints, and (6) construct the execution DAG. An "
     "operation with no required material port may satisfy a requirements-only obligation; do "
     "not invent an artifact input. A handle_only compiler visibility does not mean Runtime "
-    "cannot deliver material when an authorized delivery binding says it can. Only after all "
-    "of those checks may cost or DAG simplicity distinguish equally valid plans. Skills and "
+    "cannot deliver material when an authorized delivery binding says it can. Apply the "
+    "selection objective above after feasibility checks: deterministic coverage, generation-call "
+    "count, exact model unit price, then DAG simplicity distinguish feasible plans. Skills and "
     "Resources must be explicit steps whose actual outputs are bound to consumers. A Model or "
     "Agent controller may be given only explicitly selected callable Tools. For each callable "
     "Tool, every required input must be explicitly classified as a sealed fixed mapping or a "
@@ -556,7 +578,7 @@ PLAN_COMPILER_PROMPT_SHA256 = canonical_sha256(
 
 PLAN_ADAPTATION_PROMPT_VERSION = "executable-plan-adaptation-v21-node-constraint-guidance"
 PLAN_ADAPTATION_SYSTEM_PROMPT_V1 = (
-    INPUT_ALIGNMENT_RULES + COMPILER_OUTPUT_INSTRUCTIONS + FINAL_CONTRACT_INSTRUCTIONS +
+    INPUT_ALIGNMENT_RULES + COMPILER_OUTPUT_INSTRUCTIONS + COMPILER_SELECTION_OBJECTIVE + FINAL_CONTRACT_INSTRUCTIONS +
     "Preserve the original task and Planner macro delivery standard. Concrete schemas are "
     "implementation contracts and cannot override explicit task requirements. Never hard-code "
     "unverified answer guesses as const, enum or numeric bounds. "
@@ -1904,8 +1926,24 @@ def _compiler_model_input_projection(
     validate_authoritative_input_requirements(envelope)
     projection: dict[str, Any] = {
         "protocol": COMPILER_MODEL_INPUT_PROTOCOL,
+        "selection_objective": {
+            "protocol": "sgar-compiler-selection-objective-v1",
+            "priority_order": [
+                "feasibility_and_contract_compatibility",
+                "deterministic_tool_or_resource_coverage",
+                "minimum_generative_model_call_count",
+                "minimum_exact_model_unit_cost",
+                "minimum_dag_complexity",
+            ],
+            "deterministic_workflow_preferred": True,
+            "agent_loop_requires_no_simpler_feasible_composition": True,
+            "retrieval_rank_is_not_a_preference": True,
+            "unknown_non_model_cost_is_not_zero": True,
+            "model_cost_fields": ["input_per_m", "cache_per_m", "output_per_m"],
+        },
         "requirement_catalog": requirement_catalog(envelope),
         "output_conversion_rules": CONVERSION_REQUIREMENTS,
+        "compiler_policy": envelope.compiler_policy.model_dump(mode="json"),
         "plan_revision": envelope.plan_revision.model_dump(mode="json"),
         "candidate_pool_sha256": (
             envelope.candidate_pool_snapshot.candidate_pool_sha256
@@ -2003,6 +2041,23 @@ def _compiler_model_input_projection(
                     if card.model_pricing is not None
                     else None
                 ),
+                "selection_facts": {
+                    "deterministic_operation_ids": [
+                        item.capability_operation_id
+                        for item in card.capability_operations
+                        if item.determinism == "deterministic"
+                    ],
+                    "nondeterministic_operation_ids": [
+                        item.capability_operation_id
+                        for item in card.capability_operations
+                        if item.determinism == "nondeterministic"
+                    ],
+                    "unknown_determinism_operation_ids": [
+                        item.capability_operation_id
+                        for item in card.capability_operations
+                        if item.determinism == "unknown"
+                    ],
+                },
             }
             for card in envelope.candidate_cards
         ],
@@ -2010,6 +2065,19 @@ def _compiler_model_input_projection(
     }
     projection["candidate_cards"] = [
         _share_operation_output_facts(card) for card in projection["candidate_cards"]
+    ]
+    projection["model_cost_comparison"] = [
+        {
+            "resource_id": card.model_pricing.resource_id,
+            "api_model_id": card.model_pricing.api_model_id,
+            "input_per_m": card.model_pricing.input_per_m,
+            "cache_per_m": card.model_pricing.cache_per_m,
+            "output_per_m": card.model_pricing.output_per_m,
+            "pricing_unit": card.model_pricing.pricing_unit,
+            "generation_call_cost_is_comparable_only_by_usage": True,
+        }
+        for card in envelope.candidate_cards
+        if card.resource_type == "Model" and card.model_pricing is not None
     ]
     projection["projection_sha256"] = canonical_sha256(projection)
     _ensure_host_free(projection, field_name="compiler_model_input_projection")

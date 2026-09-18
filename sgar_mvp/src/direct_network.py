@@ -24,6 +24,30 @@ TOOL_PROXY_VARIABLES = (
     "SGAR_TOOL_HTTPS_PROXY",
     "SGAR_TOOL_NO_PROXY",
 )
+MODEL_PROXY_VARIABLE = "SGAR_MODEL_PROXY"
+
+
+def load_model_proxy(project_root: str | os.PathLike[str] | None = None) -> str:
+    """Load the proxy reserved for external model API traffic."""
+    value = os.environ.get(MODEL_PROXY_VARIABLE, "").strip()
+    if value:
+        return value.strip('"').strip("'")
+
+    root = Path(project_root).resolve() if project_root else Path(__file__).resolve().parents[2]
+    env_path = root / ".env"
+    if not env_path.is_file():
+        return ""
+    try:
+        for raw_line in env_path.read_text(encoding="utf-8").splitlines():
+            line = raw_line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            name, raw_value = line.split("=", 1)
+            if name.strip() == MODEL_PROXY_VARIABLE:
+                return raw_value.strip().strip('"').strip("'")
+    except OSError:
+        return ""
+    return ""
 
 
 def load_tool_proxy_config(project_root: str | os.PathLike[str] | None = None) -> dict[str, str]:
@@ -82,12 +106,20 @@ def configure_direct_network() -> None:
 
 def direct_sync_http_client(**kwargs: Any) -> httpx.Client:
     from openai import DefaultHttpxClient
-    return DefaultHttpxClient(**kwargs, trust_env=False)
+    kwargs["trust_env"] = False
+    proxy = load_model_proxy()
+    if proxy:
+        kwargs["proxy"] = proxy
+    return DefaultHttpxClient(**kwargs)
 
 
 def direct_async_http_client(**kwargs: Any) -> httpx.AsyncClient:
     from openai import DefaultAsyncHttpxClient
-    return DefaultAsyncHttpxClient(**kwargs, trust_env=False)
+    kwargs["trust_env"] = False
+    proxy = load_model_proxy()
+    if proxy:
+        kwargs["proxy"] = proxy
+    return DefaultAsyncHttpxClient(**kwargs)
 
 
 def direct_container_environment_args(

@@ -1,5 +1,5 @@
 {
-  "policy_version": "retrieval-policy-v7-local-gpt-5-6-luna",
+  "policy_version": "retrieval-policy-v7-local-d5947092d55bd9418f80731a652133d2",
   "active_strategy": "capability_only",
   "candidate_strategy": "capability_only",
   "resource_pool_commit": "514a39024fc31ee2fff2be5deadb19ad642f341c",
@@ -8,14 +8,14 @@
   "embedding_candidate_id": "qwen3-embedding-4b-api-2560",
   "embedding_runtime_identity_sha256": "ebc78eccbfeb170885a5f575878d0eaa5cfeaa2aaa9f721288feaff662c3c4dd",
   "bge_prefix": "Given an S-GAR subtask, retrieve resources whose declared capabilities and problem space can perform it.",
-  "effective_pool_sha256": "567bde83d6c8959a9edbdb4c68a6f4b7717781e688a49e4dbce9eca5535e7283",
+  "effective_pool_sha256": "f8acdd224302c39f99fda69f3b5772cc7e29a7c1755f134bf11dc1b225cacaec",
   "index_sha256": {
-    "capability": "3076c77ee028010f05dbc6cd9f065c833b9ca7b4dd3e6ef2eaabe2d5421ae8d5",
-    "constraint": "d4dfda092804e187071c4f923d265fdb3cf5824358460e2ec7792dd43bc26fc7",
-    "metadata": "3ea3d3297daaeb56ded658c4a62041fca73021cee93ba23640629107165c6274"
+    "capability": "d0875437ee82dad470b4e0573d4d400bb6b989f7589dbbc2f4274cabfc81370c",
+    "constraint": "01019762e47929f2868c909eb14ca4e23c50e25dff4dacc3d1e2b6b821215afb",
+    "metadata": "2dab7597a1fb2500d2875272fc18696dc73adc3ace66847e110f12d60700eb71"
   },
-  "index_meta_sha256": "8b72835f057ce158f8db0a244dbbdb46d767cd6dcedae14c9d50bba5fe47172d",
-  "index_build_manifest_sha256": "c4d66e2bf3bed9638ec50c7552a76d60a60b53d42dfdf7bc5116de604f662461",
+  "index_meta_sha256": "cdd85f667887b50f3bdc968e0237a8701bcd6ba3189c2509b3f681de902820c8",
+  "index_build_manifest_sha256": "a5c83f1656d98287eef4eb1208e95da266eb416a46b43e51a66366f1d9af4227",
   "control_role_policy_sha256": "cd56127ba641868ac8ee2f1bc63966cf612551da5d267037e65a8c54657e8ece",
   "control_provider_probe_receipt_sha256": "efa342fa142b9ce59e5836c35974aa1717b06346183bd020745ddb3c91e5de6c",
   "profiler_prompt_sha256": "1cc62d801ba97b3c47f15516845be0f7d83027038e7dc0dc625c6eea3350ed99",

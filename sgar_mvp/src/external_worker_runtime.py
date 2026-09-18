@@ -18,12 +18,14 @@ class WorkerProtocolError(RuntimeInjectionError):
 
 class JsonLinesExecutionSubstrate:
     def __init__(self, *, input_stream: TextIO, output_stream: TextIO,
-                 run_id: str, trial_id: str, rpc_timeout: float = 60):
+                 run_id: str, trial_id: str, rpc_timeout: float = 60,
+                 network_allowed: bool = False):
         self.input_stream = input_stream
         self.output_stream = output_stream
         self.runtime_id = run_id
         self.trial_id = trial_id
         self.rpc_timeout = rpc_timeout
+        self.network_allowed = bool(network_allowed)
         self.sequence = 0
         self._lock = threading.RLock()
         self.records: list[dict[str, Any]] = []
@@ -36,33 +38,58 @@ class JsonLinesExecutionSubstrate:
     def step_scope(
         self, *, step_id: str, depends_on: tuple[str, ...], attempt: int
     ) -> dict[str, Any]:
-        del depends_on
-        safe_step = hashlib.sha256(str(step_id).encode("utf-8")).hexdigest()[:16]
-        runtime_path = f"/app/.sgar-runtime/steps/{safe_step}/attempt-{max(1, int(attempt))}"
+        del step_id, depends_on, attempt
+        # The external task container owns the real filesystem namespace.  The
+        # framework still needs a RuntimePathMap while preparing formal
+        # bindings, whose internal representation requires host/runtime route
+        # pairs.  Use a deterministic, non-existent virtual host root for that
+        # private translation only; it is never mounted, read, or serialized
+        # into the task container.  All actual I/O continues through this RPC
+        # substrate using /app paths.
+        virtual_host_root = (
+            "/tmp/sgar-external-runtime/"
+            + hashlib.sha256(self.runtime_id.encode("utf-8")).hexdigest()[:32]
+        )
+        runtime_path = "/app"
         return {
             "protocol": "sgar-external-task-scope/v1",
-            "runtime_roots": [{"runtime_path": "/app", "path_kind": "directory"}],
+            "runtime_roots": [{
+                "host_path": virtual_host_root,
+                "runtime_path": "/app",
+                "path_kind": "directory",
+            }],
             "public_inputs": [],
             "masked_roots": [],
             "hidden_roots": [],
-            "writable_root": {"runtime_path": runtime_path, "path_kind": "directory"},
+            "writable_root": {
+                "host_path": virtual_host_root,
+                "runtime_path": runtime_path,
+                "path_kind": "directory",
+            },
             "working_directory": runtime_path,
             "allow_legacy_shell": False,
         }
 
-    @staticmethod
-    def validate_dispatch(prepared: Any) -> None:
+    def validate_dispatch(self, prepared: Any) -> None:
         scope = prepared.sandbox_scope or {}
         external_scope = str(scope.get("protocol") or "") == "sgar-external-task-scope/v1"
         if (prepared.sandbox_scope and not external_scope) or (
             prepared.artifact_adapter is not None and not external_scope
         ):
             raise RuntimeInjectionError("UNBOUND_RUNTIME_PATH:host_scope_or_artifact_callback")
-        if prepared.network_required or prepared.extra_env:
-            raise RuntimeInjectionError("UNBOUND_RUNTIME_PATH:network_or_environment_authority")
+        if prepared.network_required and not self.network_allowed:
+            raise RuntimeInjectionError("TASK_NETWORK_POLICY_DENIED")
+        if any(
+            str(key).lower() in {"http_proxy", "https_proxy", "all_proxy", "no_proxy"}
+            for key in (prepared.extra_env or {})
+        ):
+            raise RuntimeInjectionError("TASK_PROXY_OVERRIDE_FORBIDDEN")
         if prepared.execution_substrate_mode != "external":
             raise RuntimeInjectionError("runtime_mode_mismatch")
-        if prepared.command not in {"python3", "bash", "sh", "test"}:
+        if prepared.command not in {
+            "python", "python3", "bash", "sh", "test", "node", "ruby",
+            "go", "cargo", "make", "gcc", "g++", "curl", "uv", "npm", "git",
+        }:
             raise RuntimeInjectionError("UNBOUND_RUNTIME_PATH:unregistered_executable")
         if any(not isinstance(item, str) or "\x00" in item for item in prepared.args):
             raise RuntimeInjectionError("invalid_runtime_argv")
@@ -117,6 +144,8 @@ class JsonLinesExecutionSubstrate:
             logical_step_id=getattr(request, "logical_step_id", None),
             depends_on=list(getattr(request, "depends_on", ()) or ()),
             bindings=dict(getattr(request, "resolved_bindings", {}) or {}),
+            network_required=bool(prepared.network_required),
+            extra_env=dict(prepared.extra_env or {}),
         )
         artifact_handles: list[dict[str, Any]] = []
         try:

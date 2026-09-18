@@ -13,6 +13,7 @@ async def run(args, protocol_output):
     runtime = JsonLinesExecutionSubstrate(
         input_stream=sys.stdin, output_stream=protocol_output,
         run_id=args.run_id, trial_id=args.trial_id,
+        network_allowed=args.network_policy == "declared",
     )
     if args.mode == "contract":
         from sgar_mvp.src.external_runtime_contract import verify_contract
@@ -30,7 +31,8 @@ async def run(args, protocol_output):
         config, args.query, args.output_dir, args.report_path,
         execution_substrate_mode="external", execution_substrate=runtime,
         run_id=args.run_id,
-        network_policy_mode="disabled",
+        network_policy_mode=args.network_policy,
+        require_final_delivery=not args.allow_missing_delivery,
         max_generation_requests=args.max_generation_requests,
         max_embedding_requests=args.max_embedding_requests,
     )
@@ -41,6 +43,8 @@ def main():
     parser = argparse.ArgumentParser()
     for name in ("config", "query", "output-dir", "report-path", "run-id", "trial-id"):
         parser.add_argument("--" + name, required=True)
+    parser.add_argument("--network-policy", choices=("disabled", "declared"), default="disabled")
+    parser.add_argument("--allow-missing-delivery", action="store_true")
     parser.add_argument("--mode", choices=("pipeline", "contract", "production-contract"), default="pipeline")
     parser.add_argument("--max-generation-requests", type=int, default=24)
     parser.add_argument("--max-embedding-requests", type=int, default=8)

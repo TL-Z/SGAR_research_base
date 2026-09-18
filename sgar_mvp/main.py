@@ -1808,6 +1808,7 @@ async def _run_pipeline_with_cost_ledger(
     runtime_authority: str = "git",
     execution_substrate: object | None = None,
     execution_substrate_mode: str = "default",
+    require_final_delivery: bool = True,
 ) -> str:
     llm_key = config["llm_key"]
     llm_settings = config.get("llm_settings", {})
@@ -2932,7 +2933,13 @@ async def _run_pipeline_with_cost_ledger(
             artifact_lifecycle_coordinator=artifact_lifecycle_coordinator,
             artifact_store=artifact_store,
             context_commit_store=context_commit_store,
-            explicit_input_only=task_invocation is not None,
+            # External benchmark substrates own the task filesystem.  Never
+            # infer host files from free-form benchmark instructions there;
+            # task-state paths must remain runtime (/app) paths and cross the
+            # RPC boundary only through typed bindings/handles.
+            explicit_input_only=(
+                task_invocation is not None or execution_substrate is not None
+            ),
             network_policy_mode=network_policy_mode,
             task_invocation=(
                 task_invocation.invocation if task_invocation is not None else None
@@ -3009,7 +3016,7 @@ async def _run_pipeline_with_cost_ledger(
                     publication.delivery_manifest_locator,
                 )
 
-            if task_list and delivery is None:
+            if task_list and delivery is None and require_final_delivery:
                 raise NodeUnrecoverableError(
                     TerminalFailureEnvelope.create(
                         responsibility="framework",
@@ -3128,6 +3135,7 @@ async def run_pipeline(
     execution_substrate_mode: str = "default",
     max_generation_requests: int | None = None,
     max_embedding_requests: int | None = None,
+    require_final_delivery: bool = True,
 ) -> str:
     """Initialize accounting before paid work and finalize it on every exit."""
 
@@ -3235,6 +3243,7 @@ async def run_pipeline(
                     runtime_authority=runtime_authority,
                     execution_substrate=execution_substrate,
                     execution_substrate_mode=execution_substrate_mode,
+                    require_final_delivery=require_final_delivery,
                 )
             finally:
                 _atomic_write_json(

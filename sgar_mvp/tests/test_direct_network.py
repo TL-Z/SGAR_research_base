@@ -3,10 +3,13 @@ from __future__ import annotations
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from sgar_mvp.src.direct_network import (
     direct_container_environment_args,
+    direct_sync_http_client,
     load_tool_proxy_config,
+    load_model_proxy,
     tool_proxy_audit,
     tool_proxy_environment,
 )
@@ -49,6 +52,24 @@ class DirectNetworkTests(unittest.TestCase):
         joined = " ".join(args)
         self.assertIn("HTTP_PROXY", joined)
         self.assertEqual(tool_proxy_environment({}, network_required=True, network_policy_mode="declared")["NO_PROXY"], "*")
+
+    def test_model_proxy_is_explicitly_attached_to_http_client(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / ".env").write_text(
+                "SGAR_MODEL_PROXY=http://127.0.0.1:7893\n",
+                encoding="utf-8",
+            )
+            self.assertEqual(load_model_proxy(root), "http://127.0.0.1:7893")
+
+        with patch.dict("os.environ", {"SGAR_MODEL_PROXY": "http://127.0.0.1:7893"}):
+            client = direct_sync_http_client()
+            try:
+                # httpx stores explicit proxy routes in mounts while keeping the
+                # default transport proxy-free for callers that do not configure it.
+                self.assertTrue(client._mounts)
+            finally:
+                client.close()
 
 
 if __name__ == "__main__":

@@ -557,6 +557,10 @@ class CompilerPolicy(FrozenContract):
     success_first: Literal[True] = True
     model_price_mode: Literal["exact_unit_price_soft"] = "exact_unit_price_soft"
     unknown_non_model_cost: Literal["unknown"] = "unknown"
+    deterministic_workflow_preferred: Literal[True] = True
+    minimize_generation_calls: Literal[True] = True
+    agent_loop_requires_no_simpler_feasible_plan: Literal[True] = True
+    retrieval_rank_is_not_a_preference: Literal[True] = True
     candidate_expansion: Literal[False] = False
     candidate_compression: Literal[False] = False
     deterministic_fallback: Literal[False] = False

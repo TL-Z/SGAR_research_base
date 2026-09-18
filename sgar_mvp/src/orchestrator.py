@@ -5796,6 +5796,9 @@ class DAGOrchestrator:
     def _resolve_candidate_path(self, value: str) -> str:
         """Resolve a user/resource supplied path into the workspace when possible."""
         if self.execution_substrate is not None:
+            # This resolver is host-filesystem logic.  External/TB task state
+            # must use the typed runtime namespace and substrate RPC instead;
+            # keeping this guard fail-closed prevents accidental host access.
             raise RuntimeError("UNBOUND_RUNTIME_PATH:legacy_host_path_resolver")
         project_root = self._workspace_root()
         cleaned = str(value).strip().strip("'\"`鈥溾€濃€樷€?,;:!?锛屻€傦紱锛氾紒锛?)[]{}<>")
@@ -5834,7 +5837,7 @@ class DAGOrchestrator:
         """Find existing local files in free text without making resource-type assumptions."""
         if bool(getattr(self, "_formal_execution_active", False)):
             raise RuntimeError("formal_query_path_discovery_forbidden")
-        if self.explicit_input_only:
+        if self.explicit_input_only or self.execution_substrate is not None:
             return []
         if not text:
             return []
@@ -6471,7 +6474,7 @@ class DAGOrchestrator:
         Full-generative models cannot access local paths directly. When a task
         mentions a workspace file, we read a bounded snippet and inject it.
         """
-        if self.explicit_input_only:
+        if self.explicit_input_only or self.execution_substrate is not None:
             return ""
         snippets: List[str] = []
         for full_path in self._extract_existing_file_paths(text):

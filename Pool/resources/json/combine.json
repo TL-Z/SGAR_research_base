@@ -48131,7 +48131,80 @@
       ],
       "output_contract": {
         "artifact_type": "json",
-        "description": "JSON execution report with streams, exit code, latency, and heuristically detected changed-file paths; produced files are side effects, not the outer artifact."
+        "description": "JSON execution report with streams, exit code, latency, and heuristically detected changed-file paths; produced files are side effects, not the outer artifact.",
+        "schema_hint": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "oneOf": [
+            {
+              "type": "object",
+              "required": [
+                "status",
+                "error"
+              ],
+              "properties": {
+                "status": {
+                  "enum": [
+                    "invalid",
+                    "blocked",
+                    "missing",
+                    "timeout"
+                  ]
+                },
+                "error": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "required": [
+                "status",
+                "exit_code",
+                "script_path",
+                "cwd",
+                "stdout",
+                "stderr",
+                "produced_files",
+                "latency_ms"
+              ],
+              "properties": {
+                "status": {
+                  "enum": [
+                    "ok",
+                    "failed"
+                  ]
+                },
+                "exit_code": {
+                  "type": "integer"
+                },
+                "script_path": {
+                  "type": "string"
+                },
+                "cwd": {
+                  "type": "string"
+                },
+                "stdout": {
+                  "type": "string"
+                },
+                "stderr": {
+                  "type": "string"
+                },
+                "produced_files": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "latency_ms": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              },
+              "additionalProperties": false
+            }
+          ]
+        }
       }
     },
     "routing": {

@@ -1,5 +1,6 @@
 """Execution-boundary tests independent of Planner/Retrieval semantics."""
 import unittest
+from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, patch
 
@@ -32,6 +33,55 @@ class RuntimeInjectionContractTest(unittest.TestCase):
 
         runtime = Runtime()
         self.assertIs(require_execution_substrate(runtime, mode="external"), runtime)
+
+    def test_external_scope_has_private_path_map_without_host_mount(self):
+        from sgar_mvp.src.external_worker_runtime import JsonLinesExecutionSubstrate
+        from sgar_mvp.src.path_namespace import RuntimePathMap
+
+        runtime = JsonLinesExecutionSubstrate(
+            input_stream=None,
+            output_stream=None,
+            run_id="path-map-test",
+            trial_id="path-map-test",
+        )
+        scope = runtime.step_scope(step_id="step", depends_on=(), attempt=1)
+        path_map = RuntimePathMap.from_scope(scope)
+        self.assertEqual(path_map.validate_runtime("/app/regex.txt"), "/app/regex.txt")
+        private_host_path = path_map.runtime_to_host("/app/regex.txt")
+        self.assertTrue(private_host_path.startswith("/tmp/sgar-external-runtime/"))
+        self.assertFalse(Path(private_host_path).exists())
+
+    def test_external_task_text_does_not_trigger_host_file_discovery(self):
+        from sgar_mvp.src.external_worker_runtime import JsonLinesExecutionSubstrate
+        from sgar_mvp.src.orchestrator import DAGOrchestrator
+
+        runtime = JsonLinesExecutionSubstrate(
+            input_stream=None,
+            output_stream=None,
+            run_id="path-discovery-test",
+            trial_id="path-discovery-test",
+        )
+        orchestrator = object.__new__(DAGOrchestrator)
+        orchestrator.execution_substrate = runtime
+        orchestrator.explicit_input_only = False
+        self.assertEqual(
+            orchestrator._extract_existing_file_paths(
+                "Write /app/regex.txt; do not inspect the host workspace."
+            ),
+            [],
+        )
+        self.assertEqual(
+            orchestrator._extract_local_file_context("Read /app/regex.txt"),
+            "",
+        )
+
+    def test_external_task_path_stays_inside_task_namespaces(self):
+        from sgar_mvp.src.external_worker_runtime import JsonLinesExecutionSubstrate
+
+        self.assertEqual(JsonLinesExecutionSubstrate.task_path("/app/regex.txt"), "/app/regex.txt")
+        self.assertEqual(JsonLinesExecutionSubstrate.task_path("/tmp/work.txt"), "/tmp/work.txt")
+        with self.assertRaisesRegex(RuntimeInjectionError, "task_path_outside_runtime"):
+            JsonLinesExecutionSubstrate.task_path("/etc/passwd")
 
 
 class ProviderRegressionTest(unittest.IsolatedAsyncioTestCase):
