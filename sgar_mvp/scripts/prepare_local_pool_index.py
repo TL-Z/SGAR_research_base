@@ -33,7 +33,8 @@ def prepare(project_root: Path, staged_root: Path):
     os.environ["HF_HUB_OFFLINE"] = "1"
     os.environ["TRANSFORMERS_OFFLINE"] = "1"
     release = _read(root / "sgar_mvp/config/embedding_release.json")
-    os.environ["HF_HOME"] = release["cache_root"]
+    if release.get("cache_root"):
+        os.environ["HF_HOME"] = str(release["cache_root"])
     import numpy as np
     import faiss
     from build_index import build_metadata, build_faiss_index
@@ -60,10 +61,25 @@ def prepare(project_root: Path, staged_root: Path):
         raise ValueError("duplicate_resource_identity")
     changed = set(new_by_id) ^ set(old_by_id)
     changed |= {k for k in set(new_by_id) & set(old_by_id) if canonical_sha256(new_by_id[k]) != canonical_sha256(old_by_id[k])}
-    for rid in changed:
-        for resource in (new_by_id.get(rid), old_by_id.get(rid)):
+    metadata_only_vector_reuse = []
+    for rid in sorted(changed):
+        old_resource, new_resource = old_by_id.get(rid), new_by_id.get(rid)
+        if old_resource is None or new_resource is None:
+            resource = old_resource or new_resource
             if resource is not None and (resource.get("resource_type") or resource.get("type", {}).get("resource_type")) != "Model":
-                raise ValueError("local_update_only_changes_models")
+                raise ValueError("local_non_model_resource_set_change_requires_full_rebuild")
+            continue
+        resource_type = new_resource.get("resource_type") or new_resource.get("type", {}).get("resource_type")
+        if resource_type == "Model":
+            continue
+        old_profile = build_constraint_profile(old_resource)
+        new_profile = build_constraint_profile(new_resource)
+        if (
+            old_profile.capability_text != new_profile.capability_text
+            or old_profile.soft_constraint_text != new_profile.soft_constraint_text
+        ):
+            raise ValueError("local_non_model_profile_change_requires_reembedding")
+        metadata_only_vector_reuse.append(rid)
     audit = validate_resource_profiles(resources, project_root=root)
     if not audit["valid"]:
         raise ValueError("resource_profile_invalid")
@@ -74,6 +90,7 @@ def prepare(project_root: Path, staged_root: Path):
     if runtime_identity != old["embedding_runtime_identity_v2"] or config.model_dump(mode="json") != old["embedding_runtime_config"]:
         raise ValueError("embedding_runtime_changed_full_rebuild_required")
     profiles = [build_constraint_profile(r) for r in resources]
+    audit["metadata_only_vector_reuse_resource_ids"] = metadata_only_vector_reuse
     matrices = []
     encoded = 0
     for vectors_key, texts_key, attribute in (("cap_vectors", "capability_texts", "capability_text"), ("con_vectors", "constraint_texts", "soft_constraint_text")):
@@ -123,7 +140,7 @@ def prepare(project_root: Path, staged_root: Path):
     RetrievalPolicy.model_validate(policy)
     _write(stage / "sgar_mvp/config/retrieval_policy.json", policy)
     identity = build_retrieval_runtime_identity(project_root=stage, provider_endpoint_identity_sha256=health["endpoint_identity_sha256"], honor_release_environment=False)
-    return {"encoded_document_count": encoded, "resource_count": len(resources), "changed_resource_ids": sorted(changed), "runtime_identity_sha256": identity.identity_sha256, "release_sealed": False}
+    return {"encoded_document_count": encoded, "resource_count": len(resources), "changed_resource_ids": sorted(changed), "metadata_only_vector_reuse_resource_ids": metadata_only_vector_reuse, "runtime_identity_sha256": identity.identity_sha256, "release_sealed": False}
 
 
 if __name__ == "__main__":

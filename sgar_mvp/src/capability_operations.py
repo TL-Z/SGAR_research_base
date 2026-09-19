@@ -29,6 +29,9 @@ EXACT_CAPABILITY_OPERATIONS = frozenset(
 )
 
 CAPABILITY_TO_EXECUTION_OPERATION = {
+    "write_complete_text_file": "write_file",
+    "create_text_artifact": "write_file",
+    "overwrite_file_contents": "write_file",
     "convert_json_to_yaml": "convert_format",
     "convert_yaml_to_json": "convert_format",
     "convert_json_to_toml": "convert_format",

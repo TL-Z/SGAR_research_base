@@ -190,27 +190,32 @@ COMPILER_OUTPUT_INSTRUCTIONS = (
 
 from .input_alignment import alignment_evidence
 
-PLAN_COMPILER_PROMPT_VERSION = "executable-plan-compiler-v35-cost-deterministic-selection"
+PLAN_COMPILER_PROMPT_VERSION = "executable-plan-compiler-v38-typed-container-lowering-hybrid-dag"
 COMPILER_MODEL_INPUT_PROTOCOL = "sgar-compiler-decision-input-v9"
 PLAN_COMPILER_MAX_TRANSPORT_RETRIES = 2
 PLAN_COMPILER_MAX_TRANSPORT_ATTEMPTS = 3
 
 COMPILER_SELECTION_OBJECTIVE = (
     "Selection objective for the API-based runtime: after proving feasibility and exact "
-    "contract compatibility, prefer the lowest-complexity plan with the fewest generative "
-    "model calls. Prefer a fully deterministic Tool/Resource workflow when its declared "
-    "operations, material bindings, output format, and verification evidence satisfy every "
-    "obligation. If deterministic steps need semantic interpretation, use the smallest "
-    "explicit hybrid graph (deterministic extraction/conversion/validation plus one bounded "
-    "generation step) rather than an Agent loop. Use an Agent/controller only when no direct "
-    "deterministic or one-model composition can satisfy the obligations, and bind every callable "
-    "Tool explicitly. Among plans with the same required capabilities and generation-call count, "
+    "contract compatibility, including task-state delivery, prefer the smallest static DAG "
+    "with the fewest generative calls. Prefer a fully deterministic Tool/Resource workflow "
+    "when its declared operations, typed material bindings, physical output behavior, and "
+    "verification evidence satisfy every obligation. If deterministic steps need semantic "
+    "interpretation, use the smallest explicit hybrid graph that performs only the unresolved "
+    "semantic work generatively and performs compatible extraction, conversion, validation, "
+    "or materialization deterministically. Use an Agent/controller only when no smaller direct "
+    "or hybrid composition can satisfy the obligations, and bind every callable Tool explicitly. "
+    "Do not delegate a step whose complete behavior is already covered by selected deterministic "
+    "operations, and do not split one coherent operation across multiple generative actors without "
+    "a contract-required capability boundary. Among plans with the same required capabilities and "
+    "generation-call count, "
     "minimize model cost using each candidate's exact model_pricing input_per_m, cache_per_m, and "
     "output_per_m values; do not treat unknown non-model cost as zero. Never choose a more costly "
     "Model merely because it has a higher retrieval rank, a stronger marketing description, or "
-    "more general capability if a cheaper candidate is contract-equivalent. Astra is not a default "
-    "or tie-break winner: select it only when its extra capability is necessary and no cheaper "
-    "candidate or deterministic composition is sufficient. Compare every feasible model in the "
+    "more general capability if a cheaper candidate is contract-equivalent. Do not privilege any "
+    "named model, provider, family, or retrieval position; extra capability is justified only when "
+    "it is necessary for an obligation and no cheaper contract-equivalent candidate or deterministic "
+    "composition is sufficient. Compare every feasible model in the "
     "compiler_input.model_cost_comparison table; a selected plan must not claim cost equivalence "
     "when a cheaper contract-equivalent candidate is available. Retrieval rank/semantic score is "
     "evidence for eligibility, not a preference objective."
@@ -529,6 +534,29 @@ PLAN_COMPILER_SYSTEM_PROMPT_V3 = (
     "combination only when its declared operations, ports, material access, determinism, and evidence "
     "satisfy the supplied obligations. Verification may be an explicit verifier step or the mandatory "
     "framework Evaluator contract; never add a Tool merely to satisfy a type quota. "
+    "Compatibility includes both semantic value production and physical delivery. Check each "
+    "edge's declared port kind, accepted artifact types, produced artifact types, native or semantic "
+    "output view, file-versus-value representation, required filename or extension, runtime namespace, "
+    "writable roots, and network policy. A prose capability summary, matching filename, or generic "
+    "format label cannot replace these typed facts. When the final artifact contract declares a "
+    "required produced file, the plan must explicitly select an authorized operation whose declared "
+    "side effect materializes compatible content at the declared runtime path. Select it as a typed "
+    "DAG step when its declared output remains compatible with the downstream/final value contract, "
+    "or as an explicitly bound controller callable when the controller must both produce the payload "
+    "and preserve a different final return representation. The selected final operation may cover "
+    "this directly only when it explicitly declares the physical delivery behavior. A generated value "
+    "alone is not proof that a required file exists. Bind the materializer's destination port to the "
+    "declared logical runtime path. Bind its payload port to the exact producer step_output, or—only "
+    "for a justified controller whose unresolved responsibility is to produce that payload—declare "
+    "the payload as a controller-supplied dynamic port. Never put the producer's instruction text, "
+    "an answer guess, or an unrelated literal into that payload port. "
+    "Execution lowering is framework-owned: plans must use logical artifact references and typed "
+    "ports, never host filesystem paths, shell commands, executable paths, working directories, "
+    "or ad-hoc environment values. At lowering time every path must resolve inside the active "
+    "execution namespace and every selected resource must have a declared container-compatible "
+    "entrypoint, input/output representation, and side-effect contract. A path or value that "
+    "cannot be lowered into that namespace is an execution-contract failure; do not repair it by "
+    "guessing a host path, reading the host workspace, or falling back to an unsealed executor. "
     "For every obligation a step claims to satisfy, its dependency closure must explicitly consume "
     "every source listed in that obligation's authorized_inputs. authorized_artifact_sources is the "
     "allowed source pool; execution_obligations[*].authorized_inputs is the required source subset "
@@ -541,20 +569,28 @@ PLAN_COMPILER_SYSTEM_PROMPT_V3 = (
     "realizer or authorized explicit processing without changing node requirements. "
     "For Tool and Skill resources eligibility is derived from their declared operation "
     "output and executable runtime contract. "
-    "Decision order: (1) identify every obligation, (2) identify its authorized inputs, "
-    "(3) match exact operation ports and bindings, (4) confirm compatibility and final-step "
-    "eligibility, (5) honor runtime constraints, and (6) construct the execution DAG. An "
+    "Decision order: (1) identify every obligation, (2) identify its authorized inputs and physical "
+    "delivery requirements, (3) match exact operation ports, artifact/file types, and bindings, "
+    "(4) confirm value compatibility, task-state delivery, and final-step eligibility, (5) honor "
+    "runtime namespace and network constraints, and (6) construct the smallest execution DAG. An "
     "operation with no required material port may satisfy a requirements-only obligation; do "
     "not invent an artifact input. A handle_only compiler visibility does not mean Runtime "
     "cannot deliver material when an authorized delivery binding says it can. Apply the "
     "selection objective above after feasibility checks: deterministic coverage, generation-call "
     "count, exact model unit price, then DAG simplicity distinguish feasible plans. Skills and "
     "Resources must be explicit steps whose actual outputs are bound to consumers. A Model or "
-    "Agent controller may be given only explicitly selected callable Tools. For each callable "
+    "Agent controller may be given only explicitly selected callable Tools. When a deterministic "
+    "operation can consume a preceding Model/Agent output through a declared typed port, prefer "
+    "an explicit static DAG edge over an interactive controller Tool call; use a controller-callable "
+    "Tool only when observation, branching, or iterative interaction is itself an unresolved "
+    "capability requirement. For each callable "
     "Tool, every required input must be explicitly classified as a sealed fixed mapping or a "
     "controller-supplied dynamic port. Do not assume any unselected Tool or implicit input. "
-    "A single subtask plan may contain at most one Model or Agent controller step; "
-    "deterministic Tool or Resource steps may precede or follow it. "
+    "A single subtask plan may contain at most one Model or Agent controller step; deterministic "
+    "Tool or Resource steps may precede or follow it. The controller is justified only when its "
+    "declared unresolved behavior cannot be represented by a smaller feasible non-controller or "
+    "hybrid DAG. This is a general graph-minimization rule, not permission to omit required semantic "
+    "work, typed conversions, verification, or physical delivery. "
     "For a sufficient decision, the union of satisfied_obligation_ids must equal the supplied "
     "obligation set. For an insufficient decision, identify every unsatisfied obligation and "
     "prove a concrete missing operation, port, authorized binding, runtime requirement, or "
@@ -1930,6 +1966,7 @@ def _compiler_model_input_projection(
             "protocol": "sgar-compiler-selection-objective-v1",
             "priority_order": [
                 "feasibility_and_contract_compatibility",
+                "typed_task_state_delivery_coverage",
                 "deterministic_tool_or_resource_coverage",
                 "minimum_generative_model_call_count",
                 "minimum_exact_model_unit_cost",
@@ -1937,6 +1974,7 @@ def _compiler_model_input_projection(
             ],
             "deterministic_workflow_preferred": True,
             "agent_loop_requires_no_simpler_feasible_composition": True,
+            "physical_delivery_must_be_explicitly_covered": True,
             "retrieval_rank_is_not_a_preference": True,
             "unknown_non_model_cost_is_not_zero": True,
             "model_cost_fields": ["input_per_m", "cache_per_m", "output_per_m"],

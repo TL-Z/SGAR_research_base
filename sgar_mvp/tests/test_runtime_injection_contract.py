@@ -10,6 +10,7 @@ from sgar_mvp.src.runtime_abstraction import (
     runtime_binding,
     require_legacy_runtime,
 )
+from sgar_mvp.src.external_worker_runtime import WorkerProtocolError
 
 
 class RuntimeInjectionContractTest(unittest.TestCase):
@@ -33,6 +34,14 @@ class RuntimeInjectionContractTest(unittest.TestCase):
 
         runtime = Runtime()
         self.assertIs(require_execution_substrate(runtime, mode="external"), runtime)
+
+    def test_injected_runtime_cannot_use_default_dispatch_mode(self):
+        class Runtime:
+            async def execute(self, *, prepared, request):
+                return None
+
+        with self.assertRaisesRegex(RuntimeInjectionError, "mode_mismatch"):
+            require_execution_substrate(Runtime(), mode="default")
 
     def test_external_scope_has_private_path_map_without_host_mount(self):
         from sgar_mvp.src.external_worker_runtime import JsonLinesExecutionSubstrate
@@ -82,6 +91,87 @@ class RuntimeInjectionContractTest(unittest.TestCase):
         self.assertEqual(JsonLinesExecutionSubstrate.task_path("/tmp/work.txt"), "/tmp/work.txt")
         with self.assertRaisesRegex(RuntimeInjectionError, "task_path_outside_runtime"):
             JsonLinesExecutionSubstrate.task_path("/etc/passwd")
+
+    def test_external_argv_checks_every_argument_after_container_script(self):
+        from sgar_mvp.src.external_worker_runtime import JsonLinesExecutionSubstrate
+
+        runtime = JsonLinesExecutionSubstrate(
+            input_stream=None, output_stream=None,
+            run_id="argv-test", trial_id="argv-test",
+        )
+        prepared = SimpleNamespace(
+            command="python3", args=("/app/script.py", "/ssd/host.txt"),
+            extra_env={}, network_required=False,
+        )
+        request = SimpleNamespace(call_id="argv-call")
+        with self.assertRaisesRegex(WorkerProtocolError, "external_host_path_in_resource_argv"):
+            runtime._container_exec_request(prepared, request)
+
+    def test_external_argv_lowers_container_paths_with_stable_cwd(self):
+        from sgar_mvp.src.external_worker_runtime import JsonLinesExecutionSubstrate
+
+        runtime = JsonLinesExecutionSubstrate(
+            input_stream=None, output_stream=None,
+            run_id="argv-ok", trial_id="argv-ok",
+        )
+        prepared = SimpleNamespace(
+            command="python3", args=("/app/script.py", "/tmp/input.txt", "relative"),
+            extra_env={}, network_required=False,
+        )
+        request = SimpleNamespace(call_id="argv-ok-call")
+        argv, metadata = runtime._container_exec_request(prepared, request)
+        self.assertEqual(argv, ["python3", "/app/script.py", "/tmp/input.txt", "relative"])
+        self.assertEqual(metadata["cwd"], "/app")
+
+    def test_external_env_rejects_host_path(self):
+        from sgar_mvp.src.external_worker_runtime import JsonLinesExecutionSubstrate
+
+        runtime = JsonLinesExecutionSubstrate(
+            input_stream=None, output_stream=None,
+            run_id="env-test", trial_id="env-test",
+        )
+        prepared = SimpleNamespace(
+            command="python3", args=("/app/script.py",),
+            extra_env={"INPUT_FILE": "/home/user/input.txt"}, network_required=False,
+        )
+        request = SimpleNamespace(call_id="env-call")
+        with self.assertRaisesRegex(WorkerProtocolError, "external_host_path_in_resource_env"):
+            runtime._container_exec_request(prepared, request)
+
+    def test_external_runtime_preparation_is_owned_by_task_substrate(self):
+        from sgar_mvp.src.external_worker_runtime import JsonLinesExecutionSubstrate
+        from sgar_mvp.src.orchestrator import DAGOrchestrator
+
+        runtime = JsonLinesExecutionSubstrate(
+            input_stream=None,
+            output_stream=None,
+            run_id="prep-test",
+            trial_id="prep-test",
+        )
+        orchestrator = object.__new__(DAGOrchestrator)
+        orchestrator.execution_substrate = runtime
+        orchestrator.execution_substrate_mode = "external"
+        orchestrator.runtime_preparation_enabled = True
+        orchestrator.runtime_preparation_run_id = "prep-test"
+        orchestrator.runtime_preparation_trace_path = "/tmp/sgar-prep-test.jsonl"
+        orchestrator._formal_trace_required = False
+        orchestrator._runtime_preparation_event_counter = 0
+        orchestrator._runtime_preparation_instance_id = "prep"
+        with patch.object(orchestrator, "_append_runtime_preparation_trace") as append:
+            result = __import__("asyncio").run(
+                orchestrator._prepare_step_runtime(
+                    task_id="task",
+                    step_id="write",
+                    raw_manifest={"runtime_requirements": {"python_packages": [{"name": "mcp"}]}},
+                    phase="manifest",
+                )
+            )
+        self.assertIsNone(result[0])
+        self.assertIsNone(result[2])
+        self.assertEqual(result[1], "runtime-preparation-prep-0001")
+        payload = append.call_args.args[0]
+        self.assertEqual(payload["status"], "skipped")
+        self.assertEqual(payload["skip_reason"], "external_substrate_owns_task_runtime")
 
 
 class ProviderRegressionTest(unittest.IsolatedAsyncioTestCase):

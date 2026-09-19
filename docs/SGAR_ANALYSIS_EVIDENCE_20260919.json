@@ -1,0 +1,507 @@
+{
+  "protocol": "sgar-local-core-analysis-evidence-v1",
+  "analysis_date": "2026-09-19",
+  "repository_root": "/home/zhoutianle/Projects/SGAR_research_base",
+  "source_commit": "f53dfeadf4e00aaeb4701a715e36fb97c6583631",
+  "scope": "Read-only source/config inspection and selected existing run artifacts; no paid calls, benchmark execution, or code behavior changes.",
+  "resource_counts": {
+    "combine": {
+      "total": 338,
+      "by_type": {
+        "Agent": 20,
+        "Model": 19,
+        "Skill": 154,
+        "Tool": 145
+      }
+    },
+    "effective_combine": {
+      "total": 328,
+      "by_type": {
+        "Agent": 20,
+        "Model": 16,
+        "Skill": 154,
+        "Tool": 138
+      }
+    }
+  },
+  "current_configuration": {
+    "runtime_authority": "git",
+    "evaluation_mode": "off",
+    "legacy_allow_plan_recovery": false,
+    "recovery_policy": {
+      "protocol": "sgar-recovery-policy-v1",
+      "sealed_runtime_mode": "strict_plan_only",
+      "max_plan_adaptations": 2,
+      "max_full_generation_calls": 0,
+      "full_generation_model_resource_id": "model.gpt_5_6_sol.v1",
+      "temporary_tool_source_max_bytes": 65536,
+      "temporary_tool_bundle_max_bytes": 262144,
+      "temporary_tool_bundle_max_files": 32,
+      "diagnostic_payload_max_bytes": 8192,
+      "allow_network_expansion": false,
+      "allow_dependency_install": false
+    },
+    "retrieval": {
+      "active_strategy": "capability_only",
+      "embedding_model": "Qwen/Qwen3-Embedding-4B",
+      "embedding_candidate_id": "qwen3-embedding-4b-api-2560",
+      "index_dimension": 2560,
+      "index_resource_count": 328,
+      "base_quotas": {
+        "Model": 5,
+        "Tool": 10,
+        "Skill": 8,
+        "Agent": 3
+      }
+    },
+    "control_role_policy": {
+      "protocol": "sgar-control-role-policy-v2",
+      "roles": [
+        {
+          "role": "profiler",
+          "resource_id": "model.gpt_5_6_sol.v1",
+          "api_model_id": "gpt-5.6-sol",
+          "reasoning_effort": "xhigh",
+          "temperature": null,
+          "allow_model_failover": false,
+          "response_mode": "native_strict_schema"
+        },
+        {
+          "role": "planner",
+          "resource_id": "model.gpt_5_6_sol.v1",
+          "api_model_id": "gpt-5.6-sol",
+          "reasoning_effort": "xhigh",
+          "temperature": null,
+          "allow_model_failover": false,
+          "response_mode": "native_strict_schema"
+        },
+        {
+          "role": "plan_compiler",
+          "resource_id": "model.gpt_5_6_sol.v1",
+          "api_model_id": "gpt-5.6-sol",
+          "reasoning_effort": "xhigh",
+          "temperature": null,
+          "allow_model_failover": false,
+          "response_mode": "native_strict_schema"
+        },
+        {
+          "role": "plan_adaptation",
+          "resource_id": "model.gpt_5_6_sol.v1",
+          "api_model_id": "gpt-5.6-sol",
+          "reasoning_effort": "xhigh",
+          "temperature": null,
+          "allow_model_failover": false,
+          "response_mode": "native_strict_schema"
+        },
+        {
+          "role": "evaluator",
+          "resource_id": "model.gpt_5_6_sol.v1",
+          "api_model_id": "gpt-5.6-sol",
+          "reasoning_effort": "high",
+          "temperature": null,
+          "allow_model_failover": false,
+          "response_mode": "native_strict_schema"
+        }
+      ]
+    },
+    "controller_session_policy": {
+      "protocol": "sgar-controller-session-policy-v1",
+      "max_turns": 4,
+      "max_tool_calls": 8,
+      "max_semantic_repairs": 2,
+      "max_same_call_repeats": 2,
+      "max_same_failure_repeats": 2,
+      "max_inline_tool_result_bytes": 16384,
+      "cost_authority": "existing_run_cost_policy"
+    },
+    "model_cost_policy": {
+      "schema_version": "model-cost-policy-v1",
+      "mode": "stop_after_limit",
+      "warning_usd": 10.0,
+      "limit_usd": 10.0,
+      "strict_pricing": true,
+      "unknown_model": "reject"
+    }
+  },
+  "source_locations": [
+    {
+      "topic": "entry",
+      "path": "sgar_mvp/main.py",
+      "line": 1790,
+      "matched_text": "async def _run_pipeline_with_cost_ledger("
+    },
+    {
+      "topic": "ledger_entry",
+      "path": "sgar_mvp/main.py",
+      "line": 3122,
+      "matched_text": "async def run_pipeline("
+    },
+    {
+      "topic": "freeze_before_execution",
+      "path": "sgar_mvp/main.py",
+      "line": 2741,
+      "matched_text": "frozen_result = retrieval_coordinator.prepare_candidate_pool("
+    },
+    {
+      "topic": "post_freeze_no_replan",
+      "path": "sgar_mvp/main.py",
+      "line": 3059,
+      "matched_text": "\"post-freeze retrieval and graph replan are forbidden for this revision.\""
+    },
+    {
+      "topic": "task_invocation",
+      "path": "sgar_mvp/src/task_invocation.py",
+      "line": 274,
+      "matched_text": "class TaskInvocation(FrozenContract):"
+    },
+    {
+      "topic": "planner_wire",
+      "path": "sgar_mvp/src/planner_wire.py",
+      "line": 482,
+      "matched_text": "class PlannerOutputWireV6(_WireModel):"
+    },
+    {
+      "topic": "planner_contract",
+      "path": "sgar_mvp/src/formal_contracts.py",
+      "line": 59,
+      "matched_text": "class NodeSemanticContractV2(FrozenContract):"
+    },
+    {
+      "topic": "abstract_capability_context",
+      "path": "sgar_mvp/src/planner_capability_catalog.py",
+      "line": 23,
+      "matched_text": "class PlannerCapabilitySurfaceV1(FrozenContract):"
+    },
+    {
+      "topic": "profiler_input",
+      "path": "sgar_mvp/src/profiler_protocol.py",
+      "line": 65,
+      "matched_text": "class ProfilerInputEnvelopeV1(FrozenContract):"
+    },
+    {
+      "topic": "profiler_output",
+      "path": "sgar_mvp/src/profiler_protocol.py",
+      "line": 99,
+      "matched_text": "class ProfilerOutputV2(FrozenContract):"
+    },
+    {
+      "topic": "formal_quotas",
+      "path": "sgar_mvp/src/retrieval_runtime.py",
+      "line": 106,
+      "matched_text": "FORMAL_TYPED_QUOTAS: Mapping[str, int] = {"
+    },
+    {
+      "topic": "formal_strategy_guard",
+      "path": "sgar_mvp/src/retrieval_runtime.py",
+      "line": 291,
+      "matched_text": "raise ValueError(\"formal_retrieval_strategy_not_supported\")"
+    },
+    {
+      "topic": "formal_rank",
+      "path": "sgar_mvp/src/retrieval_runtime.py",
+      "line": 2606,
+      "matched_text": "def _rank("
+    },
+    {
+      "topic": "candidate_dependencies",
+      "path": "sgar_mvp/src/retrieval_runtime.py",
+      "line": 2753,
+      "matched_text": "def _resolve_resource("
+    },
+    {
+      "topic": "formal_capability_only_encoder",
+      "path": "sgar_mvp/src/retrieval_runtime.py",
+      "line": 3544,
+      "matched_text": "def _default_profile_encoder("
+    },
+    {
+      "topic": "freeze",
+      "path": "sgar_mvp/src/retrieval_runtime.py",
+      "line": 3851,
+      "matched_text": "def prepare_candidate_pool("
+    },
+    {
+      "topic": "router_frozen_session",
+      "path": "sgar_mvp/src/router.py",
+      "line": 957,
+      "matched_text": "def start_frozen_session("
+    },
+    {
+      "topic": "compiler_selection_objective",
+      "path": "sgar_mvp/src/plan_compiler.py",
+      "line": 198,
+      "matched_text": "COMPILER_SELECTION_OBJECTIVE = ("
+    },
+    {
+      "topic": "compiler",
+      "path": "sgar_mvp/src/plan_compiler.py",
+      "line": 2738,
+      "matched_text": "class ExecutablePlanCompiler:"
+    },
+    {
+      "topic": "compiler_correction_budget",
+      "path": "sgar_mvp/src/plan_compiler.py",
+      "line": 3427,
+      "matched_text": "semantic_attempts = ("
+    },
+    {
+      "topic": "compiler_policy",
+      "path": "sgar_mvp/src/executable_plan.py",
+      "line": 556,
+      "matched_text": "class CompilerPolicy(FrozenContract):"
+    },
+    {
+      "topic": "bindings",
+      "path": "sgar_mvp/src/executable_plan.py",
+      "line": 1542,
+      "matched_text": "class CompilerInputMappingV3(FrozenContract):"
+    },
+    {
+      "topic": "executable_plan",
+      "path": "sgar_mvp/src/executable_plan.py",
+      "line": 3051,
+      "matched_text": "class ExecutablePlan(FrozenContract):"
+    },
+    {
+      "topic": "plan_validation",
+      "path": "sgar_mvp/src/plan_lowering.py",
+      "line": 627,
+      "matched_text": "class PlanStructuralValidator:"
+    },
+    {
+      "topic": "lowering",
+      "path": "sgar_mvp/src/plan_lowering.py",
+      "line": 1793,
+      "matched_text": "class ExecutionPlanLowerer:"
+    },
+    {
+      "topic": "output_realization",
+      "path": "sgar_mvp/src/output_realization.py",
+      "line": 27,
+      "matched_text": "RealizationKind = Literal["
+    },
+    {
+      "topic": "sealed_execution",
+      "path": "sgar_mvp/src/formal_execution.py",
+      "line": 541,
+      "matched_text": "class SealedPlanExecutionEngine:"
+    },
+    {
+      "topic": "runtime_matrix",
+      "path": "sgar_mvp/src/resource_runtime.py",
+      "line": 51,
+      "matched_text": "RESOURCE_RUNTIME_ADAPTER_MATRIX: dict[str, frozenset[str]] = {"
+    },
+    {
+      "topic": "controller",
+      "path": "sgar_mvp/src/controller_session.py",
+      "line": 821,
+      "matched_text": "class ControllerSessionRunner:"
+    },
+    {
+      "topic": "skill_loading",
+      "path": "sgar_mvp/src/skill_runtime.py",
+      "line": 51,
+      "matched_text": "class SkillPackageLoader:"
+    },
+    {
+      "topic": "recovery",
+      "path": "sgar_mvp/src/recovery_controller.py",
+      "line": 250,
+      "matched_text": "class RecoveryController:"
+    },
+    {
+      "topic": "formal_adaptation_budget",
+      "path": "sgar_mvp/src/recovery_controller.py",
+      "line": 528,
+      "matched_text": "for plan_revision in range(1, self.policy.max_plan_adaptations + 1):"
+    },
+    {
+      "topic": "formal_recovery_dispatch",
+      "path": "sgar_mvp/src/orchestrator.py",
+      "line": 13898,
+      "matched_text": "controller = RecoveryController("
+    },
+    {
+      "topic": "formal_context_not_compressed",
+      "path": "sgar_mvp/src/orchestrator.py",
+      "line": 16526,
+      "matched_text": "# Exact committed content remains authoritative.  A"
+    },
+    {
+      "topic": "dag_schedule",
+      "path": "sgar_mvp/src/orchestrator.py",
+      "line": 16909,
+      "matched_text": "await asyncio.gather(*[_execute_node(idx, task) for idx, task in enumerate(task_list)])"
+    },
+    {
+      "topic": "utility_no_manifest_update",
+      "path": "sgar_mvp/src/orchestrator.py",
+      "line": 14798,
+      "matched_text": "def _update_resource_utility(self, selected: list, success: bool) -> None:"
+    },
+    {
+      "topic": "artifact_publish",
+      "path": "sgar_mvp/src/artifact_lifecycle.py",
+      "line": 1361,
+      "matched_text": "async def publish_v2("
+    },
+    {
+      "topic": "static_evaluation",
+      "path": "sgar_mvp/src/evaluation_runtime.py",
+      "line": 1755,
+      "matched_text": "class StaticEvaluationCoordinator:"
+    },
+    {
+      "topic": "evaluation_modes",
+      "path": "sgar_mvp/src/evaluation_runtime.py",
+      "line": 75,
+      "matched_text": "EvaluationMode = Literal[\"off\", \"silent\", \"active\"]"
+    },
+    {
+      "topic": "evaluation_reference",
+      "path": "sgar_mvp/src/evaluation_reference.py",
+      "line": 76,
+      "matched_text": "def build_evaluation_reference_standard("
+    },
+    {
+      "topic": "delivery",
+      "path": "sgar_mvp/src/delivery.py",
+      "line": 120,
+      "matched_text": "def extract_deliverables("
+    },
+    {
+      "topic": "model_accounting",
+      "path": "sgar_mvp/src/model_accounting.py",
+      "line": 798,
+      "matched_text": "class RunCostLedger:"
+    },
+    {
+      "topic": "benchmark_success_field",
+      "path": "sgar_mvp/benchmarks/terminalbench21/runner.py",
+      "line": 179,
+      "matched_text": "\"success\": bool(verifier and verifier.get(\"status\") == \"ok\" and not failure),"
+    },
+    {
+      "topic": "benchmark_worker",
+      "path": "sgar_mvp/scripts/external_substrate_worker.py",
+      "line": 30,
+      "matched_text": "status = await run_pipeline("
+    },
+    {
+      "topic": "batch_total_budget",
+      "path": "sgar_mvp/real_case_batch.py",
+      "line": 137,
+      "matched_text": "def _parse_total_cost_limit(value: Decimal | str | float | None, *, dry_run: bool) -> Decimal | None:"
+    }
+  ],
+  "source_file_sha256": {
+    "Pool/index_meta/index_build_manifest.json": "875cc9fb3632428a7314ad816783f3f0f314a65f00d78111ab82e0992710f4e8",
+    "Pool/resources/json/combine.json": "561a7b6d1db587c707cde974ff15157729f635322cf0404e1ce1b9d4f3a44e85",
+    "Pool/resources/json/effective_combine.json": "f8acdd224302c39f99fda69f3b5772cc7e29a7c1755f134bf11dc1b225cacaec",
+    "README.md": "b046e302b4a7592a0b4a1b110ca0ce2263eadd78490384ab00d90aea2989a867",
+    "build_index.py": "fc255c67ce5ea3d065e8e7e2706a9291d4076a43bcad56cc241512df6c855af7",
+    "docs/EXPERIMENT_PROTOCOL_V1.md": "f461af218372a6739e42418929106faff937dfe88a32ea5b1622a0411aff21ee",
+    "docs/SGAR_TB21_HARNESS.md": "13677b5e4d7b27b3f5217564a2489056a119701cd3746229137e64fb0e9c9477",
+    "retrieval_profiles.py": "5cc6b85529f6c05a8b1f7552853f27cc984fcbfc8eb2cfa0a98ef4d4b52b6215",
+    "retrieve.py": "ea47f7973e9d047fc0e15925e08dfe36c3688ee847c58c43abbdf79c9f10207b",
+    "sgar_mvp/benchmarks/terminalbench21/runner.py": "8409e47c12380917c78831ae51f995942823b2c32e2706f0e1646278d686a660",
+    "sgar_mvp/config.json": "53943aa7eeba6aec745bab589c9810a9868928556c58f97f459dff6800b89af7",
+    "sgar_mvp/config/control_role_policy.json": "50259973b6dc2f414910a50452444bc8bd5d99657e1a85046ced52cb5853bf50",
+    "sgar_mvp/config/controller_session_policy.json": "303c0018ac53a17f8f3ef5eb2e1d536980170addbab090ecc6094f50ad4a9735",
+    "sgar_mvp/config/embedding_api_4b.json": "b1f8dee5e6c5332f0611cecbd7f4d0a7284e7da7a374846e6c9db8ad7697be68",
+    "sgar_mvp/config/embedding_release.json": "f1e62b853cf57fc64ce6b6f39cebb010e7cc7b96ed45956407fea9547147586d",
+    "sgar_mvp/config/evaluator_policy.json": "bf8313ace52288188fa7587f7d7ba8e911313312c9a7ead75cd5fd902425edbf",
+    "sgar_mvp/config/model_cost_policy.json": "055c178d03ff3fc9827f28bc31324a3d9d71cc43590ed3cb6248c29b111318b6",
+    "sgar_mvp/config/recovery_policy.json": "17e2670646949e8ea499629e8ab167b2717705928ec493eeb618c79fe3a70955",
+    "sgar_mvp/config/retrieval_policy.json": "e26906799b66e8f9bcecfc1a1988a0ff02e87987c8473ac4abc29e3153e9bbc3",
+    "sgar_mvp/main.py": "6bf937ad61b70b34be5bf19db97b1c638e4eeeb9119fb01424e120a55724866c",
+    "sgar_mvp/real_case_batch.py": "fd8cb9123d4250f6e81cb2f91d8363e7dc2008b758b99ff7393fab3335a5ca66",
+    "sgar_mvp/scripts/external_substrate_worker.py": "332e8a24cc3326d6daa929468225a30fc3c12405b678c3b80bf26b85eedc984c",
+    "sgar_mvp/src/artifact_lifecycle.py": "9c491d6cc8b2d18de1e48c1aebd08973e09f807a351b9012bb39785e74092779",
+    "sgar_mvp/src/controller_session.py": "27c88edb371544cf5789df0b3e723f81d8f0bcdfa3c23b63b91ed99b977c7186",
+    "sgar_mvp/src/delivery.py": "510aefbde76756c80bcfabdfe77043f44452e19a1e48d6a0a12c1149851444e5",
+    "sgar_mvp/src/evaluation_reference.py": "2d77bf207ebb78717816467f5b264d3153a1e5c801f4fb0348945e4865cea8fc",
+    "sgar_mvp/src/evaluation_runtime.py": "ed7ed855091e9bf96f4899f5ab927f88e180bcb9aa929a8509666fc325f42acb",
+    "sgar_mvp/src/executable_plan.py": "32108d5f490f94ee4a82bc73b040b739ff07153d5eaa93c40d046ed4a03be56b",
+    "sgar_mvp/src/formal_contracts.py": "38defa4e81c15366773197e790f22391a57d44bed4bc23ec35f49b3b9e4ed332",
+    "sgar_mvp/src/formal_execution.py": "54e9ea18096643424ba1993be8849556ac058eff383cfd142f3791572bc55ea3",
+    "sgar_mvp/src/model_accounting.py": "c1c0e0ed429590e3109e294cb812c1795a7b2c351dc34731a8a7489b51ce13fc",
+    "sgar_mvp/src/orchestrator.py": "1b2fc31164fa96b598f907c7a972fa0e1576c5afa98e63ff775540cb17219804",
+    "sgar_mvp/src/output_realization.py": "105d0b8f9b3d283d88d9801af29e01cc40605cedc6bb35251c20006a62cfc760",
+    "sgar_mvp/src/plan_compiler.py": "883835e513ffb605b991f6addc5d3643ace1962e8c858e1d93b7deaf96ec84b0",
+    "sgar_mvp/src/plan_lowering.py": "ed66223feb896f6b759abf243dfe45775fee59ab8c02291b5617e30219faf70a",
+    "sgar_mvp/src/planner_capability_catalog.py": "c9c3ab004c7535bf3de48e3fd0b46c52a046fd9cb72af87493a8c80ce329a7d6",
+    "sgar_mvp/src/planner_wire.py": "643b5e7ac5d1be8303edbc9d87c8a126fd6f3e5f4a51b632f78c3e2cfd133465",
+    "sgar_mvp/src/profiler_protocol.py": "561aa4ac8f306570c339d7176e8c5705b0f2300d7daf76aecc1282aa93b9de70",
+    "sgar_mvp/src/prompts/evaluator_system.txt": "7ef10d904b58c2be6ed5fe65725aad88b5df5281d491ff69d4370b0798076fad",
+    "sgar_mvp/src/prompts/planner_system.txt": "7e62b4509a94dbd2884b470fd5b644093c0774b32092217e68d3df1351ef143a",
+    "sgar_mvp/src/prompts/profiler_system.txt": "1cc62d801ba97b3c47f15516845be0f7d83027038e7dc0dc625c6eea3350ed99",
+    "sgar_mvp/src/recovery_controller.py": "5bf9013ec85a2af89881a7d89cb74657f5534711910a2b3f30b9598f79d99a84",
+    "sgar_mvp/src/resource_runtime.py": "17d10f33bb1eb569625460e2ecf6cb6dac0cce05eaf0499d97696f73c413c402",
+    "sgar_mvp/src/retrieval_runtime.py": "592a231ed04f7961a148bfd3ae99fa1393b6fab48ec9432bb81abdea2dc3ca48",
+    "sgar_mvp/src/router.py": "a84895518f6191d23ba0e84851c87e9be2ea82e81381c3619d57dbc477238dce",
+    "sgar_mvp/src/skill_runtime.py": "7c34a03391a1d50a247ef38ab077a9f11bcaee1084344ff7f4b2d607e59f300e",
+    "sgar_mvp/src/task_invocation.py": "10a114e94fcbd486f2a549ca453a39ff9107b87bf0caa22a9e7ec024d571bb32",
+    "tests/fixtures/live_golden_cases/G2/request.json": "d7a0605d35095a4c85a44b1b18128f4d3d1f1f397f22c88c02345a59218b790e"
+  },
+  "historical_g2_example": {
+    "status": "succeeded",
+    "pipeline_succeeded": true,
+    "manifest_valid": true,
+    "real_case_passed": null,
+    "framework_source_clean": false,
+    "path": "/ssd/zhoutianle/runtime/sgar/runs/luna-manual-g2-20260917T100105/run_manifest.json",
+    "sha256": "de1aaa7cb202373cef65b6601c5b0571bfa266c4f50b69b578ecf80a1166e1fd",
+    "git_head": "542f06ea8389df19767596eb9e3b25c64f7fcccd",
+    "runtime_classification": "experimental_uncommitted"
+  },
+  "tb21_default_directory_sample": [
+    {
+      "result_path": "/ssd/zhoutianle/runtime/sgar/tb21-runs/regex-log__regex-log-1789741987/result.json",
+      "result_sha256": "7bc49543a4ccbdfd4cfa2753102ea0a2965828e14e84b8c24fe0f9fc6bf724d6",
+      "trial_id": "regex-log-1789741987",
+      "task_id": "regex-log",
+      "runner_success": false,
+      "official_reward": 0.0,
+      "verifier_status": "ok",
+      "failure": {
+        "failure_class": "method_failure",
+        "detail": "worker_exit_1"
+      },
+      "worker_status": "error",
+      "native_pipeline_status": null
+    },
+    {
+      "result_path": "/ssd/zhoutianle/runtime/sgar/tb21-runs/regex-log__regex-log-1789745905/result.json",
+      "result_sha256": "ce2fbf8de1be75e1d876b711165363428c8b676e67a3fba8c57ffd1ed45c219e",
+      "trial_id": "regex-log-1789745905",
+      "task_id": "regex-log",
+      "runner_success": true,
+      "official_reward": 0.0,
+      "verifier_status": "ok",
+      "failure": null,
+      "worker_status": "completed",
+      "native_pipeline_status": "structured_failure"
+    },
+    {
+      "result_path": "/ssd/zhoutianle/runtime/sgar/tb21-runs/regex-log__regex-log-1789750515/result.json",
+      "result_sha256": "5d27b7ac7c0ebc711123ffe2ecb1b7f949210f6d7e288305a46f09ab38714219",
+      "trial_id": "regex-log-1789750515",
+      "task_id": "regex-log",
+      "runner_success": true,
+      "official_reward": 0.0,
+      "verifier_status": "ok",
+      "failure": null,
+      "worker_status": "completed",
+      "native_pipeline_status": "structured_failure"
+    }
+  ],
+  "caveats": [
+    "File hashes bind source identities, not semantic correctness.",
+    "Historical examples differ from the current source/configuration.",
+    "TB runner success does not imply native pipeline success or positive official reward.",
+    "No current provider, proxy or Docker liveness claim is made.",
+    "Evidence contains selected configuration fields and summaries, not credentials or complete task contents."
+  ]
+}

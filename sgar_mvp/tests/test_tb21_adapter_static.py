@@ -6,6 +6,7 @@ from sgar_mvp.benchmarks.terminalbench21.task_loader import (
     load_task,
     load_tasks,
 )
+from sgar_mvp.benchmarks.terminalbench21.runner import _verified_success
 
 
 TASK_ROOT = Path(
@@ -27,3 +28,23 @@ def test_task_loader_preserves_instruction_and_official_verifier():
     assert task.test_script.name == "test.sh"
     assert task.allow_internet is True
     assert task.verifier_timeout_sec == 900.0
+
+
+def test_runner_distinguishes_pipeline_completion_from_verified_success():
+    verifier_pass = {"status": "ok", "reward": 1.0}
+    verifier_fail = {"status": "ok", "reward": 0.0}
+    assert _verified_success(
+        pipeline_status="complete_success",
+        verifier=verifier_pass,
+        failure=None,
+    )
+    assert not _verified_success(
+        pipeline_status="complete_success",
+        verifier=verifier_fail,
+        failure=None,
+    )
+    assert not _verified_success(
+        pipeline_status="structured_failure",
+        verifier=verifier_pass,
+        failure={"failure_class": "method_failure"},
+    )

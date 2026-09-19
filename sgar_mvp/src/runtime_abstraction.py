@@ -49,6 +49,8 @@ def require_execution_substrate(substrate: Any, *, mode: str) -> Any:
         raise RuntimeInjectionError(
             "UNBOUND_RUNTIME_PATH: external mode requires an execution substrate"
         )
+    if substrate is not None and mode != "external":
+        raise RuntimeInjectionError("execution_substrate_mode_mismatch")
     if substrate is not None and not callable(getattr(substrate, "execute", None)):
         raise RuntimeInjectionError("invalid_execution_substrate")
     return substrate

@@ -44053,7 +44053,17 @@
         "create_text_artifact",
         "overwrite_file_contents"
       ],
-      "problem_space": "Create or replace a complete local text artifact at a known path. This is whole-file content mutation, distinct from precise replacement inside an existing file, path relocation, and all read-only filesystem inspection."
+      "operation_kinds": [
+        "write_complete_text_file"
+      ],
+      "problem_space": "Create or replace a complete local text artifact at a known path. This is whole-file content mutation, distinct from precise replacement inside an existing file, path relocation, and all read-only filesystem inspection.",
+      "execution_semantics": {
+        "determinism": "deterministic",
+        "side_effects": "declared",
+        "modalities": [
+          "text"
+        ]
+      }
     },
     "constraint": {
       "io_signature": "Input: destination file path and complete text content. Output: JSON filesystem write result.",
@@ -44065,6 +44075,13 @@
       "limitations": [
         "does not require or preserve an old-text match for targeted edits",
         "does not read, search, move, or list files"
+      ],
+      "materialized_artifact_types": [
+        "plaintext",
+        "markdown",
+        "code",
+        "csv",
+        "json"
       ]
     },
     "io": {
@@ -44084,7 +44101,61 @@
       ],
       "output_contract": {
         "artifact_type": "json",
-        "description": "Create/overwrite a file via MCP filesystem server"
+        "description": "Create/overwrite a file via MCP filesystem server",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string",
+              "const": "success"
+            },
+            "tool": {
+              "type": "string"
+            },
+            "mcp_server": {
+              "type": "string"
+            },
+            "mcp_tool": {
+              "type": "string"
+            },
+            "result": {
+              "type": "object",
+              "properties": {
+                "is_error": {
+                  "type": "boolean"
+                },
+                "content": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "is_error",
+                "content"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "status",
+            "tool",
+            "mcp_server",
+            "mcp_tool",
+            "result"
+          ],
+          "additionalProperties": false
+        },
+        "result_status": {
+          "payload_path": "status",
+          "success_values": [
+            "success"
+          ],
+          "failure_values": [
+            "error"
+          ]
+        }
       }
     },
     "routing": {
@@ -44144,7 +44215,61 @@
     ],
     "output_contract": {
       "artifact_type": "json",
-      "description": "Create/overwrite a file via MCP filesystem server"
+      "description": "Create/overwrite a file via MCP filesystem server",
+      "schema": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "success"
+          },
+          "tool": {
+            "type": "string"
+          },
+          "mcp_server": {
+            "type": "string"
+          },
+          "mcp_tool": {
+            "type": "string"
+          },
+          "result": {
+            "type": "object",
+            "properties": {
+              "is_error": {
+                "type": "boolean"
+              },
+              "content": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "is_error",
+              "content"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "status",
+          "tool",
+          "mcp_server",
+          "mcp_tool",
+          "result"
+        ],
+        "additionalProperties": false
+      },
+      "result_status": {
+        "payload_path": "status",
+        "success_values": [
+          "success"
+        ],
+        "failure_values": [
+          "error"
+        ]
+      }
     },
     "runtime_requirements": {
       "runtime_profile": "sgar-runtime",
@@ -46580,25 +46705,69 @@
           "oneOf": [
             {
               "type": "object",
-              "required": ["status", "error"],
+              "required": [
+                "status",
+                "error"
+              ],
               "properties": {
-                "status": {"enum": ["invalid", "blocked", "missing", "timeout"]},
-                "error": {"type": "string"}
+                "status": {
+                  "enum": [
+                    "invalid",
+                    "blocked",
+                    "missing",
+                    "timeout"
+                  ]
+                },
+                "error": {
+                  "type": "string"
+                }
               },
               "additionalProperties": false
             },
             {
               "type": "object",
-              "required": ["status", "exit_code", "script_path", "cwd", "stdout", "stderr", "produced_files", "latency_ms"],
+              "required": [
+                "status",
+                "exit_code",
+                "script_path",
+                "cwd",
+                "stdout",
+                "stderr",
+                "produced_files",
+                "latency_ms"
+              ],
               "properties": {
-                "status": {"enum": ["ok", "failed"]},
-                "exit_code": {"type": "integer"},
-                "script_path": {"type": "string"},
-                "cwd": {"type": "string"},
-                "stdout": {"type": "string"},
-                "stderr": {"type": "string"},
-                "produced_files": {"type": "array", "items": {"type": "string"}},
-                "latency_ms": {"type": "integer", "minimum": 0}
+                "status": {
+                  "enum": [
+                    "ok",
+                    "failed"
+                  ]
+                },
+                "exit_code": {
+                  "type": "integer"
+                },
+                "script_path": {
+                  "type": "string"
+                },
+                "cwd": {
+                  "type": "string"
+                },
+                "stdout": {
+                  "type": "string"
+                },
+                "stderr": {
+                  "type": "string"
+                },
+                "produced_files": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "latency_ms": {
+                  "type": "integer",
+                  "minimum": 0
+                }
               },
               "additionalProperties": false
             }
@@ -46693,8 +46862,74 @@
       "schema_hint": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "oneOf": [
-          {"type": "object", "required": ["status", "error"], "properties": {"status": {"enum": ["invalid", "blocked", "missing", "timeout"]}, "error": {"type": "string"}}, "additionalProperties": false},
-          {"type": "object", "required": ["status", "exit_code", "script_path", "cwd", "stdout", "stderr", "produced_files", "latency_ms"], "properties": {"status": {"enum": ["ok", "failed"]}, "exit_code": {"type": "integer"}, "script_path": {"type": "string"}, "cwd": {"type": "string"}, "stdout": {"type": "string"}, "stderr": {"type": "string"}, "produced_files": {"type": "array", "items": {"type": "string"}}, "latency_ms": {"type": "integer", "minimum": 0}}, "additionalProperties": false}
+          {
+            "type": "object",
+            "required": [
+              "status",
+              "error"
+            ],
+            "properties": {
+              "status": {
+                "enum": [
+                  "invalid",
+                  "blocked",
+                  "missing",
+                  "timeout"
+                ]
+              },
+              "error": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "required": [
+              "status",
+              "exit_code",
+              "script_path",
+              "cwd",
+              "stdout",
+              "stderr",
+              "produced_files",
+              "latency_ms"
+            ],
+            "properties": {
+              "status": {
+                "enum": [
+                  "ok",
+                  "failed"
+                ]
+              },
+              "exit_code": {
+                "type": "integer"
+              },
+              "script_path": {
+                "type": "string"
+              },
+              "cwd": {
+                "type": "string"
+              },
+              "stdout": {
+                "type": "string"
+              },
+              "stderr": {
+                "type": "string"
+              },
+              "produced_files": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "latency_ms": {
+                "type": "integer",
+                "minimum": 0
+              }
+            },
+            "additionalProperties": false
+          }
         ]
       }
     },

@@ -1,9 +1,9 @@
 # SGAR Resource Pool RC1 Readiness Report
 
-- Generated at: `2026-09-15T18:18:22.525079+00:00`
+- Generated at: `2026-09-18T19:36:03.187428+00:00`
 - Catalog total: **338**
 - Effective total: **328**
-- Catalog SHA256: `sha256:45270383d2c41f14881712f4e8aa77c7c900380ad8cf3912624bc4d5261249f4`
+- Catalog SHA256: `sha256:7b5965be0036b9bd281c8a67872e6357b869cbedbb20af6124f525b8073c1333`
 - Docker image ID: `sha256:3df4a3e71cdb166638b00b2b1af650d54068abb07c11c05042d3f67c9d699185`
 
 ## Readiness counts

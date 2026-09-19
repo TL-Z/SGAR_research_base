@@ -21,6 +21,27 @@ from .task_loader import (
 )
 
 
+_PIPELINE_SUCCESS_STATUSES = frozenset({"complete_success", "success_with_warnings"})
+
+
+def _verified_success(
+    *,
+    pipeline_status: str,
+    verifier: dict[str, Any] | None,
+    failure: dict[str, Any] | None,
+) -> bool:
+    """Return the official benchmark outcome, not merely process completion."""
+
+    if pipeline_status not in _PIPELINE_SUCCESS_STATUSES or failure is not None:
+        return False
+    if not verifier or verifier.get("status") != "ok":
+        return False
+    try:
+        return verifier.get("reward") is not None and float(verifier["reward"]) > 0.0
+    except (TypeError, ValueError):
+        return False
+
+
 def _run_dir(root: Path, task_id: str, trial_id: str) -> Path:
     root.mkdir(parents=True, exist_ok=True)
     path = root / f"{task_id}__{trial_id}"
@@ -53,7 +74,6 @@ def _worker_command(args: argparse.Namespace, run_dir: Path, trial_id: str) -> l
         trial_id,
         "--network-policy",
         "declared" if args.network else "disabled",
-        "--allow-missing-delivery",
     ]
 
 
@@ -80,6 +100,7 @@ def run_one(args: argparse.Namespace) -> dict[str, Any]:
     _write(run_dir / "trial_manifest.json", manifest)
     container_info: dict[str, Any] = {}
     worker: subprocess.Popen[str] | None = None
+    worker_terminal: dict[str, Any] | None = None
     verifier: dict[str, Any] | None = None
     method_started = time.monotonic()
     method_ended = method_started
@@ -91,6 +112,7 @@ def run_one(args: argparse.Namespace) -> dict[str, Any]:
 
         env = os.environ.copy()
         env["PYTHONPATH"] = str(Path.cwd()) + os.pathsep + env.get("PYTHONPATH", "")
+        env["SGAR_PROJECT_ROOT"] = str(Path.cwd().resolve())
         (run_dir / "native").mkdir(parents=True, exist_ok=True)
         worker = subprocess.Popen(
             _worker_command(args, run_dir, trial_id),
@@ -134,6 +156,7 @@ def run_one(args: argparse.Namespace) -> dict[str, Any]:
                     worker.stdin.flush()
                     continue
                 if payload.get("protocol") == "sgar-external-substrate-terminal-v1":
+                    worker_terminal = payload
                     _write(run_dir / "worker_terminal.json", payload)
                     break
         method_ended = time.monotonic()
@@ -147,6 +170,26 @@ def run_one(args: argparse.Namespace) -> dict[str, Any]:
             worker.wait(timeout=30)
         if worker.returncode != 0:
             failure = {"failure_class": "method_failure", "detail": f"worker_exit_{worker.returncode}"}
+        if worker_terminal is None:
+            failure = failure or {
+                "failure_class": "method_failure",
+                "detail": "worker_terminal_missing",
+            }
+        else:
+            worker_status = str(worker_terminal.get("status") or "")
+            worker_result = worker_terminal.get("result")
+            worker_result = worker_result if isinstance(worker_result, dict) else {}
+            pipeline_status = str(worker_result.get("pipeline_status") or "")
+            if worker_status != "completed":
+                failure = failure or {
+                    "failure_class": "method_failure",
+                    "detail": f"worker_status:{worker_status or 'missing'}",
+                }
+            elif pipeline_status not in _PIPELINE_SUCCESS_STATUSES:
+                failure = failure or {
+                    "failure_class": "method_failure",
+                    "detail": f"pipeline_status:{pipeline_status or 'missing'}",
+                }
         verifier_started = time.monotonic()
         verifier = runtime.verify()
         verifier["verifier_seconds"] = time.monotonic() - verifier_started
@@ -170,14 +213,35 @@ def run_one(args: argparse.Namespace) -> dict[str, Any]:
         cleanup = runtime.cleanup()
         total = time.monotonic() - setup_started
 
+    worker_result = (
+        worker_terminal.get("result")
+        if isinstance(worker_terminal, dict)
+        and isinstance(worker_terminal.get("result"), dict)
+        else {}
+    )
+    pipeline_status = str(worker_result.get("pipeline_status") or "")
+    verifier_ok = bool(verifier and verifier.get("status") == "ok")
+    reward = verifier.get("reward") if verifier else None
+    verified_success = _verified_success(
+        pipeline_status=pipeline_status,
+        verifier=verifier,
+        failure=failure,
+    )
     result = {
         **manifest,
         "method_wall_clock_seconds": method_ended - method_started,
         "e2e_wall_clock_seconds": total,
         "verifier": verifier,
         "cleanup": cleanup,
-        "success": bool(verifier and verifier.get("status") == "ok" and not failure),
-        "official_reward": verifier.get("reward") if verifier else None,
+        "worker_status": worker_terminal.get("status") if worker_terminal else None,
+        "pipeline_status": pipeline_status or None,
+        "verifier_status": verifier.get("status") if verifier else None,
+        "framework_success": bool(verifier_ok and failure is None),
+        "verified_success": verified_success,
+        # `success` is the benchmark outcome used by batch aggregation.  The
+        # verifier process being runnable is recorded separately above.
+        "success": verified_success,
+        "official_reward": reward,
         "failure": failure,
         "native_run_dir": str(run_dir / "native"),
         "rpc_log_path": str(run_dir / "rpc_actions.jsonl"),

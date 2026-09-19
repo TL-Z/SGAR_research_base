@@ -5,7 +5,7 @@
   "compact_total_max": 16,
   "control_provider_probe_receipt_sha256": "7a0227592b3514005f9ea3e7aaec90505282acb83c1e61ef86daf181cff30655",
   "control_role_policy_sha256": "759c38b86fde0f17279a430744057a2773a2b57d5ccf4f8c4e501a238bf6a178",
-  "effective_pool_sha256": "f8acdd224302c39f99fda69f3b5772cc7e29a7c1755f134bf11dc1b225cacaec",
+  "effective_pool_sha256": "9557110334c4407f323e5822e91588ef6f8c5a40daae7677894cc3d8a754b3ad",
   "embedding_candidate_id": "qwen3-embedding-4b-api-2560",
   "embedding_model": "Qwen/Qwen3-Embedding-4B",
   "embedding_runtime_identity_sha256": "ebc78eccbfeb170885a5f575878d0eaa5cfeaa2aaa9f721288feaff662c3c4dd",
@@ -32,14 +32,14 @@
     "temperature": null,
     "truncation_retry_max_output_tokens": 16384
   },
-  "index_build_manifest_sha256": "a5c83f1656d98287eef4eb1208e95da266eb416a46b43e51a66366f1d9af4227",
-  "index_meta_sha256": "cdd85f667887b50f3bdc968e0237a8701bcd6ba3189c2509b3f681de902820c8",
+  "index_build_manifest_sha256": "0a721f52bbd89ba4956b31bea0a2caf8cb80ec460de756db07134876cbbda21b",
+  "index_meta_sha256": "05309c6debe671f2209845e86b4eb3b97bc720301b5ac0c2f037ea2f75f96c3d",
   "index_sha256": {
-    "capability": "d0875437ee82dad470b4e0573d4d400bb6b989f7589dbbc2f4274cabfc81370c",
-    "constraint": "01019762e47929f2868c909eb14ca4e23c50e25dff4dacc3d1e2b6b821215afb",
-    "metadata": "2dab7597a1fb2500d2875272fc18696dc73adc3ace66847e110f12d60700eb71"
+    "capability": "81f99df29dcc511c447e644f7d76c2a0175cb18fa85330abd070c217a7aa1732",
+    "constraint": "685d21b3db380a18ff75119838145f6d6d2608437d4749cd9192e0a58612a555",
+    "metadata": "4163a8cd87bfdc6746bcb1d2e56d48147f3833816b3eb80d3b3aa608363161c7"
   },
-  "policy_version": "retrieval-policy-v7-local-d5947092d55bd9418f80731a652133d2",
+  "policy_version": "retrieval-policy-v7-local-1d3b6699272e7768fb47130f18bebed9",
   "profile_version": "typed-constraint-v8",
   "profiler_prompt_sha256": "1cc62d801ba97b3c47f15516845be0f7d83027038e7dc0dc625c6eea3350ed99",
   "profiler_schema_sha256": "c8992868e4bc64d33e6dd8d75258f1734ff5b2c27d14d5764f0e2ffeda776d99",

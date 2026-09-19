@@ -71,6 +71,8 @@ def _valid_task_path(path: str) -> str:
         or not text.startswith("/")
         or normalized != text
         or normalized == "/"
+        or (normalized not in {"/app", "/tmp"}
+            and not normalized.startswith(("/app/", "/tmp/")))
     ):
         raise TaskRuntimeError("task_container_path_invalid")
     return normalized
@@ -137,12 +139,14 @@ class DockerTaskRuntime:
             ["docker", "inspect", self.container_id, "--format", "{{json .Config}}"],
             timeout=30,
         )
-        if inspect.returncode == 0:
-            try:
-                self.working_dir = json.loads(inspect.stdout).get("WorkingDir") or None
-            except json.JSONDecodeError:
-                self.working_dir = None
-        self.exec_argv(["mkdir", "-p", "/logs/verifier"], timeout=30)
+        # SGAR's logical task namespace is stable across benchmark images;
+        # never inherit an image-specific WORKDIR for compiler-generated paths.
+        self.working_dir = "/app"
+        self.exec_argv(
+            ["mkdir", "-p", "/app", "/tmp/sgar-resource-runtime", "/logs/verifier"],
+            timeout=30,
+            cwd="/tmp",
+        )
         return {
             "container_id_sha256": hashlib.sha256(self.container_id.encode()).hexdigest(),
             "container_name": self.container_name,
@@ -168,8 +172,10 @@ class DockerTaskRuntime:
         *,
         timeout: float = 120,
         extra_env: Mapping[str, str] | None = None,
+        cwd: str = "/app",
     ) -> dict[str, Any]:
         container = self._require_started()
+        cwd = _valid_task_path(cwd)
         if not argv or any("\x00" in str(item) for item in argv):
             raise TaskRuntimeError("task_exec_argv_invalid")
         extra_env = dict(extra_env or {})
@@ -183,7 +189,7 @@ class DockerTaskRuntime:
         shell = f"{env_prefix}; exec {shlex.join([str(item) for item in argv])}"
         started = time.monotonic()
         process = subprocess.run(
-            ["docker", "exec", container, "sh", "-c", shell],
+            ["docker", "exec", "-w", cwd, container, "sh", "-c", shell],
             capture_output=True,
             text=True,
             timeout=timeout,
@@ -203,8 +209,13 @@ class DockerTaskRuntime:
     def write_text(self, path: str, text: str) -> dict[str, Any]:
         path = _valid_task_path(path)
         container = self._require_started()
+        parent = posixpath.dirname(path) or "/app"
+        mkdir = self.exec_argv(["mkdir", "-p", parent], timeout=30, cwd="/app")
+        if not mkdir.get("ok"):
+            return {"ok": False, "return_code": mkdir.get("return_code"),
+                    "stderr": mkdir.get("stderr") or "task_parent_create_failed"}
         process = subprocess.run(
-            ["docker", "exec", "-i", container, "sh", "-c", f"cat > {shlex.quote(path)}"],
+            ["docker", "exec", "-i", "-w", "/app", container, "sh", "-c", f"cat > {shlex.quote(path)}"],
             input=text,
             capture_output=True,
             text=True,
@@ -258,7 +269,7 @@ class DockerTaskRuntime:
         shell = f"{env_prefix}; exec bash /tmp/test.sh"
         try:
             process = subprocess.run(
-                ["docker", "exec", container, "sh", "-c", shell],
+                ["docker", "exec", "-w", self.working_dir or "/app", container, "sh", "-c", shell],
                 capture_output=True,
                 text=True,
                 timeout=self.task.verifier_timeout_sec,
@@ -299,7 +310,11 @@ class DockerTaskRuntime:
         operation = str(request.get("operation") or "")
         timeout = float(request.get("timeout_sec") or 60)
         if operation == "exec_argv":
-            result = self.exec_argv(list(request.get("argv") or []), timeout=timeout, extra_env=request.get("extra_env") or {})
+            result = self.exec_argv(
+                list(request.get("argv") or []), timeout=timeout,
+                extra_env=request.get("extra_env") or {},
+                cwd=str(request.get("cwd") or "/app"),
+            )
         elif operation == "write_text":
             result = self.write_text(str(request.get("path") or ""), str(request.get("text") or ""))
         elif operation == "read_text":

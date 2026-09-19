@@ -18,6 +18,7 @@ import importlib
 import json
 import math
 import os
+import posixpath
 import re
 import threading
 import time
@@ -28,6 +29,7 @@ from typing import Any, Callable, Literal, Mapping, Sequence, cast
 from pydantic import Field, field_validator, model_validator
 
 from .atomic_io import temporary_sibling_path
+from .capability_operations import manifest_capability_operations
 from .model_accounting import BudgetControlError, ModelAccountingError, RunCostLedger
 from .model_identity import (
     ModelIdentityError,
@@ -1868,11 +1870,12 @@ class _ResolutionFailure(RuntimeError):
 
 _ORIGIN_PRIORITY = {
     CandidateOrigin.RETRIEVAL: 0,
-    CandidateOrigin.USER_EXECUTION_REQUIREMENT: 1,
-    CandidateOrigin.PLANNER_CAPABILITY_EVIDENCE: 2,
-    CandidateOrigin.EXPLICIT_DEPENDENCY: 3,
-    CandidateOrigin.AGENT_BASE_MODEL: 4,
-    CandidateOrigin.DEPENDENCY_SLOT: 5,
+    CandidateOrigin.CONTRACT_DELIVERY: 1,
+    CandidateOrigin.USER_EXECUTION_REQUIREMENT: 2,
+    CandidateOrigin.PLANNER_CAPABILITY_EVIDENCE: 3,
+    CandidateOrigin.EXPLICIT_DEPENDENCY: 4,
+    CandidateOrigin.AGENT_BASE_MODEL: 5,
+    CandidateOrigin.DEPENDENCY_SLOT: 6,
 }
 
 
@@ -1881,6 +1884,139 @@ def _normalized_resource_type(value: Any) -> str | None:
     aliases = {"MAS": "Agent", "MultiAgentSystem": "Agent"}
     text = aliases.get(text, text)
     return text if text in FORMAL_TYPE_ORDER else None
+
+
+def _normalized_delivery_artifact_type(value: Any) -> str:
+    normalized = str(value or "").strip().casefold().replace("-", "_")
+    return {
+        "text": "plaintext",
+        "text/plain": "plaintext",
+        "plain_text": "plaintext",
+    }.get(normalized, normalized)
+
+
+def _required_file_delivery_specs(
+    contract: RetrievalContractProjection,
+) -> tuple[tuple[str, str], ...]:
+    """Return explicit required file locators and their declared value types."""
+
+    return tuple(
+        (
+            posixpath.normpath(str(item.path_hint).strip()),
+            _normalized_delivery_artifact_type(item.artifact_type),
+        )
+        for item in contract.produced_files
+        if item.required
+        and str(item.path_hint or "").strip()
+        and _normalized_delivery_artifact_type(item.artifact_type)
+    )
+
+
+def _manifest_input_contracts(raw: Mapping[str, Any]) -> tuple[Mapping[str, Any], ...]:
+    contracts = raw.get("input_contract")
+    if not isinstance(contracts, list):
+        io = raw.get("io")
+        contracts = io.get("input_contract") if isinstance(io, Mapping) else []
+    return tuple(item for item in contracts if isinstance(item, Mapping))
+
+
+def _manifest_delivery_types(raw: Mapping[str, Any]) -> frozenset[str]:
+    constraint = raw.get("constraint")
+    constraint = constraint if isinstance(constraint, Mapping) else {}
+    declared = constraint.get("materialized_artifact_types")
+    values = declared if isinstance(declared, (list, tuple, set)) else (declared,)
+    candidates = [item for item in values if item not in (None, "")]
+    return frozenset(
+        _normalized_delivery_artifact_type(item)
+        for item in candidates
+        if _normalized_delivery_artifact_type(item)
+    )
+
+
+def _path_is_within_declared_root(path: str, root: str) -> bool:
+    normalized_path = posixpath.normpath(str(path or "").strip())
+    normalized_root = posixpath.normpath(str(root or "").strip())
+    return bool(
+        normalized_path.startswith("/")
+        and normalized_root.startswith("/")
+        and (
+            normalized_path == normalized_root
+            or normalized_path.startswith(normalized_root.rstrip("/") + "/")
+        )
+    )
+
+
+def _manifest_covers_file_delivery(
+    raw: Mapping[str, Any],
+    *,
+    path: str,
+    artifact_type: str,
+) -> bool:
+    """Prove a deterministic value-to-file operation from declared manifest facts."""
+
+    if _resource_type(raw) != "Tool":
+        return False
+    if not manifest_capability_operations(dict(raw)) & {
+        "write_complete_text_file",
+        "create_text_artifact",
+        "overwrite_file_contents",
+        "write_file",
+    }:
+        return False
+    capability = raw.get("capability")
+    capability = capability if isinstance(capability, Mapping) else {}
+    semantics = capability.get("execution_semantics")
+    semantics = semantics if isinstance(semantics, Mapping) else {}
+    if (
+        str(semantics.get("determinism") or "").strip().casefold()
+        != "deterministic"
+        or str(semantics.get("side_effects") or "").strip().casefold()
+        != "declared"
+    ):
+        return False
+    contracts = _manifest_input_contracts(raw)
+    port_names = {str(item.get("name") or "").strip().casefold() for item in contracts}
+    path_ports = {"path", "file_path", "destination", "destination_path", "target_path"}
+    payload_ports = {"content", "text", "payload", "data"}
+    if not (port_names & path_ports and port_names & payload_ports):
+        return False
+    if artifact_type not in _manifest_delivery_types(raw):
+        return False
+    requirements = raw.get("runtime_requirements")
+    requirements = requirements if isinstance(requirements, Mapping) else {}
+    mcp = requirements.get("mcp")
+    roots = mcp.get("allowed_roots") if isinstance(mcp, Mapping) else None
+    if not isinstance(roots, list) or not any(
+        _path_is_within_declared_root(path, str(root)) for root in roots
+    ):
+        return False
+    return True
+
+
+def _contract_delivery_candidate_ids(
+    contract: RetrievalContractProjection,
+    rankings: Sequence[tuple[Manifest, float, float, float | None, int]],
+    raw_by_id: Mapping[str, Mapping[str, Any]],
+) -> tuple[str, ...]:
+    """Choose the highest semantic-ranked compatible materializer per file contract."""
+
+    selected: list[str] = []
+    for path, artifact_type in _required_file_delivery_specs(contract):
+        match = next(
+            (
+                manifest.id
+                for manifest, _score, _cap, _con, _rank in rankings
+                if _manifest_covers_file_delivery(
+                    raw_by_id[manifest.id],
+                    path=path,
+                    artifact_type=artifact_type,
+                )
+            ),
+            None,
+        )
+        if match is not None and match not in selected:
+            selected.append(match)
+    return tuple(selected)
 
 
 def _manifest_input_kinds(raw: Mapping[str, Any]) -> frozenset[str]:
@@ -3083,6 +3219,58 @@ class _CandidatePoolBuilder:
                 )
                 self._merge_resolution(global_resolution, resolution)
                 base_ids[resource_type].append(manifest.id)
+
+        # File delivery is a contract obligation rather than a similarity
+        # preference.  Admit one manifest-proven materializer for each distinct
+        # required file delivery after the ordinary typed quota so the contract
+        # cannot be silently truncated by an unrelated top-k ranking.  The
+        # selected resource still passes the same availability, compatibility,
+        # dependency, and runtime closure checks as every retrieval candidate.
+        tool_rankings = base_rankings.get("Tool", ())
+        tool_rank_by_id = {
+            manifest.id: (score, rank)
+            for manifest, score, _cap, _con, rank in tool_rankings
+        }
+        delivery_ids = _contract_delivery_candidate_ids(
+            self.contract,
+            tool_rankings,
+            self.raw_by_id,
+        )
+        for resource_id in delivery_ids:
+            if resource_id in global_resolution.entries:
+                continue
+            score, rank = tool_rank_by_id[resource_id]
+            try:
+                resolution = self._resolve_resource(
+                    resource_id,
+                    origin=CandidateOrigin.CONTRACT_DELIVERY,
+                    parent_resource_id=None,
+                    dependency_slot=None,
+                    score=score,
+                    rank=rank,
+                    ancestors=(),
+                )
+            except _ResolutionFailure as exc:
+                self.dependency_rejections.append(
+                    DependencyRejection(
+                        parent_resource_id=resource_id,
+                        parent_resource_type="Tool",
+                        reason_code=exc.reason_code,
+                        required_resource_id=exc.required_resource_id,
+                        dependency_slot=exc.dependency_slot,
+                    )
+                )
+                continue
+            resolution.entries[resource_id] = _CandidateEntry(
+                resource_id=resource_id,
+                resource_type="Tool",
+                origin=CandidateOrigin.CONTRACT_DELIVERY,
+                required_by_resource_id=None,
+                dependency_slot=None,
+                score=score,
+                rank=rank,
+            )
+            self._merge_resolution(global_resolution, resolution)
 
         # Resource-Aware Planner evidence is admitted only before freeze and
         # only after the same availability, compatibility and dependency

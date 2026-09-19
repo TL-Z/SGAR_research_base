@@ -1082,6 +1082,14 @@ class DAGOrchestrator:
         workspace-local path is therefore absolute in the container namespace.
         Legacy host execution retains the historical workspace-relative form.
         """
+        # External benchmark execution keeps framework resource sources on the
+        # host only long enough for the substrate to stage them into the task
+        # container.  Returning the private host locator here is intentional:
+        # it is never sent to the container; JsonLinesExecutionSubstrate
+        # rewrites/stages it before issuing exec_argv.  Task-state paths such
+        # as /app/... remain unchanged.
+        if self.execution_substrate is not None and os.path.isabs(str(path)):
+            return str(path)
         path_map = getattr(self, "_active_runtime_path_map", None)
         if path_map is not None:
             return path_map.to_runtime_scalar(str(path))
@@ -2214,6 +2222,35 @@ class DAGOrchestrator:
             f"runtime-preparation-{instance_id}-"
             f"{self._runtime_preparation_event_counter:04d}"
         )
+
+        # An externally owned task container is already the execution runtime.
+        # It must not enter the legacy host-side overlay preparer: doing so
+        # would attempt to resolve/install host packages for an action that is
+        # ultimately dispatched through the task-container RPC substrate and
+        # would also violate the external path boundary.  Keep an explicit
+        # audit event, but let the external substrate own preparation and
+        # image/package provenance.
+        if self.execution_substrate is not None:
+            self._append_runtime_preparation_trace(
+                {
+                    "event_type": "runtime_preparation",
+                    "event_id": event_id,
+                    "run_id": self.runtime_preparation_run_id,
+                    "task_id": task_id,
+                    "step_id": step_id,
+                    "phase": phase,
+                    "enabled": self.runtime_preparation_enabled,
+                    "status": "skipped",
+                    "skip_reason": "external_substrate_owns_task_runtime",
+                    "execution_substrate_mode": self.execution_substrate_mode,
+                    "execution_metrics": {
+                        "attempt_count": 0,
+                        "cost_usd": 0.0,
+                    },
+                }
+            )
+            return None, event_id, None
+
         manifest_dependencies = ()
         artifact_dependencies = ()
         try:
@@ -4288,6 +4325,8 @@ class DAGOrchestrator:
         """Execute an existing current-run Python script when required side files are missing."""
         if bool(getattr(self, "_formal_execution_active", False)):
             raise RuntimeError("formal_implicit_side_artifact_materialization_forbidden")
+        if self.execution_substrate is not None:
+            raise RuntimeError("external_side_artifact_materialization_requires_sealed_tool")
         missing_entries = self._missing_side_artifact_entries(output_contract, final_record)
         if not missing_entries:
             return []
@@ -5787,6 +5826,12 @@ class DAGOrchestrator:
             # installs RuntimePathMap before resolving an executor path.
             uri = os.path.join(project_root, normalized[len("/app/"):])
         resolved = uri if os.path.isabs(uri) else os.path.abspath(os.path.join(project_root, uri))
+        # Resource source files are framework-owned inputs that the external
+        # substrate stages into the task container.  Do not force them through
+        # the task-state RuntimePathMap (whose /app root is intentionally a
+        # private virtual route and does not include host source files).
+        if self.execution_substrate is not None:
+            return resolved
         if path_map is not None:
             # Round-trip through the declared scope.  This validates a
             # framework-owned Tool URI without widening the mount surface.
@@ -6828,6 +6873,8 @@ class DAGOrchestrator:
         resource_index: Dict[str, dict],
         task_text: str,
     ) -> tuple[str, list]:
+        if self.execution_substrate is not None:
+            raise RuntimeError("external_legacy_tool_invocation_forbidden")
         raw = resource_index.get(tool_ref.resource_id, {})
         uri = raw.get("execution", {}).get("uri", "")
         if uri:
@@ -10103,6 +10150,8 @@ class DAGOrchestrator:
 
         resource_runtime = getattr(self, "resource_runtime", None)
         if resource_runtime is None:
+            if self.execution_substrate is not None:
+                raise RuntimeError("UNBOUND_RUNTIME_PATH:external_resource_runtime_missing")
             value = provider()
             return await value if asyncio.iscoroutine(value) else value
         if execution_context is None:
@@ -11996,6 +12045,10 @@ class DAGOrchestrator:
                     produced_records = self._register_realized_inline_result(
                         task_id, step, result, produced_records)
                 else:
+                    if self.execution_substrate is not None:
+                        raise RuntimeError(
+                            "UNBOUND_RUNTIME_PATH:external_tool_provider_missing"
+                        )
                     if (
                         dependency_result.runtime_profile == "host-python-stdlib"
                         and not active_sandbox_scope
@@ -12896,6 +12949,10 @@ class DAGOrchestrator:
 
         tool_ref = next((r for r in selected if r.resource_type == ManifestType.TOOL), None)
         if tool_ref is not None:
+            if self.execution_substrate is not None:
+                raise RuntimeError(
+                    "UNBOUND_RUNTIME_PATH:external_legacy_selected_tool_forbidden"
+                )
             dependency_result = self._dependency_result_for_ref(tool_ref, resource_index)
             if dependency_result.is_blocked:
                 dependency_failure = self._dependency_failure_contract(
@@ -16564,6 +16621,10 @@ class DAGOrchestrator:
                 return
 
             if mode == "BYPASS_MODE":
+                if self.execution_substrate is not None:
+                    raise RuntimeError(
+                        "UNBOUND_RUNTIME_PATH:external_legacy_bypass_forbidden"
+                    )
                 dumb_exec = DumbExecutor(timeout_sec=kwargs.get("timeout_sec", 180))
                 cmd_candidate = kwargs.get("command", desc)
                 args_candidate = kwargs.get("args", [])

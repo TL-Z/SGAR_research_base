@@ -160,6 +160,7 @@ class RetrievalAttemptRecord(FrozenContract):
 
 class CandidateOrigin(str, Enum):
     RETRIEVAL = "retrieval"
+    CONTRACT_DELIVERY = "contract_delivery"
     USER_EXECUTION_REQUIREMENT = "user_execution_requirement"
     PLANNER_CAPABILITY_EVIDENCE = "planner_capability_evidence"
     EXPLICIT_DEPENDENCY = "explicit_dependency"
@@ -186,6 +187,7 @@ class CandidateResourceRef(FrozenContract):
     def _validate_origin_evidence(self) -> "CandidateResourceRef":
         if self.origin in {
             CandidateOrigin.RETRIEVAL,
+            CandidateOrigin.CONTRACT_DELIVERY,
             CandidateOrigin.PLANNER_CAPABILITY_EVIDENCE,
             CandidateOrigin.USER_EXECUTION_REQUIREMENT,
         }:

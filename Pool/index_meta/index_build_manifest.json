@@ -1,22 +1,23 @@
 {
-  "build_code_sha256": "a13006cc69db5c805075af4d13604429e1f349f5033071c563c4be3dbba7bb09",
-  "catalog_sha256": "561a7b6d1db587c707cde974ff15157729f635322cf0404e1ce1b9d4f3a44e85",
-  "dimension": 2560,
-  "effective_pool_sha256": "f8acdd224302c39f99fda69f3b5772cc7e29a7c1755f134bf11dc1b225cacaec",
+  "protocol": "sgar-retrieval-index-build-v1",
+  "generation_kind": "local_model_pool_update",
+  "generation_id": "1d3b6699272e7768fb47130f18bebed9",
+  "release_source_seal": null,
+  "catalog_sha256": "ef7cb8a3361e2f61af9eec316edbba14a42fbcc90f934f69d4a94873ee90b52f",
+  "effective_pool_sha256": "9557110334c4407f323e5822e91588ef6f8c5a40daae7677894cc3d8a754b3ad",
   "embedding_configuration_sha256": "7dff4a75340f09df459c8938222ad35b5f24379ca95e4ab1e0c034e54974ad41",
   "embedding_identity_sha256": "2d1f9d75cbe76e0646c8f27f22b925238d448c2e8cbdf1ad8fdc9e95961b1063",
   "embedding_runtime_identity_v2_sha256": "ebc78eccbfeb170885a5f575878d0eaa5cfeaa2aaa9f721288feaff662c3c4dd",
-  "files_sha256": {
-    "faiss_cap.index": "d0875437ee82dad470b4e0573d4d400bb6b989f7589dbbc2f4274cabfc81370c",
-    "faiss_con.index": "01019762e47929f2868c909eb14ca4e23c50e25dff4dacc3d1e2b6b821215afb",
-    "resource_meta.pkl": "2dab7597a1fb2500d2875272fc18696dc73adc3ace66847e110f12d60700eb71"
-  },
-  "generation_id": "d5947092d55bd9418f80731a652133d2",
-  "generation_kind": "local_model_pool_full_rebuild",
-  "index_meta_v2_sha256": "cdd85f667887b50f3bdc968e0237a8701bcd6ba3189c2509b3f681de902820c8",
-  "manifest_sha256": "a5c83f1656d98287eef4eb1208e95da266eb416a46b43e51a66366f1d9af4227",
-  "protocol": "sgar-retrieval-index-build-v1",
-  "release_source_seal": null,
+  "index_meta_v2_sha256": "05309c6debe671f2209845e86b4eb3b97bc720301b5ac0c2f037ea2f75f96c3d",
   "resource_count": 328,
-  "resource_order_sha256": "5f3a766037ffbc7d7a74ccd9e6e35919398872cf3dcdbfcb44f984182e0c271f"
+  "resource_order_sha256": "d20487a50fe32cbd40d5c52917dba728f4c71adbdc574a803608d7b46215af38",
+  "dimension": 2560,
+  "files_sha256": {
+    "faiss_cap.index": "81f99df29dcc511c447e644f7d76c2a0175cb18fa85330abd070c217a7aa1732",
+    "faiss_con.index": "685d21b3db380a18ff75119838145f6d6d2608437d4749cd9192e0a58612a555",
+    "resource_meta.pkl": "4163a8cd87bfdc6746bcb1d2e56d48147f3833816b3eb80d3b3aa608363161c7",
+    "retrieval_profile_audit.json": "7f21cda8b52db04902ba1a114e4faa518ab9a0c59ba93479e4479fee2117451e"
+  },
+  "build_code_sha256": "40e1a0eb81e22e98c5cf8d8d74b269fe3ea2d55b900053caff6d6f756ef5e1db",
+  "manifest_sha256": "0a721f52bbd89ba4956b31bea0a2caf8cb80ec460de756db07134876cbbda21b"
 }

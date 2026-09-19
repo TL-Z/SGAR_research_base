@@ -35,6 +35,7 @@ def _fixed_only_tool_spec():
     return ControllerCallableToolSpecV1.model_construct(
         callable_id=callable_id,
         provider_tool_name=provider_tool_name,
+        capability_operation_id="tool.example.v1::read_text_file",
         provider_description="Invoke sealed fixed-input capability.",
         provider_tool_schema_sha256=canonical_sha256(wire),
         dynamic_input_ports=(),
@@ -79,9 +80,26 @@ class ControllerToolRuntimeTests(unittest.TestCase):
         self.assertEqual(calls[0].normalized_dynamic_arguments, {})
         self.assertEqual(calls[0].provider_tool_call_id, "provider-call")
 
-    def test_operation_identity_is_not_accepted_as_provider_tool_name(self) -> None:
+    def test_semantic_provider_alias_is_canonicalized(self) -> None:
         spec = _fixed_only_tool_spec()
+        calls = normalize_provider_tool_calls(
+            session_id="session",
+            turn_id="turn",
+            raw_tool_calls=(
+                {
+                    "id": "provider-call",
+                    "function": {
+                        "name": "read_text_file",
+                        "arguments": "{}",
+                    },
+                },
+            ),
+            callable_tools=(spec,),
+        )
+        self.assertEqual(calls[0].provider_tool_name, spec.provider_tool_name)
 
+    def test_unsealed_operation_identifier_is_still_rejected(self) -> None:
+        spec = _fixed_only_tool_spec()
         with self.assertRaisesRegex(
             ControllerToolRuntimeError,
             "controller_tool_call_not_authorized",
@@ -93,7 +111,7 @@ class ControllerToolRuntimeTests(unittest.TestCase):
                     {
                         "id": "provider-call",
                         "function": {
-                            "name": "read_text_file",
+                            "name": "tool.example.v1::read_text_file",
                             "arguments": "{}",
                         },
                     },

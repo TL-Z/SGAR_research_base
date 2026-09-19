@@ -4,7 +4,8 @@
   "llm_settings": {
     "model": "gemini-3.8-flash",
     "base_url": "",
-    "max_tokens": 8192,
+    "max_tokens": 16384,
+    "execution_max_tokens": 16384,
     "planner_max_output_tokens": 32768,
     "max_retries": 0,
     "timeout": 1200,

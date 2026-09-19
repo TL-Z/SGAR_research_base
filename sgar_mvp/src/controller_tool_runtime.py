@@ -292,6 +292,25 @@ def _raw_tool_call(value: Any) -> tuple[str, str, Any]:
     return provider_call_id, name, arguments
 
 
+def _provider_tool_aliases(spec: Any) -> tuple[str, ...]:
+    """Return deterministic semantic aliases for providers that rewrite names.
+
+    Some OpenAI-compatible gateways/models emit the operation slug instead of
+    the framework's hash-suffixed provider name.  These aliases are derived
+    solely from the sealed operation identity and are accepted only when they
+    are unambiguous within the current callable scope.  The intent is always
+    canonicalized back to ``spec.provider_tool_name`` before prevalidation or
+    dispatch, so aliases cannot widen authority.
+    """
+
+    operation = str(getattr(spec, "capability_operation_id", "") or "")
+    slug = re.sub(r"[^a-z0-9]+", "_", operation.rsplit("::", 1)[-1].casefold()).strip("_")
+    slug = re.sub(r"_+", "_", slug)
+    if not slug:
+        return ()
+    return (slug, f"sgar_{slug}")
+
+
 def _dynamic_arguments(value: Any) -> dict[str, Any]:
     if isinstance(value, str):
         try:
@@ -367,6 +386,17 @@ def normalize_provider_tool_calls(
     by_name = {item.provider_tool_name: item for item in callable_tools}
     if len(by_name) != len(tuple(callable_tools)):
         raise ControllerToolRuntimeError("controller_provider_tool_name_collision")
+    alias_map: dict[str, Any | None] = {}
+    for spec in callable_tools:
+        for alias in _provider_tool_aliases(spec):
+            if alias not in alias_map:
+                alias_map[alias] = spec
+            elif alias_map[alias] is not None:
+                previous = alias_map[alias]
+                if previous.callable_id != spec.callable_id:
+                    # Keep an explicit ambiguity marker; a later spec must
+                    # not accidentally make a collided alias usable again.
+                    alias_map[alias] = None
     intents: list[ControllerToolCallIntentV1] = []
     provider_ids: set[str] = set()
     for raw in raw_tool_calls:
@@ -377,6 +407,8 @@ def normalize_provider_tool_calls(
             )
         provider_ids.add(provider_call_id)
         spec = by_name.get(name)
+        if spec is None:
+            spec = alias_map.get(name)
         if spec is None:
             raise ControllerToolRuntimeError("controller_tool_call_not_authorized")
         arguments = _dynamic_arguments(raw_arguments)
@@ -390,7 +422,9 @@ def normalize_provider_tool_calls(
                 session_id=session_id,
                 turn_id=turn_id,
                 provider_tool_call_id=provider_call_id,
-                provider_tool_name=name,
+                # Canonicalize semantic aliases back to the sealed provider
+                # name.  Downstream identity checks therefore remain strict.
+                provider_tool_name=spec.provider_tool_name,
                 callable_id=spec.callable_id,
                 normalized_dynamic_arguments=arguments,
                 dynamic_arguments_sha256=arguments_sha,

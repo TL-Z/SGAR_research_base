@@ -10,6 +10,23 @@
   → unified result + native SGAR logs
 ```
 
+### Resource execution invariant
+
+在 TB2.1 external 模式下，宿主机只负责 SGAR 调度、模型 API、日志和 verifier
+控制；所有被正式计划选中的 Tool wrapper 及其同目录 helper 都必须先通过 RPC
+写入当前 task container，再使用该 container 内的 `python3`/声明命令执行。资源的
+宿主机 `execution.uri` 只用于读取和 staging，绝不会作为容器内的执行路径传入。
+
+`runtime_preparation` 在 external 模式只记录
+`external_substrate_owns_task_runtime`，不再调用宿主机 overlay/依赖安装逻辑。
+任何未 staging 的宿主机绝对路径、legacy executor、缺失 task-container runtime
+或不匹配的 substrate mode 都会 fail-closed；不会回退到宿主机执行。模型 API 是
+唯一允许留在宿主机侧的外部调用，Skill 仅作为提示/约束，不是执行器。
+
+资源依赖若不在当前 task image 中，也只能报告明确的 container-side dependency
+failure；不能借用宿主机 Python 环境“补跑”。因此正式 batch 前仍需针对 task image
+做 dependency preflight，确保选择的资源在该 image 中可执行。
+
 ## 运行前检查
 
 ```bash
